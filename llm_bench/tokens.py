@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import json
 import time
+from collections.abc import Callable
 from typing import Any
 
 import httpx
@@ -139,6 +140,7 @@ async def estimate_tokens_prerun(
     prompt_strategy: str,
     prompt_weights: list[float] | None,
     transport: httpx.AsyncBaseTransport | None = None,
+    progress_callback: Callable[[int, int], None] | None = None,
 ) -> dict[str, Any]:
     normalized_prompts = _normalize_prompts(body_template, prompts)
     distribution = prompt_request_distribution(
@@ -182,6 +184,8 @@ async def estimate_tokens_prerun(
                     "expected_completion_tokens": completion_tokens * expected_requests,
                 }
             )
+            if progress_callback is not None:
+                progress_callback(idx + 1, len(normalized_prompts))
     estimated_prompt = sum(item["expected_prompt_tokens"] for item in per_prompt)
     estimated_completion = sum(item["expected_completion_tokens"] for item in per_prompt)
     return {

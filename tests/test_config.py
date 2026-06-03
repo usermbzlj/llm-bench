@@ -96,3 +96,12 @@ def test_bench_config_validates_field_ranges() -> None:
         BenchConfig(concurrency=0)
     with pytest.raises(ValidationError):
         BenchConfig(timeout_s=0)
+
+
+def test_bench_config_retry_defaults_match_gui_and_docs() -> None:
+    # GUI widgets and README document the defaults as 3/1/1. Keep BenchConfig
+    # in sync so the headless CLI path doesn't silently differ from the GUI.
+    cfg = BenchConfig()
+    assert cfg.retry_on_429 == 3
+    assert cfg.retry_on_network == 1
+    assert cfg.retry_on_5xx == 1

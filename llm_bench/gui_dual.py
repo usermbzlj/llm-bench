@@ -2528,7 +2528,12 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                             ui.notify("请先填写 API Key", type="warning")
                             return
                         prerun_btn.disable()
-                        prerun_hint.set_text("精确预跑中...")
+                        prompt_count = len(runtime["prompts"]) or 1
+                        prerun_hint.set_text(f"精确预跑中... 0/{prompt_count} 条")
+
+                        def _prerun_progress(done: int, total: int) -> None:
+                            prerun_hint.set_text(f"精确预跑中... {done}/{total} 条")
+
                         try:
                             result = await estimate_tokens_prerun(
                                 url=runtime["endpoint"],
@@ -2543,6 +2548,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                                 total_requests=total_requests,
                                 prompt_strategy=runtime["prompt_strategy"],
                                 prompt_weights=runtime["prompt_weights"],
+                                progress_callback=_prerun_progress,
                             )
                         except Exception as exc:
                             prerun_hint.set_text(f"精确预跑失败：{exc}")
@@ -3890,6 +3896,21 @@ async def _build_control_page(app_state: _AppState) -> None:
     )
 
 
+async def _confirm_reset_tokens(app_state: _AppState) -> None:
+    """Confirm before zeroing the cumulative token counters (P2: avoid
+    accidental data loss from a misclick on the reset button)."""
+    with ui.dialog() as reset_dialog, ui.card().classes("w-80"):
+        ui.label("确认重置 Token 计数？").classes("text-base font-semibold")
+        ui.label("会把累计的 prompt / completion / total 清零。").classes("text-xs text-slate-500")
+        with ui.row().classes("justify-end w-full gap-2 mt-2"):
+            ui.button("取消", on_click=lambda: reset_dialog.submit(False)).props("flat")
+            ui.button("重置", on_click=lambda: reset_dialog.submit(True)).props("color=red")
+    reset_dialog.open()
+    if await reset_dialog:
+        app_state.reset_consumed_tokens()
+        ui.notify("Token 计数已重置", type="positive")
+
+
 def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) -> None:
     ui.label("监看结果会实时从控制窗口同步。").classes("text-xs text-slate-500 mb-2")
     status_label = ui.label(state.status).classes("text-sm text-slate-500 mb-2")
@@ -3963,9 +3984,9 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                     "text-2xl font-bold text-slate-700 mt-1"
                 )
         with ui.column().classes("justify-center"):
-            ui.button("重置 Token 计数", on_click=app_state.reset_consumed_tokens).props(
-                "outline color=red"
-            )
+            ui.button(
+                "重置 Token 计数", on_click=lambda: _confirm_reset_tokens(app_state)
+            ).props("outline color=red")
 
     with ui.tabs().classes("w-full") as result_tabs:
         tab_overview = ui.tab("概览", icon="table_chart")
@@ -4064,10 +4085,28 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                     "tooltip": {"trigger": "axis"},
                     "legend": {"data": ["req/s", "tok/s"]},
                     "xAxis": {"type": "category", "data": [], "name": "bucket"},
-                    "yAxis": {"type": "value"},
+                    # Dual Y axes: req/s and tok/s often differ by orders of
+                    # magnitude, so a shared axis flattens one line. Left = req/s,
+                    # right = tok/s.
+                    "yAxis": [
+                        {"type": "value", "name": "req/s"},
+                        {"type": "value", "name": "tok/s"},
+                    ],
                     "series": [
-                        {"name": "req/s", "type": "line", "data": [], "smooth": True},
-                        {"name": "tok/s", "type": "line", "data": [], "smooth": True},
+                        {
+                            "name": "req/s",
+                            "type": "line",
+                            "data": [],
+                            "smooth": True,
+                            "yAxisIndex": 0,
+                        },
+                        {
+                            "name": "tok/s",
+                            "type": "line",
+                            "data": [],
+                            "smooth": True,
+                            "yAxisIndex": 1,
+                        },
                     ],
                 }
             ).classes("w-full h-52 mt-2")
@@ -4145,6 +4184,25 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                 .classes("w-full mt-3 font-mono text-xs")
                 .props("readonly autogrow rows=12")
             )
+            with ui.row().classes("w-full justify-end mt-1"):
+                copy_detail_btn = ui.button("复制", icon="content_copy").props(
+                    "flat dense size=sm color=dark"
+                )
+
+            async def _copy_response_detail() -> None:
+                text = response_detail.value or ""
+                if not text:
+                    ui.notify("没有可复制的内容", type="info")
+                    return
+                try:
+                    await ui.run_javascript(f"navigator.clipboard.writeText({json.dumps(text)})")
+                    ui.notify("已复制到剪贴板", type="positive")
+                except Exception:
+                    # clipboard API can be unavailable in some webview contexts;
+                    # the textarea is still selectable as a fallback.
+                    ui.notify("复制失败，可手动选中文本复制", type="warning")
+
+            copy_detail_btn.on_click(_copy_response_detail)
 
         with ui.tab_panel(tab_log).classes("p-3"), ui.row().classes("w-full gap-4"):
             live_log = ui.log(max_lines=600).classes("w-full h-72 font-mono text-xs border rounded")
@@ -4601,7 +4659,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                     "id": raw_idx,
                     "#": raw_idx,
                     "HTTP": str(raw_result.status_code or "-"),
-                    "OK": "Y" if raw_result.ok else "N",
+                    "OK": "✅" if raw_result.ok else "❌",
                     "latency ms": _v(raw_result.latency_ms),
                     "completion tok": str(raw_result.completion_tokens or "-"),
                     "回应预览": _preview_text(raw_result.response_text),
@@ -4690,9 +4748,9 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
             ui.label("Token 总累计").classes("text-xs text-slate-500")
             token_total_label = ui.label("0").classes("text-2xl font-bold text-slate-700 mt-1")
         with ui.column().classes("justify-center"):
-            ui.button("重置 Token 计数", on_click=app_state.reset_consumed_tokens).props(
-                "outline color=red"
-            )
+            ui.button(
+                "重置 Token 计数", on_click=lambda: _confirm_reset_tokens(app_state)
+            ).props("outline color=red")
 
     with ui.tabs().classes("w-full") as sweep_tabs:
         tab_overview = ui.tab("概览", icon="table_chart")
@@ -4967,15 +5025,16 @@ def _ab_group_view_rows(
         if not candidates:
             continue
         best_p99, best_stat = min(candidates, key=lambda kv: float(kv[0]))
+        worst_p99, _worst_stat = max(candidates, key=lambda kv: float(kv[0]))
         meta = best_stat.get("metadata") or {}
         rows.append(
             {
                 "metric": (
-                    f"{group_name} | c={meta.get('concurrency', '?')} | "
+                    f"{group_name}（{len(stats)} 条）| 最优 c={meta.get('concurrency', '?')} | "
                     f"{_v(best_stat.get('throughput_rps'))} req/s"
                 ),
                 "best": f"p99 {float(best_p99):.1f} ms",
-                "worst": f"{len(stats)} 个样本",
+                "worst": f"p99 {float(worst_p99):.1f} ms",
             }
         )
     _AB_CACHE[cache_key] = rows
@@ -5030,7 +5089,8 @@ def _build_compare_panel(app_state: _AppState) -> None:
     """
     ui.label("A/B 看板").classes("text-base font-semibold")
     ui.label(
-        "支持 3 种视图：原始对比 / 按 (model, mode) 分组 / 按单指标全量排名。"
+        "3 种视图：原始对比（所选条目里每个指标的最优值/最差值，非逐条并排）／"
+        "按键分组（每组展示最优与最差 p99）／按单指标全量排名。"
         "建议对比同一服务不同模型、同一模型不同并发、或不同服务同模型。"
     ).classes("text-xs text-slate-500")
 
@@ -5089,8 +5149,8 @@ def _build_compare_panel(app_state: _AppState) -> None:
         ui.table(
             columns=[
                 {"name": "metric", "label": "指标", "field": "metric", "align": "left"},
-                {"name": "best", "label": "最优", "field": "best", "align": "center"},
-                {"name": "worst", "label": "最差", "field": "worst", "align": "center"},
+                {"name": "best", "label": "最优值", "field": "best", "align": "center"},
+                {"name": "worst", "label": "最差值", "field": "worst", "align": "center"},
             ],
             rows=[],
             row_key="metric",
@@ -5128,10 +5188,12 @@ def _build_compare_panel(app_state: _AppState) -> None:
             selected = _selected_stats()
             selected_badge.set_text(t("ab_selected_count", n=len(selected)))
             rows = _ab_pick_view_rows(selected)
-            if not selected:
-                compare_table.rows[:] = [{"metric": t("select_at_least_two"), "best": "-", "worst": "-"}]
-            elif not rows:
-                compare_table.rows[:] = []
+            # Both "nothing selected" and "only 1 selected" (pick needs >=2,
+            # so _ab_pick_view_rows returns []) show the same hint row.
+            if not selected or not rows:
+                compare_table.rows[:] = [
+                    {"metric": t("select_at_least_two"), "best": "-", "worst": "-"}
+                ]
             else:
                 compare_table.rows[:] = rows
             compare_table.update()

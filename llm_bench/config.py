@@ -42,7 +42,7 @@ class BenchConfig(BaseModel):
     timeout_s: float = Field(default=120.0, gt=0)
     http2: bool = Field(default=False)
     warmup: int = Field(default=0, ge=0)
-    retry_on_429: int = Field(default=0, ge=0, description="429 时额外重试次数")
+    retry_on_429: int = Field(default=3, ge=0, description="429 时额外重试次数（与 GUI/文档默认一致）")
     retry_on_network: int = Field(default=1, ge=0, description="网络错误时额外重试次数")
     retry_on_5xx: int = Field(default=1, ge=0, description="服务端 5xx 时额外重试次数")
     proxy_mode: str = Field(default="direct", description="代理模式：direct/system/custom")

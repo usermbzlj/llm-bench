@@ -61,3 +61,34 @@ async def test_estimate_tokens_prerun_uses_usage_fields() -> None:
     assert len(result["per_prompt"]) == 2
     assert result["estimated_prompt_tokens_total"] == 40
     assert result["estimated_completion_tokens_total"] == 80
+
+
+@pytest.mark.asyncio
+async def test_estimate_tokens_prerun_reports_progress() -> None:
+    """The prerun loop invokes progress_callback once per prompt so the GUI
+    can show 'N/total' instead of a frozen 'estimating...' label."""
+
+    def handler(_: httpx.Request) -> httpx.Response:
+        return httpx.Response(
+            200,
+            json={"usage": {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2}},
+        )
+
+    seen: list[tuple[int, int]] = []
+    await estimate_tokens_prerun(
+        url="https://example.test/v1/chat/completions",
+        headers={},
+        body_template=_body(),
+        prompts=["p1", "p2", "p3"],
+        stream=False,
+        timeout_s=5,
+        http2=False,
+        proxy_mode="direct",
+        proxy_url=None,
+        total_requests=6,
+        prompt_strategy="sequential",
+        prompt_weights=None,
+        transport=httpx.MockTransport(handler),
+        progress_callback=lambda done, total: seen.append((done, total)),
+    )
+    assert seen == [(1, 3), (2, 3), (3, 3)]

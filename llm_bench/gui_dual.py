@@ -29,6 +29,7 @@ from llm_bench.gui_ng import (
     _DEFAULT_BASE_URL,
     _DEFAULT_CUSTOM_BODY,
     _DEFAULT_MODEL,
+    _DEFAULT_PROMPT,
     _PROXY_LABEL_TO_VALUE,
     _PROXY_OPTIONS,
     _body,
@@ -850,10 +851,17 @@ def _resolve_prompt_list(settings: dict[str, Any]) -> list[str]:
     prompts = list(settings.get("prompts_list") or [])
     if prompts:
         return [prompt for prompt in prompts if prompt]
-    return _parse_prompts(settings.get("prompts_raw") or "")
+    # _parse_prompts returns None when raw is empty (no non-blank lines).
+    # The connectivity probe path can call this before the user has filled
+    # in any prompts — coerce to [] so callers can rely on list[str].
+    return _parse_prompts(settings.get("prompts_raw") or "") or []
 
 
 def _resolve_prompt_weights(settings: dict[str, Any], prompts: list[str]) -> list[float]:
+    # Defensive: callers sometimes pass None (e.g. custom-body mode where
+    # prompts live in the body template). Treat as no prompts.
+    if not prompts:
+        return []
     raw = settings.get("prompt_weights") or []
     out: list[float] = []
     for idx in range(len(prompts)):
@@ -1160,6 +1168,13 @@ def _build_runtime_payload(settings: dict[str, Any]) -> dict[str, Any]:
         body_template = _build_standard_request_body(settings)
         stream_flag = bool(settings["stream"])
         endpoint = _resolve_endpoint(norm_url or _DEFAULT_BASE_URL)
+        # Standard mode needs at least one prompt to send. If the user
+        # hasn't filled any in (e.g. they only came here to test
+        # connectivity), fall back to a tiny default probe so the request
+        # is well-formed.
+        if not prompts:
+            prompts = [_DEFAULT_PROMPT]
+            prompt_weights = [1.0]
     return {
         "endpoint": endpoint,
         "stream_flag": stream_flag,

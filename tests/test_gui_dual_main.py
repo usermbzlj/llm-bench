@@ -1221,3 +1221,54 @@ def test_parse_prompt_upload_text_supports_text_and_json() -> None:
     assert gui_dual._parse_prompt_upload_text("prompts.txt", "a\n\nb\n") == ["a", "b"]
     assert gui_dual._parse_prompt_upload_text("prompts.json", '["x", "y"]') == ["x", "y"]
     assert gui_dual._parse_prompt_upload_text("prompts.json", '{"prompts":["m","n"]}') == ["m", "n"]
+
+
+def test_build_runtime_payload_uses_default_prompt_when_empty() -> None:
+    """No prompts filled in (e.g. user just clicks '测试连接'): fall back
+    to the single default prompt so the standard request is well-formed."""
+    runtime = gui_dual._build_runtime_payload(
+        {
+            "base_url": "https://demo.test/v1",
+            "proxy_mode": "direct",
+            "proxy_url": None,
+            "custom_enabled": False,
+            "model": "demo-model",
+            "max_tokens": 128,
+            "temperature": 0.2,
+            "stream": False,
+            "append_body_json": "",
+            "prompts_list": [],
+            "prompt_weights": [],
+            "prompt_strategy": "sequential",
+            "prompts_raw": "",
+        }
+    )
+
+    assert runtime["prompts"] == [gui_dual._DEFAULT_PROMPT]
+    assert runtime["prompt_weights"] == [1.0]
+    # The default must be the literal fallback string, not whatever the
+    # upstream constant happens to be — guards against accidental drift.
+    assert gui_dual._DEFAULT_PROMPT == "仅输出15个字符，告诉我你是谁"
+
+
+def test_build_runtime_payload_custom_mode_keeps_prompts_empty() -> None:
+    """Custom body mode stays empty even when prompts_raw is empty —
+    the user-authored body is authoritative, so the default prompt
+    fallback MUST NOT fire and inject a message."""
+    runtime = gui_dual._build_runtime_payload(
+        {
+            "base_url": "https://demo.test/v1",
+            "proxy_mode": "direct",
+            "proxy_url": None,
+            "custom_enabled": True,
+            "custom_body_json": '{"messages":[{"role":"user","content":"x"}]}',
+            "custom_stream": False,
+            "custom_endpoint": "/chat/completions",
+            "prompts_list": [],
+            "prompt_weights": [],
+            "prompt_strategy": "sequential",
+            "prompts_raw": "",
+        }
+    )
+
+    assert runtime["prompts"] == []

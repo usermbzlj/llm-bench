@@ -21,7 +21,7 @@ from llm_bench.runner import limits_for_concurrency, probe_connectivity, run_ben
 
 _DEFAULT_BASE_URL = "https://api.openai.com/v1"
 _DEFAULT_MODEL = "gpt-4o-mini"
-_DEFAULT_PROMPT = "请用一句话介绍你自己。"
+_DEFAULT_PROMPT = "仅输出15个字符，告诉我你是谁"
 _LAYOUT_SIDEBAR_WIDTH_PX = 420
 _STATS_LOG_PREVIEW_LIMIT = 4000
 _DEFAULT_CUSTOM_BODY = json.dumps(

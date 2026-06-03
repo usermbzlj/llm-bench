@@ -105,7 +105,6 @@ _I18N_EN: dict[str, str] = {
     "done": "Done",
     "partial_failure": "Partial failure",
     "test_connection": "Test Connection",
-    "dark_mode": "Dark mode",
     "language": "Language",
     # UX#1 polish: high-visibility strings the user actually sees.
     "no_history": "No history yet",
@@ -160,8 +159,6 @@ _I18N_EN: dict[str, str] = {
     "notify_test_connection_failed_url": "Invalid URL: {err}",
     "notify_test_connection_exception": "Test request exception: {err}",
     "notify_invalid_url": "Invalid Base URL: {err}",
-    "notify_dark_mode_enabled": "Dark mode enabled",
-    "notify_dark_mode_disabled": "Dark mode disabled",
     "btn_test_connection": "Test Connection",
     "btn_save": "Save",
     "btn_save_as": "Save As",
@@ -219,7 +216,6 @@ _I18N_ZH: dict[str, str] = {
     "done": "已完成",
     "partial_failure": "部分失败",
     "test_connection": "测试连接",
-    "dark_mode": "暗色模式",
     "language": "语言",
     # UX#1 polish
     "no_history": "暂无历史记录",
@@ -274,8 +270,6 @@ _I18N_ZH: dict[str, str] = {
     "notify_test_connection_failed_url": "❌ Base URL 不合法：{err}",
     "notify_test_connection_exception": "测试请求失败：{err}",
     "notify_invalid_url": "❌ Base URL 不合法：{err}",
-    "notify_dark_mode_enabled": "已切换到暗色模式",
-    "notify_dark_mode_disabled": "已切换到亮色模式",
     "btn_test_connection": "测试连接",
     "btn_save": "保存",
     "btn_save_as": "另存为",
@@ -1100,6 +1094,10 @@ def _start_dual_windows(protocol: str, host: str, port: int) -> mp.Event:
 
 
 def _apply_page_shell(scroll_content: bool) -> None:
+    # Dark mode is intentionally not supported: force light theme on every
+    # page so a stale preferences.json (or any future toggle) can't flip the
+    # app palette. The whole UI is now gray-first.
+    ui.dark_mode(False)
     ui.query("html").style("height:100%")
     ui.query("body").style("margin:0; height:100%")
     ui.query(".q-page").style("display:flex; flex-direction:column; height:100%")
@@ -1107,33 +1105,9 @@ def _apply_page_shell(scroll_content: bool) -> None:
     ui.query(".nicegui-content").style(f"display:flex; flex-direction:column; flex:1; {overflow}")
 
 
-# Module-level so any page can toggle and all tabs reflect.
-_DARK_KEY = "llm_bench_dark_mode"
-
-
-def _apply_dark_mode(dark: bool) -> None:
-    """Toggle Quasar's body.dark class — flips the whole app palette."""
-    ui.dark_mode(dark)
-    # Persist for next launch.
-    from contextlib import suppress
-
-    with suppress(OSError):
-        (config_dir() / "preferences.json").write_text(
-            json.dumps({"dark_mode": bool(dark)}), encoding="utf-8"
-        )
-
-
-def _read_dark_preference() -> bool:
-    try:
-        payload = json.loads((config_dir() / "preferences.json").read_text(encoding="utf-8"))
-    except (FileNotFoundError, json.JSONDecodeError, OSError):
-        return False
-    return bool(payload.get("dark_mode", False))
-
-
 def _build_header(title: str, app_state: _AppState) -> None:
     with ui.header().classes(
-        "items-center justify-between px-6 py-3 bg-indigo-700 text-white shadow"
+        "items-center justify-between px-6 py-3 bg-slate-700 text-white shadow"
     ):
         ui.label(title).classes("text-xl font-bold tracking-wide")
         with ui.row().classes("items-center gap-3"):
@@ -1146,20 +1120,10 @@ def _build_header(title: str, app_state: _AppState) -> None:
                 options={"zh": "中文", "en": "English"},
                 value=_CURRENT_LANG[0],
                 on_change=lambda e: _CURRENT_LANG.__setitem__(0, e.value or "zh"),
-            ).props("dense dark color=white").classes("text-xs w-24")
-            # T3-1: dark mode toggle lives in the header so it works in both
-            # Control and Monitor windows. The state is shared via the
-            # preference file.
-            dark_switch = ui.switch(
-                value=_read_dark_preference(),
-                on_change=lambda e: _apply_dark_mode(bool(e.value)),
-            ).props("color=white dark").classes("text-xs")
-            ui.tooltip(t("dark_mode")).classes("text-xs")
+            ).props("dense color=white").classes("text-xs w-24")
             status_badge = ui.badge(
                 app_state.status_text, color=app_state.status_color
             ).classes("text-sm px-3 py-1")
-    if dark_switch.value:
-        _apply_dark_mode(True)
 
     def _refresh_status() -> None:
         status_badge.set_text(app_state.status_text)
@@ -1912,7 +1876,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
     panels: dict[str, Any] = {}
 
     with ui.column().classes("w-full gap-4"):
-        ui.label("控制台").classes("text-lg font-bold text-indigo-700")
+        ui.label("控制台").classes("text-lg font-bold text-slate-700")
         ui.label("专注于配置、启动与停止任务。监看结果请看另一扇窗口。").classes(
             "text-xs text-gray-500"
         )
@@ -1947,20 +1911,20 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                             host, port, scheme = _parse_base_for_probe(url)
                         except ValueError as exc:
                             port_status.set_text(f"❌ URL 错误: {exc}")
-                            port_status.classes(remove="bg-grey-100 bg-emerald-100 bg-red-100 text-grey-700 text-emerald-700 text-red-700")
+                            port_status.classes(remove="bg-grey-100 bg-slate-100 bg-emerald-100 bg-red-100 text-grey-700 text-slate-700 text-emerald-700 text-red-700")
                             port_status.classes(add="bg-red-100 text-red-700")
                             return
                         port_status.set_text("🟡 探测中…")
-                        port_status.classes(remove="bg-grey-100 bg-emerald-100 bg-red-100 text-grey-700 text-emerald-700 text-red-700")
-                        port_status.classes(add="bg-amber-100 text-amber-700")
+                        port_status.classes(remove="bg-grey-100 bg-slate-100 bg-emerald-100 bg-red-100 text-grey-700 text-slate-700 text-emerald-700 text-red-700")
+                        port_status.classes(add="bg-slate-100 text-slate-700")
                         ok, ms_or_err = await _tcp_probe(host, port, timeout=2.0)
                         if ok:
                             port_status.set_text(f"🟢 {host}:{port} 可达（{ms_or_err:.0f} ms）")
-                            port_status.classes(remove="bg-amber-100 bg-red-100 text-amber-700 text-red-700")
+                            port_status.classes(remove="bg-slate-100 bg-red-100 text-slate-700 text-red-700")
                             port_status.classes(add="bg-emerald-100 text-emerald-700")
                         else:
                             port_status.set_text(f"🔴 {host}:{port} 不可达（{ms_or_err}）")
-                            port_status.classes(remove="bg-amber-100 bg-emerald-100 text-amber-700 text-emerald-700")
+                            port_status.classes(remove="bg-slate-100 bg-emerald-100 text-slate-700 text-emerald-700")
                             port_status.classes(add="bg-red-100 text-red-700")
 
                     port_check_btn = ui.button("探测", icon="network_check").props(
@@ -2529,7 +2493,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                 else None,
             )
             # Color-code: green if looks like a chat endpoint, amber if not.
-            color = "text-emerald-600" if "/chat/completions" in endpoint else "text-amber-600"
+            color = "text-emerald-600" if "/chat/completions" in endpoint else "text-slate-600"
             endpoint_preview.set_text(f"请求地址：{endpoint}")
             endpoint_preview.classes(replace=f"text-xs {color} break-all")
 
@@ -2880,20 +2844,21 @@ def _refresh_config_status(config_state: _ConfigState, widgets: dict[str, Any]) 
         badge.set_text(" 未保存 ")
         badge.set_visibility(True)
         badge.classes(
-            remove="bg-slate-100 bg-amber-100 bg-orange-100 text-slate-700 text-amber-800 text-orange-800"
+            remove="bg-slate-100 bg-slate-200 text-slate-700 text-slate-800"
         )
-        badge.classes(add="bg-amber-100 text-amber-800")
+        badge.classes(add="bg-slate-100 text-slate-700")
         return
     diffs = _compute_config_diff(config_state, widgets)
     n = len(diffs)
     badge.set_text(f" {n} 个字段改动 ")
     badge.set_visibility(True)
-    # Color shifts: 1-2 fields amber, 3+ fields orange to draw the eye.
-    badge.classes(remove="bg-slate-100 bg-amber-100 bg-orange-100 text-slate-700 text-amber-800 text-orange-800")
+    # Subtle shade shift: 1-2 fields lighter slate, 3+ fields darker slate
+    # (was amber / orange — kept the "more = more visible" cue, just gray).
+    badge.classes(remove="bg-slate-100 bg-slate-200 text-slate-700 text-slate-800")
     if n >= 3:
-        badge.classes(add="bg-orange-100 text-orange-800")
+        badge.classes(add="bg-slate-200 text-slate-800")
     else:
-        badge.classes(add="bg-amber-100 text-amber-800")
+        badge.classes(add="bg-slate-100 text-slate-700")
 
 
 async def _prompt_config_name(initial_name: str | None = None) -> str | None:
@@ -3517,21 +3482,21 @@ def _build_mode_controls(
                     # "总时长 0s".
                     loadcurve_summary.set_text(t("loadcurve_malformed"))
                     loadcurve_summary.classes(
-                        remove="text-slate-600 text-amber-700 text-emerald-700"
+                        remove="text-slate-600 text-slate-700 text-emerald-700"
                     )
-                    loadcurve_summary.classes(add="text-amber-700")
+                    loadcurve_summary.classes(add="text-slate-700")
                     step_data: list[list[float]] = []
                     loadcurve_chart.options["series"][0]["data"] = step_data
                     loadcurve_chart.update()
                     return
-                # Valid profile: emerald accent + standard summary line.
+                # Valid profile: standard slate summary line.
                 total_s = sum(p[0] for p in parsed)
                 max_rps = max((p[1] for p in parsed), default=0)
                 loadcurve_summary.set_text(
                     t("loadcurve_total", total=total_s, n=len(parsed), max_rps=max_rps)
                 )
                 loadcurve_summary.classes(
-                    remove="text-slate-600 text-amber-700 text-emerald-700"
+                    remove="text-slate-600 text-slate-700 text-emerald-700"
                 )
                 loadcurve_summary.classes(add="text-slate-600")
                 # Build step-chart points: (0, 0), (d0, r0), (d0+d1, r0),
@@ -3768,7 +3733,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
         for title, key in kpi_keys:
             with ui.card().classes("flex-1 min-w-24 text-center py-3"):
                 ui.label(title).classes("text-xs text-gray-500")
-                kpi_labels[key] = ui.label("-").classes("text-2xl font-bold text-indigo-700 mt-1")
+                kpi_labels[key] = ui.label("-").classes("text-2xl font-bold text-slate-700 mt-1")
 
     token_kpi_labels: dict[str, Any] = {}
     with ui.row().classes("w-full gap-3 mb-4 items-stretch"):
@@ -3780,7 +3745,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
             with ui.card().classes("flex-1 min-w-24 text-center py-3"):
                 ui.label(title).classes("text-xs text-gray-500")
                 token_kpi_labels[key] = ui.label("0").classes(
-                    "text-2xl font-bold text-cyan-700 mt-1"
+                    "text-2xl font-bold text-slate-700 mt-1"
                 )
         with ui.column().classes("justify-center"):
             ui.button("重置 Token 计数", on_click=app_state.reset_consumed_tokens).props(
@@ -4343,7 +4308,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                 continue
             label.set_text(f"{_v(value)}{suffix}")
             # Color the active value to make it pop against the empty state.
-            label.classes(replace="text-indigo-700")
+            label.classes(replace="text-slate-700")
         token_kpi_labels["prompt"].set_text(str(app_state.consumed_prompt_tokens))
         token_kpi_labels["completion"].set_text(str(app_state.consumed_completion_tokens))
         token_kpi_labels["total"].set_text(str(app_state.consumed_total_tokens))
@@ -4365,7 +4330,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                 )
                 error_banner.set_text(banner)
                 error_banner.classes(
-                    replace="w-full text-sm rounded px-3 py-2 mb-3 bg-amber-50 text-amber-900"
+                    replace="w-full text-sm rounded px-3 py-2 mb-3 bg-slate-100 text-slate-800"
                 )
             else:
                 error_banner.set_text("✅ 全部请求成功")
@@ -4479,17 +4444,17 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
         ]:
             with ui.card().classes("flex-1 text-center py-3"):
                 ui.label(title).classes("text-xs text-gray-500")
-                kpi_labels[key] = ui.label("-").classes("text-2xl font-bold text-indigo-700 mt-1")
+                kpi_labels[key] = ui.label("-").classes("text-2xl font-bold text-slate-700 mt-1")
     with ui.row().classes("w-full gap-3 mb-4"):
         with ui.card().classes("flex-1 text-center py-3"):
             ui.label("Prompt Token 累计").classes("text-xs text-gray-500")
-            token_prompt_label = ui.label("0").classes("text-2xl font-bold text-cyan-700 mt-1")
+            token_prompt_label = ui.label("0").classes("text-2xl font-bold text-slate-700 mt-1")
         with ui.card().classes("flex-1 text-center py-3"):
             ui.label("Completion Token 累计").classes("text-xs text-gray-500")
-            token_completion_label = ui.label("0").classes("text-2xl font-bold text-cyan-700 mt-1")
+            token_completion_label = ui.label("0").classes("text-2xl font-bold text-slate-700 mt-1")
         with ui.card().classes("flex-1 text-center py-3"):
             ui.label("Token 总累计").classes("text-xs text-gray-500")
-            token_total_label = ui.label("0").classes("text-2xl font-bold text-cyan-700 mt-1")
+            token_total_label = ui.label("0").classes("text-2xl font-bold text-slate-700 mt-1")
         with ui.column().classes("justify-center"):
             ui.button("重置 Token 计数", on_click=app_state.reset_consumed_tokens).props(
                 "outline color=red"

@@ -786,6 +786,15 @@ def _notify_client(
         ui.notify(message, **kwargs)
 
 
+def _notify_replay_started(original_latency_ms: float) -> None:
+    ui.notify(
+        f"🔁 重放请求已发出：原结果 {_v(original_latency_ms)} ms",
+        type="info",
+        close_button=True,
+        timeout=5000,
+    )
+
+
 def _attach_tooltip(widget: Any, text: str) -> None:
     if not text:
         return
@@ -4199,10 +4208,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                 confirm.open()
                 if not await confirm:
                     return
-            ui.notify(
-                f"🔁 重放中：{_v(original.latency_ms)} ms（原结果）",
-                type="ongoing",
-            )
+            _notify_replay_started(original.latency_ms)
             # Fire the same body, same endpoint, same stream mode.
             async with httpx.AsyncClient(
                 http2=live_settings["http2"],
@@ -4234,7 +4240,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
             ui.notify(
                 f"🔁 重放结果：{new_status} ({status_note})｜{_v(new_lat)} ms ({sign}{_v(delta)} ms)",
                 type="positive" if same_status and replay_result.ok else "warning",
-                timeout=8.0,
+                timeout=8000,
             )
             # Show the new response text in the detail area.
             response_detail.set_value(

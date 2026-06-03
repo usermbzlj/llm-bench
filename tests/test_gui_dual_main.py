@@ -1094,6 +1094,25 @@ def test_notify_client_supports_position(monkeypatch: pytest.MonkeyPatch) -> Non
     assert calls == [{"message": "hello", "type": "info", "position": "bottom"}]
 
 
+def test_replay_started_notification_is_not_sticky(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[dict[str, Any]] = []
+    monkeypatch.setattr(
+        gui_dual.ui,
+        "notify",
+        lambda message, **kwargs: calls.append({"message": message, **kwargs}),
+    )
+
+    gui_dual._notify_replay_started(100.42)
+
+    assert len(calls) == 1
+    assert calls[0]["type"] == "info"
+    assert "ongoing" not in calls[0].values()
+    assert calls[0]["close_button"] is True
+    assert calls[0]["timeout"] == 5000
+
+
 # ── T3-4: prompts YAML serializes as a multi-line string for readability ─
 
 

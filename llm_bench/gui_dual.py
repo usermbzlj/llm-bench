@@ -3274,10 +3274,17 @@ def _build_mode_controls(
             )
 
             def _refresh_rps_hint() -> None:
-                concurrency = _safe_int(widgets.get("concurrency", type("", (), {"value": 5})()).value if hasattr(widgets.get("concurrency"), "value") else 5, 5, 1) if False else _safe_int(
-                    widgets["concurrency"].value, 5, 1
-                )
-                timeout_s = _safe_float(widgets["timeout_s"].value, 120.0, 1.0)
+                # tab_rps is built before _build_config_form in _build_control_page,
+                # so concurrency / timeout_s may not be registered yet on the
+                # initial render. Be defensive: bail out and rely on the
+                # on_value_change hooks (registered below) to refresh the hint
+                # once the form is built.
+                concurrency_w = widgets.get("concurrency")
+                timeout_w = widgets.get("timeout_s")
+                if concurrency_w is None or timeout_w is None:
+                    return
+                concurrency = _safe_int(concurrency_w.value, 5, 1)
+                timeout_s = _safe_float(timeout_w.value, 120.0, 1.0)
                 # If average latency is at most timeout_s, max sustainable RPS
                 # = concurrency / timeout_s. This is the worst-case ceiling.
                 ceiling = concurrency / max(0.1, timeout_s)
@@ -3286,8 +3293,12 @@ def _build_mode_controls(
                 )
 
             _refresh_rps_hint()
-            widgets["concurrency"].on_value_change(lambda _: _refresh_rps_hint())
-            widgets["timeout_s"].on_value_change(lambda _: _refresh_rps_hint())
+            concurrency_w = widgets.get("concurrency")
+            if concurrency_w is not None:
+                concurrency_w.on_value_change(lambda _: _refresh_rps_hint())
+            timeout_w = widgets.get("timeout_s")
+            if timeout_w is not None:
+                timeout_w.on_value_change(lambda _: _refresh_rps_hint())
             with ui.row().classes("mt-3 gap-3 w-full flex-wrap"):
                 start_btn = (
                     ui.button("开始固定 RPS", icon="play_arrow")
@@ -3620,7 +3631,11 @@ def _build_mode_controls(
     # T3-3: keyboard shortcuts — Ctrl+Enter to start the active mode's run,
     # Escape to stop. Page-scoped; only fires when the Control window has
     # focus so it never interferes with typing in input fields.
-    def _on_ctrl_enter() -> None:
+    # ui.keyboard in this NiceGUI version does not accept a `js=` filter,
+    # so we read the key/modifier state from the event args in Python.
+    def _on_ctrl_enter(e: events.KeyEventArguments) -> None:
+        if e.key != "Enter" or not (e.modifiers.ctrl or e.modifiers.meta):
+            return
         if app_state.is_busy():
             return
         # Re-resolve whichever start button is currently enabled and click it.
@@ -3629,7 +3644,9 @@ def _build_mode_controls(
                 tab_start.click()
                 return
 
-    def _on_escape() -> None:
+    def _on_escape(e: events.KeyEventArguments) -> None:
+        if e.key != "Escape":
+            return
         # Stop whichever is currently busy. The stop button toggles its
         # own disable() so we can pick any one — clicking a disabled one
         # is a no-op.
@@ -3638,11 +3655,8 @@ def _build_mode_controls(
                 tab_stop.click()
                 return
 
-    ui.keyboard(
-        on_key=_on_ctrl_enter,
-        js="(e) => e.key === 'Enter' && (e.ctrlKey || e.metaKey)",
-    )
-    ui.keyboard(on_key=_on_escape, js="(e) => e.key === 'Escape'")
+    ui.keyboard(on_key=_on_ctrl_enter)
+    ui.keyboard(on_key=_on_escape)
 
 
 async def _build_control_page(app_state: _AppState) -> None:

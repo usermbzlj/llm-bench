@@ -1507,98 +1507,122 @@ async def _execute_loadcurve(
     from llm_bench.models import build_stats_dict
     from llm_bench.runner import run_benchmark
 
+    rps_state = app_state.run_states["rps"]
+    if app_state.is_busy():
+        notify("已有任务运行中", "warning")
+        return
+
+    rps_state.fresh_stop_event()
+    rps_state.busy = True
+    rps_state.status = "运行中..."
+    app_state.set_status("运行中", "orange")
+
     all_phase_stats: list[dict[str, Any]] = []
     wall_start = time.perf_counter()
-    for idx, (duration_s, rps) in enumerate(profile, start=1):
-        if app_state.is_busy():
-            break
-        # Run this phase as an RPS run via the underlying engine, but we
-        # need real settings. The user has already configured widgets, so
-        # we look them up through a "phase" settings dict.
-        # NOTE: this implementation is a thin wrapper around run_benchmark
-        # and shares the engine's should_stop hook with the user's stop button.
-        # We construct a minimal settings dict from the existing rps_start_btn's
-        # parent page widgets by reusing _collect_common_settings lazily
-        # through the load-curve page closure.
-        # (Implementation detail: we capture widgets from the page at call time.)
-        phase_settings = _loadcurve_capture_widgets(app_state)
-        phase_settings.update(
-            {
-                "rps_target": rps,
-                "rps_duration": duration_s,
-            }
-        )
-        # Mark the "rps" run as busy so concurrent clicks are blocked.
-        # Test#2: do NOT call reset() here — that would create a brand
-        # new stop_event and silently discard a stop signal the user
-        # gave between phases. reset() now preserves stop_event; we only
-        # need to mark busy + clear per-phase metric accumulators.
-        rps = app_state.run_states["rps"]
-        rps.busy = True
-        rps.status = "运行中..."
-        rps.log_lines = []
-        rps.stats = {}
-        rps.raw_results = []
-        rps.inflight_samples = []
-        rps.started_at_mono = None
-        rps.target_total = None
-        rps.target_duration_s = None
-        rps.chart_refresh_mode = "interval"
-        try:
-            runtime = _build_runtime_payload(phase_settings)
-        except ValueError as exc:
-            notify(f"负载曲线配置不合法：{exc}", "negative")
-            return
-        try:
-            summary = await run_benchmark(
-                url=runtime["endpoint"],
-                headers=_headers(_resolve_api_key(phase_settings["api_key"])),
-                body_template=runtime["body_template"],
-                concurrency=phase_settings["concurrency"],
-                total_requests=None,
-                duration_s=None,
-                stream=runtime["stream_flag"],
-                timeout_s=phase_settings["timeout_s"],
-                http2=phase_settings["http2"],
-                warmup_requests=phase_settings["warmup"],
-                retry_on_429=phase_settings["retry_on_429"],
-                retry_on_network=phase_settings["retry_on_network"],
-                retry_on_5xx=phase_settings["retry_on_5xx"],
-                base_backoff_s=phase_settings["base_backoff_s"],
-                prompts=runtime["prompts"],
-                prompt_strategy=runtime["prompt_strategy"],
-                prompt_weights=runtime["prompt_weights"],
-                target_rps=rps,
-                rps_duration_s=duration_s,
-                proxy_mode=runtime["proxy_mode"],
-                proxy_url=runtime["proxy_url"],
-                should_stop=app_state.run_states["rps"].stop_event.is_set,
+    stopped = False
+    try:
+        for idx, (duration_s, target_rps) in enumerate(profile, start=1):
+            if rps_state.stop_event.is_set():
+                stopped = True
+                break
+            # Run this phase as an RPS run via the underlying engine, but we
+            # need real settings. The user has already configured widgets, so
+            # we look them up through a "phase" settings dict.
+            # NOTE: this implementation is a thin wrapper around run_benchmark
+            # and shares the engine's should_stop hook with the user's stop button.
+            # We construct a minimal settings dict from the existing rps_start_btn's
+            # parent page widgets by reusing _collect_common_settings lazily
+            # through the load-curve page closure.
+            # (Implementation detail: we capture widgets from the page at call time.)
+            phase_settings = _loadcurve_capture_widgets(app_state)
+            phase_settings.update(
+                {
+                    "rps_target": target_rps,
+                    "rps_duration": duration_s,
+                }
             )
-        except Exception as exc:
-            notify(f"阶段 {idx} 失败：{exc}", "negative")
-            continue
-        stats = build_stats_dict(
-            summary,
-            metadata={
-                "bench_start_utc": datetime.now(UTC).isoformat(),
-                "llm_bench_version": _ver,
-                "endpoint": runtime["endpoint"],
-                "model": phase_settings["model"],
-                "concurrency": phase_settings["concurrency"],
-                "mode": "loadcurve",
-                "target_rps": rps,
-                "rps_duration_s": duration_s,
-                "phase": idx,
-                "total_phases": len(profile),
-                "proxy_mode": runtime["proxy_mode"],
-            },
-        )
-        all_phase_stats.append(stats)
-        app_state.add_history(stats)
-        notify(f"阶段 {idx}/{len(profile)} 完成：{rps} req/s × {duration_s}s", "positive")
+            # Keep the same stop_event across phases; only clear per-phase metrics.
+            rps_state.status = "运行中..."
+            rps_state.log_lines = []
+            rps_state.stats = {}
+            rps_state.raw_results = []
+            rps_state.inflight_samples = []
+            rps_state.started_at_mono = None
+            rps_state.target_total = None
+            rps_state.target_duration_s = None
+            rps_state.chart_refresh_mode = "interval"
+            try:
+                runtime = _build_runtime_payload(phase_settings)
+            except ValueError as exc:
+                notify(f"负载曲线配置不合法：{exc}", "negative")
+                app_state.set_status("失败", "red")
+                return
+            try:
+                summary = await run_benchmark(
+                    url=runtime["endpoint"],
+                    headers=_headers(_resolve_api_key(phase_settings["api_key"])),
+                    body_template=runtime["body_template"],
+                    concurrency=phase_settings["concurrency"],
+                    total_requests=None,
+                    duration_s=None,
+                    stream=runtime["stream_flag"],
+                    timeout_s=phase_settings["timeout_s"],
+                    http2=phase_settings["http2"],
+                    warmup_requests=phase_settings["warmup"],
+                    retry_on_429=phase_settings["retry_on_429"],
+                    retry_on_network=phase_settings["retry_on_network"],
+                    retry_on_5xx=phase_settings["retry_on_5xx"],
+                    base_backoff_s=phase_settings["base_backoff_s"],
+                    prompts=runtime["prompts"],
+                    prompt_strategy=runtime["prompt_strategy"],
+                    prompt_weights=runtime["prompt_weights"],
+                    target_rps=target_rps,
+                    rps_duration_s=duration_s,
+                    proxy_mode=runtime["proxy_mode"],
+                    proxy_url=runtime["proxy_url"],
+                    should_stop=rps_state.stop_event.is_set,
+                )
+            except asyncio.CancelledError:
+                stopped = True
+                break
+            except Exception as exc:
+                notify(f"阶段 {idx} 失败：{exc}", "negative")
+                continue
+            stats = build_stats_dict(
+                summary,
+                metadata={
+                    "bench_start_utc": datetime.now(UTC).isoformat(),
+                    "llm_bench_version": _ver,
+                    "endpoint": runtime["endpoint"],
+                    "model": phase_settings["model"],
+                    "concurrency": phase_settings["concurrency"],
+                    "mode": "loadcurve",
+                    "target_rps": target_rps,
+                    "rps_duration_s": duration_s,
+                    "phase": idx,
+                    "total_phases": len(profile),
+                    "proxy_mode": runtime["proxy_mode"],
+                },
+            )
+            all_phase_stats.append(stats)
+            app_state.add_history(stats)
+            notify(
+                f"阶段 {idx}/{len(profile)} 完成：{target_rps} req/s × {duration_s}s",
+                "positive",
+            )
+            if rps_state.stop_event.is_set():
+                stopped = True
+                break
 
-    wall_s = time.perf_counter() - wall_start
-    notify(f"负载曲线完成：{len(all_phase_stats)} 阶段 / {wall_s:.0f}s", "positive")
+        wall_s = time.perf_counter() - wall_start
+        if stopped:
+            notify(f"负载曲线已停止：已完成 {len(all_phase_stats)} 阶段 / {wall_s:.0f}s", "warning")
+            app_state.set_status("已停止", "gray")
+        else:
+            notify(f"负载曲线完成：{len(all_phase_stats)} 阶段 / {wall_s:.0f}s", "positive")
+            app_state.set_status("完成", "green")
+    finally:
+        rps_state.busy = False
 
 
 # Module-level placeholder — the actual capture happens at first call via

@@ -969,6 +969,145 @@ def test_parse_loadcurve_profile_decimal_values() -> None:
     assert phases == [(15.5, 2.5), (30.0, 7.5)]
 
 
+@pytest.mark.asyncio
+async def test_execute_loadcurve_passes_numeric_target_rps(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from llm_bench import runner
+    from llm_bench.models import BenchSummary
+
+    app_state = gui_dual._AppState()
+    captured: list[dict[str, Any]] = []
+    notifications: list[tuple[str, str]] = []
+
+    monkeypatch.setattr(
+        gui_dual,
+        "_loadcurve_capture_widgets",
+        lambda _app_state: {
+            "api_key": "sk-test",
+            "base_url": "https://example.test/v1",
+            "model": "demo-model",
+            "concurrency": 1,
+            "timeout_s": 5,
+            "http2": False,
+            "warmup": 0,
+            "retry_on_429": 0,
+            "retry_on_network": 0,
+            "retry_on_5xx": 0,
+            "base_backoff_s": 0.1,
+        },
+    )
+    monkeypatch.setattr(
+        gui_dual,
+        "_build_runtime_payload",
+        lambda _settings: {
+            "endpoint": "https://example.test/v1/chat/completions",
+            "body_template": {"model": "demo-model"},
+            "stream_flag": False,
+            "prompts": [],
+            "prompt_strategy": "sequential",
+            "prompt_weights": [],
+            "proxy_mode": "direct",
+            "proxy_url": None,
+        },
+    )
+
+    async def fake_run_benchmark(**kwargs: Any) -> BenchSummary:
+        captured.append(kwargs)
+        return BenchSummary(
+            total=1,
+            success=1,
+            attempt_total=1,
+            attempt_success=1,
+            wall_seconds=1.0,
+            latencies_ms=[1.0],
+        )
+
+    monkeypatch.setattr(runner, "run_benchmark", fake_run_benchmark)
+
+    await gui_dual._execute_loadcurve(
+        app_state,
+        [(1.0, 2.5), (1.0, 7.5)],
+        lambda message, level: notifications.append((message, level)),
+    )
+
+    assert [call["target_rps"] for call in captured] == [2.5, 7.5]
+    assert all(isinstance(call["target_rps"], float) for call in captured)
+    assert [stat["metadata"]["target_rps"] for stat in app_state.history] == [2.5, 7.5]
+    assert app_state.run_states["rps"].busy is False
+    assert notifications[-1][0].startswith("负载曲线完成：2 阶段")
+
+
+@pytest.mark.asyncio
+async def test_execute_loadcurve_stops_between_phases(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from llm_bench import runner
+    from llm_bench.models import BenchSummary
+
+    app_state = gui_dual._AppState()
+    captured: list[dict[str, Any]] = []
+    notifications: list[tuple[str, str]] = []
+
+    monkeypatch.setattr(
+        gui_dual,
+        "_loadcurve_capture_widgets",
+        lambda _app_state: {
+            "api_key": "sk-test",
+            "base_url": "https://example.test/v1",
+            "model": "demo-model",
+            "concurrency": 1,
+            "timeout_s": 5,
+            "http2": False,
+            "warmup": 0,
+            "retry_on_429": 0,
+            "retry_on_network": 0,
+            "retry_on_5xx": 0,
+            "base_backoff_s": 0.1,
+        },
+    )
+    monkeypatch.setattr(
+        gui_dual,
+        "_build_runtime_payload",
+        lambda _settings: {
+            "endpoint": "https://example.test/v1/chat/completions",
+            "body_template": {"model": "demo-model"},
+            "stream_flag": False,
+            "prompts": [],
+            "prompt_strategy": "sequential",
+            "prompt_weights": [],
+            "proxy_mode": "direct",
+            "proxy_url": None,
+        },
+    )
+
+    async def fake_run_benchmark(**kwargs: Any) -> BenchSummary:
+        captured.append(kwargs)
+        app_state.run_states["rps"].stop_event.set()
+        return BenchSummary(
+            total=1,
+            success=1,
+            attempt_total=1,
+            attempt_success=1,
+            wall_seconds=1.0,
+            latencies_ms=[1.0],
+        )
+
+    monkeypatch.setattr(runner, "run_benchmark", fake_run_benchmark)
+
+    await gui_dual._execute_loadcurve(
+        app_state,
+        [(1.0, 2.5), (1.0, 7.5)],
+        lambda message, level: notifications.append((message, level)),
+    )
+
+    assert [call["target_rps"] for call in captured] == [2.5]
+    assert app_state.run_states["rps"].busy is False
+    assert app_state.status_text == "已停止"
+    assert app_state.status_color == "gray"
+    assert notifications[-1][0].startswith("负载曲线已停止：已完成 1 阶段")
+
+
 # ── T2-3: augmented stat rows (final_attempt_latency visibility) ──────────
 
 

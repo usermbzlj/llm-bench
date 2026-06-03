@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -1057,6 +1058,18 @@ def test_read_dark_preference_defaults_to_false(
         json.dumps({"dark_mode": True}), encoding="utf-8"
     )
     assert gui_dual._read_dark_preference() is True
+
+
+def test_webview2_gpu_fix_preserves_existing_browser_args(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv(gui_dual._WEBVIEW2_ARGS_ENV, "--foo --disable-gpu")
+    monkeypatch.delenv(gui_dual._WEBVIEW2_GPU_FIX_ENV, raising=False)
+
+    gui_dual._configure_webview2_browser_args()
+
+    args = os.environ[gui_dual._WEBVIEW2_ARGS_ENV].split()
+    assert args == ["--foo", "--disable-gpu"]
 
 
 # ── T3-4: prompts YAML serializes as a multi-line string for readability ─

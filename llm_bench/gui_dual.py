@@ -4,6 +4,7 @@ import asyncio
 import copy
 import json
 import multiprocessing as mp
+import os
 import re
 import socket
 import threading
@@ -64,6 +65,10 @@ _CONTROL_WINDOW_HEIGHT = 980
 _MONITOR_WINDOW_WIDTH = 1180
 _MONITOR_WINDOW_HEIGHT = 980
 _WINDOW_GAP = 24
+_PREFERENCES_FILE = "preferences.json"
+_WEBVIEW2_ARGS_ENV = "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS"
+_WEBVIEW2_GPU_FIX_ENV = "LLM_BENCH_WEBVIEW2_DISABLE_GPU"
+_WEBVIEW2_GPU_FIX_ARGS = ("--disable-gpu",)
 _CONTROL_MULTI_COLUMN_BREAKPOINT = 1024
 _CONTROL_GRID_CLASSES = "control-grid w-full gap-4 items-start grid-cols-1 lg:grid-cols-2"
 _CONTROL_PANEL_CLASSES = (
@@ -800,6 +805,47 @@ def _config_dir() -> Path:
     return config_dir()
 
 
+def _read_dark_preference() -> bool:
+    path = _config_dir() / _PREFERENCES_FILE
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    if not isinstance(data, dict):
+        return False
+    return bool(data.get("dark_mode"))
+
+
+def _apply_dark_mode(enabled: bool) -> None:
+    path = _config_dir() / _PREFERENCES_FILE
+    path.write_text(
+        json.dumps({"dark_mode": bool(enabled)}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+
+def _merge_webview2_browser_args(existing: str, required: tuple[str, ...]) -> str:
+    args = [arg for arg in existing.split() if arg]
+    seen = set(args)
+    for arg in required:
+        if arg not in seen:
+            args.append(arg)
+            seen.add(arg)
+    return " ".join(args)
+
+
+def _configure_webview2_browser_args() -> None:
+    # WebView2 can render a completely black surface on some GPU/driver stacks.
+    # This desktop UI is not graphics-heavy, so software rendering is safer here.
+    disable_gpu = os.environ.get(_WEBVIEW2_GPU_FIX_ENV, "1").strip().lower()
+    if disable_gpu in {"0", "false", "no", "off"}:
+        return
+    os.environ[_WEBVIEW2_ARGS_ENV] = _merge_webview2_browser_args(
+        os.environ.get(_WEBVIEW2_ARGS_ENV, ""),
+        _WEBVIEW2_GPU_FIX_ARGS,
+    )
+
+
 def _normalize_config_name(name: str) -> str | None:
     raw = (name or "").strip().replace("\\", "_").replace("/", "_")
     if not raw:
@@ -1035,6 +1081,8 @@ def _wait_for_port(host: str, port: int, timeout_s: float = 30.0) -> bool:
 
 
 def _open_dual_windows(protocol: str, host: str, port: int, shutdown_event: mp.Event) -> None:
+    _configure_webview2_browser_args()
+
     import webview
 
     if not _wait_for_port(host, port):

@@ -773,12 +773,17 @@ async def _sync_control_layout(panels: dict[str, Any], state: dict[str, Any]) ->
         _apply_control_panel_state(panels, expand_all=True)
 
 
-def _notify_client(client_id: str, message: str, level: str) -> None:
+def _notify_client(
+    client_id: str, message: str, level: str, position: str | None = None
+) -> None:
     client = Client.instances.get(client_id)
     if client is None:
         return
     with suppress(RuntimeError), client:
-        ui.notify(message, type=level)
+        kwargs = {"type": level}
+        if position is not None:
+            kwargs["position"] = position
+        ui.notify(message, **kwargs)
 
 
 def _attach_tooltip(widget: Any, text: str) -> None:
@@ -3721,6 +3726,7 @@ async def _build_control_page(app_state: _AppState) -> None:
     widgets["config_delete_btn"].on_click(_delete_config)
     _refresh_config_status(config_state, widgets)
     await ui.context.client.connected()
+    client_id = ui.context.client.id
     layout_state: dict[str, Any] = {"mode": None}
     await _sync_control_layout(panels, layout_state)
     ui.timer(0.5, lambda: asyncio.create_task(_sync_control_layout(panels, layout_state)))
@@ -3746,9 +3752,18 @@ async def _build_control_page(app_state: _AppState) -> None:
         _apply_config_snapshot(widgets, payload)
         config_state.last_saved_snapshot = _snapshot_key(_collect_config_snapshot(widgets))
         _refresh_config_status(config_state, widgets)
-        ui.notify("已自动加载上次配置：last.yaml", type="info", position="bottom")
+        _notify_client(client_id, "已自动加载上次配置：last.yaml", "info", position="bottom")
 
-    ui.timer(0.6, lambda: asyncio.create_task(_auto_load_last()))
+    ui.timer(
+        0.6,
+        lambda: _safe_create_bench_task(
+            _auto_load_last(),
+            on_error=lambda exc: _notify_client(
+                client_id, f"自动加载 last.yaml 失败：{exc}", "negative"
+            ),
+        ),
+        once=True,
+    )
 
 
 def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) -> None:

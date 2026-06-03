@@ -1072,6 +1072,28 @@ def test_webview2_gpu_fix_preserves_existing_browser_args(
     assert args == ["--foo", "--disable-gpu"]
 
 
+def test_notify_client_supports_position(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[dict[str, Any]] = []
+
+    class FakeClient:
+        def __enter__(self) -> FakeClient:
+            return self
+
+        def __exit__(self, *args: object) -> None:
+            return None
+
+    monkeypatch.setitem(gui_dual.Client.instances, "client-1", FakeClient())
+    monkeypatch.setattr(
+        gui_dual.ui,
+        "notify",
+        lambda message, **kwargs: calls.append({"message": message, **kwargs}),
+    )
+
+    gui_dual._notify_client("client-1", "hello", "info", position="bottom")
+
+    assert calls == [{"message": "hello", "type": "info", "position": "bottom"}]
+
+
 # ── T3-4: prompts YAML serializes as a multi-line string for readability ─
 
 

@@ -1113,6 +1113,29 @@ def test_replay_started_notification_is_not_sticky(
     assert calls[0]["timeout"] == 5000
 
 
+def test_transient_notification_is_not_ongoing(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[dict[str, Any]] = []
+    monkeypatch.setattr(
+        gui_dual.ui,
+        "notify",
+        lambda message, **kwargs: calls.append({"message": message, **kwargs}),
+    )
+
+    gui_dual._notify_transient("started", position="top")
+
+    assert calls == [
+        {
+            "message": "started",
+            "type": "info",
+            "position": "top",
+            "close_button": True,
+            "timeout": 5000,
+        }
+    ]
+
+
 # ── T3-4: prompts YAML serializes as a multi-line string for readability ─
 
 

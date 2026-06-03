@@ -786,12 +786,19 @@ def _notify_client(
         ui.notify(message, **kwargs)
 
 
-def _notify_replay_started(original_latency_ms: float) -> None:
+def _notify_transient(message: str, *, position: str = "bottom", timeout: int = 5000) -> None:
     ui.notify(
-        f"🔁 重放请求已发出：原结果 {_v(original_latency_ms)} ms",
+        message,
         type="info",
+        position=position,
         close_button=True,
-        timeout=5000,
+        timeout=timeout,
+    )
+
+
+def _notify_replay_started(original_latency_ms: float) -> None:
+    _notify_transient(
+        f"🔁 重放请求已发出：原结果 {_v(original_latency_ms)} ms",
     )
 
 
@@ -3225,14 +3232,14 @@ def _build_mode_controls(
                             f"tokens: p={result.prompt_tokens or 0} c={result.completion_tokens or 0}\n"
                             f"回应预览：{preview}",
                             type="positive",
-                            timeout=8.0,
+                            timeout=8000,
                         )
                     else:
                         ui.notify(
                             f"❌ 试跑失败｜status={result.status_code}｜kind={result.error_kind.value}\n"
                             f"原因：{(result.error or '').splitlines()[0][:200]}",
                             type="negative",
-                            timeout=10.0,
+                            timeout=10000,
                         )
                 except Exception as exc:
                     ui.notify(f"试跑异常：{type(exc).__name__}: {exc}", type="negative")
@@ -3283,7 +3290,7 @@ def _build_mode_controls(
                     ),
                     on_error=lambda exc: _notify_client(client_id, f"压测失败：{exc}", "negative"),
                 )
-                ui.notify("压测已启动，请到 Monitor 窗口查看进度", type="ongoing", position="top")
+                _notify_transient("压测已启动，请到 Monitor 窗口查看进度", position="top")
 
             def _stop_run() -> None:
                 app_state.run_states["run"].stop_event.set()
@@ -3374,7 +3381,7 @@ def _build_mode_controls(
                     ),
                     on_error=lambda exc: _notify_client(client_id, f"压测失败：{exc}", "negative"),
                 )
-                ui.notify("固定 RPS 压测已启动", type="ongoing", position="top")
+                _notify_transient("固定 RPS 压测已启动", position="top")
 
             def _stop_rps() -> None:
                 app_state.run_states["rps"].stop_event.set()
@@ -3453,11 +3460,10 @@ def _build_mode_controls(
                     ),
                     on_error=lambda exc: _notify_client(client_id, f"扫描失败：{exc}", "negative"),
                 )
-                ui.notify(
+                _notify_transient(
                     "扫描已启动，每档完成会即时更新图表"
                     if not probe_mode
                     else "探测模式已启动",
-                    type="ongoing",
                     position="top",
                 )
 
@@ -3642,10 +3648,10 @@ def _build_mode_controls(
                         client_id, f"负载曲线运行失败：{exc}", "negative"
                     ),
                 )
-                ui.notify(
+                _notify_transient(
                     f"负载曲线已启动，{len(parsed)} 阶段，"
                     f"总时长 {sum(p[0] for p in parsed)}s",
-                    type="ongoing",
+                    position="top",
                 )
 
             def _stop_loadcurve() -> None:
@@ -4597,7 +4603,7 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
                     ui.notify(
                         t("sweep_exported_n_followup", n=len(flat)),
                         type="positive",
-                        timeout=10.0,
+                        timeout=10000,
                     )
 
                 export_sweep_raw_btn.on_click(_export_sweep_raw)

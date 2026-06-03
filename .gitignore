@@ -1,0 +1,52 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[oc]
+*.pyd
+*.pyo
+
+# ── Build / dist ──────────────────────────────────────────────────────────────
+build/
+dist/
+wheels/
+*.egg-info/
+.eggs/
+
+# ── uv ────────────────────────────────────────────────────────────────────────
+.venv/
+# uv.lock IS committed for reproducible builds (uv's recommended default).
+
+# ── LLM Bench secrets / runtime state ─────────────────────────────────────
+# Config directory contains user-pasted API keys. NEVER commit this —
+# the sanitize_snapshot_for_disk chokepoint in gui_dual redacts ui-pasted
+# keys to the marker "__from_ui__" before persistence, but in case that
+# ever regresses we want the directory excluded at the git level.
+.llm_bench_configs/
+# Per-user preferences (dark mode, last loaded config) — same
+# sensitivity as the config directory.
+.llm_bench_preferences.json
+
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── 测试 / 覆盖率 ──────────────────────────────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# ── 压测输出文件 ───────────────────────────────────────────────────────────────
+bench_*.json
+bench_*.csv
+
+# ── 环境变量 ───────────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example

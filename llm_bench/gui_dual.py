@@ -68,6 +68,7 @@ _WINDOW_GAP = 24
 _PREFERENCES_FILE = "preferences.json"
 _WEBVIEW2_ARGS_ENV = "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS"
 _WEBVIEW2_GPU_FIX_ENV = "LLM_BENCH_WEBVIEW2_DISABLE_GPU"
+_LIVE_TIMELINE_BUCKET_S = 1.0
 _WEBVIEW2_GPU_FIX_ARGS = ("--disable-gpu",)
 _CONTROL_MULTI_COLUMN_BREAKPOINT = 1024
 _CONTROL_GRID_CLASSES = "control-grid w-full gap-4 items-start grid-cols-1 lg:grid-cols-2"
@@ -1047,6 +1048,17 @@ def _augmented_stat_rows(stats: dict[str, Any]) -> list[dict[str, str]]:
     return rows
 
 
+def _build_live_stats_dict(
+    summary: Any,
+    *,
+    metadata: dict[str, Any],
+) -> dict[str, Any]:
+    """Build stats from an in-progress BenchSummary for live chart rendering."""
+    if summary.wall_t0 is not None:
+        summary.wall_seconds = max(0.0, time.perf_counter() - summary.wall_t0)
+    return build_stats_dict(summary, metadata=metadata)
+
+
 def _recommended_concurrency(stats_list: list[dict[str, Any]]) -> int | None:
     candidates: list[int] = []
     for stat in stats_list:
@@ -1504,7 +1516,6 @@ async def _execute_loadcurve(
     from datetime import UTC, datetime  # local import: keeps module surface small
 
     from llm_bench import __version__ as _ver
-    from llm_bench.models import build_stats_dict
     from llm_bench.runner import run_benchmark
 
     rps_state = app_state.run_states["rps"]
@@ -1547,16 +1558,46 @@ async def _execute_loadcurve(
             rps_state.stats = {}
             rps_state.raw_results = []
             rps_state.inflight_samples = []
-            rps_state.started_at_mono = None
+            rps_state.started_at_mono = time.perf_counter()
             rps_state.target_total = None
-            rps_state.target_duration_s = None
-            rps_state.chart_refresh_mode = "interval"
+            rps_state.target_duration_s = duration_s
+            rps_state.chart_refresh_mode = str(phase_settings.get("chart_refresh_mode") or "interval")
+            rps_state.chart_refresh_interval_s = _safe_float(
+                phase_settings.get("chart_refresh_interval_s"), 0.3, 0.2
+            )
+            rps_state.chart_refresh_every_n = _safe_int(
+                phase_settings.get("chart_refresh_every_n"), 5, 1
+            )
             try:
                 runtime = _build_runtime_payload(phase_settings)
             except ValueError as exc:
                 notify(f"负载曲线配置不合法：{exc}", "negative")
                 app_state.set_status("失败", "red")
                 return
+            metadata = {
+                "bench_start_utc": datetime.now(UTC).isoformat(),
+                "llm_bench_version": _ver,
+                "endpoint": runtime["endpoint"],
+                "model": phase_settings["model"],
+                "concurrency": phase_settings["concurrency"],
+                "mode": "loadcurve",
+                "target_rps": target_rps,
+                "rps_duration_s": duration_s,
+                "phase": idx,
+                "total_phases": len(profile),
+                "proxy_mode": runtime["proxy_mode"],
+            }
+
+            def update_live_stats(
+                summary: Any,
+                *,
+                phase_metadata: dict[str, Any] = metadata,
+            ) -> dict[str, Any]:
+                stats = _build_live_stats_dict(summary, metadata=phase_metadata)
+                rps_state.stats = stats
+                rps_state.inflight_samples = list(summary.in_flight_samples)
+                return stats
+
             try:
                 summary = await run_benchmark(
                     url=runtime["endpoint"],
@@ -1573,13 +1614,17 @@ async def _execute_loadcurve(
                     retry_on_network=phase_settings["retry_on_network"],
                     retry_on_5xx=phase_settings["retry_on_5xx"],
                     base_backoff_s=phase_settings["base_backoff_s"],
+                    timeline_bucket_s=_LIVE_TIMELINE_BUCKET_S,
                     prompts=runtime["prompts"],
                     prompt_strategy=runtime["prompt_strategy"],
                     prompt_weights=runtime["prompt_weights"],
                     target_rps=target_rps,
                     rps_duration_s=duration_s,
+                    raw_results=rps_state.raw_results,
                     proxy_mode=runtime["proxy_mode"],
                     proxy_url=runtime["proxy_url"],
+                    progress_callback=update_live_stats,
+                    progress_every_n=1,
                     should_stop=rps_state.stop_event.is_set,
                 )
             except asyncio.CancelledError:
@@ -1588,22 +1633,7 @@ async def _execute_loadcurve(
             except Exception as exc:
                 notify(f"阶段 {idx} 失败：{exc}", "negative")
                 continue
-            stats = build_stats_dict(
-                summary,
-                metadata={
-                    "bench_start_utc": datetime.now(UTC).isoformat(),
-                    "llm_bench_version": _ver,
-                    "endpoint": runtime["endpoint"],
-                    "model": phase_settings["model"],
-                    "concurrency": phase_settings["concurrency"],
-                    "mode": "loadcurve",
-                    "target_rps": target_rps,
-                    "rps_duration_s": duration_s,
-                    "phase": idx,
-                    "total_phases": len(profile),
-                    "proxy_mode": runtime["proxy_mode"],
-                },
-            )
+            stats = update_live_stats(summary)
             all_phase_stats.append(stats)
             app_state.add_history(stats)
             notify(
@@ -1692,6 +1722,25 @@ async def _execute_run(
             "rps_duration_s": None,
         }
 
+    metadata = {
+        "bench_start_utc": datetime.now(UTC).isoformat(),
+        "llm_bench_version": __version__,
+        "endpoint": runtime["endpoint"],
+        "model": settings["model"],
+        "concurrency": settings["concurrency"],
+        "mode": mode,
+        "target_rps": mode_payload.get("target_rps"),
+        "rps_duration_s": mode_payload.get("rps_duration_s"),
+        "proxy_mode": runtime["proxy_mode"],
+        "prompt_strategy": runtime["prompt_strategy"],
+    }
+
+    def update_live_stats(summary: Any) -> dict[str, Any]:
+        stats = _build_live_stats_dict(summary, metadata=metadata)
+        state.stats = stats
+        state.inflight_samples = list(summary.in_flight_samples)
+        return stats
+
     state.started_at_mono = time.perf_counter()
     state.target_total = mode_payload.get("total_requests")
     state.target_duration_s = mode_payload.get("rps_duration_s") or mode_payload.get("duration_s")
@@ -1710,6 +1759,7 @@ async def _execute_run(
     }
 
     def on_progress(summary: Any) -> None:
+        update_live_stats(summary)
         if summary.total % progress_stride != 0:
             return
         now_mono = time.perf_counter()
@@ -1755,6 +1805,7 @@ async def _execute_run(
             retry_on_network=settings["retry_on_network"],
             retry_on_5xx=settings["retry_on_5xx"],
             base_backoff_s=settings["base_backoff_s"],
+            timeline_bucket_s=_LIVE_TIMELINE_BUCKET_S,
             prompts=runtime["prompts"],
             prompt_strategy=runtime["prompt_strategy"],
             prompt_weights=runtime["prompt_weights"],
@@ -1767,23 +1818,7 @@ async def _execute_run(
             progress_every_n=1,
             should_stop=state.stop_event.is_set,
         )
-        stats = build_stats_dict(
-            summary,
-            metadata={
-                "bench_start_utc": datetime.now(UTC).isoformat(),
-                "llm_bench_version": __version__,
-                "endpoint": runtime["endpoint"],
-                "model": settings["model"],
-                "concurrency": settings["concurrency"],
-                "mode": mode,
-                "target_rps": mode_payload.get("target_rps"),
-                "rps_duration_s": mode_payload.get("rps_duration_s"),
-                "proxy_mode": runtime["proxy_mode"],
-                "prompt_strategy": runtime["prompt_strategy"],
-            },
-        )
-        state.stats = stats
-        state.inflight_samples = list(summary.in_flight_samples)
+        stats = update_live_stats(summary)
         prompt_tokens_total = int(stats.get("prompt_tokens_total") or 0)
         completion_tokens_total = int(stats.get("completion_tokens_total") or 0)
         state.consumed_prompt_tokens += prompt_tokens_total

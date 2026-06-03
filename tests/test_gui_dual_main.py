@@ -970,6 +970,83 @@ def test_parse_loadcurve_profile_decimal_values() -> None:
 
 
 @pytest.mark.asyncio
+async def test_execute_run_updates_live_chart_stats(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from llm_bench.models import BenchSummary, RequestResult
+
+    app_state = gui_dual._AppState()
+    captured: list[dict[str, Any]] = []
+    live_stats_seen: list[dict[str, Any]] = []
+    settings = {
+        "api_key": "sk-test",
+        "model": "demo-model",
+        "concurrency": 1,
+        "run_total": 1,
+        "run_duration": 0,
+        "timeout_s": 5,
+        "http2": False,
+        "warmup": 0,
+        "retry_on_429": 0,
+        "retry_on_network": 0,
+        "retry_on_5xx": 0,
+        "base_backoff_s": 0.1,
+        "chart_refresh_mode": "interval",
+        "chart_refresh_interval_s": 0.3,
+        "chart_refresh_every_n": 5,
+    }
+    monkeypatch.setattr(
+        gui_dual,
+        "_build_runtime_payload",
+        lambda _settings: {
+            "endpoint": "https://example.test/v1/chat/completions",
+            "body_template": {"model": "demo-model"},
+            "stream_flag": False,
+            "prompts": [],
+            "prompt_strategy": "sequential",
+            "prompt_weights": [],
+            "proxy_mode": "direct",
+            "proxy_url": None,
+        },
+    )
+
+    async def fake_run_benchmark(**kwargs: Any) -> BenchSummary:
+        captured.append(kwargs)
+        summary = BenchSummary(
+            timeline_bucket_s=kwargs["timeline_bucket_s"],
+            attempt_total=1,
+            attempt_success=1,
+        )
+        summary.wall_t0 = gui_dual.time.perf_counter()
+        result = RequestResult(
+            ok=True,
+            status_code=200,
+            latency_ms=42.0,
+            prompt_tokens=3,
+            completion_tokens=5,
+            total_tokens=8,
+        )
+        summary.add(result, now_mono=summary.wall_t0 + 0.2)
+        summary.in_flight_samples.append(1)
+        kwargs["raw_results"].append(result)
+        kwargs["progress_callback"](summary)
+        live_stats_seen.append(dict(app_state.run_states["run"].stats))
+        summary.wall_seconds = 0.2
+        return summary
+
+    monkeypatch.setattr(gui_dual, "run_benchmark", fake_run_benchmark)
+
+    await gui_dual._execute_run(app_state, settings, "run", lambda _m, _t: None)
+
+    assert captured[0]["timeline_bucket_s"] == gui_dual._LIVE_TIMELINE_BUCKET_S
+    assert captured[0]["progress_every_n"] == 1
+    assert live_stats_seen[0]["requests_total"] == 1
+    assert live_stats_seen[0]["metadata"]["mode"] == "run"
+    assert live_stats_seen[0]["timeline"]
+    assert app_state.run_states["run"].inflight_samples == [1]
+
+
+@pytest.mark.asyncio
 async def test_execute_loadcurve_passes_numeric_target_rps(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -1106,6 +1183,91 @@ async def test_execute_loadcurve_stops_between_phases(
     assert app_state.status_text == "已停止"
     assert app_state.status_color == "gray"
     assert notifications[-1][0].startswith("负载曲线已停止：已完成 1 阶段")
+
+
+@pytest.mark.asyncio
+async def test_execute_loadcurve_updates_live_chart_stats(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from llm_bench import runner
+    from llm_bench.models import BenchSummary, RequestResult
+
+    app_state = gui_dual._AppState()
+    captured: list[dict[str, Any]] = []
+    live_stats_seen: list[dict[str, Any]] = []
+
+    monkeypatch.setattr(
+        gui_dual,
+        "_loadcurve_capture_widgets",
+        lambda _app_state: {
+            "api_key": "sk-test",
+            "base_url": "https://example.test/v1",
+            "model": "demo-model",
+            "concurrency": 1,
+            "timeout_s": 5,
+            "http2": False,
+            "warmup": 0,
+            "retry_on_429": 0,
+            "retry_on_network": 0,
+            "retry_on_5xx": 0,
+            "base_backoff_s": 0.1,
+            "chart_refresh_mode": "requests",
+            "chart_refresh_interval_s": 0.3,
+            "chart_refresh_every_n": 2,
+        },
+    )
+    monkeypatch.setattr(
+        gui_dual,
+        "_build_runtime_payload",
+        lambda _settings: {
+            "endpoint": "https://example.test/v1/chat/completions",
+            "body_template": {"model": "demo-model"},
+            "stream_flag": False,
+            "prompts": [],
+            "prompt_strategy": "sequential",
+            "prompt_weights": [],
+            "proxy_mode": "direct",
+            "proxy_url": None,
+        },
+    )
+
+    async def fake_run_benchmark(**kwargs: Any) -> BenchSummary:
+        captured.append(kwargs)
+        summary = BenchSummary(
+            timeline_bucket_s=kwargs["timeline_bucket_s"],
+            attempt_total=1,
+            attempt_success=1,
+        )
+        summary.wall_t0 = gui_dual.time.perf_counter()
+        result = RequestResult(
+            ok=True,
+            status_code=200,
+            latency_ms=42.0,
+            prompt_tokens=3,
+            completion_tokens=5,
+            total_tokens=8,
+        )
+        summary.add(result, now_mono=summary.wall_t0 + 0.2)
+        summary.in_flight_samples.append(1)
+        kwargs["raw_results"].append(result)
+        kwargs["progress_callback"](summary)
+        live_stats_seen.append(dict(app_state.run_states["rps"].stats))
+        summary.wall_seconds = 0.2
+        return summary
+
+    monkeypatch.setattr(runner, "run_benchmark", fake_run_benchmark)
+
+    await gui_dual._execute_loadcurve(app_state, [(1.0, 2.5)], lambda _m, _t: None)
+
+    assert captured[0]["target_rps"] == 2.5
+    assert captured[0]["timeline_bucket_s"] == gui_dual._LIVE_TIMELINE_BUCKET_S
+    assert captured[0]["progress_every_n"] == 1
+    assert live_stats_seen[0]["requests_total"] == 1
+    assert live_stats_seen[0]["metadata"]["mode"] == "loadcurve"
+    assert live_stats_seen[0]["metadata"]["phase"] == 1
+    assert live_stats_seen[0]["timeline"]
+    assert app_state.run_states["rps"].chart_refresh_mode == "requests"
+    assert app_state.run_states["rps"].chart_refresh_every_n == 2
 
 
 # ── T2-3: augmented stat rows (final_attempt_latency visibility) ──────────

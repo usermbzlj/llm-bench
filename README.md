@@ -1,8 +1,10 @@
 # LLM Bench
 
-**大模型 Chat Completions API 压测工具（双窗口桌面 GUI）**
+**大模型 OpenAI-compatible API 压测工具（双窗口桌面 GUI）**
 
-针对 OpenAI 兼容接口的高性能异步压测工具，提供 Windows 优先的 `NiceGUI + pywebview` 桌面 GUI，支持单次压测、固定 RPS、并发扫描三种测试模式，并提供“全自定义请求体覆盖”能力，实时展示延迟分位、TTFT/TPOT/ITL 流式指标、吞吐与并发趋势等核心图表。
+LLM Bench 是一个面向 Chat Completions / Responses 兼容接口的轻量压测工具。当前主入口是 `NiceGUI + pywebview` 双窗口桌面界面：`Control` 负责配置与启动，`Monitor` 负责实时监看图表、日志、响应样本、历史记录和 A/B 对比。
+
+支持单次压测、固定 RPS、并发扫描、负载曲线四类测试，并支持标准请求体、附加 JSON、全自定义请求体、多 Prompt、代理、重试、预热、Token 预估、请求重放和 JSON/CSV 导出。
 
 ---
 
@@ -10,17 +12,17 @@
 
 | 类别 | 功能 |
 |------|------|
-| **压测模式** | 固定总请求数、固定时长、固定 RPS（令牌桶）、并发扫描（多档位） |
-| **自定义能力** | 在连接配置中开启“全自定义请求体（覆盖默认）”，可覆盖默认请求构造并对所有模式生效 |
-| **性能指标** | 延迟 p50/p75/p90/p95/p99/p99.9、TTFT、TTFB、TPOT、ITL、tok/s |
-| **实时可视化** | 延迟分位柱状图、流式指标对比图、吞吐趋势、在飞请求时序、实时请求日志栏 |
-| **并发控制** | asyncio Semaphore 精确控制在飞请求数，Queue 分发无锁竞争 |
-| **可靠性** | 429/网络/5xx 分类重试、连接池复用、预热请求、前置连通性测试 |
-| **统计口径** | 默认按逻辑请求端到端耗时统计，同时补充 HTTP attempt 级指标与最终尝试延迟 |
-| **代理支持** | 直连 / 系统代理 / 自定义代理地址（兼容 Clash 常见配置） |
-| **多 Prompt** | 多条 Prompt 轮换发送，模拟真实多样化流量 |
-| **数据导出** | JSON（完整统计）、CSV（逐请求原始数据） |
-| **历史记录** | 会话内自动追加，支持点击查看详情、批量导出 |
+| **压测模式** | 固定总请求数、固定时长、固定 RPS、并发扫描、负载曲线（多阶段 RPS） |
+| **实时监看** | 运行中实时刷新 KPI、延迟分位、流式指标、在飞请求、吞吐趋势、Token 累积和请求日志 |
+| **请求构造** | 标准 OpenAI 请求体、附加请求体 JSON、全自定义请求体、相对/完整 endpoint |
+| **多 Prompt** | 顺序循环、均匀随机、加权随机，支持 `.txt` / `.json` 导入 |
+| **Token 估算** | 本地估算 + 精确预跑估算，按当前模式推算预计请求量 |
+| **可靠性** | 429/网络/5xx 分类重试、指数退避、连接池复用、预热请求、前置连通性探测 |
+| **统计口径** | 逻辑请求端到端耗时、HTTP attempt 指标、最终尝试延迟、重试拖尾、错误分类 |
+| **代理支持** | 直连 / 系统代理 / 自定义代理，支持常见 Clash 本地代理 |
+| **诊断能力** | 主错误类型提示、响应样本表、选中请求深度重放、SSRF 防护 |
+| **数据导出** | JSON 完整统计、逐请求 CSV、并发扫描 per-level raw results CSV |
+| **会话分析** | 历史记录、分组视图、单指标排名、2-6 条结果 A/B 对比 |
 
 ---
 
@@ -28,142 +30,194 @@
 
 ### 前置要求
 
-- [uv](https://docs.astral.sh/uv/) ≥ 0.4（推荐安装方式见下）
-- Python ≥ 3.11（uv 会自动管理，无需手动安装）
+- [uv](https://docs.astral.sh/uv/) >= 0.4
+- Python >= 3.11（uv 会自动管理 Python 和虚拟环境）
+
+```powershell
+# Windows PowerShell 安装 uv
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
 
 ```bash
-# 安装 uv（Windows PowerShell）
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-
-# 安装 uv（macOS / Linux）
+# macOS / Linux 安装 uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-### 克隆并初始化环境
+### 安装依赖
 
 ```bash
 git clone <repo-url>
 cd API_Test
-
-# 一键创建虚拟环境并安装所有依赖（含开发工具）
 uv sync
 ```
 
 ### 启动桌面 GUI
 
 ```bash
-# 方式一：通过模块入口
+# 方式一：模块入口
 uv run python -m llm_bench
 
-# 方式二：通过安装的脚本
+# 方式二：项目脚本
 uv run llm-bench
 ```
 
-启动后会同时打开两个原生桌面窗口：
+启动后会打开两个窗口：
 
-- `Control`：连接配置、请求参数、模式选择、启动与停止
-- `Monitor`：实时图表、日志、扫描结果、历史记录
-
-## 开发工作流
-
-```bash
-# 添加运行时依赖
-uv add <package>
-
-# 添加开发依赖
-uv add --group dev <package>
-
-# 代码格式化 & lint
-uv run ruff check llm_bench --fix
-uv run ruff format llm_bench
-
-# 类型检查
-uv run mypy llm_bench
-
-# 运行测试
-uv run pytest
-```
+- **Control**：连接、模型、请求体、Prompt、Token 估算、模式参数、启动/停止
+- **Monitor**：实时 KPI、图表、响应样本、日志、并发扫描、历史记录、A/B 对比
 
 ---
 
-## 界面说明
+## 配置与保存
 
-### 左侧：连接 & 模型配置
+配置文件默认保存在 `~/.llm_bench/`，可通过 `LLM_BENCH_CONFIG_DIR` 改写。
 
-左侧配置面板一次填写，三个压测模式共用：
+每次保存配置时会同步写入 `last.yaml`，下次打开 Control 页面会自动加载上次配置。API Key 写盘前会被脱敏，真实密钥优先级为：
+
+```text
+界面输入 > LLM_API_KEY > OPENAI_API_KEY
+```
+
+常用配置字段：
 
 | 字段 | 说明 | 默认值 |
 |------|------|--------|
-| Base URL | API 根路径，自动拼接 `/chat/completions`；非法路径会直接拦截 | `https://api.openai.com/v1` |
-| API Key | Bearer Token，也可通过环境变量传入 | — |
-| Model | 模型名称 | `gpt-4o-mini` |
-| 并发数 | 同时在飞的最大请求数（Semaphore） | `5` |
-| 代理模式 | 直连/系统代理/自定义代理 | `直连` |
-| 代理地址 | 仅在“自定义代理”时生效 | `http://127.0.0.1:7890` |
-| 连通性测试 | 压测前验证地址可达性和网络链路 | 按钮触发 |
-| max_tokens | 单次生成最大 token 数 | `128` |
+| Base URL | API 根路径，标准模式会拼接 `/chat/completions` | `https://api.openai.com/v1` |
+| API Key | Bearer Token，可为空后由环境变量补齐 | - |
+| Model | 模型标识符 | `gpt-4o-mini` |
+| 并发数 | 同时在飞的最大请求数 | `5` |
+| 代理模式 | 直连 / 系统代理 / 自定义代理 | 直连 |
+| max_tokens | 单次最大输出 token | `128` |
 | temperature | 采样温度 | `0.2` |
-| 超时 s | 单次请求超时秒数 | `120` |
-| 预热请求数 | 正式计时前发送的预热请求（不计入统计） | `0` |
-| 429 重试次数 | 遇到限速时的额外重试次数 | `3` |
-| 网络错误重试 | 网络抖动、连接超时、代理错误时的重试次数 | `1` |
-| 5xx 重试次数 | 服务端临时错误的重试次数 | `1` |
-| 退避基数 s | 指数退避的基础等待时间 | `1.0` |
-| 流式 (stream) | 开启 SSE 流式输出，采集 TTFT/ITL；启用全自定义请求体后隐藏 | 关 |
-| HTTP/2 | 启用 HTTP/2（需服务端支持） | 关 |
-| 多 Prompt | 每行一条，轮换发送；启用全自定义请求体后隐藏 | — |
-| 全自定义请求体 | 自己提供完整 JSON 请求体，并覆盖默认模型/采样参数/Prompt | 关 |
-
-> **API Key 优先级**：界面输入 > 环境变量 `LLM_API_KEY` > 环境变量 `OPENAI_API_KEY`
-
-> **配置目录位置**：GUI 加载/保存的 YAML 配置默认在 `~/.llm_bench/`（跨 cwd 稳定），可通过 `LLM_BENCH_CONFIG_DIR` 环境变量改写。
+| 超时 s | 单次请求超时 | `120` |
+| 预热请求数 | 正式计时前请求数，不计入统计 | `0` |
+| 429 / 网络 / 5xx 重试 | 分类重试次数 | `3 / 1 / 1` |
+| 退避基数 s | 指数退避基础等待 | `1.0` |
+| HTTP/2 | 是否启用 HTTP/2 | 关 |
+| 图表刷新模式 | 按时间刷新或按完成请求数刷新 | 按时间 |
 
 ---
+
+## 请求体与 Prompt
+
+### 标准模式
+
+标准模式会按 Base URL、Model、max_tokens、temperature、stream 和 Prompt 自动构造请求体。
+
+可填写“附加请求体 JSON”，它会递归合并到基础请求体中，适合添加服务商特定字段，例如：
+
+```json
+{"thinking": {"type": "enabled"}}
+```
+
+### 全自定义模式
+
+全自定义模式会直接发送用户提供的 JSON 请求体，并可单独设置请求路径或完整 URL。若配置了多 Prompt，工具会替换第一个 `role=user` 消息，便于用同一 body 模板做多样化压测。
+
+### 多 Prompt
+
+支持三种策略：
+
+- `sequential`：按顺序循环
+- `random`：均匀随机
+- `weighted`：按每条 Prompt 的权重采样
+
+Prompt 可手动新增，也可导入 `.txt` 或 `.json`。
+
+---
+
+## 压测模式
 
 ### 单次压测
 
-两种模式二选一：
+单次压测支持两种结束条件：
 
-- **固定总数**：发送指定数量的请求后结束
-- **固定时长**：持续发送指定秒数后结束（时长 > 0 时生效）
+- **固定总数**：发送指定数量的逻辑请求后结束
+- **固定时长**：持续发送指定秒数，到时停止发新请求
 
-压测进行中实时更新 5 个 KPI 卡片；完成后展示概览表、核心图表和详细日志。
-
-日志页会分为“实时日志”和“运行日志 / 统计 JSON”两块，便于定位异常。
-
----
+Monitor 的“单次压测”页会在运行中实时刷新 KPI、延迟图、流式指标、在飞请求、吞吐趋势、Token 累积、日志和响应样本。
 
 ### 固定 RPS
 
-按目标速率（每秒请求数）持续发送请求，`--concurrency` 作为在飞上限。
+固定 RPS 按目标速率持续发送请求，`concurrency` 是最大在飞上限。
 
-当服务处理能力跟不上目标 RPS 时，调度器会在时间窗口内跳过超额调度，而不是无限补发拖尾请求。
+当服务处理能力跟不上目标 RPS 时，调度器会跳过超出窗口的调度，不会在测试末尾无限补发拖尾请求。`rps_schedule_skipped` 可用于判断是否已经超过当前并发/服务能力。
 
 适合测试：
-- 服务在特定 QPS 下的延迟稳定性
-- 区分"并发瓶颈"与"速率瓶颈"
-- 模拟真实生产流量形态
 
----
+- 指定 QPS 下的延迟稳定性
+- 速率瓶颈和并发瓶颈的区别
+- 接近生产流量形态的稳定压测
+
+### 负载曲线
+
+负载曲线是多阶段固定 RPS，格式为每行一个阶段：
+
+```text
+30:5
+30:20
+30:50
+```
+
+含义是 30 秒 5 req/s、30 秒 20 req/s、30 秒 50 req/s。支持 `#` 注释行。
+
+Control 页会实时预览阶梯图；运行时复用 Monitor 的“固定 RPS”页，阶段内也会实时刷新图表和响应样本。每个阶段完成后会把该阶段统计写入历史记录。
 
 ### 并发扫描
 
-输入多个并发级别（如 `1,2,4,8,16`），依次压测每个档位并共享 HTTP 连接池。
+并发扫描输入多个并发档位，例如：
 
-完成后展示：
-- **对比表格**：各档位成功率、延迟分位、TTFT/TPOT/ITL、吞吐、tok/s
-- **延迟折线图**：p50/p95/p99 随并发变化趋势
-- **吞吐柱状图**：req/s 随并发变化
+```text
+1,2,4,8,16,32
+```
+
+工具会按档位依次压测，并共享 HTTP 连接池。Monitor 的“并发扫描”页展示：
+
+- 各档位成功率、p50/p95/p99、req/s、tok/s
+- 延迟折线图
+- 吞吐柱状图
+- Token 吞吐图
+- 推荐并发
+- per-level raw results CSV 导出
 
 ---
 
-### 历史记录
+## 实时图表
 
-每次压测完成后自动追加，保存在当前 GUI 会话内。
+普通压测、固定 RPS、负载曲线都会在请求完成时通过进度回调更新监控状态，不必等待整轮测试结束。
 
-- 点击任意行展开完整指标
-- 支持导出全部历史为 JSON
-- 支持一键清空
+当前实时图表包括：
+
+- 延迟分位柱状图：p50/p75/p90/p95/p99/p99.9
+- 流式指标图：TTFT、TPOT、ITL
+- 在飞请求时序：100ms 采样
+- 时序吞吐：按 1 秒 bucket 聚合 req/s 和 completion tok/s
+- Token 累积时序：prompt / completion token 累计值
+
+图表刷新可以在 Monitor 页切换：
+
+- **按时间刷新**：0.3s / 1s / 3s / 5s
+- **按请求数刷新**：每 N 个完成请求刷新一次
+
+---
+
+## 响应样本与重放
+
+Monitor 的“响应”页会展示逐请求结果：
+
+- HTTP 状态
+- 成功/失败
+- latency
+- completion token
+- 响应预览
+- 原始响应/错误详情
+
+选中一条请求后可以“重放选中”。重放会使用当时保存的原始请求 body，再结合当前 Control 配置中的 endpoint、API Key、代理和超时重新发送。为降低误操作风险，重放路径包含：
+
+- 原始 body JSON 校验
+- 私有/回环地址 SSRF 防护
+- 非 chat/completions / completions / responses endpoint 的二次确认
+- 非粘滞通知，避免重放提示长时间残留
 
 ---
 
@@ -174,22 +228,37 @@ uv run pytest
 | **TTFT** | Time To First Token，首 token 到达时间（流式模式） |
 | **TTFB** | Time To First Byte，首字节时间（非流式模式） |
 | **TPOT** | Time Per Output Token，`(latency - TTFT) / completion_tokens` |
-| **ITL** | Inter-Token Latency，相邻 token 之间的时间间隔（流式模式） |
-| **tok/s** | 单请求维度的生成速率，展示 p50/p95 分布 |
-| **在飞请求** | 已进入 Semaphore 且尚未返回的请求数，100ms 采样一次 |
+| **ITL** | Inter-Token Latency，相邻 token 间隔（流式模式） |
+| **tok/s** | completion token 吞吐 |
+| **在飞请求** | 已进入请求执行且尚未返回的请求数 |
 | **goodput** | 成功请求数 / 总请求数 |
-| **CV** | 延迟变异系数（std/mean），衡量延迟稳定性 |
-| **p99−p50** | 尾延迟展宽，衡量长尾效应 |
+| **CV** | 延迟变异系数（std / mean） |
+| **p99-p50** | 尾延迟展宽 |
+| **HTTP attempt** | 含重试在内的实际 HTTP 尝试次数 |
+| **final_attempt_latency** | 最后一次 HTTP 尝试耗时，不含前序失败与退避等待 |
+| **rps_schedule_skipped** | 固定 RPS 模式因在飞上限而跳过的调度数 |
 
 ---
 
 ## 数据导出
 
-### JSON（完整统计）
+### JSON
 
-包含所有分位数、token 统计、错误分布、metadata（时间戳、模型、端点、版本）。
+JSON 导出包含完整统计、timeline、错误分布和 metadata。
 
-> **重要键名**：`requests_per_sec` 是逻辑请求 RPS；`http_attempts_per_sec` 是 HTTP attempt RPS（含重试）；`goodput_fraction` = `success / total`；百分位键统一 `p50 / p75 / p90 / p95 / p99 / p99_9`。
+常用键：
+
+- `requests_total` / `requests_success` / `requests_failed`
+- `throughput_rps`
+- `requests_per_sec`
+- `http_attempts_per_sec`
+- `latency_ms_p50` / `latency_ms_p95` / `latency_ms_p99` / `latency_ms_p99_9`
+- `ttft_ms_*` / `ttfb_ms_*` / `tpot_ms_*` / `itl_ms_*`
+- `prompt_tokens_total` / `completion_tokens_total`
+- `timeline`
+- `metadata`
+
+示例：
 
 ```json
 {
@@ -200,54 +269,107 @@ uv run pytest
   "latency_ms_p99": 1205.7,
   "ttft_ms_p50": 89.3,
   "tpot_ms_p50": 22.1,
-  "itl_ms_p50": 24.8,
+  "timeline": [
+    {
+      "t_start_s": 0.0,
+      "t_end_s": 1.0,
+      "requests": 5,
+      "rps_success": 4.0
+    }
+  ],
   "metadata": {
-    "bench_start_utc": "2026-04-12T10:30:00+00:00",
     "model": "gpt-4o-mini",
+    "mode": "rps",
     "endpoint": "https://api.openai.com/v1/chat/completions",
     "llm_bench_version": "0.3.0"
   }
 }
 ```
 
-### CSV（逐请求原始数据）
+### CSV
 
-每行一次逻辑请求，字段包括：
+逐请求 CSV 字段包括：
 
-`ok, status_code, latency_ms, final_attempt_latency_ms, ttft_ms, ttfb_ms, tpot_ms, tokens_per_sec, attempt_count, retry_sleep_ms, prompt_tokens, completion_tokens, total_tokens, output_chars, stream_chunks, itl_count, itl_mean_ms, response_text, error_kind, error`
+```text
+ok, status_code, latency_ms, final_attempt_latency_ms, ttft_ms, ttfb_ms,
+tpot_ms, tokens_per_sec, attempt_count, retry_sleep_ms, prompt_tokens,
+completion_tokens, total_tokens, output_chars, stream_chunks, itl_count,
+itl_mean_ms, response_text, error_kind, error
+```
 
-> `response_text` 是 500 字符截断的模型输出，便于在 Excel 里快速定位样本。
+并发扫描还支持导出每个档位的 per-level raw results。
+
+---
+
+## 开发工作流
+
+```bash
+# 安装/同步依赖
+uv sync
+
+# 添加运行时依赖
+uv add <package>
+
+# 添加开发依赖
+uv add --group dev <package>
+
+# lint
+uv run ruff check llm_bench tests
+
+# 自动修复 lint
+uv run ruff check llm_bench tests --fix
+
+# 格式化
+uv run ruff format llm_bench tests
+
+# 类型检查
+uv run mypy llm_bench
+
+# 运行测试
+uv run pytest -q
+```
 
 ---
 
 ## 项目结构
 
-```
+```text
 llm_bench/
 ├── __init__.py      # 版本号
-├── __main__.py      # 入口：默认启动双窗口桌面 GUI
-├── gui_dual.py      # 双窗口桌面 GUI（Control + Monitor）
-├── gui_ng.py        # 旧的单窗口 NiceGUI 实现（保留参考）
-├── runner.py        # 异步压测引擎（run_benchmark）
-├── models.py        # 数据模型（RequestResult / BenchSummary / build_stats_dict）
-└── config.py        # pydantic 配置模型 + 环境变量读取
+├── __main__.py      # 入口：启动双窗口桌面 GUI
+├── gui_dual.py      # 当前主 GUI（Control + Monitor）
+├── gui_ng.py        # 旧单窗口实现，保留复用工具和参考
+├── runner.py        # 异步压测引擎
+├── models.py        # RequestResult / BenchSummary / build_stats_dict
+├── tokens.py        # 本地和精确预跑 Token 估算
+└── config.py        # 配置目录、环境变量、pydantic 配置
 ```
 
 ### 核心模块
 
-**`runner.py`** — 压测引擎
+**`runner.py`**
 
-- `run_benchmark()` 支持三种模式：total / duration / rps
-- asyncio Semaphore 精确控制并发，`do_one` 在 sem 内 mark_started/finished，in_flight 语义准确
-- `_one_with_retry()` 实现 429 指数退避重试，并按逻辑请求输出端到端耗时
-- `_sse_process_line()` 解析 SSE 流，采集 TTFT / ITL
-- `inflight_sampler` 协程每 100ms 采样在飞请求数
+- `run_benchmark()` 支持 total / duration / fixed RPS
+- `progress_callback` 在请求完成时回传 `BenchSummary`，GUI 用它实时渲染图表
+- `timeline_bucket_s` 支持按时间 bucket 聚合吞吐和 token
+- `raw_results` 保存逐请求结果，用于响应表、CSV 和重放
+- `_one_with_retry()` 实现分类重试和端到端逻辑请求统计
+- SSE 解析采集 TTFT、ITL、TPOT
 
-**`models.py`** — 统计模型
+**`models.py`**
 
-- `RequestResult`：单次请求结果，含 `itl_ms[]`、`tpot_ms`、`tokens_per_sec`、`ttfb_ms`
-- `BenchSummary`：聚合统计，含 `tpot_ms[]`、`tokens_per_sec_per_req[]`、`itl_ms_all[]`、`in_flight_samples[]`
-- `build_stats_dict()`：输出完整统计字典，含所有分位数和 metadata
+- `RequestResult`：单次逻辑请求结果
+- `TimelineBucket`：时序分桶统计
+- `BenchSummary`：聚合统计、错误分布、token、in-flight 样本
+- `build_stats_dict()`：转换为可导出的统计字典
+
+**`gui_dual.py`**
+
+- Control / Monitor 双窗口
+- 配置加载保存和 `last.yaml` 自动恢复
+- 四类压测模式 UI
+- 实时图表、响应样本、重放、历史记录和 A/B 对比
+- WebView2 黑屏规避：默认注入 `--disable-gpu`，可用 `LLM_BENCH_WEBVIEW2_DISABLE_GPU=0` 关闭
 
 ---
 
@@ -255,35 +377,57 @@ llm_bench/
 
 | 包 | 用途 |
 |----|------|
-| `httpx[http2]` | 异步 HTTP 客户端，支持 HTTP/2 和 SSE 流式 |
-| `nicegui` | Web 技术栈驱动的桌面 GUI 与交互组件 |
-| `pywebview` | 原生桌面窗口壳体 |
-| `matplotlib` | 嵌入式图表绘制 |
-| `pydantic` | 数据模型与校验 |
+| `httpx[http2]` | 异步 HTTP、HTTP/2、SSE |
+| `nicegui` | GUI 页面和组件 |
+| `pywebview` | Windows 桌面窗口壳体 |
+| `pydantic` | 配置模型 |
 | `pydantic-settings` | 环境变量读取 |
-| `pyyaml` | YAML 配置文件加载 |
-| `rich` | （保留，未来 CLI 扩展用） |
-| `typer` | （保留，未来 CLI 扩展用） |
+| `pyyaml` | YAML 配置 |
+| `tiktoken` | 本地 Token 估算 |
+
+开发依赖见 `pyproject.toml` 的 `dependency-groups.dev`。
 
 ---
 
 ## 常见问题
 
-**Q: 如何测试本地部署的模型（如 vLLM / Ollama）？**
+**Q: 打开桌面窗口是纯黑的？**
 
-将 Base URL 改为本地地址，例如 `http://localhost:8000/v1`（vLLM）或 `http://localhost:11434/v1`（Ollama），API Key 填任意非空字符串。
+Windows WebView2 在部分显卡/驱动组合下会出现黑屏。当前版本默认给 WebView2 注入 `--disable-gpu` 规避。如果你确认本机不需要该规避，可设置：
+
+```powershell
+$env:LLM_BENCH_WEBVIEW2_DISABLE_GPU="0"
+uv run llm-bench
+```
+
+**Q: 如何测试本地模型（vLLM / Ollama）？**
+
+Base URL 填本地 OpenAI-compatible 地址，例如：
+
+- vLLM: `http://localhost:8000/v1`
+- Ollama: `http://localhost:11434/v1`
+
+API Key 填任意非空字符串即可，除非你的服务端强制校验。
 
 **Q: 流式模式下 TPOT/ITL 为空？**
 
-需要服务端在 SSE 流中返回包含 `content` 的 delta，且每个 token 单独一个 chunk。部分服务会批量发送，导致 ITL 采样点少。
+需要服务端按 SSE 返回包含 `content` 的 delta。部分服务会批量发送多个 token 或不返回 token 级 chunk，ITL 采样会变少或为空。
 
-**Q: 并发扫描时每档结果差异很大？**
+**Q: 为什么固定 RPS 达不到目标？**
 
-可适当增加「每档请求数」（建议 ≥ 100）以减少统计噪声，或开启「预热请求数」消除冷启动影响。
+固定 RPS 受 `concurrency` 和服务响应时间共同限制。如果在飞请求达到上限，调度器会跳过超额调度。查看 `rps_schedule_skipped`，必要时提高并发或降低目标 RPS。
 
-**Q: 429 重试后延迟数据是否包含等待时间？**
+**Q: 并发扫描结果波动很大？**
 
-包含。默认 `latency_ms` 统计逻辑请求的端到端耗时，覆盖失败尝试、退避等待和最终成功请求；若需看最后一次实际请求耗时，可查看 `final_attempt_latency_ms`。
+增加“每档请求数”（建议 >= 100）并设置预热请求。跨模型或跨服务对比时，建议保持 Prompt、stream、max_tokens、重试配置一致。
+
+**Q: 429 重试后的延迟是否包含等待时间？**
+
+包含。`latency_ms` 是逻辑请求端到端耗时，包含失败尝试、退避等待和最终尝试。若要看最后一次实际 HTTP 请求耗时，请看 `final_attempt_latency_ms`。
+
+**Q: 报 `JSON decode: Expecting value` 怎么看？**
+
+通常是服务端返回了空响应、HTML、代理错误页或非 JSON 内容。先看响应样本和错误分类，再检查 Base URL、endpoint、API Key、代理和服务端协议是否兼容。
 
 ---
 

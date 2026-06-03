@@ -3058,10 +3058,12 @@ def _build_mode_controls(
                 # T-diff: badge that lights up when the user has unsaved
                 # changes. Click opens a detail dialog with the per-field
                 # diff. Hidden by default; updated by _refresh_config_status.
+                # Note: ui.badge() has no on_click; use a small button styled
+                # to look like a badge so the click-to-show-diff handler works.
                 widgets["config_diff_badge"] = (
-                    ui.badge("", color="amber")
-                    .classes("text-xs cursor-pointer")
-                    .props("outline")
+                    ui.button("", icon="difference")
+                    .props("flat dense color=amber outline")
+                    .classes("text-xs px-2 py-0 min-w-0")
                 )
                 _attach_tooltip(widgets["config_diff_badge"], _TOOLTIPS["config_diff_badge"])
                 widgets["config_diff_badge"].set_visibility(False)

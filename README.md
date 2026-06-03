@@ -66,6 +66,54 @@ uv run llm-bench
 - **Control**：连接、模型、请求体、Prompt、Token 估算、模式参数、启动/停止
 - **Monitor**：实时 KPI、图表、响应样本、日志、并发扫描、历史记录、A/B 对比
 
+### 命令行（headless / CI）
+
+无需打开桌面窗口，可直接在终端 / CI / 无显示器服务器上压测，复用与 GUI 相同的引擎和 YAML 配置：
+
+```bash
+# 用 YAML 配置跑，把完整统计写入 JSON
+uv run llm-bench bench --config bench.yaml --json result.json
+
+# 直接用命令行参数（本地 vLLM，100 请求，并发 8）
+uv run llm-bench bench --base-url http://localhost:8000/v1 --model qwen --total 100 -c 8
+
+# 固定 RPS 压测 60 秒，逐请求结果导出 CSV
+uv run llm-bench bench --config bench.yaml --rps 10 --rps-duration 60 --csv rows.csv
+```
+
+不带子命令（或 `llm-bench gui`）时仍然启动桌面 GUI，与之前行为一致。
+
+最小 YAML 配置示例（字段同 `config.py` 的 `BenchConfig`）：
+
+```yaml
+base_url: http://localhost:8000/v1
+model: qwen2.5-7b
+concurrency: 8
+max_tokens: 256
+stream: true
+prompts:
+  - 用一句话解释量子纠缠
+  - 写一首关于秋天的五言绝句
+```
+
+常用参数：
+
+| 参数 | 说明 |
+|------|------|
+| `--config` | YAML 配置路径（缺省用内置默认值） |
+| `--base-url` / `--url` | API 根路径 / 完整 endpoint（`--url` 优先） |
+| `--model` / `--api-key` | 模型标识 / 密钥（缺省读 `LLM_API_KEY` / `OPENAI_API_KEY`） |
+| `-c, --concurrency` | 并发数 |
+| `--total` / `--duration` | 按总请求数 / 按时长（二选一，默认 total=20） |
+| `--rps` / `--rps-duration` | 固定 RPS 目标 / 持续秒数 |
+| `--stream` / `--no-stream` | 是否 SSE 流式（测 TTFT/ITL/TPOT 需开启） |
+| `--prompts-file` | 每行一条 prompt 的文件 |
+| `--json` / `--csv` | 写完整统计 JSON / 逐请求 CSV |
+| `--fail-on-error` | 存在失败请求时以非 0 退出（CI 友好） |
+| `-q, --quiet` | 不打印实时进度 |
+
+完整参数见 `uv run llm-bench bench --help`。结束会打印核心指标摘要，`--json` 内容与 GUI 导出一致。
+
 ---
 
 ## 配置与保存
@@ -336,7 +384,8 @@ uv run pytest -q
 ```text
 llm_bench/
 ├── __init__.py      # 版本号
-├── __main__.py      # 入口：启动双窗口桌面 GUI
+├── __main__.py      # 入口：路由到 CLI（无子命令→GUI，bench→headless）
+├── cli.py           # 命令行 / headless 压测入口（复用引擎，不依赖 GUI）
 ├── gui_dual.py      # 当前主 GUI（Control + Monitor）
 ├── gui_ng.py        # 旧单窗口实现，保留复用工具和参考
 ├── runner.py        # 异步压测引擎

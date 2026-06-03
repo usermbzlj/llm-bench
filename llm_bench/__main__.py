@@ -1,7 +1,9 @@
 def main() -> None:
-    from llm_bench.gui_dual import launch
+    # Route through the CLI: no subcommand (or `gui`) launches the desktop GUI;
+    # `bench` runs a headless benchmark. Keeps `llm-bench` (GUI) backward compatible.
+    from llm_bench.cli import main as cli_main
 
-    launch()
+    cli_main()
 
 
 if __name__ == "__main__":

@@ -990,7 +990,17 @@ def _dominant_entry(histogram: dict[Any, Any] | None) -> str | None:
     return str(key)
 
 
-def _run_completion_feedback(stats: dict[str, Any]) -> tuple[str, str, str, str, str]:
+def _run_completion_feedback(
+    stats: dict[str, Any], *, stopped: bool = False
+) -> tuple[str, str, str, str, str]:
+    """Map a finished run's stats to (badge, status, color, notify, level).
+
+    ``stopped`` distinguishes a user-initiated Stop from a natural finish.
+    The engine returns normally on stop (it does NOT raise CancelledError in
+    total/duration/rps modes), so callers must pass the stop_event state here
+    or the user would see "压测完成" right after clicking Stop. ``total == 0``
+    is also surfaced as "无结果" instead of a misleading "完成".
+    """
     total = _safe_int(stats.get("requests_total"), 0, 0)
     success = _safe_int(stats.get("requests_success"), 0, 0)
     failed = _safe_int(stats.get("requests_failed"), 0, 0)
@@ -1002,7 +1012,26 @@ def _run_completion_feedback(stats: dict[str, Any]) -> tuple[str, str, str, str,
     if error_kind:
         detail_parts.append(error_kind)
     detail = " / ".join(detail_parts) if detail_parts else "请检查结果面板"
-    if total == 0 or failed == 0:
+    if stopped:
+        if total == 0:
+            return "⏹ 已停止", "已停止", "grey", "已停止：尚未产生已完成请求", "warning"
+        tail = f"，其中 {failed} 个失败（{detail}）" if failed else ""
+        return (
+            "⏹ 已停止",
+            "已停止",
+            "grey",
+            f"已停止：已完成 {total} 个请求{tail}",
+            "warning",
+        )
+    if total == 0:
+        return (
+            "⚠️ 无结果",
+            "无结果",
+            "orange",
+            "压测结束，但没有产生任何已完成请求（请检查连通性 / 配置）",
+            "warning",
+        )
+    if failed == 0:
         return "✅ 完成", "已完成", "green", "压测完成", "positive"
     if success == 0:
         return "❌ 全部失败", "失败", "red", f"压测失败：{detail}", "negative"
@@ -1206,16 +1235,11 @@ def _build_header(title: str, app_state: _AppState) -> None:
     ):
         ui.label(title).classes("text-xl font-bold tracking-wide")
         with ui.row().classes("items-center gap-3"):
-            # i18n: language picker (zh-CN / en). State lives in the
-            # mutable _CURRENT_LANG cell; switch doesn't trigger a full
-            # re-render — users re-open windows or restart to see all
-            # strings translated. The set of translated strings is
-            # intentionally small (see _I18N_*).
-            ui.select(
-                options={"zh": "中文", "en": "English"},
-                value=_CURRENT_LANG[0],
-                on_change=lambda e: _CURRENT_LANG.__setitem__(0, e.value or "zh"),
-            ).props("dense color=white").classes("text-xs w-24")
+            # The language picker was removed: switching only flipped a flag
+            # without re-rendering, and most strings were never wired to t(),
+            # so "English" was misleading. The UI is now Chinese-only. The
+            # t() shim and _I18N_* dicts stay (zh active) so existing t() call
+            # sites keep working and a future i18n pass can re-add a picker.
             status_badge = ui.badge(
                 app_state.status_text, color=app_state.status_color
             ).classes("text-sm px-3 py-1")
@@ -1647,7 +1671,7 @@ async def _execute_loadcurve(
         wall_s = time.perf_counter() - wall_start
         if stopped:
             notify(f"负载曲线已停止：已完成 {len(all_phase_stats)} 阶段 / {wall_s:.0f}s", "warning")
-            app_state.set_status("已停止", "gray")
+            app_state.set_status("已停止", "grey")
         else:
             notify(f"负载曲线完成：{len(all_phase_stats)} 阶段 / {wall_s:.0f}s", "positive")
             app_state.set_status("完成", "green")
@@ -1830,14 +1854,18 @@ async def _execute_run(
             f"p95={_v(stats.get('latency_ms_p95'))} "
             f"tokens(prompt/completion)={prompt_tokens_total}/{completion_tokens_total}"
         )
+        # The engine returns normally on Stop (no CancelledError in run/rps/
+        # duration modes), so detect a user stop here rather than relying on
+        # the except branch below — otherwise Stop would show "压测完成".
+        stopped = state.stop_event.is_set()
         state.status, app_text, app_color, notify_text, notify_level = _run_completion_feedback(
-            stats
+            stats, stopped=stopped
         )
         app_state.set_status(app_text, app_color)
         notify(notify_text, notify_level)
     except asyncio.CancelledError:
         state.status = "已停止"
-        app_state.set_status("已停止", "gray")
+        app_state.set_status("已停止", "grey")
         notify("任务已停止", "warning")
         return
     except Exception as exc:
@@ -1997,11 +2025,22 @@ async def _execute_sweep(
                     f"tok/s={_v(stat.get('throughput_completion_tok_s'))} "
                     f"tokens(prompt/completion)={prompt_tokens_total}/{completion_tokens_total}"
                 )
-        _, app_text, app_color, notify_text, notify_level = _sweep_completion_feedback(
-            sweep_state.all_stats
-        )
-        if probe_mode and notify_level == "positive":
-            notify_text = f"探测完成：{notify_text}"
+        if sweep_state.stop_event.is_set():
+            # User stopped mid-sweep: the engine still returns normally, so
+            # surface "已停止" instead of a misleading sweep-complete summary.
+            done_n = len(sweep_state.all_stats)
+            app_text, app_color, notify_text, notify_level = (
+                "已停止",
+                "grey",
+                f"扫描已停止：已完成 {done_n} 个并发档位",
+                "warning",
+            )
+        else:
+            _, app_text, app_color, notify_text, notify_level = _sweep_completion_feedback(
+                sweep_state.all_stats
+            )
+            if probe_mode and notify_level == "positive":
+                notify_text = f"探测完成：{notify_text}"
         sweep_state.log_lines.append(f"[{datetime.now():%H:%M:%S}] {notify_text}")
         # L8 fix: write status BEFORE clearing busy, so a 0.2s timer that reads
         # busy=False never sees the old "扫描中" string.
@@ -2009,7 +2048,7 @@ async def _execute_sweep(
         sweep_state.busy = False
         notify(notify_text, notify_level)
     except asyncio.CancelledError:
-        app_state.set_status("已停止", "gray")
+        app_state.set_status("已停止", "grey")
         notify("扫描已停止", "warning")
         return
     except Exception as exc:
@@ -3352,8 +3391,13 @@ def _build_mode_controls(
                 _notify_transient("压测已启动，请到 Monitor 窗口查看进度", position="top")
 
             def _stop_run() -> None:
-                app_state.run_states["run"].stop_event.set()
+                state = app_state.run_states["run"]
+                state.stop_event.set()
+                state.status = "停止中..."
                 app_state.set_status("停止中...", "orange")
+                _notify_transient(
+                    "正在停止：等待在飞请求结束（最长约一个超时周期）", position="top"
+                )
 
             start_btn.on_click(_start_run)
             dryrun_btn.on_click(_dryrun_run)
@@ -3443,8 +3487,13 @@ def _build_mode_controls(
                 _notify_transient("固定 RPS 压测已启动", position="top")
 
             def _stop_rps() -> None:
-                app_state.run_states["rps"].stop_event.set()
+                state = app_state.run_states["rps"]
+                state.stop_event.set()
+                state.status = "停止中..."
                 app_state.set_status("停止中...", "orange")
+                _notify_transient(
+                    "正在停止：等待在飞请求结束（最长约一个超时周期）", position="top"
+                )
 
             start_btn.on_click(_start_rps)
             stop_btn.on_click(_stop_rps)
@@ -3529,6 +3578,7 @@ def _build_mode_controls(
             def _stop_sweep() -> None:
                 app_state.sweep_state.stop_event.set()
                 app_state.set_status("停止中...", "orange")
+                _notify_transient("正在停止：当前并发档位会先跑完", position="top")
 
             async def _start_sweep_scan() -> None:
                 await _start_sweep(probe_mode=False)
@@ -3843,13 +3893,20 @@ async def _build_control_page(app_state: _AppState) -> None:
 def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) -> None:
     ui.label("监看结果会实时从控制窗口同步。").classes("text-xs text-slate-500 mb-2")
     status_label = ui.label(state.status).classes("text-sm text-slate-500 mb-2")
-    progress_summary = ui.label("等待任务启动。").classes("text-sm text-slate-600")
+    progress_summary = ui.label("等待任务启动 — 请在 Control 窗口配置后点击开始。").classes(
+        "text-sm text-slate-600"
+    )
     progress_meta = ui.label("已完成 0｜成功 0｜失败 0｜在飞 0｜ETA -").classes(
         "text-xs text-slate-500 mb-2"
     )
     progress_bar = (
-        ui.linear_progress(value=0).props("rounded stripe color=dark").classes("w-full mb-4")
+        ui.linear_progress(value=0).props("rounded stripe color=dark").classes("w-full mb-2")
     )
+    # Sample-size guidance: percentiles need enough samples to be trustworthy.
+    # Hidden until a run produces stats; appears when the total is small so the
+    # user doesn't over-read a noisy p99 (mirrors the run_total tooltip).
+    sample_hint = ui.label("").classes("text-xs text-slate-500 mb-3")
+    sample_hint.set_visibility(False)
 
     with ui.row().classes("w-full items-center gap-3 mb-3 flex-wrap"):
         refresh_mode = ui.select(
@@ -4442,7 +4499,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
             eta = max(0.0, duration_s - current_elapsed) if progress_value < 1 else 0.0
             progress_summary.set_text(f"按时长推进：{_v(current_elapsed)}s / {_v(duration_s)}s")
         else:
-            progress_summary.set_text("等待任务启动。")
+            progress_summary.set_text("等待任务启动 — 请在 Control 窗口配置后点击开始。")
         progress_meta.set_text(
             f"已完成 {finished}｜成功 {success}｜失败 {failed}｜在飞 {inflight}｜ETA {_format_eta(eta)}"
         )
@@ -4467,6 +4524,28 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
         token_kpi_labels["prompt"].set_text(str(app_state.consumed_prompt_tokens))
         token_kpi_labels["completion"].set_text(str(app_state.consumed_completion_tokens))
         token_kpi_labels["total"].set_text(str(app_state.consumed_total_tokens))
+
+        # Sample-size trustworthiness hint (see sample_hint declaration above).
+        total_for_hint = _safe_int(stats.get("requests_total"), 0, 0) if stats else 0
+        if total_for_hint <= 0:
+            sample_hint.set_visibility(False)
+        elif total_for_hint < 30:
+            sample_hint.set_text(
+                f"⚠️ 样本仅 {total_for_hint} 条：p50 仅供参考、p95/p99 不可靠（看 p99 建议 ≥500）"
+            )
+            sample_hint.set_visibility(True)
+        elif total_for_hint < 100:
+            sample_hint.set_text(
+                f"样本 {total_for_hint} 条：p50 基本稳定，p99 噪声仍较大（建议 ≥500）"
+            )
+            sample_hint.set_visibility(True)
+        elif total_for_hint < 500:
+            sample_hint.set_text(
+                f"样本 {total_for_hint} 条：p99 建议 ≥500、p99.9 建议 ≥5000 才稳"
+            )
+            sample_hint.set_visibility(True)
+        else:
+            sample_hint.set_visibility(False)
 
         stat_table.rows[:] = _augmented_stat_rows(stats) if stats else []
         stat_table.update()
@@ -4493,7 +4572,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                     replace="w-full text-sm rounded px-3 py-2 mb-3 bg-emerald-50 text-emerald-900"
                 )
         else:
-            error_banner.set_text("等待压测完成。")
+            error_banner.set_text("尚未开始：运行后这里会显示错误诊断。")
             error_banner.classes(
                 replace="w-full text-sm rounded px-3 py-2 mb-3 bg-slate-50 text-slate-500"
             )

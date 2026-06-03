@@ -1181,7 +1181,7 @@ async def test_execute_loadcurve_stops_between_phases(
     assert [call["target_rps"] for call in captured] == [2.5]
     assert app_state.run_states["rps"].busy is False
     assert app_state.status_text == "已停止"
-    assert app_state.status_color == "gray"
+    assert app_state.status_color == "grey"
     assert notifications[-1][0].startswith("负载曲线已停止：已完成 1 阶段")
 
 
@@ -1650,3 +1650,60 @@ def test_build_runtime_payload_custom_mode_keeps_prompts_empty() -> None:
     )
 
     assert runtime["prompts"] == []
+
+
+# ── P0: stop feedback — clicking Stop must never show "压测完成" ───────────
+# The engine returns normally on stop (no CancelledError in run/rps/duration),
+# so _run_completion_feedback must rely on the `stopped` flag instead.
+
+
+def test_run_completion_feedback_stopped_shows_stopped() -> None:
+    stats = {"requests_total": 12, "requests_success": 12, "requests_failed": 0}
+    _, status, color, notify_text, level = gui_dual._run_completion_feedback(stats, stopped=True)
+    assert status == "已停止"
+    assert color == "grey"
+    assert "已停止" in notify_text
+    assert "12" in notify_text
+    assert level == "warning"
+
+
+def test_run_completion_feedback_stopped_with_failures() -> None:
+    stats = {
+        "requests_total": 10,
+        "requests_success": 7,
+        "requests_failed": 3,
+        "error_kind_counts": {"timeout": 3},
+    }
+    _, status, _, notify_text, _ = gui_dual._run_completion_feedback(stats, stopped=True)
+    assert status == "已停止"
+    assert "3 个失败" in notify_text
+
+
+def test_run_completion_feedback_zero_total_is_no_result() -> None:
+    """total == 0 must surface as 无结果, not a misleading 完成."""
+    stats = {"requests_total": 0, "requests_success": 0, "requests_failed": 0}
+    _, status, _, _, level = gui_dual._run_completion_feedback(stats)
+    assert status == "无结果"
+    assert level == "warning"
+
+
+def test_run_completion_feedback_natural_success() -> None:
+    stats = {"requests_total": 50, "requests_success": 50, "requests_failed": 0}
+    _, status, color, notify_text, level = gui_dual._run_completion_feedback(stats)
+    assert status == "已完成"
+    assert color == "green"
+    assert notify_text == "压测完成"
+    assert level == "positive"
+
+
+def test_run_completion_feedback_partial_failure() -> None:
+    stats = {
+        "requests_total": 20,
+        "requests_success": 18,
+        "requests_failed": 2,
+        "status_histogram": {"200": 18, "500": 2},
+    }
+    _, status, _, notify_text, level = gui_dual._run_completion_feedback(stats)
+    assert status == "部分失败"
+    assert "2/20" in notify_text
+    assert level == "warning"

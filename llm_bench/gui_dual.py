@@ -1878,9 +1878,9 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
     with ui.column().classes("w-full gap-4"):
         ui.label("控制台").classes("text-lg font-bold text-slate-700")
         ui.label("专注于配置、启动与停止任务。监看结果请看另一扇窗口。").classes(
-            "text-xs text-gray-500"
+            "text-xs text-slate-500"
         )
-        endpoint_preview = ui.label("").classes("text-xs text-gray-400 break-all")
+        endpoint_preview = ui.label("").classes("text-xs text-slate-400 break-all")
 
         # Let Tailwind breakpoints drive the column count on resize.
         with ui.grid().classes(_CONTROL_GRID_CLASSES):
@@ -1911,11 +1911,11 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                             host, port, scheme = _parse_base_for_probe(url)
                         except ValueError as exc:
                             port_status.set_text(f"❌ URL 错误: {exc}")
-                            port_status.classes(remove="bg-grey-100 bg-slate-100 bg-emerald-100 bg-red-100 text-grey-700 text-slate-700 text-emerald-700 text-red-700")
+                            port_status.classes(remove="bg-slate-100 bg-emerald-100 bg-red-100 text-slate-700 text-emerald-700 text-red-700")
                             port_status.classes(add="bg-red-100 text-red-700")
                             return
                         port_status.set_text("🟡 探测中…")
-                        port_status.classes(remove="bg-grey-100 bg-slate-100 bg-emerald-100 bg-red-100 text-grey-700 text-slate-700 text-emerald-700 text-red-700")
+                        port_status.classes(remove="bg-slate-100 bg-emerald-100 bg-red-100 text-slate-700 text-emerald-700 text-red-700")
                         port_status.classes(add="bg-slate-100 text-slate-700")
                         ok, ms_or_err = await _tcp_probe(host, port, timeout=2.0)
                         if ok:
@@ -2038,7 +2038,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                     ).classes("w-full")
                     _attach_tooltip(widgets["conn_timeout"], _TOOLTIPS["conn_timeout"])
                     conn_status = ui.label("尚未测试连通性").classes(
-                        "text-xs text-gray-500 col-span-full min-h-10"
+                        "text-xs text-slate-500 col-span-full min-h-10"
                     )
 
                 async def _test_connectivity() -> None:
@@ -2093,7 +2093,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
 
                 probe_btn = (
                     ui.button("测试连接", icon="network_check", on_click=_test_connectivity)
-                    .props("color=indigo outline")
+                    .props("color=dark outline")
                     .classes("mt-1 w-full")
                 )
 
@@ -2156,7 +2156,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                         _attach_tooltip(widgets["stream"], _TOOLTIPS["stream"])
 
                     ui.label("多 Prompt（支持顺序循环、随机挑选、加权随机）").classes(
-                        "text-xs text-gray-500"
+                        "text-xs text-slate-500"
                     )
                     ui.label("普通/自定义模式共用这组 Prompt；实时预览默认展示第 1 条。").classes(
                         "text-xs text-slate-400"
@@ -2273,7 +2273,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                     with ui.row().classes("w-full items-center gap-2 flex-wrap"):
                         prompt_count_label = ui.label("当前 0 条").classes("text-xs text-slate-500")
                         ui.button("新增 Prompt", icon="add", on_click=lambda: _add_prompt()).props(
-                            "outline color=indigo"
+                            "outline color=dark"
                         )
                         ui.button(
                             "清空", icon="clear_all", on_click=lambda: _set_prompts([])
@@ -2292,7 +2292,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                     _render_prompts()
 
                     ui.label("附加请求体 JSON（递归合并到基础请求体）").classes(
-                        "text-xs text-gray-500"
+                        "text-xs text-slate-500"
                     )
                     ui.label(
                         '示例：{"thinking": {"type": "enabled"}}；同名字段以后填的附加 JSON 为准。'
@@ -2319,7 +2319,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                         "w-full text-xs max-h-72 overflow-auto border rounded"
                     )
                     prerun_btn = ui.button("精确预跑估算", icon="science").props(
-                        "outline color=indigo"
+                        "outline color=dark"
                     )
 
                     async def _run_prerun_estimation() -> None:
@@ -2419,7 +2419,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                             "请求路径 / 完整 URL", value="/chat/completions"
                         ).classes("w-full col-span-full")
                         _attach_tooltip(widgets["custom_endpoint"], _TOOLTIPS["custom_endpoint"])
-                    ui.label("自定义请求体 JSON").classes("text-xs text-gray-500")
+                    ui.label("自定义请求体 JSON").classes("text-xs text-slate-500")
                     widgets["custom_body_json"] = ui.textarea(value=_DEFAULT_CUSTOM_BODY).classes(
                         "w-full font-mono text-sm"
                     )
@@ -2543,7 +2543,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                 with ui.row().classes("justify-end w-full gap-2"):
                     ui.button("不迁移", on_click=lambda: dialog.submit("skip")).props("flat")
                     ui.button("迁移", on_click=lambda: dialog.submit("migrate")).props(
-                        "color=indigo"
+                        "color=dark"
                     )
             dialog.open()
             decision = await dialog
@@ -2868,7 +2868,7 @@ async def _prompt_config_name(initial_name: str | None = None) -> str | None:
         with ui.row().classes("justify-end w-full gap-2"):
             ui.button("取消", on_click=lambda: dialog.submit(None)).props("flat")
             ui.button("保存", on_click=lambda: dialog.submit(name_input.value)).props(
-                "color=indigo"
+                "color=dark"
             )
     dialog.open()
     result = await dialog
@@ -2889,7 +2889,7 @@ async def _pick_config_name(title: str, action_label: str) -> str | None:
         with ui.row().classes("justify-end w-full gap-2"):
             ui.button("取消", on_click=lambda: dialog.submit(None)).props("flat")
             ui.button(action_label, on_click=lambda: dialog.submit(select.value)).props(
-                "color=indigo"
+                "color=dark"
             )
     dialog.open()
     result = await dialog
@@ -2997,7 +2997,7 @@ async def _confirm_save_before_run(config_state: _ConfigState, widgets: dict[str
         with ui.row().classes("justify-end w-full gap-2"):
             ui.button("取消运行", on_click=lambda: dialog.submit("cancel")).props("flat")
             ui.button("不保存直接运行", on_click=lambda: dialog.submit("skip")).props("outline")
-            ui.button("保存后运行", on_click=lambda: dialog.submit("save")).props("color=indigo")
+            ui.button("保存后运行", on_click=lambda: dialog.submit("save")).props("color=dark")
     dialog.open()
     decision = await dialog
     if decision == "cancel":
@@ -3027,7 +3027,7 @@ def _build_mode_controls(
                 # to look like a badge so the click-to-show-diff handler works.
                 widgets["config_diff_badge"] = (
                     ui.button("", icon="difference")
-                    .props("flat dense color=amber outline")
+                    .props("flat dense color=dark outline")
                     .classes("text-xs px-2 py-0 min-w-0")
                 )
                 _attach_tooltip(widgets["config_diff_badge"], _TOOLTIPS["config_diff_badge"])
@@ -3061,7 +3061,7 @@ def _build_mode_controls(
                 widgets["config_diff_badge"].on_click(_show_diff)
 
         with ui.row().classes("gap-2 flex-wrap"):
-            widgets["config_save_btn"] = ui.button("保存", icon="save").props("color=indigo")
+            widgets["config_save_btn"] = ui.button("保存", icon="save").props("color=dark")
             widgets["config_save_as_btn"] = ui.button("另存为", icon="copy_all").props("outline")
             widgets["config_load_btn"] = ui.button("加载", icon="folder_open").props("outline")
             widgets["config_delete_btn"] = ui.button("删除", icon="delete").props(
@@ -3092,13 +3092,13 @@ def _build_mode_controls(
             with ui.row().classes("mt-3 gap-3 w-full flex-wrap"):
                 start_btn = (
                     ui.button("开始单次压测", icon="play_arrow")
-                    .props("color=indigo")
+                    .props("color=dark")
                     .classes("min-w-36")
                 )
                 widgets["run_start_btn"] = start_btn
                 dryrun_btn = (
                     ui.button("试一次", icon="science")
-                    .props("outline color=indigo")
+                    .props("outline color=dark")
                     .classes("min-w-24")
                 )
                 stop_btn = (
@@ -3181,7 +3181,7 @@ def _build_mode_controls(
                             ui.button(
                                 "仍然继续",
                                 on_click=lambda: weak_dialog.submit(True),
-                            ).props("color=amber")
+                            ).props("color=dark")
                     weak_dialog.open()
                     if not await weak_dialog:
                         return
@@ -3267,7 +3267,7 @@ def _build_mode_controls(
             with ui.row().classes("mt-3 gap-3 w-full flex-wrap"):
                 start_btn = (
                     ui.button("开始固定 RPS", icon="play_arrow")
-                    .props("color=indigo")
+                    .props("color=dark")
                     .classes("min-w-36")
                 )
                 widgets["rps_start_btn"] = start_btn
@@ -3337,13 +3337,13 @@ def _build_mode_controls(
             with ui.row().classes("mt-3 gap-3 w-full flex-wrap"):
                 start_btn = (
                     ui.button("开始并发扫描", icon="play_arrow")
-                    .props("color=indigo")
+                    .props("color=dark")
                     .classes("min-w-36")
                 )
                 widgets["sweep_start_btn"] = start_btn
                 probe_btn = (
                     ui.button("探测建议并发", icon="travel_explore")
-                    .props("outline color=indigo")
+                    .props("outline color=dark")
                     .classes("min-w-40")
                 )
                 stop_btn = (
@@ -3458,8 +3458,8 @@ def _build_mode_controls(
                             "step": "end",
                             "data": [],
                             "areaStyle": {"opacity": 0.2},
-                            "lineStyle": {"width": 2, "color": "#4338ca"},
-                            "itemStyle": {"color": "#4338ca"},
+                            "lineStyle": {"width": 2, "color": "#475569"},
+                            "itemStyle": {"color": "#475569"},
                         }
                     ],
                     "grid": {"left": 60, "right": 20, "top": 40, "bottom": 50},
@@ -3532,7 +3532,7 @@ def _build_mode_controls(
             with ui.row().classes("mt-3 gap-3 w-full flex-wrap"):
                 start_curve_btn = (
                     ui.button("按曲线运行", icon="play_arrow")
-                    .props("color=indigo")
+                    .props("color=dark")
                     .classes("min-w-36")
                 )
                 stop_curve_btn = (
@@ -3683,14 +3683,14 @@ async def _build_control_page(app_state: _AppState) -> None:
 
 
 def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) -> None:
-    ui.label("监看结果会实时从控制窗口同步。").classes("text-xs text-gray-500 mb-2")
-    status_label = ui.label(state.status).classes("text-sm text-gray-500 mb-2")
+    ui.label("监看结果会实时从控制窗口同步。").classes("text-xs text-slate-500 mb-2")
+    status_label = ui.label(state.status).classes("text-sm text-slate-500 mb-2")
     progress_summary = ui.label("等待任务启动。").classes("text-sm text-slate-600")
     progress_meta = ui.label("已完成 0｜成功 0｜失败 0｜在飞 0｜ETA -").classes(
         "text-xs text-slate-500 mb-2"
     )
     progress_bar = (
-        ui.linear_progress(value=0).props("rounded stripe color=indigo").classes("w-full mb-4")
+        ui.linear_progress(value=0).props("rounded stripe color=dark").classes("w-full mb-4")
     )
 
     with ui.row().classes("w-full items-center gap-3 mb-3 flex-wrap"):
@@ -3732,7 +3732,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
     with ui.row().classes("w-full gap-3 mb-4"):
         for title, key in kpi_keys:
             with ui.card().classes("flex-1 min-w-24 text-center py-3"):
-                ui.label(title).classes("text-xs text-gray-500")
+                ui.label(title).classes("text-xs text-slate-500")
                 kpi_labels[key] = ui.label("-").classes("text-2xl font-bold text-slate-700 mt-1")
 
     token_kpi_labels: dict[str, Any] = {}
@@ -3743,7 +3743,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
             ("Total Token 消耗", "total"),
         ]:
             with ui.card().classes("flex-1 min-w-24 text-center py-3"):
-                ui.label(title).classes("text-xs text-gray-500")
+                ui.label(title).classes("text-xs text-slate-500")
                 token_kpi_labels[key] = ui.label("0").classes(
                     "text-2xl font-bold text-slate-700 mt-1"
                 )
@@ -3803,7 +3803,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                             "data": ["p50", "p75", "p90", "p95", "p99", "p99.9"],
                         },
                         "yAxis": {"type": "value", "name": "ms"},
-                        "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#4f46e5"}}],
+                        "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#475569"}}],
                     }
                 ).classes("flex-1 h-64")
                 stream_chart = ui.echart(
@@ -3822,7 +3822,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                             ],
                         },
                         "yAxis": {"type": "value", "name": "ms"},
-                        "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#059669"}}],
+                        "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#475569"}}],
                     }
                 ).classes("flex-1 h-64")
             inflight_chart = ui.echart(
@@ -3837,8 +3837,8 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                             "data": [],
                             "smooth": True,
                             "areaStyle": {"opacity": 0.3},
-                            "lineStyle": {"color": "#7c3aed"},
-                            "itemStyle": {"color": "#7c3aed"},
+                            "lineStyle": {"color": "#475569"},
+                            "itemStyle": {"color": "#475569"},
                         }
                     ],
                 }
@@ -3882,10 +3882,10 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
 
         with ui.tab_panel(tab_responses).classes("p-3"):
             response_meta = ui.label("选择一条请求查看 AI 回应或错误响应。").classes(
-                "text-xs text-gray-500 mb-2"
+                "text-xs text-slate-500 mb-2"
             )
             replay_btn = ui.button("🔁 重放选中", icon="replay").props(
-                "outline color=indigo"
+                "outline color=dark"
             )
             _attach_tooltip(replay_btn, _TOOLTIPS["replay_btn"])
             replay_btn.disable()
@@ -3966,7 +3966,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
             ui.code(first_lines, language="text").classes("text-xs")
             with ui.row().classes("justify-end w-full gap-2 mt-2"):
                 ui.button("取消", on_click=lambda: dialog.submit(False)).props("flat")
-                ui.button("确认导出", on_click=lambda: dialog.submit(True)).props("color=indigo")
+                ui.button("确认导出", on_click=lambda: dialog.submit(True)).props("color=dark")
         dialog.open()
         if not await dialog:
             return
@@ -4111,7 +4111,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                         ui.button(
                             "仍然重放",
                             on_click=lambda: confirm.submit(True),
-                        ).props("color=amber")
+                        ).props("color=dark")
                 confirm.open()
                 if not await confirm:
                     return
@@ -4443,17 +4443,17 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
             (f"建议并发 (>={int(_RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT)}%)", "recommended"),
         ]:
             with ui.card().classes("flex-1 text-center py-3"):
-                ui.label(title).classes("text-xs text-gray-500")
+                ui.label(title).classes("text-xs text-slate-500")
                 kpi_labels[key] = ui.label("-").classes("text-2xl font-bold text-slate-700 mt-1")
     with ui.row().classes("w-full gap-3 mb-4"):
         with ui.card().classes("flex-1 text-center py-3"):
-            ui.label("Prompt Token 累计").classes("text-xs text-gray-500")
+            ui.label("Prompt Token 累计").classes("text-xs text-slate-500")
             token_prompt_label = ui.label("0").classes("text-2xl font-bold text-slate-700 mt-1")
         with ui.card().classes("flex-1 text-center py-3"):
-            ui.label("Completion Token 累计").classes("text-xs text-gray-500")
+            ui.label("Completion Token 累计").classes("text-xs text-slate-500")
             token_completion_label = ui.label("0").classes("text-2xl font-bold text-slate-700 mt-1")
         with ui.card().classes("flex-1 text-center py-3"):
-            ui.label("Token 总累计").classes("text-xs text-gray-500")
+            ui.label("Token 总累计").classes("text-xs text-slate-500")
             token_total_label = ui.label("0").classes("text-2xl font-bold text-slate-700 mt-1")
         with ui.column().classes("justify-center"):
             ui.button("重置 Token 计数", on_click=app_state.reset_consumed_tokens).props(
@@ -4473,7 +4473,7 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
                 export_sweep_raw_btn = ui.button(
                     t("sweep_export_csv_btn"),
                     icon="download",
-                ).props("outline color=indigo")
+                ).props("outline color=dark")
                 export_sweep_raw_btn.disable()
                 _attach_tooltip(export_sweep_raw_btn, _TOOLTIPS["sweep_raw_export_btn"])
 
@@ -4511,7 +4511,7 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
                     )
 
                 export_sweep_raw_btn.on_click(_export_sweep_raw)
-                sweep_raw_count_badge = ui.badge("", color="indigo").classes("text-xs")
+                sweep_raw_count_badge = ui.badge("", color="grey").classes("text-xs")
 
             sweep_table = ui.table(
                 columns=[
@@ -4549,7 +4549,7 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
                     "tooltip": {},
                     "xAxis": {"type": "category", "data": [], "name": "并发"},
                     "yAxis": {"type": "value", "name": "req/s"},
-                    "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#0891b2"}}],
+                    "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#475569"}}],
                 }
             ).classes("flex-1 h-72")
             sweep_tok_chart = ui.echart(
@@ -4558,7 +4558,7 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
                     "tooltip": {},
                     "xAxis": {"type": "category", "data": [], "name": "并发"},
                     "yAxis": {"type": "value", "name": "tok/s"},
-                    "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#0ea5e9"}}],
+                    "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#475569"}}],
                 }
             ).classes("flex-1 h-72")
 
@@ -4846,7 +4846,7 @@ def _build_compare_panel(app_state: _AppState) -> None:
                     on_change=lambda e, i=idx: selection.update({i: bool(e.value)}),
                 )
 
-    selected_badge = ui.badge(t("ab_selected_count", n=0), color="indigo").classes("text-xs")
+    selected_badge = ui.badge(t("ab_selected_count", n=0), color="grey").classes("text-xs")
     selection_panel = ui.column().classes("w-full gap-1 my-3")
     _render_selection()
     ui.timer(1.0, _render_selection)
@@ -5059,7 +5059,7 @@ def _build_monitor_page(app_state: _AppState) -> None:
     _apply_page_shell(scroll_content=False)
     _build_header(f"LLM Bench Monitor  v{__version__}", app_state)
     with ui.column().classes("w-full flex-1 min-h-0 overflow-hidden"):
-        with ui.tabs().classes("w-full bg-gray-50 border-b") as right_tabs:
+        with ui.tabs().classes("w-full bg-slate-50 border-b") as right_tabs:
             tab_run = ui.tab("单次压测", icon="play_arrow")
             tab_rps = ui.tab("固定 RPS", icon="speed")
             tab_sweep = ui.tab("并发扫描", icon="bar_chart")

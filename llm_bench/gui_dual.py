@@ -747,6 +747,12 @@ async def _sync_control_layout(panels: dict[str, Any], state: dict[str, Any]) ->
     try:
         width = int(await ui.context.client.run_javascript("window.innerWidth") or 0)
     except Exception:
+        # Best-effort JS bridge call: any failure (disconnected client,
+        # cancelled task, no script context yet) just means we keep the
+        # current layout. Deliberately broad — narrowing to specific
+        # exception types here would re-raise on novel edge cases and
+        # break the responsive-grid behavior in ways the caller can't
+        # handle.
         return
 
     is_single_column = width < _CONTROL_MULTI_COLUMN_BREAKPOINT

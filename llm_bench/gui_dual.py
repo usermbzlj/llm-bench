@@ -123,8 +123,6 @@ _I18N_EN: dict[str, str] = {
     "replay_tooltip": "Re-fire the original request body and show the new response.",
     "diff_badge_tooltip": "Click to see which fields differ from the saved version.",
     "port_status_tooltip": "🟢 reachable · 🔴 unreachable · 🟡 probing. Click 探测 to retry.",
-    "loadcurve_malformed": "No valid phases detected. Each line must be <seconds>:<rps>.",
-    "loadcurve_total": "Total {total}s · {n} phases · max {max_rps} req/s",
     "ab_view_tooltip": "Side-by-side: raw 2-6 picks. Group: aggregate by chosen key. Rank: top-20 by chosen metric.",
     "ab_selected_count": "{n} selected",
     "ab_no_group_candidates": "No groups have enough data to rank.",
@@ -234,8 +232,6 @@ _I18N_ZH: dict[str, str] = {
     "replay_tooltip": "重新发送原始请求体，显示新响应。",
     "diff_badge_tooltip": "点击查看与已保存版本的具体差异字段。",
     "port_status_tooltip": "🟢 可达 · 🔴 不可达 · 🟡 探测中。点击 探测 重新检测。",
-    "loadcurve_malformed": "未识别到合法阶段。每行格式：<秒数>:<rps>。",
-    "loadcurve_total": "总时长 {total}s · {n} 阶段 · 最高 {max_rps} req/s",
     "ab_view_tooltip": "原始对比：选 2-6 条并列展示。按组聚合：按所选键分组排名。排名：按单指标前 20 名。",
     "ab_selected_count": "已选 {n} 条",
     "ab_no_group_candidates": "没有足够数据的分组可排名。",
@@ -561,7 +557,7 @@ _TOOLTIPS = {
         "按组聚合视图的分组维度。\n"
         "model：按模型名分组（适合跨模型对比）。\n"
         "concurrency：按并发数分组（适合同模型不同并发）。\n"
-        "mode：按压测模式（run/rps/sweep/loadcurve）分组。"
+        "mode：按压测模式（run/rps/sweep）分组。"
     ),
     "ab_rank_metric": (
         "排名视图的排序指标。\n"
@@ -575,13 +571,6 @@ _TOOLTIPS = {
         "【橙色】3+ 个字段\n"
         "【点击】弹窗显示每个字段的 old / new 值。\n"
         "【首次保存前】显示 '未保存'。"
-    ),
-    "loadcurve_chart": (
-        "负载曲线 ECharts 阶梯图预览。\n"
-        "【X 轴】累计时间（秒）。\n"
-        "【Y 轴】目标 RPS。\n"
-        "【阶梯】每个 phase 是一段水平线 + 一次阶跃。\n"
-        "【实时】textarea 改完 150ms 后刷新。"
     ),
     "sweep_raw_export_btn": (
         "导出本 sweep 的 raw_results 到 CSV。\n"
@@ -714,27 +703,27 @@ def _apply_control_page_css() -> None:
         .control-panel .q-expansion-item__container {
             border-radius: 0.75rem;
             overflow: hidden;
-            background: #ffffff;
+            background: #1e293b;
         }
         .control-panel .q-item {
             min-height: 58px;
             padding: 10px 16px;
-            background: linear-gradient(180deg, #f8fbff 0%, #f8fafc 100%);
+            background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
         }
         .control-panel .q-expansion-item__content > .q-card {
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid #334155;
             box-shadow: none;
         }
         .control-panel .q-card__section {
             padding: 16px;
         }
         .control-mode-card .q-tabs {
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
         }
         .control-mode-card .q-tab-panels,
         .control-mode-card .q-tab-panel {
-            background: #ffffff;
+            background: #1e293b;
         }
         """
     )
@@ -1088,19 +1077,67 @@ def _build_live_stats_dict(
     return build_stats_dict(summary, metadata=metadata)
 
 
+def _recommendation_score(stat: dict[str, Any]) -> float | None:
+    """Higher is better: throughput weighted by inverse p95 latency."""
+    concurrency = _safe_int(stat.get("concurrency_level"), 0, 0)
+    if concurrency <= 0:
+        return None
+    final_success = _safe_float(stat.get("success_rate_pct"), 0.0, 0.0)
+    attempt_success = _safe_float(stat.get("http_attempt_success_rate_pct"), 0.0, 0.0)
+    if (
+        final_success < _RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT
+        or attempt_success < _RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT
+    ):
+        return None
+    rps = _safe_float(stat.get("throughput_rps"), 0.0, 0.0)
+    p95 = _safe_float(stat.get("latency_ms_p95"), 0.0, 0.0)
+    if rps <= 0:
+        return None
+    return rps / max(p95, 1.0)
+
+
 def _recommended_concurrency(stats_list: list[dict[str, Any]]) -> int | None:
-    candidates: list[int] = []
+    best_conc: int | None = None
+    best_key: tuple[float, float, float] = (-1.0, -1.0, 0.0)
     for stat in stats_list:
+        score = _recommendation_score(stat)
+        if score is None:
+            continue
         concurrency = _safe_int(stat.get("concurrency_level"), 0, 0)
-        final_success = _safe_float(stat.get("success_rate_pct"), 0.0, 0.0)
-        attempt_success = _safe_float(stat.get("http_attempt_success_rate_pct"), 0.0, 0.0)
-        if (
-            concurrency > 0
-            and final_success >= _RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT
-            and attempt_success >= _RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT
-        ):
-            candidates.append(concurrency)
-    return max(candidates) if candidates else None
+        rps = _safe_float(stat.get("throughput_rps"), 0.0, 0.0)
+        p95 = _safe_float(stat.get("latency_ms_p95"), 0.0, 0.0)
+        key = (score, rps, -p95)
+        if key > best_key:
+            best_key = key
+            best_conc = concurrency
+    return best_conc
+
+
+def _recommended_concurrency_detail(
+    stats_list: list[dict[str, Any]], concurrency: int
+) -> str:
+    for stat in stats_list:
+        if _safe_int(stat.get("concurrency_level"), 0, 0) != concurrency:
+            continue
+        return (
+            f"建议并发 {concurrency}：req/s={_v(stat.get('throughput_rps'))}，"
+            f"p95={_v(stat.get('latency_ms_p95'))}ms（成功率≥"
+            f"{int(_RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT)}%，按吞吐/延迟综合优选）"
+        )
+    return f"建议并发 {concurrency}"
+
+
+async def _copy_text_to_clipboard(
+    text: str, *, empty_hint: str = "没有可复制的内容"
+) -> None:
+    if not text:
+        ui.notify(empty_hint, type="info")
+        return
+    try:
+        await ui.run_javascript(f"navigator.clipboard.writeText({json.dumps(text)})")
+        ui.notify("已复制到剪贴板", type="positive")
+    except Exception:
+        ui.notify("复制失败，可手动选中文本复制", type="warning")
 
 
 def _sweep_completion_feedback(
@@ -1117,7 +1154,7 @@ def _sweep_completion_feedback(
             "✅ 扫描完成",
             "已完成",
             "green",
-            f"建议最大并发：{recommendation}（按 >={int(_RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT)}% 最终/HTTP 尝试成功率）",
+            _recommended_concurrency_detail(stats_list, recommendation),
             "positive",
         )
     if best_success <= 0:
@@ -1126,7 +1163,7 @@ def _sweep_completion_feedback(
         "⚠️ 扫描完成",
         "部分失败",
         "orange",
-        f"扫描完成，但未找到满足 >={int(_RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT)}% 稳定成功率的建议并发",
+        f"扫描完成，但未找到成功率≥{int(_RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT)}% 且吞吐/延迟可优选的并发档位",
         "warning",
     )
 
@@ -1217,14 +1254,272 @@ def _start_dual_windows(protocol: str, host: str, port: int) -> mp.Event:
     return shutdown_event
 
 
+def _echart(options: dict[str, Any]) -> Any:
+    """Create an ECharts widget with the dark theme baked in.
+
+    Injects a transparent background and light text / axis / split-line colors
+    so charts blend into the dark UI. Per-chart series colors set explicitly in
+    the options still win (setdefault never overwrites). Centralized so the ~9
+    charts don't each repeat the dark config.
+    """
+    # Explicit dark canvas: ECharts 5 defaults to transparent, which just
+    # exposes the (white) container — set a concrete dark fill instead.
+    options.setdefault("backgroundColor", "#1e293b")
+    options.setdefault("textStyle", {"color": "#cbd5e1"})
+    for axis_key in ("xAxis", "yAxis"):
+        axis = options.get(axis_key)
+        axes = axis if isinstance(axis, list) else ([axis] if isinstance(axis, dict) else [])
+        for ax in axes:
+            if isinstance(ax, dict):
+                ax.setdefault("axisLine", {"lineStyle": {"color": "#475569"}})
+                ax.setdefault("splitLine", {"lineStyle": {"color": "#334155"}})
+                ax.setdefault("axisLabel", {"color": "#94a3b8"})
+    return ui.echart(options)
+
+
+def _apply_dark_theme_css() -> None:
+    """Inject the dark (gray) theme layer with readable text contrast.
+
+    Tailwind utilities are remapped to dark surfaces; Quasar components get
+    explicit light foreground colors because ``dark_mode(True)`` alone leaves
+    ``outline`` buttons and some labels with near-black text on
+    near-black backgrounds.
+    """
+    ui.add_css(
+        """
+        /* ── Surfaces (Tailwind remaps) ───────────────────────────── */
+        .bg-white { background-color: #1e293b !important; }
+        .bg-slate-50 { background-color: #1e293b !important; }
+        .bg-slate-100 { background-color: #334155 !important; }
+        .bg-slate-200 { background-color: #475569 !important; }
+        .border-slate-200 { border-color: #475569 !important; }
+        .border-slate-300 { border-color: #64748b !important; }
+        .shadow-sm, .shadow { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45) !important; }
+
+        /* ── Text (Tailwind — bumped for WCAG-ish contrast on #1e293b) ─ */
+        .text-slate-400 { color: #94a3b8 !important; }
+        .text-slate-500 { color: #cbd5e1 !important; }
+        .text-slate-600 { color: #e2e8f0 !important; }
+        .text-slate-700 { color: #f1f5f9 !important; }
+        .text-slate-800 { color: #f8fafc !important; }
+        .text-slate-900 { color: #ffffff !important; }
+
+        /* ── Status banners ─────────────────────────────────────────── */
+        .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.16) !important; }
+        .text-emerald-600, .text-emerald-700 { color: #34d399 !important; }
+        .text-emerald-900 { color: #6ee7b7 !important; }
+        .text-red-500, .text-red-600, .text-red-700 { color: #f87171 !important; }
+        .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.2) !important; }
+        .bg-red-100 { background-color: rgba(239, 68, 68, 0.2) !important; }
+        .bg-amber-50 { background-color: rgba(245, 158, 11, 0.16) !important; }
+        .text-amber-700, .text-amber-900 { color: #fcd34d !important; }
+        .bg-red-50 { background-color: rgba(239, 68, 68, 0.16) !important; }
+        .text-red-900 { color: #fca5a5 !important; }
+
+        /* ── Quasar layout shells ───────────────────────────────────── */
+        .q-layout, .q-page, .nicegui-content {
+            color: #e2e8f0;
+        }
+        .q-tab-panels, .q-tab-panel, .q-card {
+            background-color: #1e293b !important;
+            color: #e2e8f0 !important;
+        }
+        .q-menu, .q-list, .q-dialog__inner > .q-card {
+            background-color: #1e293b !important;
+            color: #e2e8f0 !important;
+        }
+        .q-separator { background: #475569 !important; }
+
+        /* ── Buttons (Quasar puts text-dark on .q-btn__content — override) */
+        body.body--dark .q-btn,
+        body.body--dark .q-btn .q-btn__content,
+        body.body--dark .q-btn .q-btn__content .block {
+            color: #f1f5f9 !important;
+        }
+        body.body--dark .q-btn .q-icon {
+            color: currentColor !important;
+        }
+        body.body--dark .text-dark,
+        body.body--dark .text-dark .block {
+            color: #e2e8f0 !important;
+        }
+        body.body--dark .q-btn--outline:before,
+        body.body--dark .q-btn--flat:before {
+            border-color: #64748b !important;
+        }
+        body.body--dark .q-btn.bg-dark,
+        body.body--dark .q-btn--unelevated.bg-dark,
+        body.body--dark .q-btn--standard.bg-dark {
+            background-color: #64748b !important;
+            color: #f8fafc !important;
+        }
+        body.body--dark .q-btn.bg-dark .q-btn__content,
+        body.body--dark .q-btn--unelevated.bg-dark .q-btn__content {
+            color: #f8fafc !important;
+        }
+        body.body--dark .q-btn--outline.text-negative,
+        body.body--dark .q-btn--outline.text-red,
+        body.body--dark .q-btn.text-negative .q-btn__content {
+            color: #fca5a5 !important;
+        }
+        body.body--dark .q-btn--outline.text-negative:before,
+        body.body--dark .q-btn--outline.text-red:before {
+            border-color: #ef4444 !important;
+        }
+        body.body--dark .q-btn.disabled,
+        body.body--dark .q-btn.disabled .q-btn__content,
+        body.body--dark .q-btn--disabled .q-btn__content {
+            opacity: 0.55 !important;
+            color: #94a3b8 !important;
+        }
+
+        /* ui.toggle → q-btn-toggle */
+        body.body--dark .q-btn-toggle .q-btn {
+            color: #cbd5e1 !important;
+        }
+        body.body--dark .q-btn-toggle .q-btn--active {
+            background-color: #475569 !important;
+            color: #f8fafc !important;
+        }
+
+        /* ── Form fields (input / select / textarea / number) ───────── */
+        .q-field__label {
+            color: #cbd5e1 !important;
+        }
+        .q-field__native,
+        .q-field__input,
+        .q-field__prefix,
+        .q-field__suffix,
+        .q-field__append,
+        .q-field__prepend {
+            color: #f1f5f9 !important;
+        }
+        .q-field--outlined .q-field__control:before {
+            border-color: #64748b !important;
+        }
+        .q-field--focused .q-field__label {
+            color: #e2e8f0 !important;
+        }
+        .q-field--disabled .q-field__native,
+        .q-field--disabled .q-field__input,
+        .q-field--disabled .q-field__label {
+            color: #94a3b8 !important;
+            opacity: 1 !important;
+        }
+        .q-field__native::placeholder,
+        .q-field__input::placeholder {
+            color: #94a3b8 !important;
+            opacity: 1 !important;
+        }
+        .q-field__marginal,
+        .q-field__append .q-icon,
+        .q-field__prepend .q-icon {
+            color: #94a3b8 !important;
+        }
+
+        /* ── Tabs ───────────────────────────────────────────────────── */
+        .q-tab {
+            color: #94a3b8 !important;
+        }
+        .q-tab--active,
+        .q-tab--active .q-tab__label {
+            color: #f8fafc !important;
+        }
+        .q-tab__indicator {
+            background: #cbd5e1 !important;
+        }
+
+        /* ── Expansion panels ─────────────────────────────────────────── */
+        .q-expansion-item__header,
+        .q-expansion-item__header .q-item__label,
+        .q-expansion-item__header .q-item__section--main {
+            color: #f1f5f9 !important;
+        }
+        .q-expansion-item__toggle-icon,
+        .q-expansion-item__header .q-icon {
+            color: #94a3b8 !important;
+        }
+
+        /* ── Tables ─────────────────────────────────────────────────── */
+        .q-table {
+            color: #e2e8f0 !important;
+        }
+        .q-table thead tr,
+        .q-table th {
+            color: #cbd5e1 !important;
+            background-color: #334155 !important;
+        }
+        .q-table tbody td {
+            color: #e2e8f0 !important;
+        }
+        .q-table tbody tr:hover {
+            background-color: #334155 !important;
+        }
+
+        /* ── Checkbox / toggle / radio / select items ───────────────── */
+        .q-checkbox__label,
+        .q-toggle__label,
+        .q-radio__label,
+        .q-item__label,
+        .q-item__section--main {
+            color: #e2e8f0 !important;
+        }
+        .q-checkbox__inner--falsy .q-checkbox__bg {
+            border-color: #64748b !important;
+        }
+
+        /* ── Code / log / JSON preview blocks ───────────────────────── */
+        pre, code, .q-scrollarea__content,
+        .nicegui-code, .q-markdown, textarea {
+            color: #e2e8f0 !important;
+        }
+        pre, .nicegui-code, textarea[readonly] {
+            background-color: #0f172a !important;
+        }
+        .q-uploader__header {
+            background-color: #334155 !important;
+            color: #e2e8f0 !important;
+        }
+
+        /* ── Badges (header status uses Quasar color prop) ──────────── */
+        .q-badge {
+            color: #f8fafc !important;
+        }
+
+        /* ── Tooltip / progress / log / borders ─────────────────────── */
+        .q-tooltip {
+            background-color: #334155 !important;
+            color: #f8fafc !important;
+            font-size: 12px;
+        }
+        .q-linear-progress {
+            color: #94a3b8 !important;
+        }
+        .q-log, .q-scrollarea {
+            background-color: #0f172a !important;
+            color: #e2e8f0 !important;
+        }
+        .border {
+            border-color: #475569 !important;
+        }
+        .opacity-60 {
+            opacity: 1 !important;
+            color: #94a3b8 !important;
+        }
+        """
+    )
+
+
 def _apply_page_shell(scroll_content: bool) -> None:
-    # Dark mode is intentionally not supported: force light theme on every
-    # page so a stale preferences.json (or any future toggle) can't flip the
-    # app palette. The whole UI is now gray-first.
-    ui.dark_mode(False)
-    ui.query("html").style("height:100%")
-    ui.query("body").style("margin:0; height:100%")
-    ui.query(".q-page").style("display:flex; flex-direction:column; height:100%")
+    # Dark (gray) theme: turn on Quasar dark mode (covers tables / inputs /
+    # dialogs / expansions) and inject the dark CSS layer (see
+    # _apply_dark_theme_css). The whole UI is dark-gray-first now.
+    ui.dark_mode(True)
+    _apply_dark_theme_css()
+    bg = "#0f172a"
+    ui.query("html").style(f"height:100%; background:{bg}")
+    ui.query("body").style(f"margin:0; height:100%; background:{bg}")
+    ui.query(".q-page").style(f"display:flex; flex-direction:column; height:100%; background:{bg}")
     overflow = "overflow:auto" if scroll_content else "overflow:hidden"
     ui.query(".nicegui-content").style(f"display:flex; flex-direction:column; flex:1; {overflow}")
 
@@ -1498,205 +1793,19 @@ def sanitize_snapshot_for_disk(snapshot: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
-def _parse_loadcurve_profile(raw: str) -> list[tuple[float, float]]:
-    """Parse the load-curve textarea into a list of (duration_s, target_rps).
-
-    Each non-comment, non-empty line must be "<duration>:<rps>". Malformed
-    lines are silently dropped (so the user can paste commented examples).
-    """
-    out: list[tuple[float, float]] = []
-    for line in (raw or "").splitlines():
-        s = line.strip()
-        if not s or s.startswith("#"):
-            continue
-        if ":" not in s:
-            continue
-        try:
-            dur_s, _, rps_s = s.partition(":")
-            d = float(dur_s.strip())
-            r = float(rps_s.strip())
-        except ValueError:
-            continue
-        if d <= 0 or r <= 0:
-            continue
-        out.append((d, r))
-    return out
+_control_widgets_ref: list[dict[str, Any]] = []
 
 
-async def _execute_loadcurve(
-    app_state: _AppState,
-    profile: list[tuple[float, float]],
-    notify: Callable[[str, str], None],
-) -> None:
-    """Run a piecewise-constant RPS profile by chaining fixed-RPS runs.
-
-    Each phase uses the same _execute_run("rps", ...) machinery; the
-    per-phase summary is concatenated into a single history entry tagged
-    with mode="loadcurve".
-    """
-    # Re-collect settings at run time from the live widget dict registered
-    # by the load-curve tab. The function delegates to _loadcurve_capture_widgets
-    # so it sees the current form values, not stale closures.
-    from datetime import UTC, datetime  # local import: keeps module surface small
-
-    from llm_bench import __version__ as _ver
-    from llm_bench.runner import run_benchmark
-
-    rps_state = app_state.run_states["rps"]
-    if app_state.is_busy():
-        notify("已有任务运行中", "warning")
-        return
-
-    rps_state.fresh_stop_event()
-    rps_state.busy = True
-    rps_state.status = "运行中..."
-    app_state.set_status("运行中", "orange")
-
-    all_phase_stats: list[dict[str, Any]] = []
-    wall_start = time.perf_counter()
-    stopped = False
-    try:
-        for idx, (duration_s, target_rps) in enumerate(profile, start=1):
-            if rps_state.stop_event.is_set():
-                stopped = True
-                break
-            # Run this phase as an RPS run via the underlying engine, but we
-            # need real settings. The user has already configured widgets, so
-            # we look them up through a "phase" settings dict.
-            # NOTE: this implementation is a thin wrapper around run_benchmark
-            # and shares the engine's should_stop hook with the user's stop button.
-            # We construct a minimal settings dict from the existing rps_start_btn's
-            # parent page widgets by reusing _collect_common_settings lazily
-            # through the load-curve page closure.
-            # (Implementation detail: we capture widgets from the page at call time.)
-            phase_settings = _loadcurve_capture_widgets(app_state)
-            phase_settings.update(
-                {
-                    "rps_target": target_rps,
-                    "rps_duration": duration_s,
-                }
-            )
-            # Keep the same stop_event across phases; only clear per-phase metrics.
-            rps_state.status = "运行中..."
-            rps_state.log_lines = []
-            rps_state.stats = {}
-            rps_state.raw_results = []
-            rps_state.inflight_samples = []
-            rps_state.started_at_mono = time.perf_counter()
-            rps_state.target_total = None
-            rps_state.target_duration_s = duration_s
-            rps_state.chart_refresh_mode = str(phase_settings.get("chart_refresh_mode") or "interval")
-            rps_state.chart_refresh_interval_s = _safe_float(
-                phase_settings.get("chart_refresh_interval_s"), 0.3, 0.2
-            )
-            rps_state.chart_refresh_every_n = _safe_int(
-                phase_settings.get("chart_refresh_every_n"), 5, 1
-            )
-            try:
-                runtime = _build_runtime_payload(phase_settings)
-            except ValueError as exc:
-                notify(f"负载曲线配置不合法：{exc}", "negative")
-                app_state.set_status("失败", "red")
-                return
-            metadata = {
-                "bench_start_utc": datetime.now(UTC).isoformat(),
-                "llm_bench_version": _ver,
-                "endpoint": runtime["endpoint"],
-                "model": phase_settings["model"],
-                "concurrency": phase_settings["concurrency"],
-                "mode": "loadcurve",
-                "target_rps": target_rps,
-                "rps_duration_s": duration_s,
-                "phase": idx,
-                "total_phases": len(profile),
-                "proxy_mode": runtime["proxy_mode"],
-            }
-
-            def update_live_stats(
-                summary: Any,
-                *,
-                phase_metadata: dict[str, Any] = metadata,
-            ) -> dict[str, Any]:
-                stats = _build_live_stats_dict(summary, metadata=phase_metadata)
-                rps_state.stats = stats
-                rps_state.inflight_samples = list(summary.in_flight_samples)
-                return stats
-
-            try:
-                summary = await run_benchmark(
-                    url=runtime["endpoint"],
-                    headers=_headers(_resolve_api_key(phase_settings["api_key"])),
-                    body_template=runtime["body_template"],
-                    concurrency=phase_settings["concurrency"],
-                    total_requests=None,
-                    duration_s=None,
-                    stream=runtime["stream_flag"],
-                    timeout_s=phase_settings["timeout_s"],
-                    http2=phase_settings["http2"],
-                    warmup_requests=phase_settings["warmup"],
-                    retry_on_429=phase_settings["retry_on_429"],
-                    retry_on_network=phase_settings["retry_on_network"],
-                    retry_on_5xx=phase_settings["retry_on_5xx"],
-                    base_backoff_s=phase_settings["base_backoff_s"],
-                    timeline_bucket_s=_LIVE_TIMELINE_BUCKET_S,
-                    prompts=runtime["prompts"],
-                    prompt_strategy=runtime["prompt_strategy"],
-                    prompt_weights=runtime["prompt_weights"],
-                    target_rps=target_rps,
-                    rps_duration_s=duration_s,
-                    raw_results=rps_state.raw_results,
-                    proxy_mode=runtime["proxy_mode"],
-                    proxy_url=runtime["proxy_url"],
-                    progress_callback=update_live_stats,
-                    progress_every_n=1,
-                    should_stop=rps_state.stop_event.is_set,
-                )
-            except asyncio.CancelledError:
-                stopped = True
-                break
-            except Exception as exc:
-                notify(f"阶段 {idx} 失败：{exc}", "negative")
-                continue
-            stats = update_live_stats(summary)
-            all_phase_stats.append(stats)
-            app_state.add_history(stats)
-            notify(
-                f"阶段 {idx}/{len(profile)} 完成：{target_rps} req/s × {duration_s}s",
-                "positive",
-            )
-            if rps_state.stop_event.is_set():
-                stopped = True
-                break
-
-        wall_s = time.perf_counter() - wall_start
-        if stopped:
-            notify(f"负载曲线已停止：已完成 {len(all_phase_stats)} 阶段 / {wall_s:.0f}s", "warning")
-            app_state.set_status("已停止", "grey")
-        else:
-            notify(f"负载曲线完成：{len(all_phase_stats)} 阶段 / {wall_s:.0f}s", "positive")
-            app_state.set_status("完成", "green")
-    finally:
-        rps_state.busy = False
+def _register_control_widgets(widgets: dict[str, Any]) -> None:
+    """Expose Control page widgets for Monitor-side actions (e.g. replay)."""
+    _control_widgets_ref.clear()
+    _control_widgets_ref.append(widgets)
 
 
-# Module-level placeholder — the actual capture happens at first call via
-# the bound widget dict registered by the load-curve tab when it builds.
-_loadcurve_widgets_ref: list[dict[str, Any]] = []
-
-
-def _register_loadcurve_widgets(widgets: dict[str, Any]) -> None:
-    """Called by the load-curve tab builder to expose its widgets to
-    _execute_loadcurve (which runs in a separate task and needs to
-    re-collect settings from the live form)."""
-    _loadcurve_widgets_ref.clear()
-    _loadcurve_widgets_ref.append(widgets)
-
-
-def _loadcurve_capture_widgets(_app_state: _AppState) -> dict[str, Any]:
-    """Pull a fresh settings dict from the registered load-curve widgets."""
-    if not _loadcurve_widgets_ref:
+def _capture_control_settings(_app_state: _AppState) -> dict[str, Any]:
+    if not _control_widgets_ref:
         return {}
-    return _collect_common_settings(_loadcurve_widgets_ref[0])
+    return _collect_common_settings(_control_widgets_ref[0])
 
 
 async def _execute_run(
@@ -1723,7 +1832,7 @@ async def _execute_run(
     state.reset()
     # Test#2: this is the START-button entry point — give the new run a
     # fresh stop_event. Internal phase transitions inside a multi-phase
-    # run must NOT clear the event (see _execute_loadcurve).
+    # run must NOT clear the event mid multi-phase work.
     state.fresh_stop_event()
     app_state.set_status("运行中", "orange")
     state.chart_refresh_mode = str(settings.get("chart_refresh_mode") or "interval")
@@ -2281,7 +2390,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
 
                 probe_btn = (
                     ui.button("测试连接", icon="network_check", on_click=_test_connectivity)
-                    .props("color=dark outline")
+                    .props("outline")
                     .classes("mt-1 w-full")
                 )
 
@@ -2461,7 +2570,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                     with ui.row().classes("w-full items-center gap-2 flex-wrap"):
                         prompt_count_label = ui.label("当前 0 条").classes("text-xs text-slate-500")
                         ui.button("新增 Prompt", icon="add", on_click=lambda: _add_prompt()).props(
-                            "outline color=dark"
+                            "outline"
                         )
                         ui.button(
                             "清空", icon="clear_all", on_click=lambda: _set_prompts([])
@@ -2507,7 +2616,7 @@ def _build_config_form(widgets: dict[str, Any]) -> dict[str, Any]:
                         "w-full text-xs max-h-72 overflow-auto border rounded"
                     )
                     prerun_btn = ui.button("精确预跑估算", icon="science").props(
-                        "outline color=dark"
+                        "outline"
                     )
 
                     async def _run_prerun_estimation() -> None:
@@ -3221,7 +3330,7 @@ def _build_mode_controls(
                 # to look like a badge so the click-to-show-diff handler works.
                 widgets["config_diff_badge"] = (
                     ui.button("", icon="difference")
-                    .props("flat dense color=dark outline")
+                    .props("flat dense outline")
                     .classes("text-xs px-2 py-0 min-w-0")
                 )
                 _attach_tooltip(widgets["config_diff_badge"], _TOOLTIPS["config_diff_badge"])
@@ -3268,7 +3377,6 @@ def _build_mode_controls(
         tab_run = ui.tab("单次压测", icon="play_arrow")
         tab_rps = ui.tab("固定 RPS", icon="speed")
         tab_sweep = ui.tab("并发扫描", icon="bar_chart")
-        tab_loadcurve = ui.tab("负载曲线", icon="timeline")
 
     with ui.tab_panels(mode_tabs, value=tab_run).classes(
         "w-full border border-slate-200 border-t-0 rounded-b-xl bg-white shadow-sm overflow-hidden"
@@ -3292,7 +3400,7 @@ def _build_mode_controls(
                 widgets["run_start_btn"] = start_btn
                 dryrun_btn = (
                     ui.button("试一次", icon="science")
-                    .props("outline color=dark")
+                    .props("outline")
                     .classes("min-w-24")
                 )
                 stop_btn = (
@@ -3547,7 +3655,7 @@ def _build_mode_controls(
                 widgets["sweep_start_btn"] = start_btn
                 probe_btn = (
                     ui.button("探测建议并发", icon="travel_explore")
-                    .props("outline color=dark")
+                    .props("outline")
                     .classes("min-w-40")
                 )
                 stop_btn = (
@@ -3611,191 +3719,7 @@ def _build_mode_controls(
 
             ui.timer(0.25, _refresh_buttons)
 
-        with ui.tab_panel(tab_loadcurve).classes("p-4"):
-            # Load-curve editor: define a piecewise-constant RPS profile
-            # (e.g. 5→10→20→10 over 60s) and run it. Each line is one
-            # phase: "<duration_s>:<rps>".
-            ui.label("负载曲线（多阶段 RPS）").classes("text-base font-semibold")
-            ui.label(
-                "每行一个阶段，格式：<持续秒数>:<目标 RPS>。\n"
-                "示例：\n"
-                "  30:5   # 30 秒 5 req/s\n"
-                "  30:20  # 30 秒 20 req/s\n"
-                "  30:50  # 30 秒 50 req/s\n"
-                "总时长 = 各阶段时长之和。"
-            ).classes("text-xs text-slate-500")
-            widgets["loadcurve_profile"] = ui.textarea(
-                label="负载曲线",
-                value="30:5\n30:20\n30:50",
-            ).classes("w-full font-mono text-sm").props("rows=6")
-            _attach_tooltip(
-                widgets["loadcurve_profile"],
-                "每行 <秒数>:<rps>。支持 # 开头注释行。",
-            )
-
-            loadcurve_summary = ui.label("总时长 0s｜最高 RPS 0").classes(
-                "text-sm text-slate-600 mt-2"
-            )
-
-            # Step chart preview: renders the piecewise-constant RPS profile
-            # as a staircase so the user can see what the engine will run.
-            loadcurve_chart = ui.echart(
-                {
-                    "title": {"text": "负载曲线预览", "left": "center", "textStyle": {"fontSize": 13}},
-                    "xAxis": {
-                        "type": "value",
-                        "name": "时间 (s)",
-                        "nameLocation": "middle",
-                        "nameGap": 22,
-                    },
-                    "yAxis": {
-                        "type": "value",
-                        "name": "RPS",
-                        "nameLocation": "middle",
-                        "nameGap": 35,
-                    },
-                    "tooltip": {"trigger": "axis", "formatter": "第 {b}s: {c} req/s"},
-                    "series": [
-                        {
-                            "name": "RPS",
-                            "type": "line",
-                            "step": "end",
-                            "data": [],
-                            "areaStyle": {"opacity": 0.2},
-                            "lineStyle": {"width": 2, "color": "#475569"},
-                            "itemStyle": {"color": "#475569"},
-                        }
-                    ],
-                    "grid": {"left": 60, "right": 20, "top": 40, "bottom": 50},
-                }
-            ).classes("w-full h-48 mt-2")
-            # UX#10 polish: ECharts canvas swallows mousemove, so the
-            # NiceGUI tooltip bound to the chart never fires. Replace
-            # with a permanent small caption below the chart — visible
-            # at all times, which is also better for users studying
-            # the curve (vs. having to hover for context).
-            ui.label(_TOOLTIPS["loadcurve_chart"]).classes(
-                "text-xs text-slate-500 mt-1 italic"
-            )
-
-            def _refresh_loadcurve_summary() -> None:
-                parsed = _parse_loadcurve_profile(widgets["loadcurve_profile"].value)
-                if not parsed:
-                    # UX#7: when every line is malformed (or empty),
-                    # make the cause obvious instead of silently showing
-                    # "总时长 0s".
-                    loadcurve_summary.set_text(t("loadcurve_malformed"))
-                    loadcurve_summary.classes(
-                        remove="text-slate-600 text-slate-700 text-emerald-700"
-                    )
-                    loadcurve_summary.classes(add="text-slate-700")
-                    step_data: list[list[float]] = []
-                    loadcurve_chart.options["series"][0]["data"] = step_data
-                    loadcurve_chart.update()
-                    return
-                # Valid profile: standard slate summary line.
-                total_s = sum(p[0] for p in parsed)
-                max_rps = max((p[1] for p in parsed), default=0)
-                loadcurve_summary.set_text(
-                    t("loadcurve_total", total=total_s, n=len(parsed), max_rps=max_rps)
-                )
-                loadcurve_summary.classes(
-                    remove="text-slate-600 text-slate-700 text-emerald-700"
-                )
-                loadcurve_summary.classes(add="text-slate-600")
-                # Build step-chart points: (0, 0), (d0, r0), (d0+d1, r0),
-                # (d0+d1, r1), ... so the staircase shows the piecewise-
-                # constant profile.
-                step_data: list[list[float]] = [[0.0, 0.0]]
-                cum = 0.0
-                for dur, rps in parsed:
-                    cum += dur
-                    step_data.append([cum - dur, rps])
-                    step_data.append([cum, rps])
-                loadcurve_chart.options["series"][0]["data"] = step_data
-                loadcurve_chart.update()
-
-            # Perf#2: debounce the chart re-render so rapid keystrokes
-            # don't fire an ECharts update per char. 150ms idle is below
-            # the human-perceptible threshold but batches bursts.
-            _loadcurve_refresh_pending: dict[str, Any] = {"timer": None}
-
-            def _schedule_loadcurve_refresh() -> None:
-                prev = _loadcurve_refresh_pending["timer"]
-                if prev is not None:
-                    prev.cancel()
-                _loadcurve_refresh_pending["timer"] = ui.timer(
-                    0.15, _refresh_loadcurve_summary, once=True
-                )
-
-            _refresh_loadcurve_summary()
-            widgets["loadcurve_profile"].on_value_change(
-                lambda _: _schedule_loadcurve_refresh()
-            )
-
-            with ui.row().classes("mt-3 gap-3 w-full flex-wrap"):
-                start_curve_btn = (
-                    ui.button("按曲线运行", icon="play_arrow")
-                    .props("color=dark")
-                    .classes("min-w-36")
-                )
-                stop_curve_btn = (
-                    ui.button("停止", icon="stop")
-                    .props("outline color=red")
-                    .classes("min-w-28")
-                )
-                stop_curve_btn.disable()
-
-            async def _start_loadcurve() -> None:
-                parsed = _parse_loadcurve_profile(widgets["loadcurve_profile"].value)
-                if not parsed:
-                    ui.notify("请至少定义一个阶段", type="negative")
-                    return
-                start_curve_btn.disable()
-                client_id = ui.context.client.id
-
-                def notify(message: str, level: str) -> None:
-                    _notify_client(client_id, message, level)
-
-                _safe_create_bench_task(
-                    _execute_loadcurve(app_state, parsed, notify),
-                    on_error=lambda exc: _notify_client(
-                        client_id, f"负载曲线运行失败：{exc}", "negative"
-                    ),
-                )
-                _notify_transient(
-                    f"负载曲线已启动，{len(parsed)} 阶段，"
-                    f"总时长 {sum(p[0] for p in parsed)}s",
-                    position="top",
-                )
-
-            def _stop_loadcurve() -> None:
-                # Test#2 fix: _execute_loadcurve runs each phase under the
-                # "rps" mode's stop_event (it's just sequential RPS runs),
-                # so the curve's own stop button only needs to flip
-                # that one event. Previously it also flipped run/sweep,
-                # which leaked state into unrelated modes.
-                app_state.run_states["rps"].stop_event.set()
-                app_state.set_status("停止中...", "orange")
-
-            start_curve_btn.on_click(_start_loadcurve)
-            stop_curve_btn.on_click(_stop_loadcurve)
-
-            def _refresh_curve_buttons() -> None:
-                if app_state.is_busy():
-                    start_curve_btn.disable()
-                else:
-                    start_curve_btn.enable()
-                if any(s.busy for s in app_state.run_states.values()) or app_state.sweep_state.busy:
-                    stop_curve_btn.enable()
-                else:
-                    stop_curve_btn.disable()
-
-            ui.timer(0.25, _refresh_curve_buttons)
-
-            # Register the live widget dict so _execute_loadcurve can
-            # re-collect settings at run time.
-            _register_loadcurve_widgets(widgets)
+    _register_control_widgets(widgets)
 
     # T3-3: keyboard shortcuts — Ctrl+Enter to start the active mode's run,
     # Escape to stop. Page-scoped; only fires when the Control window has
@@ -4030,7 +3954,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
 
         with ui.tab_panel(tab_charts).classes("p-3"):
             with ui.row().classes("w-full gap-4"):
-                latency_chart = ui.echart(
+                latency_chart = _echart(
                     {
                         "title": {"text": "延迟分位 (ms)", "textStyle": {"fontSize": 13}},
                         "tooltip": {},
@@ -4039,10 +3963,10 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                             "data": ["p50", "p75", "p90", "p95", "p99", "p99.9"],
                         },
                         "yAxis": {"type": "value", "name": "ms"},
-                        "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#475569"}}],
+                        "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#94a3b8"}}],
                     }
                 ).classes("flex-1 h-64")
-                stream_chart = ui.echart(
+                stream_chart = _echart(
                     {
                         "title": {"text": "流式指标 (ms)", "textStyle": {"fontSize": 13}},
                         "tooltip": {},
@@ -4058,10 +3982,10 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                             ],
                         },
                         "yAxis": {"type": "value", "name": "ms"},
-                        "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#475569"}}],
+                        "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#94a3b8"}}],
                     }
                 ).classes("flex-1 h-64")
-            inflight_chart = ui.echart(
+            inflight_chart = _echart(
                 {
                     "title": {"text": "在飞请求时序", "textStyle": {"fontSize": 13}},
                     "tooltip": {"trigger": "axis"},
@@ -4073,13 +3997,13 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                             "data": [],
                             "smooth": True,
                             "areaStyle": {"opacity": 0.3},
-                            "lineStyle": {"color": "#475569"},
-                            "itemStyle": {"color": "#475569"},
+                            "lineStyle": {"color": "#94a3b8"},
+                            "itemStyle": {"color": "#94a3b8"},
                         }
                     ],
                 }
             ).classes("w-full h-52 mt-2")
-            throughput_chart = ui.echart(
+            throughput_chart = _echart(
                 {
                     "title": {"text": "时序吞吐（req/s & tok/s）", "textStyle": {"fontSize": 13}},
                     "tooltip": {"trigger": "axis"},
@@ -4110,7 +4034,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                     ],
                 }
             ).classes("w-full h-52 mt-2")
-            token_cumulative_chart = ui.echart(
+            token_cumulative_chart = _echart(
                 {
                     "title": {"text": "Token 累积时序", "textStyle": {"fontSize": 13}},
                     "tooltip": {"trigger": "axis"},
@@ -4139,7 +4063,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                 "text-xs text-slate-500 mb-2"
             )
             replay_btn = ui.button("🔁 重放选中", icon="replay").props(
-                "outline color=dark"
+                "outline"
             )
             _attach_tooltip(replay_btn, _TOOLTIPS["replay_btn"])
             replay_btn.disable()
@@ -4186,26 +4110,37 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
             )
             with ui.row().classes("w-full justify-end mt-1"):
                 copy_detail_btn = ui.button("复制", icon="content_copy").props(
-                    "flat dense size=sm color=dark"
+                    "flat dense size=sm"
                 )
 
             async def _copy_response_detail() -> None:
-                text = response_detail.value or ""
-                if not text:
-                    ui.notify("没有可复制的内容", type="info")
-                    return
-                try:
-                    await ui.run_javascript(f"navigator.clipboard.writeText({json.dumps(text)})")
-                    ui.notify("已复制到剪贴板", type="positive")
-                except Exception:
-                    # clipboard API can be unavailable in some webview contexts;
-                    # the textarea is still selectable as a fallback.
-                    ui.notify("复制失败，可手动选中文本复制", type="warning")
+                await _copy_text_to_clipboard(response_detail.value or "")
 
             copy_detail_btn.on_click(_copy_response_detail)
 
-        with ui.tab_panel(tab_log).classes("p-3"), ui.row().classes("w-full gap-4"):
-            live_log = ui.log(max_lines=600).classes("w-full h-72 font-mono text-xs border rounded")
+        with ui.tab_panel(tab_log).classes("p-3"):
+            with ui.row().classes("w-full justify-end mb-2"):
+                copy_log_btn = ui.button("复制日志", icon="content_copy").props(
+                    "outline dense size=sm"
+                )
+
+            async def _copy_run_logs() -> None:
+                parts: list[str] = []
+                if state.log_lines:
+                    parts.append("\n".join(state.log_lines))
+                if state.stats:
+                    parts.append(
+                        "\n\n--- stats ---\n"
+                        + json.dumps(state.stats, ensure_ascii=False, indent=2)
+                    )
+                await _copy_text_to_clipboard("\n".join(parts))
+
+            copy_log_btn.on_click(_copy_run_logs)
+
+            with ui.row().classes("w-full gap-4"):
+                live_log = ui.log(max_lines=600).classes(
+                    "w-full h-72 font-mono text-xs border rounded"
+                )
             full_log = ui.code("", language="json").classes(
                 "w-full text-xs max-h-72 overflow-auto border rounded"
             )
@@ -4298,7 +4233,7 @@ def _build_run_monitor_panel(mode: str, state: _RunState, app_state: _AppState) 
                 )
                 return
             # Pull the live config from the Control page widgets.
-            live_settings = _loadcurve_capture_widgets(app_state)
+            live_settings = _capture_control_settings(app_state)
             if not live_settings:
                 ui.notify("无法读取当前 Control 配置", "negative")
                 return
@@ -4732,7 +4667,7 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
             ("档位数", "levels"),
             ("最佳 req/s", "best_rps"),
             ("最低 p95 ms", "best_p95"),
-            (f"建议并发 (>={int(_RECOMMENDED_CONCURRENCY_SUCCESS_RATE_PCT)}%)", "recommended"),
+            ("建议并发", "recommended"),
         ]:
             with ui.card().classes("flex-1 text-center py-3"):
                 ui.label(title).classes("text-xs text-slate-500")
@@ -4765,7 +4700,7 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
                 export_sweep_raw_btn = ui.button(
                     t("sweep_export_csv_btn"),
                     icon="download",
-                ).props("outline color=dark")
+                ).props("outline")
                 export_sweep_raw_btn.disable()
                 _attach_tooltip(export_sweep_raw_btn, _TOOLTIPS["sweep_raw_export_btn"])
 
@@ -4821,7 +4756,7 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
             sweep_table.props("dense flat")
 
         with ui.tab_panel(tab_charts).classes("p-3"), ui.row().classes("w-full gap-4"):
-            sweep_lat_chart = ui.echart(
+            sweep_lat_chart = _echart(
                 {
                     "title": {"text": "延迟随并发变化", "textStyle": {"fontSize": 13}},
                     "tooltip": {"trigger": "axis"},
@@ -4835,26 +4770,36 @@ def _build_sweep_monitor_panel(sweep_state: _SweepState, app_state: _AppState) -
                     ],
                 }
             ).classes("flex-1 h-72")
-            sweep_rps_chart = ui.echart(
+            sweep_rps_chart = _echart(
                 {
                     "title": {"text": "吞吐随并发变化", "textStyle": {"fontSize": 13}},
                     "tooltip": {},
                     "xAxis": {"type": "category", "data": [], "name": "并发"},
                     "yAxis": {"type": "value", "name": "req/s"},
-                    "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#475569"}}],
+                    "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#94a3b8"}}],
                 }
             ).classes("flex-1 h-72")
-            sweep_tok_chart = ui.echart(
+            sweep_tok_chart = _echart(
                 {
                     "title": {"text": "Token 吞吐随并发变化", "textStyle": {"fontSize": 13}},
                     "tooltip": {},
                     "xAxis": {"type": "category", "data": [], "name": "并发"},
                     "yAxis": {"type": "value", "name": "tok/s"},
-                    "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#475569"}}],
+                    "series": [{"type": "bar", "data": [], "itemStyle": {"color": "#94a3b8"}}],
                 }
             ).classes("flex-1 h-72")
 
         with ui.tab_panel(tab_log).classes("p-3"):
+            with ui.row().classes("w-full justify-end mb-2"):
+                copy_sweep_log_btn = ui.button("复制日志", icon="content_copy").props(
+                    "outline dense size=sm"
+                )
+
+            async def _copy_sweep_logs() -> None:
+                await _copy_text_to_clipboard("\n".join(sweep_state.log_lines))
+
+            copy_sweep_log_btn.on_click(_copy_sweep_logs)
+
             sweep_log = ui.log(max_lines=500).classes(
                 "w-full h-72 font-mono text-xs border rounded"
             )

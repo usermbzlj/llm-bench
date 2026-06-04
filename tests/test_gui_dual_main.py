@@ -929,44 +929,55 @@ def test_is_private_or_loopback_rejects_unspecified_v4() -> None:
         socket.getaddrinfo = orig
 
 
-# ── Advanced 2: load-curve profile parser ─────────────────────────────────
+# ── Recommended concurrency (throughput + latency) ───────────────────────
 
 
-def test_parse_loadcurve_profile_basic() -> None:
-    raw = "30:5\n30:20\n30:50"
-    phases = gui_dual._parse_loadcurve_profile(raw)
-    assert phases == [(30.0, 5.0), (30.0, 20.0), (30.0, 50.0)]
+def _sweep_stat(
+    concurrency: int,
+    *,
+    rps: float,
+    p95: float,
+    success: float = 100.0,
+    attempt: float = 100.0,
+) -> dict[str, Any]:
+    return {
+        "concurrency_level": concurrency,
+        "throughput_rps": rps,
+        "latency_ms_p95": p95,
+        "success_rate_pct": success,
+        "http_attempt_success_rate_pct": attempt,
+    }
 
 
-def test_parse_loadcurve_profile_handles_comments_and_blank_lines() -> None:
-    raw = """
-    # warmup phase
-    10:2
-
-    # ramp-up
-    20:10
-    """
-    phases = gui_dual._parse_loadcurve_profile(raw)
-    assert phases == [(10.0, 2.0), (20.0, 10.0)]
+def test_recommended_concurrency_picks_throughput_latency_score() -> None:
+    stats = [
+        _sweep_stat(1, rps=5, p95=100),
+        _sweep_stat(2, rps=10, p95=50),
+        _sweep_stat(4, rps=12, p95=200),
+        _sweep_stat(8, rps=8, p95=40),
+    ]
+    assert gui_dual._recommended_concurrency(stats) == 2
 
 
-def test_parse_loadcurve_profile_silently_drops_malformed() -> None:
-    raw = "30:5\ninvalid_line\n10\nfoo:bar\n60:0\n-30:5\n30:-5"
-    phases = gui_dual._parse_loadcurve_profile(raw)
-    # Only the first line is valid; the rest are dropped (no colon, no
-    # valid number, or non-positive duration/RPS).
-    assert phases == [(30.0, 5.0)]
+def test_recommended_concurrency_ignores_low_success() -> None:
+    stats = [_sweep_stat(16, rps=20, p95=10, success=50.0)]
+    assert gui_dual._recommended_concurrency(stats) is None
 
 
-def test_parse_loadcurve_profile_empty() -> None:
-    assert gui_dual._parse_loadcurve_profile("") == []
-    assert gui_dual._parse_loadcurve_profile("   \n  \n  ") == []
+def test_recommended_concurrency_tiebreak_higher_rps() -> None:
+    stats = [
+        _sweep_stat(2, rps=10, p95=100),
+        _sweep_stat(4, rps=12, p95=120),
+    ]
+    assert gui_dual._recommended_concurrency(stats) == 4
 
 
-def test_parse_loadcurve_profile_decimal_values() -> None:
-    raw = "15.5:2.5\n30.0:7.5"
-    phases = gui_dual._parse_loadcurve_profile(raw)
-    assert phases == [(15.5, 2.5), (30.0, 7.5)]
+def test_sweep_completion_feedback_uses_recommendation_detail() -> None:
+    stats = [_sweep_stat(4, rps=12, p95=80)]
+    _title, _status, _color, notify_text, level = gui_dual._sweep_completion_feedback(stats)
+    assert level == "positive"
+    assert "建议并发 4" in notify_text
+    assert "req/s=" in notify_text
 
 
 @pytest.mark.asyncio
@@ -1044,230 +1055,6 @@ async def test_execute_run_updates_live_chart_stats(
     assert live_stats_seen[0]["metadata"]["mode"] == "run"
     assert live_stats_seen[0]["timeline"]
     assert app_state.run_states["run"].inflight_samples == [1]
-
-
-@pytest.mark.asyncio
-async def test_execute_loadcurve_passes_numeric_target_rps(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    from llm_bench import runner
-    from llm_bench.models import BenchSummary
-
-    app_state = gui_dual._AppState()
-    captured: list[dict[str, Any]] = []
-    notifications: list[tuple[str, str]] = []
-
-    monkeypatch.setattr(
-        gui_dual,
-        "_loadcurve_capture_widgets",
-        lambda _app_state: {
-            "api_key": "sk-test",
-            "base_url": "https://example.test/v1",
-            "model": "demo-model",
-            "concurrency": 1,
-            "timeout_s": 5,
-            "http2": False,
-            "warmup": 0,
-            "retry_on_429": 0,
-            "retry_on_network": 0,
-            "retry_on_5xx": 0,
-            "base_backoff_s": 0.1,
-        },
-    )
-    monkeypatch.setattr(
-        gui_dual,
-        "_build_runtime_payload",
-        lambda _settings: {
-            "endpoint": "https://example.test/v1/chat/completions",
-            "body_template": {"model": "demo-model"},
-            "stream_flag": False,
-            "prompts": [],
-            "prompt_strategy": "sequential",
-            "prompt_weights": [],
-            "proxy_mode": "direct",
-            "proxy_url": None,
-        },
-    )
-
-    async def fake_run_benchmark(**kwargs: Any) -> BenchSummary:
-        captured.append(kwargs)
-        return BenchSummary(
-            total=1,
-            success=1,
-            attempt_total=1,
-            attempt_success=1,
-            wall_seconds=1.0,
-            latencies_ms=[1.0],
-        )
-
-    monkeypatch.setattr(runner, "run_benchmark", fake_run_benchmark)
-
-    await gui_dual._execute_loadcurve(
-        app_state,
-        [(1.0, 2.5), (1.0, 7.5)],
-        lambda message, level: notifications.append((message, level)),
-    )
-
-    assert [call["target_rps"] for call in captured] == [2.5, 7.5]
-    assert all(isinstance(call["target_rps"], float) for call in captured)
-    assert [stat["metadata"]["target_rps"] for stat in app_state.history] == [2.5, 7.5]
-    assert app_state.run_states["rps"].busy is False
-    assert notifications[-1][0].startswith("负载曲线完成：2 阶段")
-
-
-@pytest.mark.asyncio
-async def test_execute_loadcurve_stops_between_phases(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    from llm_bench import runner
-    from llm_bench.models import BenchSummary
-
-    app_state = gui_dual._AppState()
-    captured: list[dict[str, Any]] = []
-    notifications: list[tuple[str, str]] = []
-
-    monkeypatch.setattr(
-        gui_dual,
-        "_loadcurve_capture_widgets",
-        lambda _app_state: {
-            "api_key": "sk-test",
-            "base_url": "https://example.test/v1",
-            "model": "demo-model",
-            "concurrency": 1,
-            "timeout_s": 5,
-            "http2": False,
-            "warmup": 0,
-            "retry_on_429": 0,
-            "retry_on_network": 0,
-            "retry_on_5xx": 0,
-            "base_backoff_s": 0.1,
-        },
-    )
-    monkeypatch.setattr(
-        gui_dual,
-        "_build_runtime_payload",
-        lambda _settings: {
-            "endpoint": "https://example.test/v1/chat/completions",
-            "body_template": {"model": "demo-model"},
-            "stream_flag": False,
-            "prompts": [],
-            "prompt_strategy": "sequential",
-            "prompt_weights": [],
-            "proxy_mode": "direct",
-            "proxy_url": None,
-        },
-    )
-
-    async def fake_run_benchmark(**kwargs: Any) -> BenchSummary:
-        captured.append(kwargs)
-        app_state.run_states["rps"].stop_event.set()
-        return BenchSummary(
-            total=1,
-            success=1,
-            attempt_total=1,
-            attempt_success=1,
-            wall_seconds=1.0,
-            latencies_ms=[1.0],
-        )
-
-    monkeypatch.setattr(runner, "run_benchmark", fake_run_benchmark)
-
-    await gui_dual._execute_loadcurve(
-        app_state,
-        [(1.0, 2.5), (1.0, 7.5)],
-        lambda message, level: notifications.append((message, level)),
-    )
-
-    assert [call["target_rps"] for call in captured] == [2.5]
-    assert app_state.run_states["rps"].busy is False
-    assert app_state.status_text == "已停止"
-    assert app_state.status_color == "grey"
-    assert notifications[-1][0].startswith("负载曲线已停止：已完成 1 阶段")
-
-
-@pytest.mark.asyncio
-async def test_execute_loadcurve_updates_live_chart_stats(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    from llm_bench import runner
-    from llm_bench.models import BenchSummary, RequestResult
-
-    app_state = gui_dual._AppState()
-    captured: list[dict[str, Any]] = []
-    live_stats_seen: list[dict[str, Any]] = []
-
-    monkeypatch.setattr(
-        gui_dual,
-        "_loadcurve_capture_widgets",
-        lambda _app_state: {
-            "api_key": "sk-test",
-            "base_url": "https://example.test/v1",
-            "model": "demo-model",
-            "concurrency": 1,
-            "timeout_s": 5,
-            "http2": False,
-            "warmup": 0,
-            "retry_on_429": 0,
-            "retry_on_network": 0,
-            "retry_on_5xx": 0,
-            "base_backoff_s": 0.1,
-            "chart_refresh_mode": "requests",
-            "chart_refresh_interval_s": 0.3,
-            "chart_refresh_every_n": 2,
-        },
-    )
-    monkeypatch.setattr(
-        gui_dual,
-        "_build_runtime_payload",
-        lambda _settings: {
-            "endpoint": "https://example.test/v1/chat/completions",
-            "body_template": {"model": "demo-model"},
-            "stream_flag": False,
-            "prompts": [],
-            "prompt_strategy": "sequential",
-            "prompt_weights": [],
-            "proxy_mode": "direct",
-            "proxy_url": None,
-        },
-    )
-
-    async def fake_run_benchmark(**kwargs: Any) -> BenchSummary:
-        captured.append(kwargs)
-        summary = BenchSummary(
-            timeline_bucket_s=kwargs["timeline_bucket_s"],
-            attempt_total=1,
-            attempt_success=1,
-        )
-        summary.wall_t0 = gui_dual.time.perf_counter()
-        result = RequestResult(
-            ok=True,
-            status_code=200,
-            latency_ms=42.0,
-            prompt_tokens=3,
-            completion_tokens=5,
-            total_tokens=8,
-        )
-        summary.add(result, now_mono=summary.wall_t0 + 0.2)
-        summary.in_flight_samples.append(1)
-        kwargs["raw_results"].append(result)
-        kwargs["progress_callback"](summary)
-        live_stats_seen.append(dict(app_state.run_states["rps"].stats))
-        summary.wall_seconds = 0.2
-        return summary
-
-    monkeypatch.setattr(runner, "run_benchmark", fake_run_benchmark)
-
-    await gui_dual._execute_loadcurve(app_state, [(1.0, 2.5)], lambda _m, _t: None)
-
-    assert captured[0]["target_rps"] == 2.5
-    assert captured[0]["timeline_bucket_s"] == gui_dual._LIVE_TIMELINE_BUCKET_S
-    assert captured[0]["progress_every_n"] == 1
-    assert live_stats_seen[0]["requests_total"] == 1
-    assert live_stats_seen[0]["metadata"]["mode"] == "loadcurve"
-    assert live_stats_seen[0]["metadata"]["phase"] == 1
-    assert live_stats_seen[0]["timeline"]
-    assert app_state.run_states["rps"].chart_refresh_mode == "requests"
-    assert app_state.run_states["rps"].chart_refresh_every_n == 2
 
 
 # ── T2-3: augmented stat rows (final_attempt_latency visibility) ──────────

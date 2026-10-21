@@ -466,6 +466,8 @@ async def one_chat_request(
                 try:
                     data = json.loads(raw_text)
                     json_ok = True
+                    if not isinstance(data, dict):
+                        raise TypeError("expected JSON object")
                     prompt_t, completion_t, total_t = _extract_usage(data)
                     response_text = _extract_response_text(data)
                     if not isinstance(data, dict) or data.get("error"):

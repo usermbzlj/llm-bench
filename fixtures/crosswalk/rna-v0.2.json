@@ -1,0 +1,15 @@
+{
+  "crosswalk_version": "rna-crosswalk-v0.1",
+  "sides": ["llm-bench validate_rna.py", "Chenxi Li v0.2 gate"],
+  "reason_aliases": [
+    {"ours": "STALE_ARTIFACT", "theirs": "STALE_READBACK", "meaning": "artifact/readback round epoch < current round admission epoch", "status": "SYNONYM"}
+  ],
+  "axes": {
+    "verdict": ["PASS", "REJECT", "UNVERIFIABLE", "NOT_COMPARABLE"],
+    "evidence_status": ["PRESENT", "ABSENT"],
+    "conclusion": ["TRUE", "FALSE", "UNKNOWN"],
+    "rule": "UNKNOWN lives only on the conclusion axis. Our old verdict UNKNOWN maps to verdict=UNVERIFIABLE + evidence_status=ABSENT + conclusion=UNKNOWN. FAIL maps to REJECT."
+  },
+  "two_gate_note": "A row can exercise two independent gates (anchor valid AND round fresh). STALE_ARTIFACT_ROUND has a valid counterparty_nonce anchor; only the round comparison catches it. A judge that checks anchors only scores it PASS.",
+  "cross_run_20261021": {"rows": 6, "exact": 4, "reason_alias": 1, "enum_axis": 1, "direction_agree": 6}
+}

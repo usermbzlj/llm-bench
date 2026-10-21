@@ -437,6 +437,10 @@ async def one_chat_request(
                     ttft_ms = ttft_holder[0]
                     if usage:
                         prompt_t, completion_t, total_t = _usage_from_dict(usage)
+                    if stream_chunks == 0:
+                        err = "stream: no valid SSE data lines"
+                    elif response_text is None and not (completion_t and completion_t > 0):
+                        err = "stream: empty response"
         else:
             async with client.stream(
                 "POST", url, headers=headers, json=body, timeout=timeout_s
@@ -464,7 +468,11 @@ async def one_chat_request(
                     json_ok = True
                     prompt_t, completion_t, total_t = _extract_usage(data)
                     response_text = _extract_response_text(data)
-                except json.JSONDecodeError as e:
+                    if not isinstance(data, dict) or data.get("error"):
+                        err = "JSON response: error object or invalid response shape"
+                    elif response_text is None and not (completion_t and completion_t > 0):
+                        err = "JSON response: no usable content"
+                except (json.JSONDecodeError, TypeError, AttributeError) as e:
                     response_text = None
                     err = f"JSON decode: {e}"
     except asyncio.CancelledError:

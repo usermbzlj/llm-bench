@@ -1,7 +1,6 @@
 """Prerun retries only transient failures and does not count attempts as prompts."""
 import asyncio
 import unittest
-from unittest.mock import patch
 
 import httpx
 
@@ -28,9 +27,6 @@ class PrerunRetryTests(unittest.TestCase):
                 total_requests=7, prompt_strategy="sequential",
                 prompt_weights=None, transport=httpx.MockTransport(handler),
             )
-        with patch("llm_bench.tokens.asyncio.sleep", return_value=asyncio.sleep(0)):
-            # No mock sleep needed in correctness assertion; requests remain identical.
-            pass
         result = asyncio.run(run())
         self.assertEqual(len(seen), 2)
         self.assertEqual(seen[0], seen[1])

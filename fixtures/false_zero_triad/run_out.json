@@ -1,0 +1,165 @@
+{
+  "credit": [
+    "H"
+  ],
+  "fixture": "FALSE_ZERO_TRIAD",
+  "n_cases": 12,
+  "n_fail": 0,
+  "n_pass": 12,
+  "policy": "analyze_only REFERENCE_ONLY fictional_desensitized no_secrets",
+  "results": [
+    {
+      "case_id": "fzt-trunc-buried-false-pass",
+      "expect_judge": "FAIL",
+      "expect_reason": "BURIED_TRUNCATION_FALSE_ZERO",
+      "got": {
+        "detail": {
+          "unread_truncation_flag": true
+        },
+        "judge": "FAIL",
+        "reason_code": "BURIED_TRUNCATION_FALSE_ZERO"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-trunc-buried-detected",
+      "expect_judge": "FAIL",
+      "expect_reason": "BURIED_TRUNCATION",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "BURIED_TRUNCATION"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-trunc-honest-consumed",
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_TRUNCATION_CONSUMED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_TRUNCATION_CONSUMED"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-fill-zero-wrong-denom-false-pass",
+      "expect_judge": "FAIL",
+      "expect_reason": "FILL_ZERO_WRONG_DENOM_FALSE_PASS",
+      "got": {
+        "detail": {
+          "intended_n": 5,
+          "missing": 2,
+          "n_obs": 3
+        },
+        "judge": "FAIL",
+        "reason_code": "FILL_ZERO_WRONG_DENOM_FALSE_PASS"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-fill-zero-wrong-denom-detected",
+      "expect_judge": "FAIL",
+      "expect_reason": "FILL_ZERO_WRONG_DENOM",
+      "got": {
+        "detail": {
+          "intended_n": 4,
+          "missing": 3,
+          "n_obs": 1
+        },
+        "judge": "FAIL",
+        "reason_code": "FILL_ZERO_WRONG_DENOM"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-fill-honest-observed-denom",
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_DENOM_POLICY",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_DENOM_POLICY"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-dedup-collision-false-pass",
+      "expect_judge": "FAIL",
+      "expect_reason": "DEDUP_COLLISION_FALSE_ZERO",
+      "got": {
+        "detail": {
+          "n_records": 3,
+          "n_unique_keys": 2,
+          "n_unique_payloads": 3
+        },
+        "judge": "FAIL",
+        "reason_code": "DEDUP_COLLISION_FALSE_ZERO"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-dedup-collision-detected",
+      "expect_judge": "FAIL",
+      "expect_reason": "DEDUP_COLLISION",
+      "got": {
+        "detail": {
+          "n_records": 2,
+          "n_unique_keys": 1,
+          "n_unique_payloads": 2
+        },
+        "judge": "FAIL",
+        "reason_code": "DEDUP_COLLISION"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-dedup-honest",
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_DEDUP",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_DEDUP"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-recon-mismatch-false-pass",
+      "expect_judge": "FAIL",
+      "expect_reason": "RECON_MISMATCH_FALSE_PASS",
+      "got": {
+        "detail": {
+          "actual_rows": 7,
+          "expected_rows": 10,
+          "unique_keys": 7
+        },
+        "judge": "FAIL",
+        "reason_code": "RECON_MISMATCH_FALSE_PASS"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-recon-agree",
+      "expect_judge": "PASS",
+      "expect_reason": "RECON_COLUMNS_AGREE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "RECON_COLUMNS_AGREE"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "fzt-recon-column-absent",
+      "expect_judge": "FAIL",
+      "expect_reason": "RECON_COLUMN_ABSENT",
+      "got": {
+        "detail": {
+          "missing": "unique_keys"
+        },
+        "judge": "FAIL",
+        "reason_code": "RECON_COLUMN_ABSENT"
+      },
+      "ok": true
+    }
+  ],
+  "run_out_sha256": "4377f69d9022f7447a4bcb6eed9fad403fc597ad650ee5a22fbae8b084009f30",
+  "version": "v0.1"
+}

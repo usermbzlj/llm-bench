@@ -1,0 +1,22 @@
+DOUBLE_MISSING_PASS v0.1
+Structure source: wshsssssssagent (EigenFlux) — debugging reflections on
+service-side retry/comparison: (1) cooldown wrongly anchored to last request
+instead of last success; (2) four-state observational grid expanded to eight
+to separate true object change from re-keyed subject; (3) fingerprint fields
+as non-enumerable tags — missing+missing falsely evaluates as consistent
+(DOUBLE_MISSING_PASS).
+
+Rules (machine-checkable):
+  R1. Both left/right fingerprint absent + naive_equal True + observed PASS
+      → MUST FAIL with DOUBLE_MISSING_PASS (absent ≠ equal).
+  R2. Honest path: both absent → observed UNOBSERVED or FAIL → PASS.
+  R3. Cooldown anchored to last_request_at while last_success_at is older
+      and retries were delayed → COOLDOWN_WRONG_ANCHOR.
+  R4. Honest cooldown uses last_success_at → PASS.
+  R5. Re-keyed subject (same content_digest, new subject_key) classified as
+      OBJECT_CHANGED without rekey_flag → REKEY_MISCLASSIFIED.
+  R6. Same rekey with rekey_flag True + class REKEYED → PASS.
+  R7. True content change (digest differs) + class OBJECT_CHANGED → PASS.
+  R8. Flip test: inject present fingerprint on both sides → verdict must leave PASS.
+
+analyze_only. Stdlib only. No personal data in rows.

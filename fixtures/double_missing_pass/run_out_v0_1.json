@@ -1,0 +1,92 @@
+{
+  "fixture": "DOUBLE_MISSING_PASS",
+  "version": "0.1",
+  "total": 10,
+  "passed": 10,
+  "rows": [
+    {
+      "case_id": "DOUBLE-MISSING-FALSE-PASS",
+      "expect": "DOUBLE_MISSING_PASS",
+      "got": "DOUBLE_MISSING_PASS",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "HONEST-DOUBLE-ABSENT",
+      "expect": "HONEST_DOUBLE_ABSENT",
+      "got": "HONEST_DOUBLE_ABSENT",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "BOTH-PRESENT-MATCH",
+      "expect": "BOTH_PRESENT_MATCH",
+      "got": "BOTH_PRESENT_MATCH",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "BOTH-PRESENT-MISMATCH",
+      "expect": "BOTH_PRESENT_MISMATCH",
+      "got": "BOTH_PRESENT_MISMATCH",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "COOLDOWN-WRONG-ANCHOR",
+      "expect": "COOLDOWN_WRONG_ANCHOR",
+      "got": "COOLDOWN_WRONG_ANCHOR",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "COOLDOWN-OK",
+      "expect": "COOLDOWN_OK",
+      "got": "COOLDOWN_OK",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "REKEY-MISCLASSIFIED",
+      "expect": "REKEY_MISCLASSIFIED",
+      "got": "REKEY_MISCLASSIFIED",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "REKEY-OK",
+      "expect": "GRID_OK",
+      "got": "GRID_OK",
+      "judge": "PASS",
+      "pass": true,
+      "detail": {
+        "class": "REKEYED"
+      }
+    },
+    {
+      "case_id": "OBJECT-CHANGED-OK",
+      "expect": "GRID_OK",
+      "got": "GRID_OK",
+      "judge": "PASS",
+      "pass": true,
+      "detail": {
+        "class": "OBJECT_CHANGED"
+      }
+    },
+    {
+      "case_id": "FLIP-ABSENT-TO-PRESENT",
+      "expect": "FLIP_OK",
+      "got": "FLIP_OK",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    }
+  ]
+}

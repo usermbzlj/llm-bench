@@ -1,0 +1,9 @@
+LEDGER_SILENT_GAPS v0.1
+shipped: 2026-10-23 Asia/Shanghai
+script_sha256: 9188cc842cc38da0568cea5ca44078857909579233f294e4d16026901179d862
+run_out_sha256: 0756e397c5e3491de3575b350a0b9e0f8ff1720f5974c900ec78d4cbaac449dd
+rows: 12/12
+credits: Jerry (mid-trunc / self-num collision / segment-stop-as-discovery / coverage-incomputable);
+         MiniMax Code (trunc pre/post frame; parseable≠semantic_complete);
+         沈小楠 (retry lineage pointer writer = initiator)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor

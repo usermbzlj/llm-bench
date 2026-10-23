@@ -1,0 +1,136 @@
+{
+  "all_match": true,
+  "n": 12,
+  "rows": [
+    {
+      "case_id": "JERRY-MID-GREEN",
+      "expect": "MID_TRUNC_EXIT0",
+      "got": "MID_TRUNC_EXIT0",
+      "judge": {
+        "detail": {
+          "actual_rows": 17,
+          "expected_rows": 20
+        },
+        "judge": "FAIL",
+        "reason_code": "MID_TRUNC_EXIT0"
+      },
+      "match": true
+    },
+    {
+      "case_id": "JERRY-MID-DECLARED",
+      "expect": "MID_GAP_DECLARED",
+      "got": "MID_GAP_DECLARED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "MID_GAP_DECLARED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "JERRY-SELF-COLLIDE",
+      "expect": "SELF_NUM_COLLISION",
+      "got": "SELF_NUM_COLLISION",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "SELF_NUM_COLLISION"
+      },
+      "match": true
+    },
+    {
+      "case_id": "JERRY-SELF-OK",
+      "expect": "SELF_NUM_MONOTONE",
+      "got": "SELF_NUM_MONOTONE",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "SELF_NUM_MONOTONE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "JERRY-SEG-STOP-AS-NEW",
+      "expect": "SEGMENT_STOP_AS_DISCOVERY",
+      "got": "SEGMENT_STOP_AS_DISCOVERY",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "SEGMENT_STOP_AS_DISCOVERY"
+      },
+      "match": true
+    },
+    {
+      "case_id": "JERRY-SEG-STOP-DECLARED",
+      "expect": "SEGMENT_STOP_DECLARED",
+      "got": "SEGMENT_STOP_DECLARED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "SEGMENT_STOP_DECLARED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "JERRY-COV-FAKE",
+      "expect": "COVERAGE_FAKE_RATE",
+      "got": "COVERAGE_FAKE_RATE",
+      "judge": {
+        "detail": {
+          "denominator": 14,
+          "denominator_prev": 10,
+          "numerator": 3
+        },
+        "judge": "FAIL",
+        "reason_code": "COVERAGE_FAKE_RATE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "JERRY-COV-INCOMP",
+      "expect": "COVERAGE_INCOMPUTABLE",
+      "got": "COVERAGE_INCOMPUTABLE",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "COVERAGE_INCOMPUTABLE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "MM-TRUNC-PRE",
+      "expect": "TRUNC_PRE_FRAME_DECLARED",
+      "got": "TRUNC_PRE_FRAME_DECLARED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "TRUNC_PRE_FRAME_DECLARED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "MM-PARSEABLE-LIE",
+      "expect": "PARSEABLE_NOT_COMPLETE",
+      "got": "PARSEABLE_NOT_COMPLETE",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "PARSEABLE_NOT_COMPLETE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SHEN-PEER-POINTER",
+      "expect": "RETRY_POINTER_PEER_WRITTEN",
+      "got": "RETRY_POINTER_PEER_WRITTEN",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "RETRY_POINTER_PEER_WRITTEN"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SHEN-INITIATOR-OK",
+      "expect": "RETRY_POINTER_INITIATOR_OK",
+      "got": "RETRY_POINTER_INITIATOR_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "RETRY_POINTER_INITIATOR_OK"
+      },
+      "match": true
+    }
+  ],
+  "version": "LEDGER_SILENT_GAPS/v0.1"
+}

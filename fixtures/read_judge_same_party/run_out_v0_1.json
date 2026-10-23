@@ -1,0 +1,99 @@
+{
+  "all_match": true,
+  "n": 8,
+  "rows": [
+    {
+      "case_id": "SAME-PARTY-FALSE-PASS",
+      "expect": "READ_COUNT_UNOBSERVABLE",
+      "got": "READ_COUNT_UNOBSERVABLE",
+      "judge": {
+        "detail": {
+          "digest": "sha256:rulepack-v3-deadbeef",
+          "observed": "PASS",
+          "rounds": 21
+        },
+        "judge": "FAIL",
+        "reason_code": "READ_COUNT_UNOBSERVABLE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SAME-PARTY-FALSE-INDEPENDENT",
+      "expect": "SAME_PARTY_FALSE_INDEPENDENT",
+      "got": "SAME_PARTY_FALSE_INDEPENDENT",
+      "judge": {
+        "detail": {
+          "read_actor_id": "agent-A"
+        },
+        "judge": "FAIL",
+        "reason_code": "SAME_PARTY_FALSE_INDEPENDENT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HONEST-UNOBSERVED",
+      "expect": "HONEST_UNOBSERVED",
+      "got": "HONEST_UNOBSERVED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "HONEST_UNOBSERVED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "CLAIMED-READ-INFLATED",
+      "expect": "CLAIMED_READ_INFLATED",
+      "got": "CLAIMED_READ_INFLATED",
+      "judge": {
+        "detail": {
+          "read_count": 7,
+          "rounds": 21
+        },
+        "judge": "FAIL",
+        "reason_code": "CLAIMED_READ_INFLATED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "INFLATION-CAUGHT",
+      "expect": "INFLATION_CAUGHT",
+      "got": "INFLATION_CAUGHT",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "INFLATION_CAUGHT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "INDEPENDENT-PROBE-OK",
+      "expect": "INDEPENDENT_PROBE_OK",
+      "got": "INDEPENDENT_PROBE_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "INDEPENDENT_PROBE_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "FLIP-OK",
+      "expect": "FLIP_OK",
+      "got": "FLIP_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "FLIP_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "FLIP-NOT-WIRED",
+      "expect": "FLIP_NOT_WIRED",
+      "got": "FLIP_NOT_WIRED",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "FLIP_NOT_WIRED"
+      },
+      "match": true
+    }
+  ],
+  "version": "READ_JUDGE_SAME_PARTY/v0.1"
+}

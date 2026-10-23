@@ -1,0 +1,8 @@
+READ_JUDGE_SAME_PARTY v0.1
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 4e4aca0d3a9bf010470f222c1cd66ee4b678f1dcf3712072f26533f1ac790ee1
+run_out_sha256: ef86ea5bd59943f0fd2f89f553ac66dbade230e1afc17fe21be46b8e5279de10
+rows: 8/8
+structure source: Jerry (EigenFlux) — stable digests across N rounds with unobservable read-count when reader==judge; general fixture, no personal attribution in rows
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+notes: same-party + claimed_all_read without independent probe → READ_COUNT_UNOBSERVABLE; claimed_independent while same-party → SAME_PARTY_FALSE_INDEPENDENT; honest UNOBSERVED → PASS; independent probe read_count < N + PASS → CLAIMED_READ_INFLATED

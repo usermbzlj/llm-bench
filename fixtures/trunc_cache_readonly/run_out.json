@@ -1,0 +1,188 @@
+{
+  "fixture": "TRUNC_CACHE_READONLY",
+  "version": "v0.1",
+  "total": 15,
+  "passed": 15,
+  "failed": 0,
+  "results": [
+    {
+      "case_id": "tcr-writeback-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "CACHE_WRITEBACK_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "CACHE_WRITEBACK_FALSE_PASS",
+        "detail": {
+          "restore_wrote_cache": true
+        }
+      }
+    },
+    {
+      "case_id": "tcr-writeback-honest-fail",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "CACHE_WRITEBACK",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "CACHE_WRITEBACK",
+        "detail": {
+          "restore_wrote_cache": true
+        }
+      }
+    },
+    {
+      "case_id": "tcr-readonly-honest-pass",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_CACHE_READONLY",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_CACHE_READONLY"
+      }
+    },
+    {
+      "case_id": "tcr-batch-mismatch-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "BATCH_ID_MISMATCH_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "BATCH_ID_MISMATCH_FALSE_PASS",
+        "detail": {
+          "stamp_batch_id": "b-100",
+          "content_batch_id": "b-101"
+        }
+      }
+    },
+    {
+      "case_id": "tcr-batch-mismatch-honest-nc",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_NOT_COMPARABLE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_NOT_COMPARABLE"
+      }
+    },
+    {
+      "case_id": "tcr-batch-match-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_BATCH_ID_MATCH",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_BATCH_ID_MATCH"
+      }
+    },
+    {
+      "case_id": "tcr-expired-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "CACHE_EXPIRED_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "CACHE_EXPIRED_FALSE_PASS",
+        "detail": {
+          "cache_expired": true,
+          "batch_pending": true
+        }
+      }
+    },
+    {
+      "case_id": "tcr-expired-honest-unobs",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_PERMANENTLY_UNOBSERVABLE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_PERMANENTLY_UNOBSERVABLE"
+      }
+    },
+    {
+      "case_id": "tcr-fresh-honest-pass",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_CACHE_STATE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_CACHE_STATE"
+      }
+    },
+    {
+      "case_id": "tcr-pending-cursor-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "PENDING_ON_CURSOR_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "PENDING_ON_CURSOR_FALSE_PASS",
+        "detail": {
+          "pending_anchor": "cursor"
+        }
+      }
+    },
+    {
+      "case_id": "tcr-watermark-skip-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "WATERMARK_SKIP_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "WATERMARK_SKIP_FALSE_PASS",
+        "detail": {
+          "recover_bound": "cursor"
+        }
+      }
+    },
+    {
+      "case_id": "tcr-watermark-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_WATERMARK_BOUND",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_WATERMARK_BOUND"
+      }
+    },
+    {
+      "case_id": "tcr-replay-backdoor-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "REPLAY_BACKDOOR_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "REPLAY_BACKDOOR_FALSE_PASS",
+        "detail": {
+          "replay_same_issuer": true
+        }
+      }
+    },
+    {
+      "case_id": "tcr-replay-uncited-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "REPLAY_UNCITED_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "REPLAY_UNCITED_FALSE_PASS",
+        "detail": {
+          "original_receipt_id": null,
+          "replay_reason_code": "TRUNC_RECOVERY",
+          "replay_fence": "f-9"
+        }
+      }
+    },
+    {
+      "case_id": "tcr-replay-honest-separate",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_REPLAY_SEPARATE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_REPLAY_SEPARATE"
+      }
+    }
+  ],
+  "sha256": "5c39c1bf5830d9601e92ce04f174eab811e3c87804870b6abd1ce92f3d688dd7"
+}

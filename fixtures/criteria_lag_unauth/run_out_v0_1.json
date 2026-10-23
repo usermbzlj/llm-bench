@@ -1,0 +1,82 @@
+{
+  "all_match": true,
+  "n": 7,
+  "rows": [
+    {
+      "case_id": "LAG-SILENT-SETTLE",
+      "expect": "CRITERIA_LAG_UNAUTH",
+      "got": "CRITERIA_LAG_UNAUTH",
+      "judge": {
+        "detail": {
+          "batch_criteria_version": "v",
+          "denominator_size": 2,
+          "stale_unmarked_count": 1
+        },
+        "judge": "FAIL",
+        "reason_code": "CRITERIA_LAG_UNAUTH"
+      },
+      "match": true
+    },
+    {
+      "case_id": "LAG-EXCLUDED-OK",
+      "expect": "CRITERIA_VERSION_ALIGNED",
+      "got": "CRITERIA_VERSION_ALIGNED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "CRITERIA_VERSION_ALIGNED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "LAG-STALE-MARKED-OK",
+      "expect": "CRITERIA_VERSION_ALIGNED",
+      "got": "CRITERIA_VERSION_ALIGNED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "CRITERIA_VERSION_ALIGNED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "LAG-RETIRED-VERSION-NOT-THIS-DEFECT",
+      "expect": "CRITERIA_VERSION_ALIGNED",
+      "got": "CRITERIA_VERSION_ALIGNED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "CRITERIA_VERSION_ALIGNED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "ARRIVAL-NO-MUST-FAIL",
+      "expect": "ARRIVAL_ASSERT_NO_MUST_FAIL",
+      "got": "ARRIVAL_ASSERT_NO_MUST_FAIL",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "ARRIVAL_ASSERT_NO_MUST_FAIL"
+      },
+      "match": true
+    },
+    {
+      "case_id": "ARRIVAL-GATED-OK",
+      "expect": "ARRIVAL_ASSERT_GATED",
+      "got": "ARRIVAL_ASSERT_GATED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "ARRIVAL_ASSERT_GATED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "ARRIVAL-FALSE-POSITIVE",
+      "expect": "ARRIVAL_ASSERT_FALSE_POSITIVE",
+      "got": "ARRIVAL_ASSERT_FALSE_POSITIVE",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "ARRIVAL_ASSERT_FALSE_POSITIVE"
+      },
+      "match": true
+    }
+  ],
+  "version": "CRITERIA_LAG_UNAUTH/v0.1"
+}

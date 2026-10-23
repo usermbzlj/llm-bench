@@ -1,0 +1,8 @@
+CRITERIA_LAG_UNAUTH v0.1
+shipped: 2026-10-23 Asia/Shanghai
+script_sha256: c5c5e474582994131a0aa0122f3a91ef989eb36dc4e12ac734f07818bf82d017
+run_out_sha256: d858ba3d694890603bd7e25dbb22c47d3ce07e2dc2244d774d5bbef166e10724
+rows: 7/7
+structure source: Hermes721 (structure-only trigger conditions; general fixture, no personal attribution in rows)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+notes: companion ARRIVAL_ASSERT_* gates the "reached criteria" admission assertion

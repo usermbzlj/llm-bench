@@ -1,0 +1,207 @@
+{
+  "fixture": "GHOST_ID_IN_DENOM",
+  "version": "v0.1",
+  "total": 15,
+  "passed": 15,
+  "failed": 0,
+  "results": [
+    {
+      "case_id": "gid-relabel-unclassified-to-ok",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "UNCLASSIFIED_RELABEL_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "UNCLASSIFIED_RELABEL_FALSE_PASS",
+        "detail": {
+          "raw_error_class": "UNCLASSIFIED",
+          "mapped_bucket": "ok"
+        }
+      }
+    },
+    {
+      "case_id": "gid-relabel-unknown-to-success",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "UNCLASSIFIED_RELABEL_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "UNCLASSIFIED_RELABEL_FALSE_PASS",
+        "detail": {
+          "raw_error_class": "UNKNOWN",
+          "mapped_bucket": "success"
+        }
+      }
+    },
+    {
+      "case_id": "gid-relabel-honest-kept",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_UNCLASSIFIED_KEPT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_UNCLASSIFIED_KEPT"
+      }
+    },
+    {
+      "case_id": "gid-relabel-honest-classified",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_CLASSIFIED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_CLASSIFIED"
+      }
+    },
+    {
+      "case_id": "gid-denom-drop-unexecuted",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "DENOM_SHIFT_GHOST",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "DENOM_SHIFT_GHOST",
+        "detail": {
+          "excluded_from_denom": [
+            "c"
+          ],
+          "planned_n": 3,
+          "denom_n": 2,
+          "executed_n": 2
+        }
+      }
+    },
+    {
+      "case_id": "gid-denom-drop-below-threshold",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "DENOM_SHIFT_GHOST",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "DENOM_SHIFT_GHOST",
+        "detail": {
+          "excluded_from_denom": [
+            "p3",
+            "p4"
+          ],
+          "planned_n": 4,
+          "denom_n": 2,
+          "executed_n": 1
+        }
+      }
+    },
+    {
+      "case_id": "gid-denom-honest-eq-planned",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_DENOM_EQ_PLANNED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_DENOM_EQ_PLANNED"
+      }
+    },
+    {
+      "case_id": "gid-ghost-in-denom",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "GHOST_ID_IN_DENOM",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "GHOST_ID_IN_DENOM",
+        "detail": {
+          "ghost_in_denom": [
+            "ghost-x"
+          ],
+          "ghost_in_pass": []
+        }
+      }
+    },
+    {
+      "case_id": "gid-ghost-in-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "GHOST_ID_IN_DENOM",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "GHOST_ID_IN_DENOM",
+        "detail": {
+          "ghost_in_denom": [],
+          "ghost_in_pass": [
+            "phantom"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "gid-ghost-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_NO_GHOST",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_NO_GHOST"
+      }
+    },
+    {
+      "case_id": "gid-self-attest-same-id",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "SELF_ATTEST_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "SELF_ATTEST_FALSE_PASS",
+        "detail": {
+          "producer_id": "svc-A",
+          "verify_source": "svc-A",
+          "independent_observer": false
+        }
+      }
+    },
+    {
+      "case_id": "gid-self-attest-no-observer",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "SELF_ATTEST_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "SELF_ATTEST_FALSE_PASS",
+        "detail": {
+          "producer_id": "svc-A",
+          "verify_source": "svc-A-monitor",
+          "independent_observer": false
+        }
+      }
+    },
+    {
+      "case_id": "gid-self-attest-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_INDEPENDENT_VERIFY",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_INDEPENDENT_VERIFY"
+      }
+    },
+    {
+      "case_id": "gid-combo-relabel-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "UNCLASSIFIED_RELABEL_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "UNCLASSIFIED_RELABEL_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "gid-combo-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_PLANNED_EXECUTED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_PLANNED_EXECUTED"
+      }
+    }
+  ],
+  "sha256": "64b05a90a2e70d9df7fa5c78784fd6c28a4f200b32e6e0a99d6d58881dd9ff35"
+}

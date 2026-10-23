@@ -1,0 +1,96 @@
+{
+  "fixture": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+  "version": "0.1",
+  "total": 11,
+  "passed": 11,
+  "rows": [
+    {
+      "case_id": "BUDGET-AS-PERMANENT",
+      "expect": "BUDGET_AS_PERMANENT",
+      "got": "BUDGET_AS_PERMANENT",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "BUDGET-IN-AVAIL-DENOM",
+      "expect": "BUDGET_IN_AVAIL_DENOM",
+      "got": "BUDGET_IN_AVAIL_DENOM",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "HONEST-INCONCLUSIVE",
+      "expect": "HONEST_INCONCLUSIVE",
+      "got": "HONEST_INCONCLUSIVE",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "PERMANENT-WITH-NXDOMAIN",
+      "expect": "PERMANENT_WITH_EVIDENCE",
+      "got": "PERMANENT_WITH_EVIDENCE",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "PERMANENT-WITH-HTTP-410",
+      "expect": "PERMANENT_WITH_EVIDENCE",
+      "got": "PERMANENT_WITH_EVIDENCE",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "BUDGET-STILL-OPEN",
+      "expect": "BUDGET_STILL_OPEN",
+      "got": "BUDGET_STILL_OPEN",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "A-FAMILY-LOOSE",
+      "expect": "A_FAMILY_LOOSE",
+      "got": "A_FAMILY_LOOSE",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "A-LOOSE-CAUGHT",
+      "expect": "A_LOOSE_CAUGHT",
+      "got": "A_LOOSE_CAUGHT",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "B-FAMILY-NO-OPERAND",
+      "expect": "B_FAMILY_NO_OPERAND",
+      "got": "B_FAMILY_NO_OPERAND",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "B-STRUCTURAL-REJECT",
+      "expect": "B_STRUCTURAL_REJECT",
+      "got": "B_STRUCTURAL_REJECT",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "FLIP-INJECT-NXDOMAIN",
+      "expect": "FLIP_OK",
+      "got": "FLIP_OK",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    }
+  ]
+}

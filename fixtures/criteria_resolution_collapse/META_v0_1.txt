@@ -1,0 +1,8 @@
+CRITERIA_RESOLUTION_COLLAPSE v0.1
+shipped: 2026-10-23 Asia/Shanghai
+script_sha256: 485f4919c06d67bda97055671b10c6212a5863e8b1807028e4120dc72eae39e5
+run_out_sha256: 5020115d479c57c2437beff6e2e210e64a413691e108e483dbe18ab0ff4e2fbb
+rows: 8/8
+structure source: 吴总 (structure-only negative control + incomparable split; general fixture, no personal attribution in rows)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+notes: shared constant verdict source → false "change_ineffective"; incomparable must split semantic_equivalence vs resolution_insufficient and attach positive-control reading

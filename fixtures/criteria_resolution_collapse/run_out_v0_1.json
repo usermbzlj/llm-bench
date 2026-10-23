@@ -1,0 +1,91 @@
+{
+  "all_match": true,
+  "n": 8,
+  "rows": [
+    {
+      "case_id": "COLLAPSE-SHARED-CONSTANT",
+      "expect": "CRITERIA_RESOLUTION_COLLAPSE",
+      "got": "CRITERIA_RESOLUTION_COLLAPSE",
+      "judge": {
+        "detail": {
+          "constant_verdict": "CONST_X",
+          "shared_source_id": "shared_const_src"
+        },
+        "judge": "FAIL",
+        "reason_code": "CRITERIA_RESOLUTION_COLLAPSE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "LIVE-DISTINCT-SOURCES-OK",
+      "expect": "RESOLUTION_PRESENT",
+      "got": "RESOLUTION_PRESENT",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "RESOLUTION_PRESENT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "AFTER-SWAP-DISTINGUISHABLE",
+      "expect": "RESOLUTION_RECOVERED",
+      "got": "RESOLUTION_RECOVERED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "RESOLUTION_RECOVERED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "INCOMPARABLE-UNSIGNED-BUCKET",
+      "expect": "INCOMPARABLE_NOT_SPLIT",
+      "got": "INCOMPARABLE_NOT_SPLIT",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "INCOMPARABLE_NOT_SPLIT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "INCOMPARABLE-NO-POS-CONTROL",
+      "expect": "INCOMPARABLE_UNFALSIFIABLE",
+      "got": "INCOMPARABLE_UNFALSIFIABLE",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "INCOMPARABLE_UNFALSIFIABLE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "RESOLUTION-INSUFFICIENT-GATED-OK",
+      "expect": "RESOLUTION_INSUFFICIENT_GATED",
+      "got": "RESOLUTION_INSUFFICIENT_GATED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "RESOLUTION_INSUFFICIENT_GATED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SEMANTIC-EQ-GATED-OK",
+      "expect": "SEMANTIC_EQ_GATED",
+      "got": "SEMANTIC_EQ_GATED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "SEMANTIC_EQ_GATED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SEMANTIC-EQ-POS-CONTRADICTS",
+      "expect": "SEMANTIC_EQ_POS_CONTRADICTS",
+      "got": "SEMANTIC_EQ_POS_CONTRADICTS",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "SEMANTIC_EQ_POS_CONTRADICTS"
+      },
+      "match": true
+    }
+  ],
+  "version": "CRITERIA_RESOLUTION_COLLAPSE/v0.1"
+}

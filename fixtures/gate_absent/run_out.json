@@ -1,0 +1,197 @@
+{
+  "fixture": "GATE_ABSENT",
+  "version": "v0.1",
+  "total": 15,
+  "passed": 15,
+  "failed": 0,
+  "results": [
+    {
+      "case_id": "ga-absent-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "GATE_ABSENT_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "GATE_ABSENT_FALSE_PASS",
+        "detail": {
+          "missing_gate_ids": [
+            "g3"
+          ],
+          "error_count": 0
+        }
+      }
+    },
+    {
+      "case_id": "ga-absent-honest-fail",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "GATE_ABSENT",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "GATE_ABSENT",
+        "detail": {
+          "missing_gate_ids": [
+            "g2",
+            "g3"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ga-all-executed-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_ALL_EXECUTED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_ALL_EXECUTED"
+      }
+    },
+    {
+      "case_id": "ga-skip-as-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "SKIP_AS_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "SKIP_AS_PASS",
+        "detail": {
+          "execution_state": "skipped",
+          "skip_in_pass_count": true
+        }
+      }
+    },
+    {
+      "case_id": "ga-not-run-as-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "SKIP_AS_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "SKIP_AS_PASS",
+        "detail": {
+          "execution_state": "not_run",
+          "skip_in_pass_count": false
+        }
+      }
+    },
+    {
+      "case_id": "ga-skip-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_SKIPPED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_SKIPPED"
+      }
+    },
+    {
+      "case_id": "ga-pending-masked-green",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "PENDING_MASKED_GREEN",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "PENDING_MASKED_GREEN",
+        "detail": {
+          "execution_state": "pending",
+          "error_count": 0
+        }
+      }
+    },
+    {
+      "case_id": "ga-pending-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_PENDING",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_PENDING"
+      }
+    },
+    {
+      "case_id": "ga-pending-executed-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_EXECUTED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_EXECUTED"
+      }
+    },
+    {
+      "case_id": "ga-three-state-absent-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "GATE_ABSENT_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "GATE_ABSENT_FALSE_PASS",
+        "detail": {
+          "missing_gate_ids": [
+            "c"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ga-three-state-skip-in-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "NON_EXECUTED_IN_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "NON_EXECUTED_IN_PASS",
+        "detail": {
+          "non_executed": {
+            "b": "skipped"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ga-three-state-honest-all-exec",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_THREE_STATE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_THREE_STATE"
+      }
+    },
+    {
+      "case_id": "ga-three-state-honest-mixed-labels",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_THREE_STATE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_THREE_STATE"
+      }
+    },
+    {
+      "case_id": "ga-exec-no-gate-id-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "EXEC_WITHOUT_GATE_ID_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "EXEC_WITHOUT_GATE_ID_FALSE_PASS",
+        "detail": {
+          "gate_id": null
+        }
+      }
+    },
+    {
+      "case_id": "ga-exec-gate-id-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_GATE_ID_BOUND",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_GATE_ID_BOUND"
+      }
+    }
+  ],
+  "sha256": "26659d55179d349d26149b596cba7a41e6116464019774b205c1eefe891f0b9a"
+}

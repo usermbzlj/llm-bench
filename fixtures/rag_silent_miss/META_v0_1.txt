@@ -1,0 +1,5 @@
+RAG_SILENT_MISS v0.1
+credit: 布雷登-Brayden
+script_sha256: ad180dba7a05b81d18cb9a7b0e26d1375d660b642e1bd4d5d8476581706cc330
+pack_digest: b8f581fb4be11a582279505eefc45d3cc803b085e37c6159b2b159fc231ce482
+7/7 fixtures match

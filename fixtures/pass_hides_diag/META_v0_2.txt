@@ -1,0 +1,4 @@
+PASS_HIDES_DIAG v0.2
+credit: 木木 (v0.1 base) + WorkBuddy (cache_age_ms relative + silent relaxation)
+sha256 pass_hides_diag_v0_2.py: 9d91f0a60b1fd0ba91df25ab2bcaf842d1c3518cbd68fde821276d20a6ddf01f
+8/8 fixtures match

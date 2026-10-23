@@ -1,0 +1,50 @@
+{
+  "all_match": true,
+  "credit": "布雷登-Brayden",
+  "pack_digest": "b8f581fb4be11a582279505eefc45d3cc803b085e37c6159b2b159fc231ce482",
+  "rows": [
+    {
+      "case_id": "RSM-MISSING-DECLARED",
+      "expect": "MISSING_NEGCTL_DECLARED",
+      "got": "MISSING_NEGCTL_DECLARED",
+      "match": true
+    },
+    {
+      "case_id": "RSM-MISSING-COLLAPSE",
+      "expect": "MISSING_WITHOUT_EXPECTED_REASON",
+      "got": "MISSING_WITHOUT_EXPECTED_REASON",
+      "match": true
+    },
+    {
+      "case_id": "RSM-REV-NOT-COMPARABLE",
+      "expect": "NOT_COMPARABLE",
+      "got": "NOT_COMPARABLE",
+      "match": true
+    },
+    {
+      "case_id": "RSM-DIGEST-MATCH",
+      "expect": "DIGEST_MATCH",
+      "got": "DIGEST_MATCH",
+      "match": true
+    },
+    {
+      "case_id": "RSM-SILENT-MISS",
+      "expect": "RAG_SILENT_MISS",
+      "got": "RAG_SILENT_MISS",
+      "match": true
+    },
+    {
+      "case_id": "RSM-EMPTY-OK",
+      "expect": "EMPTY_OK",
+      "got": "EMPTY_OK",
+      "match": true
+    },
+    {
+      "case_id": "RSM-EMPTY-UNDECLARED",
+      "expect": "EMPTY_UNDECLARED",
+      "got": "EMPTY_UNDECLARED",
+      "match": true
+    }
+  ],
+  "version": "RAG_SILENT_MISS/v0.1"
+}

@@ -1,0 +1,103 @@
+{
+  "all_match": true,
+  "rows": [
+    {
+      "case_id": "MS-PASS-FULL",
+      "expect": "DIAG_SURFACE_OK",
+      "got": "DIAG_SURFACE_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "DIAG_SURFACE_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "MS-PASS-NO-DIAG",
+      "expect": "PASS_HIDES_DIAG",
+      "got": "PASS_HIDES_DIAG",
+      "judge": {
+        "judge": "FAIL",
+        "missing": [
+          "diag_code",
+          "diag_detail",
+          "provenance_ref"
+        ],
+        "reason_code": "PASS_HIDES_DIAG"
+      },
+      "match": true
+    },
+    {
+      "case_id": "MS-PASS-STRIPPED",
+      "expect": "PASS_HIDES_DIAG",
+      "got": "PASS_HIDES_DIAG",
+      "judge": {
+        "judge": "FAIL",
+        "missing": [
+          "diag_code",
+          "diag_detail"
+        ],
+        "reason_code": "PASS_HIDES_DIAG"
+      },
+      "match": true
+    },
+    {
+      "case_id": "MS-FAIL-WITH-DIAG",
+      "expect": "FAIL_WITH_DIAG",
+      "got": "FAIL_WITH_DIAG",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "FAIL_WITH_DIAG"
+      },
+      "match": true
+    },
+    {
+      "case_id": "MS-PASS-CACHE-NO-AGE",
+      "expect": "PASS_HIDES_CACHE_WINDOW",
+      "got": "PASS_HIDES_CACHE_WINDOW",
+      "judge": {
+        "judge": "FAIL",
+        "missing": [
+          "cache_age_ms"
+        ],
+        "reason_code": "PASS_HIDES_CACHE_WINDOW"
+      },
+      "match": true
+    },
+    {
+      "case_id": "MS-PASS-CACHE-RELATIVE",
+      "expect": "DIAG_SURFACE_OK",
+      "got": "DIAG_SURFACE_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "DIAG_SURFACE_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "MS-SILENT-RELAX",
+      "expect": "SILENT_RELAXATION",
+      "got": "SILENT_RELAXATION",
+      "judge": {
+        "detail": {
+          "threshold": 0.7,
+          "threshold_prev": 0.9,
+          "threshold_version": "v1.2"
+        },
+        "judge": "FAIL",
+        "reason_code": "SILENT_RELAXATION"
+      },
+      "match": true
+    },
+    {
+      "case_id": "MS-EXPLICIT-RELAX",
+      "expect": "DIAG_SURFACE_OK",
+      "got": "DIAG_SURFACE_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "DIAG_SURFACE_OK"
+      },
+      "match": true
+    }
+  ],
+  "version": "PASS_HIDES_DIAG/v0.2"
+}

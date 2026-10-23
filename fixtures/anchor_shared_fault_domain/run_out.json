@@ -1,0 +1,168 @@
+{
+  "credit": [
+    "工具人的小工具",
+    "尹子璐的 Agent"
+  ],
+  "fixture": "ANCHOR_SHARED_FAULT_DOMAIN",
+  "n_cases": 10,
+  "n_fail": 0,
+  "n_pass": 10,
+  "policy": "analyze_only REFERENCE_ONLY fictional_desensitized no_secrets",
+  "results": [
+    {
+      "case_id": "asfd-tri-shared-sched-false-pass",
+      "expect_judge": "FAIL",
+      "expect_reason": "SHARED_FAULT_DOMAIN_FALSE_PASS",
+      "got": {
+        "detail": {
+          "distinct_agent_labels": true,
+          "fault_ids": [
+            "fd-A",
+            "fd-B",
+            "fd-C"
+          ],
+          "sched_ids": [
+            "sched-1"
+          ],
+          "shared_fault_domain": false,
+          "shared_hash_layer": false,
+          "shared_scheduler_response": true
+        },
+        "judge": "FAIL",
+        "reason_code": "SHARED_FAULT_DOMAIN_FALSE_PASS"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "asfd-tri-shared-fault-false-pass",
+      "expect_judge": "FAIL",
+      "expect_reason": "SHARED_FAULT_DOMAIN_FALSE_PASS",
+      "got": {
+        "detail": {
+          "distinct_agent_labels": true,
+          "fault_ids": [
+            "fd-X"
+          ],
+          "sched_ids": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "shared_fault_domain": true,
+          "shared_hash_layer": false,
+          "shared_scheduler_response": false
+        },
+        "judge": "FAIL",
+        "reason_code": "SHARED_FAULT_DOMAIN_FALSE_PASS"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "asfd-tri-shared-hash-false-pass",
+      "expect_judge": "FAIL",
+      "expect_reason": "SHARED_FAULT_DOMAIN_FALSE_PASS",
+      "got": {
+        "detail": {
+          "distinct_agent_labels": true,
+          "fault_ids": [
+            "fd-A",
+            "fd-B",
+            "fd-C"
+          ],
+          "sched_ids": [
+            "s1",
+            "s2",
+            "s3"
+          ],
+          "shared_fault_domain": false,
+          "shared_hash_layer": true,
+          "shared_scheduler_response": false
+        },
+        "judge": "FAIL",
+        "reason_code": "SHARED_FAULT_DOMAIN_FALSE_PASS"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "asfd-tri-shared-sched-no-pass-claim",
+      "expect_judge": "FAIL",
+      "expect_reason": "SHARED_FAULT_DOMAIN",
+      "got": {
+        "detail": {
+          "shared_fault_domain": false,
+          "shared_hash_layer": false,
+          "shared_scheduler_response": true
+        },
+        "judge": "FAIL",
+        "reason_code": "SHARED_FAULT_DOMAIN"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "asfd-tri-honest-distinct",
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_DISTINCT_DOMAINS",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_DISTINCT_DOMAINS"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "asfd-tri-axis-undeclared",
+      "expect_judge": "FAIL",
+      "expect_reason": "AXIS_UNDECLARED",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "AXIS_UNDECLARED"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "asfd-tri-roles-missing",
+      "expect_judge": "FAIL",
+      "expect_reason": "ANCHORS_INCOMPLETE",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "ANCHORS_INCOMPLETE"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "asfd-sup-same-domain-false-pass",
+      "expect_judge": "FAIL",
+      "expect_reason": "SUPERVISOR_SAME_DOMAIN_FALSE_PASS",
+      "got": {
+        "detail": {
+          "fault_domain_id": "fd-Z",
+          "timeout_window_id": "tw-1"
+        },
+        "judge": "FAIL",
+        "reason_code": "SUPERVISOR_SAME_DOMAIN_FALSE_PASS"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "asfd-sup-same-domain-detected",
+      "expect_judge": "FAIL",
+      "expect_reason": "SUPERVISOR_SAME_DOMAIN",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "SUPERVISOR_SAME_DOMAIN"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "asfd-sup-honest-separation",
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_SUPERVISOR_SEPARATION",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_SUPERVISOR_SEPARATION"
+      },
+      "ok": true
+    }
+  ],
+  "run_out_sha256": "05f7ea8a21994750efe680e99909d69abbf7e51d1404fbdf639c4335819b5645",
+  "version": "v0.1"
+}

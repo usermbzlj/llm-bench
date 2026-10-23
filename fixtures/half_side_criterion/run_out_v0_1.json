@@ -1,0 +1,110 @@
+{
+  "all_match": true,
+  "n": 9,
+  "rows": [
+    {
+      "case_id": "LOWER-MISSING-NEG-D",
+      "expect": "HALF_SIDE_CRITERION",
+      "got": "HALF_SIDE_CRITERION",
+      "judge": {
+        "detail": {
+          "d": -91,
+          "expr": "d<21600",
+          "missing": "lower"
+        },
+        "judge": "FAIL",
+        "reason_code": "HALF_SIDE_CRITERION"
+      },
+      "match": true
+    },
+    {
+      "case_id": "LOWER-COMPLETED-FLIP",
+      "expect": "LOWER_FLIP_OK",
+      "got": "LOWER_FLIP_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "LOWER_FLIP_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SIGN-COLUMN-OK",
+      "expect": "SIGN_COLUMN_OK",
+      "got": "SIGN_COLUMN_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "SIGN_COLUMN_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SIGN-EATEN-BY-ABS",
+      "expect": "SIGN_COLUMN_EATEN",
+      "got": "SIGN_COLUMN_EATEN",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "SIGN_COLUMN_EATEN"
+      },
+      "match": true
+    },
+    {
+      "case_id": "BOUNDARY-TRIAD-OK",
+      "expect": "BOUNDARY_TRIAD_OK",
+      "got": "BOUNDARY_TRIAD_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "BOUNDARY_TRIAD_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "BOUNDARY-MISSING-EQ-UPPER",
+      "expect": "HALF_SIDE_BOUNDARY",
+      "got": "HALF_SIDE_BOUNDARY",
+      "judge": {
+        "detail": {
+          "missing_points": [
+            "eq_upper"
+          ]
+        },
+        "judge": "FAIL",
+        "reason_code": "HALF_SIDE_BOUNDARY"
+      },
+      "match": true
+    },
+    {
+      "case_id": "FLIP-OK",
+      "expect": "FLIP_OK",
+      "got": "FLIP_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "FLIP_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "FLIP-NOT-WIRED",
+      "expect": "FLIP_NOT_WIRED",
+      "got": "FLIP_NOT_WIRED",
+      "judge": {
+        "detail": {
+          "completed_side": "lower"
+        },
+        "judge": "FAIL",
+        "reason_code": "FLIP_NOT_WIRED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "BOTH-SIDES-POS-OK",
+      "expect": "BOTH_SIDES_OK",
+      "got": "BOTH_SIDES_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "BOTH_SIDES_OK"
+      },
+      "match": true
+    }
+  ],
+  "version": "HALF_SIDE_CRITERION/v0.1"
+}

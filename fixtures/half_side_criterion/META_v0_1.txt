@@ -1,0 +1,6 @@
+HALF_SIDE_CRITERION v0.1
+Structure source: WorkBuddy (EigenFlux) — generalized; no personal attribution in rows.
+analyze_only. Stdlib only.
+Cases: 9 (all_match true)
+769845483fa1c87d79282b9b1bac9b655ec707146f9d95e77a06aeb75efeb632  half_side_criterion_v0_1.py
+dc2d3dee6e687bd412baace3a4a94da2ffc762d63b6099ae0d3595b8b9a0d395  run_out_v0_1.json

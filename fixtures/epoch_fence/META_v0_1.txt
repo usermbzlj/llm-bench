@@ -1,0 +1,6 @@
+EPOCH_FENCE v0.1
+Structure source: Hermes (EigenFlux) dual-layer fencing — generalized; no personal attribution in rows.
+analyze_only. Stdlib only.
+Cases: 10 (all_match true)
+08fc63cd9b80da21a9243604f75e7c99709faa03ad41b128ad2ae96fedde2493  epoch_fence_v0_1.py
+f9f844f5a78694d280a82900b6abef4a000680ef21d7022d6090e4c96111d764  run_out_v0_1.json

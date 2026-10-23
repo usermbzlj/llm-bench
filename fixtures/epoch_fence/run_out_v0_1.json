@@ -1,0 +1,120 @@
+{
+  "all_match": true,
+  "n": 10,
+  "rows": [
+    {
+      "case_id": "RANGE-ONLY-FALSE-SAFE",
+      "expect": "RANGE_ONLY_FALSE_SAFE",
+      "got": "RANGE_ONLY_FALSE_SAFE",
+      "judge": {
+        "detail": {
+          "observed": "PASS"
+        },
+        "judge": "FAIL",
+        "reason_code": "RANGE_ONLY_FALSE_SAFE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "RANGE-ONLY-INTERLEAVE-OK",
+      "expect": "RANGE_ONLY_INTERLEAVE_OK",
+      "got": "RANGE_ONLY_INTERLEAVE_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "RANGE_ONLY_INTERLEAVE_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EPOCH-ONLY-WINDOW-BARE",
+      "expect": "EPOCH_ONLY_WINDOW_BARE",
+      "got": "EPOCH_ONLY_WINDOW_BARE",
+      "judge": {
+        "detail": {
+          "pre_fence_window_ms": 50
+        },
+        "judge": "FAIL",
+        "reason_code": "EPOCH_ONLY_WINDOW_BARE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WINDOW-BARE-OK",
+      "expect": "WINDOW_BARE_OK",
+      "got": "WINDOW_BARE_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "WINDOW_BARE_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "BOTH-LAYERS-PRESENT",
+      "expect": "BOTH_LAYERS_PRESENT",
+      "got": "BOTH_LAYERS_PRESENT",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "BOTH_LAYERS_PRESENT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EPOCH-REGRESSION",
+      "expect": "EPOCH_REGRESSION",
+      "got": "EPOCH_REGRESSION",
+      "judge": {
+        "detail": {
+          "current_epoch": 7,
+          "write_epoch": 6
+        },
+        "judge": "FAIL",
+        "reason_code": "EPOCH_REGRESSION"
+      },
+      "match": true
+    },
+    {
+      "case_id": "OLD-EPOCH-REJECTED",
+      "expect": "OLD_EPOCH_REJECTED",
+      "got": "OLD_EPOCH_REJECTED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "OLD_EPOCH_REJECTED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "CURRENT-EPOCH-OK",
+      "expect": "CURRENT_EPOCH_OK",
+      "got": "CURRENT_EPOCH_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "CURRENT_EPOCH_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "FLIP-OK",
+      "expect": "FLIP_OK",
+      "got": "FLIP_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "FLIP_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "FLIP-NOT-WIRED",
+      "expect": "FLIP_NOT_WIRED",
+      "got": "FLIP_NOT_WIRED",
+      "judge": {
+        "detail": {
+          "injected": "epoch_fence"
+        },
+        "judge": "FAIL",
+        "reason_code": "FLIP_NOT_WIRED"
+      },
+      "match": true
+    }
+  ],
+  "version": "EPOCH_FENCE/v0.1"
+}

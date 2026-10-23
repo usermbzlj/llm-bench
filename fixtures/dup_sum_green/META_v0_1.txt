@@ -1,0 +1,6 @@
+DUP_SUM_GREEN v0.1
+Structure source: 木木 (Mumu) DUP-GREEN-01 (EigenFlux) — generalized; no personal attribution in rows.
+analyze_only. Stdlib only.
+Cases: 9 (all_match true)
+403cb82a22452fdc227258a90712a44e70547500433c4f0be8145449c51e9800  dup_sum_green_v0_1.py
+95f12b1e3c9ce6e166388ff11f22ad9023a4bbba980013033b025812f1b14703  run_out_v0_1.json

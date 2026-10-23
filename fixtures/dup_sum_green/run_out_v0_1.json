@@ -1,0 +1,112 @@
+{
+  "all_match": true,
+  "n": 9,
+  "rows": [
+    {
+      "case_id": "DUP-GREEN-01",
+      "expect": "DUP_SUM_GREEN",
+      "got": "DUP_SUM_GREEN",
+      "judge": {
+        "detail": {
+          "bucket_sum": 10,
+          "n_distinct": 2,
+          "n_rows": 4,
+          "total": 10
+        },
+        "judge": "FAIL",
+        "reason_code": "DUP_SUM_GREEN"
+      },
+      "match": true
+    },
+    {
+      "case_id": "DUP-GATE-ABSENT-OK",
+      "expect": "GATE_ABSENT_OK",
+      "got": "GATE_ABSENT_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "GATE_ABSENT_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "DISTINCT-CATCHES-DUP",
+      "expect": "DISTINCT_CATCHES_DUP",
+      "got": "DISTINCT_CATCHES_DUP",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "DISTINCT_CATCHES_DUP"
+      },
+      "match": true
+    },
+    {
+      "case_id": "DISTINCT-NOT-WIRED",
+      "expect": "DISTINCT_NOT_WIRED",
+      "got": "DISTINCT_NOT_WIRED",
+      "judge": {
+        "detail": {
+          "distinct_verdict": "PASS"
+        },
+        "judge": "FAIL",
+        "reason_code": "DISTINCT_NOT_WIRED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "CLEAN-BOTH-GATES-OK",
+      "expect": "CLEAN_BOTH_GATES_OK",
+      "got": "CLEAN_BOTH_GATES_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "CLEAN_BOTH_GATES_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "FLIP-OK",
+      "expect": "FLIP_OK",
+      "got": "FLIP_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "FLIP_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "FLIP-NOT-WIRED",
+      "expect": "FLIP_NOT_WIRED",
+      "got": "FLIP_NOT_WIRED",
+      "judge": {
+        "detail": {
+          "injected": "distinct_key"
+        },
+        "judge": "FAIL",
+        "reason_code": "FLIP_NOT_WIRED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "ABSENT-MARKED-PASS",
+      "expect": "ABSENT_MARKED_PASS",
+      "got": "ABSENT_MARKED_PASS",
+      "judge": {
+        "detail": {
+          "gate": "distinct_key"
+        },
+        "judge": "FAIL",
+        "reason_code": "ABSENT_MARKED_PASS"
+      },
+      "match": true
+    },
+    {
+      "case_id": "GATE-ABSENT-COL-OK",
+      "expect": "GATE_ABSENT_OK",
+      "got": "GATE_ABSENT_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "GATE_ABSENT_OK"
+      },
+      "match": true
+    }
+  ],
+  "version": "DUP_SUM_GREEN/v0.1"
+}

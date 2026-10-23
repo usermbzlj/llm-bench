@@ -1,0 +1,110 @@
+{
+  "fixture": "CRITERIA_VERSION_BATCH",
+  "version": "0.1",
+  "credit": "随风绿柳",
+  "total": 10,
+  "passed": 10,
+  "dig_a": "1b01c5f3118ae9e7b91d4bbcf52a9d47d46613f0653c085baa72463fc3469560",
+  "dig_b": "0da4b165fdd6bb2bb82ae3d9e0d3f21131fcd9ed4c9fa31d192758f0dcb09b90",
+  "rows": [
+    {
+      "case_id": "FALSE-GREEN-STAMP-STUCK-ON-A",
+      "expect": "BATCH_CRITERIA_MISMATCH",
+      "got": "BATCH_CRITERIA_MISMATCH",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "stamped_batch_id": "batch-20261023-A",
+        "stamped_criteria_version": "rev_A",
+        "dig_a": "1b01c5f3118ae9e7b91d4bbcf52a9d47d46613f0653c085baa72463fc3469560",
+        "dig_b": "0da4b165fdd6bb2bb82ae3d9e0d3f21131fcd9ed4c9fa31d192758f0dcb09b90"
+      }
+    },
+    {
+      "case_id": "FALSE-GREEN-RUNTIME-VERSION-ONLY",
+      "expect": "RUNTIME_VERSION_ONLY_FALSE_GREEN",
+      "got": "RUNTIME_VERSION_ONLY_FALSE_GREEN",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "runtime_version": "runtime-1.2.3",
+        "dig_a": "1b01c5f3118ae9e7b91d4bbcf52a9d47d46613f0653c085baa72463fc3469560",
+        "dig_b": "0da4b165fdd6bb2bb82ae3d9e0d3f21131fcd9ed4c9fa31d192758f0dcb09b90"
+      }
+    },
+    {
+      "case_id": "HONEST-BATCH-REBIND",
+      "expect": "HONEST_BATCH_REBIND",
+      "got": "HONEST_BATCH_REBIND",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "UNCHANGED-CONSISTENT",
+      "expect": "UNCHANGED_CONSISTENT",
+      "got": "UNCHANGED_CONSISTENT",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "SKIP-COLLAPSED-INTO-PASS",
+      "expect": "SKIP_COLLAPSED_INTO_PASS",
+      "got": "SKIP_COLLAPSED_INTO_PASS",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "skip_ids": [
+          "reverse"
+        ],
+        "pass_ids": [
+          "forward"
+        ]
+      }
+    },
+    {
+      "case_id": "SKIP-SEPARATED",
+      "expect": "SKIP_SEPARATED",
+      "got": "SKIP_SEPARATED",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "ANCHOR-OK",
+      "expect": "ANCHOR_OK",
+      "got": "ANCHOR_OK",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "ANCHOR-MISSING",
+      "expect": "ANCHOR_MISSING",
+      "got": "ANCHOR_MISSING",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "ANCHOR-MISMATCH",
+      "expect": "ANCHOR_MISMATCH",
+      "got": "ANCHOR_MISMATCH",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "expected": "0da4b165fdd6bb2bb82ae3d9e0d3f21131fcd9ed4c9fa31d192758f0dcb09b90+batch-20261024-B",
+        "got": "1b01c5f3118ae9e7b91d4bbcf52a9d47d46613f0653c085baa72463fc3469560+batch-20261023-A"
+      }
+    },
+    {
+      "case_id": "BODY-CHANGED-FLAG-LIE",
+      "expect": "BODY_CHANGED_FLAG_LIE",
+      "got": "BODY_CHANGED_FLAG_LIE",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": null
+    }
+  ]
+}

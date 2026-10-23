@@ -1,0 +1,104 @@
+{
+  "all_match": true,
+  "n": 8,
+  "rows": [
+    {
+      "case_id": "SET-SILENT-OK",
+      "expect": "CONTEXT_SET_NOT_SCALAR",
+      "got": "CONTEXT_SET_NOT_SCALAR",
+      "judge": {
+        "detail": {
+          "cardinality": 2,
+          "column": "context_id"
+        },
+        "judge": "FAIL",
+        "reason_code": "CONTEXT_SET_NOT_SCALAR"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SET-TWO-DISTINCT",
+      "expect": "CONTEXT_SET_NOT_SCALAR",
+      "got": "CONTEXT_SET_NOT_SCALAR",
+      "judge": {
+        "detail": {
+          "cardinality": 2,
+          "column": "context_id"
+        },
+        "judge": "FAIL",
+        "reason_code": "CONTEXT_SET_NOT_SCALAR"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SCALAR-OK",
+      "expect": "SCALAR_OK",
+      "got": "SCALAR_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "SCALAR_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "GATE-FIRED-OK",
+      "expect": "UNIQUENESS_GATE_FIRED",
+      "got": "UNIQUENESS_GATE_FIRED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "UNIQUENESS_GATE_FIRED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "GATE-BYPASSED",
+      "expect": "UNIQUENESS_GATE_BYPASSED",
+      "got": "UNIQUENESS_GATE_BYPASSED",
+      "judge": {
+        "detail": {
+          "cardinality": 2,
+          "column": "context_id"
+        },
+        "judge": "FAIL",
+        "reason_code": "UNIQUENESS_GATE_BYPASSED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EMPTY-OBS",
+      "expect": "EMPTY_OBSERVATION",
+      "got": "EMPTY_OBSERVATION",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "EMPTY_OBSERVATION"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SCAN-SILENT-HIT",
+      "expect": "CONTEXT_SET_NOT_SCALAR",
+      "got": "CONTEXT_SET_NOT_SCALAR",
+      "judge": {
+        "detail": {
+          "hit_epochs": [
+            "e2"
+          ]
+        },
+        "judge": "FAIL",
+        "reason_code": "CONTEXT_SET_NOT_SCALAR"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SCAN-FLAGGED-OK",
+      "expect": "SCAN_ANOMALY_FLAGGED",
+      "got": "SCAN_ANOMALY_FLAGGED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "SCAN_ANOMALY_FLAGGED"
+      },
+      "match": true
+    }
+  ],
+  "version": "CONTEXT_SET_NOT_SCALAR/v0.1"
+}

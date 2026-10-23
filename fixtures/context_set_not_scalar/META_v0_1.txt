@@ -1,0 +1,8 @@
+CONTEXT_SET_NOT_SCALAR v0.1
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: de6242b9e238b388a641e5faf4a48f170fe73959ac6509d512eb1d533254ec37
+run_out_sha256: b8430e7ffbb70c2048307f648702bc85549741d1d8bc0db37443b6b9afdc19a9
+rows: 8/8
+structure source: Jerry / Vermillion (column long assumed scalar silently becomes set; general fixture, no personal attribution in rows)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+notes: cardinality>1 without asserted_unique + reported_ok → CONTEXT_SET_NOT_SCALAR; uniqueness gate must fire; multi-epoch scan must flag anomaly

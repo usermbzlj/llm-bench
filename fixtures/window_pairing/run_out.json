@@ -1,0 +1,236 @@
+{
+  "fixture": "WINDOW_PAIRING",
+  "version": "v0.1",
+  "total": 16,
+  "passed": 16,
+  "failed": 0,
+  "results": [
+    {
+      "case_id": "wp-pair-unpaired-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "WINDOW_UNPAIRED_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "WINDOW_UNPAIRED_FALSE_PASS",
+        "detail": {
+          "unpaired_writes": [
+            "p1"
+          ],
+          "unpaired_reads": [
+            "p2"
+          ],
+          "bare_writes": false,
+          "bare_reads": false
+        }
+      }
+    },
+    {
+      "case_id": "wp-pair-bare-write",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "WINDOW_UNPAIRED",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "WINDOW_UNPAIRED",
+        "detail": {
+          "unpaired_writes": [],
+          "unpaired_reads": [
+            "p1"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "wp-pair-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_PAIRING",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_PAIRING"
+      }
+    },
+    {
+      "case_id": "wp-seq-ooo-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "SEQ_OUT_OF_ORDER_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "SEQ_OUT_OF_ORDER_FALSE_PASS",
+        "detail": {
+          "seqs": [
+            1,
+            3,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "wp-seq-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_ORDERED_SEQ",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_ORDERED_SEQ"
+      }
+    },
+    {
+      "case_id": "wp-acl-empty-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "ACL_INTERSECTION_EMPTY_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "ACL_INTERSECTION_EMPTY_FALSE_PASS",
+        "detail": {
+          "write_acl": [
+            "admin",
+            "ops"
+          ],
+          "read_acl": [
+            "viewer"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "wp-acl-honest",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_ACL_INTERSECTION",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_ACL_INTERSECTION",
+        "detail": {
+          "intersection": [
+            "ops"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "wp-parallel-silent-merge-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "UNPAIRED_SILENT_MERGE_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "UNPAIRED_SILENT_MERGE_FALSE_PASS",
+        "detail": {
+          "silent_merge": true,
+          "n_windows": 2,
+          "n_unique_pairs": 1
+        }
+      }
+    },
+    {
+      "case_id": "wp-parallel-honest-listed",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_UNPAIRED_PARALLEL",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_UNPAIRED_PARALLEL"
+      }
+    },
+    {
+      "case_id": "wp-stale-unconfirmed-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "STALE_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "STALE_FALSE_PASS",
+        "detail": {
+          "ttl_exceeded": false,
+          "unconfirmed": true,
+          "reuse_state": "FRESH",
+          "current_correction_id": "c-9",
+          "last_seen_correction_id": "c-7"
+        }
+      }
+    },
+    {
+      "case_id": "wp-stale-ttl-trip",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "STALE_GATE_TRIP",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "STALE_GATE_TRIP",
+        "detail": {
+          "ttl_exceeded": true,
+          "unconfirmed": false,
+          "reuse_state": "REUSE",
+          "current_correction_id": "c-9",
+          "last_seen_correction_id": "c-9"
+        }
+      }
+    },
+    {
+      "case_id": "wp-stale-honest-clear",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_STALE_CLEAR",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_STALE_CLEAR"
+      }
+    },
+    {
+      "case_id": "wp-sample-merged-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "SAMPLE_SET_MERGED_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "SAMPLE_SET_MERGED_FALSE_PASS",
+        "detail": {
+          "n_batches": 2,
+          "n_tracks": 1
+        }
+      }
+    },
+    {
+      "case_id": "wp-sample-honest-separate",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_SAMPLE_SET_SEPARATE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_SAMPLE_SET_SEPARATE"
+      }
+    },
+    {
+      "case_id": "wp-reuse-unknown-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "REUSE_STATE_UNKNOWN_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "REUSE_STATE_UNKNOWN_FALSE_PASS",
+        "detail": {
+          "reuse_state": "CACHED"
+        }
+      }
+    },
+    {
+      "case_id": "wp-reuse-honest-fresh",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HONEST_REUSE_STATE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_REUSE_STATE",
+        "detail": {
+          "reuse_state": "FRESH"
+        }
+      }
+    }
+  ],
+  "sha256": "46be184220a9b22e824df59411168eb8cd9d05a200037fde6b9f6b962c8e57b2"
+}

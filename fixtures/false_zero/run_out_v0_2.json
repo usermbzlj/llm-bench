@@ -1,0 +1,273 @@
+{
+  "all_pass": true,
+  "credit": [
+    "WorkBuddy",
+    "H"
+  ],
+  "fixture": "FALSE_ZERO",
+  "passed": 26,
+  "results": [
+    {
+      "expect_reason": "PRESENCE_FLAG_ABSENT_FALSE_PASS",
+      "got": {
+        "detail": {
+          "missing": [
+            "trailing_lf"
+          ]
+        },
+        "judge": "FAIL",
+        "reason_code": "PRESENCE_FLAG_ABSENT_FALSE_PASS"
+      },
+      "id": "A4_mf_flag_absent_false_pass",
+      "pass": true
+    },
+    {
+      "expect_reason": "PRESENCE_INFERRED_FROM_SIZE_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "PRESENCE_INFERRED_FROM_SIZE_FALSE_PASS"
+      },
+      "id": "A4_mf_inferred_from_size",
+      "pass": true
+    },
+    {
+      "expect_reason": "PRESENCE_FLAG_COERCE_FALSE_PASS",
+      "got": {
+        "detail": {
+          "coerced": [
+            {
+              "err": "TYPED_BOOL_COERCE",
+              "flag": "cursor_present"
+            }
+          ]
+        },
+        "judge": "FAIL",
+        "reason_code": "PRESENCE_FLAG_COERCE_FALSE_PASS"
+      },
+      "id": "A4_mf_coerce_int_as_bool",
+      "pass": true
+    },
+    {
+      "expect_reason": "PRESENCE_FLAGS_OBSERVED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PRESENCE_FLAGS_OBSERVED"
+      },
+      "id": "A4_ok_observed",
+      "pass": true
+    },
+    {
+      "expect_reason": "MISSING_TRAILING_LF_FALSE_ZERO",
+      "got": {
+        "detail": {
+          "body_len": 17
+        },
+        "judge": "FAIL",
+        "reason_code": "MISSING_TRAILING_LF_FALSE_ZERO"
+      },
+      "id": "A5_mf_missing_lf_false_zero",
+      "pass": true
+    },
+    {
+      "expect_reason": "MISSING_TRAILING_LF_HONEST",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "MISSING_TRAILING_LF_HONEST"
+      },
+      "id": "A5_ok_missing_lf_honest",
+      "pass": true
+    },
+    {
+      "expect_reason": "TRAILING_LF_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "TRAILING_LF_OK"
+      },
+      "id": "A5_ok_has_lf",
+      "pass": true
+    },
+    {
+      "expect_reason": "MISSING_HAS_MORE_FALSE_PASS",
+      "got": {
+        "detail": {
+          "limit": 100,
+          "page_len": 100
+        },
+        "judge": "FAIL",
+        "reason_code": "MISSING_HAS_MORE_FALSE_PASS"
+      },
+      "id": "A6_mf_missing_has_more_at_limit",
+      "pass": true
+    },
+    {
+      "expect_reason": "MISSING_HAS_MORE_DEGRADED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "MISSING_HAS_MORE_DEGRADED"
+      },
+      "id": "A6_ok_missing_has_more_degraded",
+      "pass": true
+    },
+    {
+      "expect_reason": "DECLARED_MORE_PENDING_FALSE_PASS",
+      "got": {
+        "detail": {
+          "state": "PENDING"
+        },
+        "judge": "FAIL",
+        "reason_code": "DECLARED_MORE_PENDING_FALSE_PASS"
+      },
+      "id": "A6_mf_pending_false_pass",
+      "pass": true
+    },
+    {
+      "expect_reason": "DECLARED_MORE_PENDING_UNKNOWN",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "DECLARED_MORE_PENDING_UNKNOWN"
+      },
+      "id": "A6_ok_pending_unknown",
+      "pass": true
+    },
+    {
+      "expect_reason": "DECLARED_MORE_PERSISTED_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "DECLARED_MORE_PERSISTED_FALSE_PASS"
+      },
+      "id": "A6_mf_persisted_false_pass",
+      "pass": true
+    },
+    {
+      "expect_reason": "DECLARED_MORE_PERSISTED_UNKNOWN",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "DECLARED_MORE_PERSISTED_UNKNOWN"
+      },
+      "id": "A6_ok_persisted_unknown",
+      "pass": true
+    },
+    {
+      "expect_reason": "EMPTY_PAGE_CURSOR_400_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "EMPTY_PAGE_CURSOR_400_FALSE_PASS"
+      },
+      "id": "A6_mf_empty_page_cursor_400_pass",
+      "pass": true
+    },
+    {
+      "expect_reason": "EMPTY_PAGE_CURSOR_400_NO_SENTINEL",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "EMPTY_PAGE_CURSOR_400_NO_SENTINEL"
+      },
+      "id": "A6_mf_empty_page_cursor_400_no_sentinel",
+      "pass": true
+    },
+    {
+      "expect_reason": "EMPTY_PAGE_CURSOR_400_DEGRADED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "EMPTY_PAGE_CURSOR_400_DEGRADED"
+      },
+      "id": "A6_ok_empty_page_cursor_400_degraded",
+      "pass": true
+    },
+    {
+      "expect_reason": "DECLARED_MORE_WITH_CURSOR_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "DECLARED_MORE_WITH_CURSOR_OK"
+      },
+      "id": "A6_ok_with_cursor",
+      "pass": true
+    },
+    {
+      "expect_reason": "DECLARED_MORE_CLEARED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "DECLARED_MORE_CLEARED"
+      },
+      "id": "A6_ok_cleared",
+      "pass": true
+    },
+    {
+      "expect_reason": "POLICY_A_PASS_WITHOUT_POSITIVE_EVIDENCE",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "POLICY_A_PASS_WITHOUT_POSITIVE_EVIDENCE"
+      },
+      "id": "A7_mf_policy_A_no_evidence",
+      "pass": true
+    },
+    {
+      "expect_reason": "POLICY_A_PASS_WITH_EVIDENCE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "POLICY_A_PASS_WITH_EVIDENCE"
+      },
+      "id": "A7_ok_policy_A_with_evidence",
+      "pass": true
+    },
+    {
+      "expect_reason": "POLICY_B_ABSENCE_ENTERED_PASS_NUM",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "POLICY_B_ABSENCE_ENTERED_PASS_NUM"
+      },
+      "id": "A7_mf_policy_B_absence_in_num",
+      "pass": true
+    },
+    {
+      "expect_reason": "POLICY_B_ABSENCE_EXCLUDED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "POLICY_B_ABSENCE_EXCLUDED"
+      },
+      "id": "A7_ok_policy_B_excluded",
+      "pass": true
+    },
+    {
+      "expect_reason": "POLICY_C_UNKNOWN_IN_DENOM",
+      "got": {
+        "detail": {
+          "verdict_class": "UNKNOWN"
+        },
+        "judge": "FAIL",
+        "reason_code": "POLICY_C_UNKNOWN_IN_DENOM"
+      },
+      "id": "A7_mf_policy_C_unknown_in_denom",
+      "pass": true
+    },
+    {
+      "expect_reason": "POLICY_C_UNKNOWN_EXCLUDED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "POLICY_C_UNKNOWN_EXCLUDED"
+      },
+      "id": "A7_ok_policy_C_excluded",
+      "pass": true
+    },
+    {
+      "expect_reason": "BURIED_TRUNCATION_FALSE_ZERO",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "BURIED_TRUNCATION_FALSE_ZERO"
+      },
+      "id": "R1_mf_buried_trunc",
+      "pass": true
+    },
+    {
+      "expect_reason": "HONEST_TRUNCATION_CONSUMED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HONEST_TRUNCATION_CONSUMED"
+      },
+      "id": "R1_ok_consumed",
+      "pass": true
+    }
+  ],
+  "rows": 26,
+  "version": "v0.2"
+}

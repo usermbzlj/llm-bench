@@ -1,0 +1,221 @@
+{
+  "credit": [
+    "52Hz"
+  ],
+  "fixture": "DELETE_NOTFOUND_STILL_RUNNING",
+  "n_cases": 16,
+  "n_fail": 0,
+  "n_pass": 16,
+  "policy": "analyze_only REFERENCE_ONLY fictional_desensitized no_secrets",
+  "results": [
+    {
+      "case_id": "dnf-52hz-ok-dead-must-fail",
+      "expect_judge": "FAIL",
+      "expect_reason": "DELETE_OK_BUT_DEAD",
+      "got": {
+        "detail": {
+          "observed": "OK",
+          "process_alive": false,
+          "receipt": "ok"
+        },
+        "judge": "FAIL",
+        "reason_code": "DELETE_OK_BUT_DEAD"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-52hz-notfound-alive-must-fail",
+      "expect_judge": "FAIL",
+      "expect_reason": "DELETE_NOTFOUND_STILL_RUNNING",
+      "got": {
+        "detail": {
+          "observed": "OK",
+          "process_alive": true,
+          "receipt": "not_found"
+        },
+        "judge": "FAIL",
+        "reason_code": "DELETE_NOTFOUND_STILL_RUNNING"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-notfound-alive-honest-broken",
+      "expect_judge": "PASS",
+      "expect_reason": "NOTFOUND_ALIVE_HONEST_BROKEN",
+      "got": {
+        "detail": {
+          "observed": "MUST_FAIL"
+        },
+        "judge": "PASS",
+        "reason_code": "NOTFOUND_ALIVE_HONEST_BROKEN"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-notfound-alive-still-running-label",
+      "expect_judge": "PASS",
+      "expect_reason": "NOTFOUND_ALIVE_HONEST_BROKEN",
+      "got": {
+        "detail": {
+          "observed": "STILL_RUNNING"
+        },
+        "judge": "PASS",
+        "reason_code": "NOTFOUND_ALIVE_HONEST_BROKEN"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-notfound-dead-gone",
+      "expect_judge": "PASS",
+      "expect_reason": "NOTFOUND_DEAD_GONE",
+      "got": {
+        "detail": {
+          "process_alive": false,
+          "receipt": "not_found"
+        },
+        "judge": "PASS",
+        "reason_code": "NOTFOUND_DEAD_GONE"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-notfound-dead-ok",
+      "expect_judge": "PASS",
+      "expect_reason": "NOTFOUND_DEAD_GONE",
+      "got": {
+        "detail": {
+          "process_alive": false,
+          "receipt": "not_found"
+        },
+        "judge": "PASS",
+        "reason_code": "NOTFOUND_DEAD_GONE"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-notfound-dead-false-broken",
+      "expect_judge": "FAIL",
+      "expect_reason": "NOTFOUND_DEAD_FALSE_BROKEN",
+      "got": {
+        "detail": {
+          "observed": "BROKEN"
+        },
+        "judge": "FAIL",
+        "reason_code": "NOTFOUND_DEAD_FALSE_BROKEN"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-ok-dead-honest-must-fail",
+      "expect_judge": "PASS",
+      "expect_reason": "OK_DEAD_HONEST_BROKEN",
+      "got": {
+        "detail": {
+          "observed": "MUST_FAIL"
+        },
+        "judge": "PASS",
+        "reason_code": "OK_DEAD_HONEST_BROKEN"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-ok-dead-false-success-label",
+      "expect_judge": "PASS",
+      "expect_reason": "OK_DEAD_HONEST_BROKEN",
+      "got": {
+        "detail": {
+          "observed": "FALSE_SUCCESS"
+        },
+        "judge": "PASS",
+        "reason_code": "OK_DEAD_HONEST_BROKEN"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-ok-alive-pass",
+      "expect_judge": "PASS",
+      "expect_reason": "DELETE_OK_ALIVE",
+      "got": {
+        "detail": {
+          "process_alive": true,
+          "receipt": "ok"
+        },
+        "judge": "PASS",
+        "reason_code": "DELETE_OK_ALIVE"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-ok-alive-false-broken",
+      "expect_judge": "FAIL",
+      "expect_reason": "OK_ALIVE_FALSE_BROKEN",
+      "got": {
+        "detail": {
+          "observed": "BROKEN"
+        },
+        "judge": "FAIL",
+        "reason_code": "OK_ALIVE_FALSE_BROKEN"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-typed-bool-coerce",
+      "expect_judge": "FAIL",
+      "expect_reason": "TYPED_BOOL_COERCE",
+      "got": {
+        "detail": {
+          "process_alive_type": "int",
+          "value": 1
+        },
+        "judge": "FAIL",
+        "reason_code": "TYPED_BOOL_COERCE"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-receipt-unknown",
+      "expect_judge": "FAIL",
+      "expect_reason": "RECEIPT_UNKNOWN",
+      "got": {
+        "detail": {
+          "receipt": "pending"
+        },
+        "judge": "FAIL",
+        "reason_code": "RECEIPT_UNKNOWN"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-receipt-absent",
+      "expect_judge": "FAIL",
+      "expect_reason": "RECEIPT_ABSENT",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "RECEIPT_ABSENT"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-alive-absent",
+      "expect_judge": "FAIL",
+      "expect_reason": "PROCESS_ALIVE_ABSENT",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "PROCESS_ALIVE_ABSENT"
+      },
+      "ok": true
+    },
+    {
+      "case_id": "dnf-observed-absent",
+      "expect_judge": "FAIL",
+      "expect_reason": "OBSERVED_ABSENT",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "OBSERVED_ABSENT"
+      },
+      "ok": true
+    }
+  ],
+  "run_out_sha256": "2d20c18f3391b516d309209fcc3ee410d4dcc5c56332fb6c80d9336866373eff",
+  "version": "v0.1"
+}

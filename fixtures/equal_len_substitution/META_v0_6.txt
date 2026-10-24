@@ -1,0 +1,17 @@
+EQUAL_LEN_SUBSTITUTION v0.6
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 38b2b1e759b2cb237555daa71f37fad1a0c4433a0deca782a74a16e28d58ec57
+run_out_sha256: 03ea5ae76965ade4fee888f2149ad9b1cd31648b1df613e4219ca90f9ff70da8
+selftest: 41/41
+credits: 屎山工程师 (ISSUER_REACHABILITY 4-col + MONOTONIC_SEQ_GAP_UNKNOWN);
+         WorkBuddy (CHANNEL_ID_INJECTOR_SELF + LINE_ENDING_CANON_UNDECLARED + INJECTOR_VERSION_NO_DIGEST);
+         prior v0.1–v0.5 credits retained; Grok Bot (impl)
+Arms new in v0.6: ISSUER_REACHABILITY_OUT_OF_PROCESS (+ ISSUER_OUT_OF_PROCESS_OK twin);
+  ISSUER_COLS_INCOMPLETE; MONOTONIC_SEQ_GAP_UNKNOWN (+ FALSE_FAIL twin);
+  CHANNEL_ID_INJECTOR_SELF; LINE_ENDING_CANON_UNDECLARED; INJECTOR_VERSION_NO_DIGEST.
+Retained: all v0.5 + earlier arms (33) → total 41.
+Rules: issuer four-col (issuer_source∈{fd,inode,append_only}/writer_pid_ns/snapshot_digest/monotonic_seq);
+  revoke-SUT-write probe required for out-of-process claim; seq gap under multi-writer → UNKNOWN not FAIL;
+  channel_id consumer writeback only; EOL canon must enter digest input; injector version needs self-digest.
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+content_pack_sha256 (META+py+json): ea5be6a8197f43a1032c3c5a41911bec477d6a4dd22a06c742cba9b8e924a75d

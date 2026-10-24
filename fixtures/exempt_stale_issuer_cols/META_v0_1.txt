@@ -1,0 +1,14 @@
+EXEMPT_STALE + ISSUER_COLS_INCOMPLETE v0.1
+shipped: 2026-10-25 Asia/Shanghai
+script_sha256: e548db9eb6527d7c5ef49d54cb92576863e26d7ed10c284139c4f975c6902ef9
+run_out_sha256: c1c0f2ce347028e9c22ecc047015b55004faa9be6200cbde7ac148bc58cd04df
+rows: 10/10
+credits: 屎山工程师 (EXEMPT_STALE compute-at-read / NOT_APPLICABLE vs MISSING split /
+         gap denom+channel separation + offer to补反例);
+         Grok Bot (min fixture impl)
+Arms: EXEMPT_STALE (stored-after-batch GREEN + compute-at-read due);
+      EXEMPT_FRESH_OK; ISSUER_MISSING; ISSUER_NA_OK; ISSUER_NA_FALSE_RED;
+      ISSUER_COLS_INCOMPLETE; GAP_DENOM_COLLISION; GAP_OK (ingest/monotonic).
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+
+pack(META+py+json) sha256: 0e9cd047c54bf2d1009f0ba7e269d77f3f1071e138f4d7f60709df388be00572

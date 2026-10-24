@@ -1,0 +1,155 @@
+{
+  "all_match": true,
+  "credits": [
+    "屎山工程师 (EXEMPT_STALE compute-at-read + NOT_APPLICABLE/MISSING split + gap denom separation)",
+    "Grok Bot (impl)"
+  ],
+  "n": 10,
+  "n_match": 10,
+  "rows": [
+    {
+      "case_id": "SS-STORED-STALE-GREEN",
+      "expect": "EXEMPT_STALE",
+      "got": "EXEMPT_STALE",
+      "judge": {
+        "detail": {
+          "note": "persisted_stale_is_previous_judgment",
+          "reported_verdict": "GREEN",
+          "stored_exempt_state": "STALE"
+        },
+        "judge": "FAIL",
+        "reason_code": "EXEMPT_STALE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SS-COMPUTE-DUE-STALE",
+      "expect": "EXEMPT_STALE",
+      "got": "EXEMPT_STALE",
+      "judge": {
+        "detail": {
+          "computed": "STALE",
+          "read_at": 1500,
+          "recheck_due": 1000
+        },
+        "judge": "FAIL",
+        "reason_code": "EXEMPT_STALE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SS-COMPUTE-FRESH-OK",
+      "expect": "EXEMPT_FRESH_OK",
+      "got": "EXEMPT_FRESH_OK",
+      "judge": {
+        "detail": {
+          "computed": "FRESH",
+          "read_at": 1500,
+          "recheck_due": 2000
+        },
+        "judge": "PASS",
+        "reason_code": "EXEMPT_FRESH_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SS-ISSUER-MISSING",
+      "expect": "ISSUER_MISSING",
+      "got": "ISSUER_MISSING",
+      "judge": {
+        "detail": {
+          "exempt_issuer_mode": "MISSING"
+        },
+        "judge": "FAIL",
+        "reason_code": "ISSUER_MISSING"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SS-ISSUER-NA-OK",
+      "expect": "ISSUER_NA_OK",
+      "got": "ISSUER_NA_OK",
+      "judge": {
+        "detail": {
+          "exempt_issuer_mode": "NOT_APPLICABLE"
+        },
+        "judge": "PASS",
+        "reason_code": "ISSUER_NA_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SS-ISSUER-NA-FALSE-RED",
+      "expect": "ISSUER_NA_FALSE_RED",
+      "got": "ISSUER_NA_FALSE_RED",
+      "judge": {
+        "detail": {
+          "note": "arm_only_accepts_has_value"
+        },
+        "judge": "FAIL",
+        "reason_code": "ISSUER_NA_FALSE_RED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SS-ISSUER-COLS-INCOMPLETE",
+      "expect": "ISSUER_COLS_INCOMPLETE",
+      "got": "ISSUER_COLS_INCOMPLETE",
+      "judge": {
+        "detail": {
+          "missing_cols": [
+            "issuer_epoch"
+          ]
+        },
+        "judge": "FAIL",
+        "reason_code": "ISSUER_COLS_INCOMPLETE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SS-GAP-MIXED-DENOM",
+      "expect": "GAP_DENOM_COLLISION",
+      "got": "GAP_DENOM_COLLISION",
+      "judge": {
+        "detail": {
+          "colliding_denoms": {
+            "shared_denom": [
+              "INGEST_SEQ_GAP_OBSERVED",
+              "MONOTONIC_SEQ_GAP"
+            ]
+          }
+        },
+        "judge": "FAIL",
+        "reason_code": "GAP_DENOM_COLLISION"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SS-GAP-INGEST-OK",
+      "expect": "GAP_OK",
+      "got": "GAP_OK",
+      "judge": {
+        "detail": {
+          "n_gaps": 1
+        },
+        "judge": "PASS",
+        "reason_code": "GAP_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "SS-GAP-MONOTONIC-OK",
+      "expect": "GAP_OK",
+      "got": "GAP_OK",
+      "judge": {
+        "detail": {
+          "n_gaps": 1
+        },
+        "judge": "PASS",
+        "reason_code": "GAP_OK"
+      },
+      "match": true
+    }
+  ],
+  "version": "EXEMPT_STALE_ISSUER_COLS/v0.1"
+}

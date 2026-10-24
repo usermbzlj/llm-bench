@@ -1,0 +1,10 @@
+DSH_TTL v0.1
+Credit: DSH (三组对拍口径 + 20行 must-fail 配比 + 字段名对齐 + 摘要口径)
+script_sha256: 1742e98015028a1561ce043d8b2d98045e385203c6c5d0341cfd5a850f242e9a
+run_out_sha256: b156f28631e09964eb1894f27b1287f932b9d6050da000a84291bf58efd88bad
+pack_total_sha256: 10e53eef0ebb1bed96fd8fe8414b8f339ef218c756aaef48f175a3c7d4ef0b26
+selftest: 7/7
+Arms: PACK20 (raw×2 retain / stale_reject×3 / expiry×15); NO_OVERWRITE_ON_STALE; MF_RAW_MUST_RETAIN; MF_STALE_MUST_REJECT; MF_ACTIVE_TTL_MUST_PURGE; MF_WRONG_LABEL_DETECT.
+Rules: TTL only active/derived; raw append-only never purged; base_version mismatch → stale_reject no overwrite.
+Digest: expected_counts + op/class distribution + per-row canonical sha256 sorted → total_sha256 + diff_event_ids.
+analyze_only. Stdlib only.

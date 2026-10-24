@@ -1,0 +1,184 @@
+{
+  "all_pass": true,
+  "credit": [
+    "DSH"
+  ],
+  "fixture": "DSH_TTL",
+  "pack_as_of": 1792820400,
+  "pack_diff_event_ids": [],
+  "pack_digest": {
+    "class_counts": {
+      "active": 10,
+      "derived": 8,
+      "raw": 2
+    },
+    "expected_counts": {
+      "purge": 11,
+      "retain": 6,
+      "stale_reject": 3
+    },
+    "n": 20,
+    "op_counts": {
+      "del": 1,
+      "put": 19
+    },
+    "row_sha256_sorted": [
+      "18bb0fb19c0989b8882f5a723f17719939083d28edc7e406c06731ea3292b1ad",
+      "357599df06bf4d3eb747869e55c5398e4235d5c4ab9ff482c108191d4195ada7",
+      "4d183cf06941d095bac35581604f06bbc63452bdc410d0e15700cc0a8a196b5c",
+      "4d38d3fdccea7882871de08775d2b6f4774bf35d1bbda6c8129581f5df3aba81",
+      "79f96706c85ff79fc36d38bbf3abfbf71c0d719420fa4661540b5425ee13dec6",
+      "7e63826bef1c59a9622a80c632eba15dd58541e936357d178de551731ad250e8",
+      "8520b2ba99e78ac0874d0e372945e4958378bfb2e5d5a6a19092032b47b30377",
+      "9bab397b0842d501741aa8d9d73105f570beabb0828af8f62805c19c5790396d",
+      "acf4986f1f380dbe9b6ccb8bd5948c6f70b078fcc764f5bb30b5c993a0b7d2f1",
+      "b4dddc57ae1fdabf8d736cc33827dc824d57e20fae880ae93f3a820016ac2ca6",
+      "bbac5096ce26dfc74ac1dd2734dad72898171ef675604528c4d773433087b85e",
+      "be61324d645aa4801c669a898226860b4024c26fd69fa5c50a2527466a2603b0",
+      "c7b24f87f1f38a79bf2434aff8c33a883d8bba0ed0c93450227d5eb7d2336266",
+      "ce1efebc20eb33d78929a095bd4d2c27f236a7aec6e40d796116dc2182b63bc8",
+      "d35f47fd2e644c03977e78f1a7402ace47cd7c79ca91a2fdd2effe2955218912",
+      "d803ca4356b73289f971675024f8c20d55c38577ef49a3a0dcc999b1db648f0a",
+      "d87fd35b341cb4eb5367a224416d6b60188b20ee3b46cf1d0c3d49a7fcfeaeb8",
+      "ebf2d61ccd83991581318c0876151b5a8cdebb3929420d9b8d0ba6469bbee993",
+      "f101ed288c647e483ccc4bc63cf6fbdbdeeca6316aea353c3ef54396e48bc061",
+      "f223b010e290f07506cc49de6b1a1c0123c8a6aae56c469e9651600d0f4ce090"
+    ],
+    "total_sha256": "10e53eef0ebb1bed96fd8fe8414b8f339ef218c756aaef48f175a3c7d4ef0b26"
+  },
+  "pack_jsonl_event_ids": [
+    "exp-000",
+    "exp-001",
+    "exp-002",
+    "exp-003",
+    "exp-004",
+    "exp-005",
+    "exp-006",
+    "exp-007",
+    "exp-008",
+    "exp-009",
+    "exp-010",
+    "exp-011",
+    "raw-ttl-001",
+    "raw-ttl-002",
+    "seed-act-01",
+    "seed-act-02",
+    "seed-der-01",
+    "stale-001",
+    "stale-002",
+    "stale-del-001"
+  ],
+  "passed": 7,
+  "results": [
+    {
+      "detail": {
+        "diffs": [],
+        "digest_total": "10e53eef0ebb1bed96fd8fe8414b8f339ef218c756aaef48f175a3c7d4ef0b26",
+        "expected_counts": {
+          "purge": 11,
+          "retain": 6,
+          "stale_reject": 3
+        }
+      },
+      "id": "PACK20_ALL_PASS",
+      "pass": true
+    },
+    {
+      "detail": {
+        "class_counts": {
+          "active": 10,
+          "derived": 8,
+          "raw": 2
+        },
+        "expected_counts": {
+          "purge": 11,
+          "retain": 6,
+          "stale_reject": 3
+        },
+        "n": 20,
+        "op_counts": {
+          "del": 1,
+          "put": 19
+        },
+        "row_sha256_sorted": [
+          "18bb0fb19c0989b8882f5a723f17719939083d28edc7e406c06731ea3292b1ad",
+          "357599df06bf4d3eb747869e55c5398e4235d5c4ab9ff482c108191d4195ada7",
+          "4d183cf06941d095bac35581604f06bbc63452bdc410d0e15700cc0a8a196b5c",
+          "4d38d3fdccea7882871de08775d2b6f4774bf35d1bbda6c8129581f5df3aba81",
+          "79f96706c85ff79fc36d38bbf3abfbf71c0d719420fa4661540b5425ee13dec6",
+          "7e63826bef1c59a9622a80c632eba15dd58541e936357d178de551731ad250e8",
+          "8520b2ba99e78ac0874d0e372945e4958378bfb2e5d5a6a19092032b47b30377",
+          "9bab397b0842d501741aa8d9d73105f570beabb0828af8f62805c19c5790396d",
+          "acf4986f1f380dbe9b6ccb8bd5948c6f70b078fcc764f5bb30b5c993a0b7d2f1",
+          "b4dddc57ae1fdabf8d736cc33827dc824d57e20fae880ae93f3a820016ac2ca6",
+          "bbac5096ce26dfc74ac1dd2734dad72898171ef675604528c4d773433087b85e",
+          "be61324d645aa4801c669a898226860b4024c26fd69fa5c50a2527466a2603b0",
+          "c7b24f87f1f38a79bf2434aff8c33a883d8bba0ed0c93450227d5eb7d2336266",
+          "ce1efebc20eb33d78929a095bd4d2c27f236a7aec6e40d796116dc2182b63bc8",
+          "d35f47fd2e644c03977e78f1a7402ace47cd7c79ca91a2fdd2effe2955218912",
+          "d803ca4356b73289f971675024f8c20d55c38577ef49a3a0dcc999b1db648f0a",
+          "d87fd35b341cb4eb5367a224416d6b60188b20ee3b46cf1d0c3d49a7fcfeaeb8",
+          "ebf2d61ccd83991581318c0876151b5a8cdebb3929420d9b8d0ba6469bbee993",
+          "f101ed288c647e483ccc4bc63cf6fbdbdeeca6316aea353c3ef54396e48bc061",
+          "f223b010e290f07506cc49de6b1a1c0123c8a6aae56c469e9651600d0f4ce090"
+        ],
+        "total_sha256": "10e53eef0ebb1bed96fd8fe8414b8f339ef218c756aaef48f175a3c7d4ef0b26"
+      },
+      "id": "MIX_RAW2_STALE3_EXPIRY15",
+      "pass": true
+    },
+    {
+      "detail": {
+        "all_pass": true,
+        "diffs": [],
+        "expect_all_pass": true
+      },
+      "id": "MF_RAW_MUST_RETAIN",
+      "pass": true
+    },
+    {
+      "detail": {
+        "all_pass": true,
+        "diffs": [],
+        "expect_all_pass": true
+      },
+      "id": "MF_STALE_MUST_REJECT",
+      "pass": true
+    },
+    {
+      "detail": {
+        "all_pass": true,
+        "diffs": [],
+        "expect_all_pass": true
+      },
+      "id": "MF_ACTIVE_TTL_MUST_PURGE",
+      "pass": true
+    },
+    {
+      "detail": {
+        "all_pass": false,
+        "diffs": [
+          "mf-wrong-label"
+        ],
+        "expect_all_pass": false
+      },
+      "id": "MF_WRONG_LABEL_DETECT",
+      "pass": true
+    },
+    {
+      "detail": {
+        "got": {
+          "decision": "stale_reject",
+          "kept_version": 2,
+          "reason_code": "BASE_VERSION_MISMATCH"
+        },
+        "v_after": 2,
+        "v_before": 2
+      },
+      "id": "NO_OVERWRITE_ON_STALE",
+      "pass": true
+    }
+  ],
+  "rows": 7,
+  "version": "v0.1"
+}

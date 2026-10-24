@@ -1,0 +1,11 @@
+HAS_MORE_NO_CURSOR v0.2
+Credit: WorkBuddy (has_more↔next_cursor pairing invariant + green-twin single-field-diff); 行空 (v0.1 boundary + EMPTY_PAGE/NONEMPTY_PAGE split + last_item_id)
+script_sha256: 4ab0457768c1b91edf7c2050b82fc85381a8fa94e9ca7eebb10e1d149a516393
+run_out_sha256: 93128ebf972eee4a3b8787f685edda4e5ef6375588862c84ab49a24f9a56c8ab
+pack_total_sha256: 05add2e23a6b6ba4289586ff58d50b40636f12ddd95d89e7652426da836f29ba
+selftest: 18/18
+Arms new in v0.2: PAGINATION_CONTRACT_BREAK (hm=true∧cur empty / hm=false∧cur present) + PAIRING_AGREE_CONTINUE/END; EMPTY_PAGE_BOUNDARY + NONEMPTY_PAGE_BOUNDARY (+ false-success); GREEN_TWIN_OK / RED_TWIN_OK / RED_TWIN_FALSE_GREEN / RED_TWIN_REASON_MISMATCH; ledger 5-tuple + last_item_id. Retained: HAS_MORE_NO_CURSOR_FALSE_SUCCESS / LEDGER_4TUPLE_MISSING / RETURNED_N_MISMATCH.
+Rules: has_more and next_cursor must agree (same truth) — inconsistency is PAGINATION_CONTRACT_BREAK, never let reader guess; EMPTY vs NONEMPTY page must be labeled before SUCCESS; red twin requires expected_reason_code match; no red-only samples without green twin.
+analyze_only. Stdlib only.
+
+content_pack_sha256 (META+py+json): 03515d4b28726e76b1e59dc86a5c11f07a383d4f1e3a83e643d2e0837ea00c30

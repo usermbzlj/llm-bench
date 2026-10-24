@@ -1,0 +1,195 @@
+{
+  "all_pass": true,
+  "credit": [
+    "WorkBuddy",
+    "行空"
+  ],
+  "fixture": "HAS_MORE_NO_CURSOR",
+  "pack_total_sha256": "05add2e23a6b6ba4289586ff58d50b40636f12ddd95d89e7652426da836f29ba",
+  "passed": 18,
+  "results": [
+    {
+      "case_id": "HM2-PAIR-HMTRUE-CUREMPTY-FALSE-OK",
+      "expect": "PAGINATION_CONTRACT_BREAK_FALSE_SUCCESS",
+      "got": {
+        "detail": {
+          "page": "NONEMPTY_PAGE",
+          "request_id": "req-201"
+        },
+        "judge": "FAIL",
+        "reason_code": "PAGINATION_CONTRACT_BREAK_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-PAIR-HMTRUE-CUREMPTY-CAUGHT",
+      "expect": "PAGINATION_CONTRACT_BREAK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PAGINATION_CONTRACT_BREAK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-PAIR-HMFALSE-CURPRESENT-FALSE-OK",
+      "expect": "PAGINATION_CONTRACT_BREAK_FALSE_SUCCESS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "PAGINATION_CONTRACT_BREAK_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-PAIR-HMFALSE-CURPRESENT-CAUGHT",
+      "expect": "PAGINATION_CONTRACT_BREAK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PAGINATION_CONTRACT_BREAK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-PAIR-AGREE-CONTINUE",
+      "expect": "PAIRING_AGREE_CONTINUE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PAIRING_AGREE_CONTINUE"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-PAIR-AGREE-END",
+      "expect": "PAIRING_AGREE_END",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PAIRING_AGREE_END"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-EMPTY-PAGE-BOUNDARY",
+      "expect": "EMPTY_PAGE_BOUNDARY",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "EMPTY_PAGE_BOUNDARY"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-EMPTY-PAGE-FALSE-OK",
+      "expect": "EMPTY_PAGE_FALSE_SUCCESS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "EMPTY_PAGE_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-NONEMPTY-PAGE-BOUNDARY",
+      "expect": "NONEMPTY_PAGE_BOUNDARY",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "NONEMPTY_PAGE_BOUNDARY"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-NONEMPTY-PAGE-FALSE-OK",
+      "expect": "NONEMPTY_PAGE_FALSE_SUCCESS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "NONEMPTY_PAGE_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-GREEN-TWIN-CONTINUE",
+      "expect": "GREEN_TWIN_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "GREEN_TWIN_OK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-RED-TWIN-CURSOR-DROPPED",
+      "expect": "RED_TWIN_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "RED_TWIN_OK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-RED-TWIN-FALSE-GREEN",
+      "expect": "RED_TWIN_FALSE_GREEN",
+      "got": {
+        "detail": {
+          "expected_reason_code": "PAGINATION_CONTRACT_BREAK"
+        },
+        "judge": "FAIL",
+        "reason_code": "RED_TWIN_FALSE_GREEN"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-RED-TWIN-REASON-MISMATCH",
+      "expect": "RED_TWIN_REASON_MISMATCH",
+      "got": {
+        "detail": {
+          "expected": "PAGINATION_CONTRACT_BREAK",
+          "got": "PARSE_FAIL"
+        },
+        "judge": "FAIL",
+        "reason_code": "RED_TWIN_REASON_MISMATCH"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-BOUNDARY-FALSE-SUCCESS",
+      "expect": "HAS_MORE_NO_CURSOR_FALSE_SUCCESS",
+      "got": {
+        "detail": {
+          "request_id": "req-215",
+          "returned_n": 20
+        },
+        "judge": "FAIL",
+        "reason_code": "HAS_MORE_NO_CURSOR_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-MISSING-LEDGER",
+      "expect": "LEDGER_4TUPLE_MISSING",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "LEDGER_4TUPLE_MISSING"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-RETURNED-N-FALSE-OK",
+      "expect": "RETURNED_N_MISMATCH_FALSE_SUCCESS",
+      "got": {
+        "detail": {
+          "actual": 17,
+          "returned_n": 20
+        },
+        "judge": "FAIL",
+        "reason_code": "RETURNED_N_MISMATCH_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM2-RETURNED-N-CAUGHT",
+      "expect": "RETURNED_N_MISMATCH",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "RETURNED_N_MISMATCH"
+      },
+      "pass": true
+    }
+  ],
+  "rows": 18,
+  "version": "v0.2"
+}

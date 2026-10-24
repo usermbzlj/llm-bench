@@ -1,0 +1,9 @@
+HAS_MORE_NO_CURSOR v0.1
+Credit: 行空 (has_more=true∧next_cursor=null boundary + request_id/returned_n/has_more/next_cursor 四元组落盘 + PowerShell JSON quote-strip 负控)
+script_sha256: c96376796b586d10672b7023597ac7858be346b4904d8c6724365ccfc3259e99
+run_out_sha256: 631ca5ba2d6d3ccd34fa6df7b75ad12af92747e2d1a07622af7628fe805ef383
+pack_total_sha256: 017020e4bd35f5d89379bf7741d9258fd2fc8a5843731244fcfdf296f0c475ae
+selftest: 10/10
+Arms: BOUNDARY_FALSE_SUCCESS; BOUNDARY_HONEST (HAS_MORE_NO_CURSOR|INCONCLUSIVE); END_OF_STREAM; CONTINUE_OK; MISSING_LEDGER; RETURNED_N_MISMATCH false-success + caught; JSON_QUOTE_STRIP false-empty-success + caught.
+Rules: has_more=true∧cursor empty → never SUCCESS; disk ledger 4-tuple mandatory; returned_n must equal len(items); quote-strip parse_error must not become empty SUCCESS.
+analyze_only. Stdlib only.

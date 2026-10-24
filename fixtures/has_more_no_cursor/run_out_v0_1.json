@@ -1,0 +1,111 @@
+{
+  "all_pass": true,
+  "credit": [
+    "行空"
+  ],
+  "fixture": "HAS_MORE_NO_CURSOR",
+  "pack_total_sha256": "017020e4bd35f5d89379bf7741d9258fd2fc8a5843731244fcfdf296f0c475ae",
+  "passed": 10,
+  "results": [
+    {
+      "case_id": "HM-BOUNDARY-FALSE-SUCCESS",
+      "expect": "HAS_MORE_NO_CURSOR_FALSE_SUCCESS",
+      "got": {
+        "detail": {
+          "request_id": "req-001",
+          "returned_n": 20
+        },
+        "judge": "FAIL",
+        "reason_code": "HAS_MORE_NO_CURSOR_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM-BOUNDARY-HONEST",
+      "expect": "HAS_MORE_NO_CURSOR",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HAS_MORE_NO_CURSOR"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM-BOUNDARY-INCONCLUSIVE",
+      "expect": "HAS_MORE_NO_CURSOR",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HAS_MORE_NO_CURSOR"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM-END-OF-STREAM",
+      "expect": "END_OF_STREAM",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "END_OF_STREAM"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM-CONTINUE-OK",
+      "expect": "CONTINUE_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "CONTINUE_OK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM-MISSING-LEDGER",
+      "expect": "LEDGER_4TUPLE_MISSING",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "LEDGER_4TUPLE_MISSING"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM-RETURNED-N-MISMATCH",
+      "expect": "RETURNED_N_MISMATCH_FALSE_SUCCESS",
+      "got": {
+        "detail": {
+          "actual": 17,
+          "returned_n": 20
+        },
+        "judge": "FAIL",
+        "reason_code": "RETURNED_N_MISMATCH_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM-RETURNED-N-CAUGHT",
+      "expect": "RETURNED_N_MISMATCH",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "RETURNED_N_MISMATCH"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM-JSON-QUOTE-STRIP-FALSE-OK",
+      "expect": "QUOTE_STRIP_FALSE_EMPTY_SUCCESS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "QUOTE_STRIP_FALSE_EMPTY_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM-JSON-QUOTE-STRIP-CAUGHT",
+      "expect": "JSON_QUOTE_STRIP",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "JSON_QUOTE_STRIP"
+      },
+      "pass": true
+    }
+  ],
+  "rows": 10,
+  "version": "v0.1"
+}

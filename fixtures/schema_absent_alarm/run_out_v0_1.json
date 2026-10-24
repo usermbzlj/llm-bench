@@ -1,0 +1,121 @@
+{
+  "fixture": "SCHEMA_ABSENT_ALARM",
+  "version": "0.1",
+  "total": 12,
+  "passed": 12,
+  "rows": [
+    {
+      "case_id": "SCHEMA-ABSENT-NO-ALARM",
+      "expect": "SCHEMA_ABSENT_NO_ALARM",
+      "got": "SCHEMA_ABSENT_NO_ALARM",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "present": "never",
+        "observed": "NO_ALARM"
+      }
+    },
+    {
+      "case_id": "SCHEMA-ABSENT-SILENT-OK",
+      "expect": "SCHEMA_ABSENT_NO_ALARM",
+      "got": "SCHEMA_ABSENT_NO_ALARM",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "present": "never",
+        "observed": "OK"
+      }
+    },
+    {
+      "case_id": "HONEST-SCHEMA-ABSENT-ALARM",
+      "expect": "HONEST_SCHEMA_ABSENT_ALARM",
+      "got": "HONEST_SCHEMA_ABSENT_ALARM",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "NOT-COLLECTED-AS-ABSENT",
+      "expect": "NOT_COLLECTED_AS_ABSENT",
+      "got": "NOT_COLLECTED_AS_ABSENT",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "note": "not-collected labeled as schema-absent"
+      }
+    },
+    {
+      "case_id": "ABSENT-MISLABEL-NOT-COLLECTED",
+      "expect": "NOT_COLLECTED_AS_ABSENT",
+      "got": "NOT_COLLECTED_AS_ABSENT",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "note": "never-existed mislabeled as not-collected"
+      }
+    },
+    {
+      "case_id": "HONEST-NOT-COLLECTED",
+      "expect": "HONEST_NOT_COLLECTED",
+      "got": "HONEST_NOT_COLLECTED",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "NOT-COLLECTED-SILENT-OK",
+      "expect": "NOT_COLLECTED_SILENT_OK",
+      "got": "NOT_COLLECTED_SILENT_OK",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "observed": "OK"
+      }
+    },
+    {
+      "case_id": "HONEST-SCHEMA-OK",
+      "expect": "HONEST_SCHEMA_OK",
+      "got": "HONEST_SCHEMA_OK",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "PAGE-WIDTH-SILENT-DROP-4TH",
+      "expect": "PAGE_WIDTH_SILENT_DROP",
+      "got": "PAGE_WIDTH_SILENT_DROP",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "drop_ordinal": 4,
+        "page_width": 50,
+        "prev_page_width": 20,
+        "query_shape_digest": "qsd:list_users:v3"
+      }
+    },
+    {
+      "case_id": "HONEST-DROP-RECORDED",
+      "expect": "HONEST_DROP_RECORDED",
+      "got": "HONEST_DROP_RECORDED",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "HONEST-DROP-ALARM",
+      "expect": "HONEST_DROP_ALARM",
+      "got": "HONEST_DROP_ALARM",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "HONEST-EARLY-SAME-SHAPE",
+      "expect": "HONEST_EARLY_OR_STABLE",
+      "got": "HONEST_EARLY_OR_STABLE",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    }
+  ]
+}

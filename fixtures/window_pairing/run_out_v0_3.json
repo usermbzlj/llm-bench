@@ -1,0 +1,205 @@
+{
+  "fixture": "WINDOW_PAIRING",
+  "version": "v0.3",
+  "variant": "hollow_pass_repin",
+  "total": 11,
+  "passed": 11,
+  "failed": 0,
+  "hollow_results": [
+    {
+      "case_id": "H1_arm1_write_at_key_fetch_both_empty",
+      "ok": true,
+      "expect_disposition": "UNPROBED",
+      "expect_reason": "EMPTY_WINDOW_SET_UNOBSERVED",
+      "got": {
+        "disposition": "UNPROBED",
+        "reason_code": "EMPTY_WINDOW_SET_UNOBSERVED",
+        "enter_pass_denom": false,
+        "enter_evidence_pool": false
+      }
+    },
+    {
+      "case_id": "H2_arm1_write_at_key_fetch_fields_absent",
+      "ok": true,
+      "expect_disposition": "UNPROBED",
+      "expect_reason": "WINDOW_FIELDS_ABSENT",
+      "got": {
+        "disposition": "UNPROBED",
+        "reason_code": "WINDOW_FIELDS_ABSENT",
+        "enter_pass_denom": false,
+        "enter_evidence_pool": false
+      }
+    },
+    {
+      "case_id": "H3_arm4_unpaired_parallel_empty_windows",
+      "ok": true,
+      "expect_disposition": "UNPROBED",
+      "expect_reason": "UNPAIRED_LIST_EMPTY",
+      "got": {
+        "disposition": "UNPROBED",
+        "reason_code": "UNPAIRED_LIST_EMPTY",
+        "enter_pass_denom": false,
+        "enter_evidence_pool": false
+      }
+    },
+    {
+      "case_id": "H4_arm4_unpaired_parallel_no_list_field",
+      "ok": true,
+      "expect_disposition": "UNPROBED",
+      "expect_reason": "UNPAIRED_LIST_ABSENT",
+      "got": {
+        "disposition": "UNPROBED",
+        "reason_code": "UNPAIRED_LIST_ABSENT",
+        "enter_pass_denom": false,
+        "enter_evidence_pool": false
+      }
+    },
+    {
+      "case_id": "H5_arm5_stale_three_gate_all_defaults",
+      "ok": true,
+      "expect_disposition": "UNPROBED",
+      "expect_reason": "GATE_VALUES_DEFAULTED_NOT_OBSERVED",
+      "got": {
+        "disposition": "UNPROBED",
+        "reason_code": "GATE_VALUES_DEFAULTED_NOT_OBSERVED",
+        "enter_pass_denom": false,
+        "enter_evidence_pool": false,
+        "detail": {
+          "defaults": {
+            "ttl": 0,
+            "downstream_confirm": false,
+            "reuse_state": "FRESH"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "H6_arm5_stale_three_gate_unknown_reuse_state",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "REUSE_STATE_OUT_OF_CLOSET",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "REUSE_STATE_OUT_OF_CLOSET",
+        "enter_pass_denom": false,
+        "enter_evidence_pool": true,
+        "detail": {
+          "reuse_state": "CACHED"
+        }
+      }
+    },
+    {
+      "case_id": "H7_arm5_stale_three_gate_missing_reuse_state",
+      "ok": true,
+      "expect_disposition": "UNPROBED",
+      "expect_reason": "REUSE_STATE_ABSENT",
+      "got": {
+        "disposition": "UNPROBED",
+        "reason_code": "REUSE_STATE_ABSENT",
+        "enter_pass_denom": false,
+        "enter_evidence_pool": false,
+        "detail": {
+          "present_gates": [
+            "downstream_confirm",
+            "ttl"
+          ],
+          "note": "arm-layer EMPTY_GATES_UNOBSERVED is coarse; this code localizes to reuse_state"
+        }
+      }
+    }
+  ],
+  "meta_results": [
+    {
+      "case_id": "M1_triad_only_in_side_note",
+      "ok": true,
+      "expect_ok": false,
+      "expect_reason": "RUN_OUT_TRIAD_NOT_IN_PREIMAGE",
+      "got": {
+        "ok": false,
+        "reason_code": "RUN_OUT_TRIAD_NOT_IN_PREIMAGE",
+        "missing_preimage": [
+          "input_window_id",
+          "normalization_rule_version",
+          "criteria_version"
+        ],
+        "present_only_as_side_note": [
+          "input_window_id",
+          "normalization_rule_version",
+          "criteria_version"
+        ]
+      }
+    },
+    {
+      "case_id": "M2_triad_bound_in_preimage",
+      "ok": true,
+      "expect_ok": true,
+      "expect_reason": "RUN_OUT_TRIAD_BOUND",
+      "got": {
+        "ok": true,
+        "reason_code": "RUN_OUT_TRIAD_BOUND",
+        "triad": {
+          "input_window_id": "win-9",
+          "normalization_rule_version": "nr-1.0",
+          "criteria_version": "crit-2"
+        }
+      }
+    },
+    {
+      "case_id": "M3_reason_arm_layer_only",
+      "ok": true,
+      "expect_ok": false,
+      "expect_reason": "REASON_CODE_ARM_LAYER_ONLY",
+      "got": {
+        "ok": false,
+        "reason_code": "REASON_CODE_ARM_LAYER_ONLY",
+        "detail": {
+          "granularity": "arm-layer",
+          "note": "arm-layer codes cannot do expected⊆errors vs fine codes"
+        }
+      }
+    },
+    {
+      "case_id": "M4_reason_vector_level_ok",
+      "ok": true,
+      "expect_ok": true,
+      "expect_reason": "VECTOR_REASON_META_OK",
+      "got": {
+        "ok": true,
+        "reason_code": "VECTOR_REASON_META_OK",
+        "n_codes": 7
+      }
+    }
+  ],
+  "self_check": {
+    "n_rows": true,
+    "codes_mutually_distinct": true,
+    "zero_pass_rows": true,
+    "unprobed_not_in_pass_denom": true,
+    "disposition_closed": true,
+    "exactly_one_fail": true,
+    "all_pass": true
+  },
+  "not_comparable_ledger": {
+    "not_comparable_count": 2,
+    "in_pass_denom": false,
+    "in_diff_denom": false,
+    "ledger_cell_present": true,
+    "reason_code": "NOT_COMPARABLE_LEDGERED"
+  },
+  "batch_digest_sha256": "9d22e8886b854febfab231dcadbb41d84d8c225048fa840d0b319fa673ffdd79",
+  "families": {
+    "empty-payload-observed": [
+      "EMPTY_WINDOW_SET_UNOBSERVED",
+      "WINDOW_FIELDS_ABSENT",
+      "UNPAIRED_LIST_EMPTY",
+      "UNPAIRED_LIST_ABSENT",
+      "GATE_VALUES_DEFAULTED_NOT_OBSERVED",
+      "REUSE_STATE_ABSENT"
+    ],
+    "closed-set-violation": [
+      "REUSE_STATE_OUT_OF_CLOSET"
+    ]
+  },
+  "run_out_sha256": "8be7731fb237282b9a721bbd05b50125f968f0aa12cedc52d6cbf3cbe7d93983",
+  "script_sha256": "f8e2bfaf1948d3f7bca6e9b2454a4060d1a62c30735085df80b08d5fe91e0515"
+}

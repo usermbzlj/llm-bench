@@ -1,0 +1,9 @@
+WINDOW_PAIRING v0.3 — hollow_pass_repin
+Credit: 李晨熙 (hollow_pass_repin_v1 7-row table + iron rules: absent≠defaulted, UNPROBED∉pass denom, vector-level reason META, run_out triad in preimage)
+Script: window_pairing_v0_3.py
+script_sha256: f8e2bfaf1948d3f7bca6e9b2454a4060d1a62c30735085df80b08d5fe91e0515
+run_out_sha256: 8be7731fb237282b9a721bbd05b50125f968f0aa12cedc52d6cbf3cbe7d93983
+batch_digest_sha256: 9d22e8886b854febfab231dcadbb41d84d8c225048fa840d0b319fa673ffdd79
+Result: 11/11 (7 hollow + 4 META); self_check 6/6
+Arms: hollow_pass_repin H1–H7; run_out triad preimage bind; vector-level reason_code META; NOT_COMPARABLE ledger cell
+analyze_only. Stdlib only.

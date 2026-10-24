@@ -1,0 +1,180 @@
+{
+  "all_match": true,
+  "n": 15,
+  "rows": [
+    {
+      "case_id": "HJ-RC-DRIFT",
+      "expect": "REASON_CODE_VERSION_DRIFT",
+      "got": "REASON_CODE_VERSION_DRIFT",
+      "judge": {
+        "detail": {
+          "criteria_version": "crit-v2",
+          "reason_code_version": "rc-v1"
+        },
+        "judge": "FAIL",
+        "reason_code": "REASON_CODE_VERSION_DRIFT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-RC-OK",
+      "expect": "REASON_CODE_OK",
+      "got": "REASON_CODE_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "REASON_CODE_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-UNPROBED-SHRINK-MISSING",
+      "expect": "UNPROBED_SHRINKS_DENOM",
+      "got": "UNPROBED_SHRINKS_DENOM",
+      "judge": {
+        "detail": {
+          "missing": "n_unprobed"
+        },
+        "judge": "FAIL",
+        "reason_code": "UNPROBED_SHRINKS_DENOM"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-UNPROBED-IN-DENOM",
+      "expect": "UNPROBED_SHRINKS_DENOM",
+      "got": "UNPROBED_SHRINKS_DENOM",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "UNPROBED_SHRINKS_DENOM"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-UNPROBED-RATE-INFLATE",
+      "expect": "UNPROBED_SHRINKS_DENOM",
+      "got": "UNPROBED_SHRINKS_DENOM",
+      "judge": {
+        "detail": {
+          "honest_pass_rate": 0.8,
+          "reported_pass_rate": 0.95
+        },
+        "judge": "FAIL",
+        "reason_code": "UNPROBED_SHRINKS_DENOM"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-UNPROBED-HONEST",
+      "expect": "UNPROBED_HONEST",
+      "got": "UNPROBED_HONEST",
+      "judge": {
+        "detail": {
+          "n_unprobed": 10,
+          "pass_rate": 0.8
+        },
+        "judge": "PASS",
+        "reason_code": "UNPROBED_HONEST"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-NEG-MISSING-GREEN",
+      "expect": "NEG_CTRL_PAIR_MISSING",
+      "got": "NEG_CTRL_PAIR_MISSING",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "NEG_CTRL_PAIR_MISSING"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-NEG-EMPTY-GREEN",
+      "expect": "NEG_CTRL_PAIR_MISSING",
+      "got": "NEG_CTRL_PAIR_MISSING",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "NEG_CTRL_PAIR_MISSING"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-NEG-OK",
+      "expect": "NEG_CTRL_PAIR_OK",
+      "got": "NEG_CTRL_PAIR_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "NEG_CTRL_PAIR_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-PRODUCT-ABSENT",
+      "expect": "EXIT0_PRODUCT_ABSENT",
+      "got": "EXIT0_PRODUCT_ABSENT",
+      "judge": {
+        "detail": {
+          "exit_code": 0,
+          "product_path_exists": false,
+          "receipt_status": "success"
+        },
+        "judge": "FAIL",
+        "reason_code": "EXIT0_PRODUCT_ABSENT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-PRODUCT-OK",
+      "expect": "EXIT0_PRODUCT_OK",
+      "got": "EXIT0_PRODUCT_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "EXIT0_PRODUCT_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-EMPTY-COLLISION",
+      "expect": "EMPTY_ARRAY_FETCH_COLLISION",
+      "got": "EMPTY_ARRAY_FETCH_COLLISION",
+      "judge": {
+        "detail": {
+          "true_state": "fetch_failed"
+        },
+        "judge": "FAIL",
+        "reason_code": "EMPTY_ARRAY_FETCH_COLLISION"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-EMPTY-NO-DATA-NO-DISAMB",
+      "expect": "EMPTY_ARRAY_FETCH_COLLISION",
+      "got": "EMPTY_ARRAY_FETCH_COLLISION",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "EMPTY_ARRAY_FETCH_COLLISION"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-EMPTY-DISAMB-OK",
+      "expect": "EMPTY_ARRAY_DISAMBIGUATED",
+      "got": "EMPTY_ARRAY_DISAMBIGUATED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "EMPTY_ARRAY_DISAMBIGUATED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "HJ-EMPTY-DISAMB-FAIL",
+      "expect": "EMPTY_ARRAY_DISAMBIGUATED",
+      "got": "EMPTY_ARRAY_DISAMBIGUATED",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "EMPTY_ARRAY_DISAMBIGUATED"
+      },
+      "match": true
+    }
+  ],
+  "version": "EXIT0_PRODUCT_ABSENT/v0.1"
+}

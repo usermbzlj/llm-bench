@@ -1,0 +1,9 @@
+EXIT0_PRODUCT_ABSENT v0.1
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 4d5f7526b08c4c21dd6c726928047f1e62a54fc77648a981006aa7d0234e6a1e
+run_out_sha256: 832c0387f6a76919a84e57ff7f25efb85ddb534d03456d28ddb98e4e3875c32b
+rows: 15/15
+credits: hermes-jarvis-v0.1 (reason_code_version gate; n_unprobed separate + anti-shrink;
+         neg-ctrl pair required; exit0+success+path-absent; empty-array fetch collision)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+pack(META+py+json) sha256: 0d4d2288d731c2e0956750be51d46bff003043f2641b4abbea9f704c5df5a60a

@@ -1,0 +1,110 @@
+{
+  "fixture": "UNIFORM_ZERO_FETCH",
+  "version": "v0.1",
+  "credit": "WorkBuddy",
+  "n": 12,
+  "passed": 12,
+  "ok": true,
+  "run_out_sha256": "46058fed576cff24c8c7079c9117d76de319ecdf9b6ddede3a834964df3ce33c",
+  "rows": [
+    {
+      "case_id": "UZ-NO-PRIOR-FALSE-PASS",
+      "expect": "UNIFORM_ZERO_FALSE_PASS",
+      "got": "UNIFORM_ZERO_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "path_id": "orders.daily_metrics",
+        "row_count": 3
+      }
+    },
+    {
+      "case_id": "UZ-NO-PRIOR-UNKNOWN",
+      "expect": "UNIFORM_ZERO_UNKNOWN",
+      "got": "UNIFORM_ZERO_UNKNOWN",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "UZ-NO-PRIOR-UNKNOWN-INFLATE",
+      "expect": "UNKNOWN_ENTERED_PASS_NUMER",
+      "got": "UNKNOWN_ENTERED_PASS_NUMER",
+      "match": true,
+      "detail": {
+        "path_id": "orders.daily_metrics"
+      }
+    },
+    {
+      "case_id": "UZ-CONTRAST-FETCH",
+      "expect": "UNIFORM_ZERO_FETCH",
+      "got": "UNIFORM_ZERO_FETCH",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "UZ-CONTRAST-FALSE-PASS",
+      "expect": "UNIFORM_ZERO_FETCH_FALSE_PASS",
+      "got": "UNIFORM_ZERO_FETCH_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "path_id": "orders.daily_metrics",
+        "fields_present": [
+          "gmv",
+          "orders",
+          "refunds"
+        ]
+      }
+    },
+    {
+      "case_id": "UZ-EMPTY-ATTESTED-OK",
+      "expect": "EMPTY_ATTESTED_OK",
+      "got": "EMPTY_ATTESTED_OK",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "UZ-EMPTY-NOT-ATTESTED",
+      "expect": "EMPTY_NOT_ATTESTED",
+      "got": "EMPTY_NOT_ATTESTED",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "UZ-NON-UNIFORM-OK",
+      "expect": "NON_UNIFORM_OK",
+      "got": "NON_UNIFORM_OK",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "UZ-UNKNOWN-EXCLUDED",
+      "expect": "UNKNOWN_EXCLUDED_OK",
+      "got": "UNKNOWN_EXCLUDED_OK",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "UZ-UNKNOWN-INFLATES",
+      "expect": "UNKNOWN_INFLATES_DENOM",
+      "got": "UNKNOWN_INFLATES_DENOM",
+      "match": true,
+      "detail": {
+        "enter_pass_numerator": false,
+        "enter_availability_denom": true
+      }
+    },
+    {
+      "case_id": "UZ-SCHEMA-DRIFT-UNKNOWN",
+      "expect": "SCHEMA_DRIFT_UNKNOWN",
+      "got": "SCHEMA_DRIFT_UNKNOWN",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "UZ-SCHEMA-DRIFT-FALSE-PASS",
+      "expect": "DRIFT_FALSE_PASS",
+      "got": "DRIFT_FALSE_PASS",
+      "match": true,
+      "detail": null
+    }
+  ]
+}

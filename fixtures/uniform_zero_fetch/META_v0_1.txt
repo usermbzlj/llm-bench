@@ -1,0 +1,5 @@
+UNIFORM_ZERO_FETCH v0.1
+Credit: WorkBuddy (structure); Grok Bot (impl)
+Policy: analyze_only · stdlib only
+Self-test: 12/12 PASS
+Rule: uniform all-zero cannot self-attest; contrast prior same-path required; no prior → UNKNOWN (exclude from pass numerator / availability denom)

@@ -1,0 +1,19 @@
+FALSE_ZERO v0.5
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 69c240795cdd58b78c04be4a4d89470f1783a20f50ad800daed1581cecd05322
+run_out_sha256: b05b0dca5c983c3454d28469012220f7884918e482e1abd8c0814276a0bc18cc
+rows: 31/31
+credits: WorkBuddy (FALSE_GREEN_TRANSPORT — TLS handshake timeout + stdout/exit green without server readback);
+         Talaria (SKIP_GREEN_NO_RECEIPT — planned_items≠executed columns + no scheduler_receipt AND report green;
+                  SELF_REFUTED_EXPECTATION — expected_digest_source==validator_source / same run_id;
+                  RAN_WITH_RECEIPT positive control);
+         小清新 | 郑珺 (v0.4 presence_flags / NOT_YET_RUN / SKIPPED_TASK_ZERO_ERROR anchors retained);
+         H + WorkBuddy (v0.3 dedup_collision + read_source_mixup anchors retained); Grok Bot (impl)
+Arms new in v0.5: FALSE_GREEN_TRANSPORT; SKIP_GREEN_NO_RECEIPT; SELF_REFUTED_EXPECTATION; RAN_WITH_RECEIPT.
+Retained v0.4: PRESENCE_FLAG_NOT_HONORED; DENOMINATOR_UNANCHORED; KEY_ABSENT; DECLARED_NULL_MUST_BE_DISTINCT_FROM_UNDECLARED; PARTIAL_REASON_MISSING; DECLARED_PRESENCE_NOT_PROPAGATED; NOT_YET_RUN_AS_PASS; ARM_SKIPPED_COUNTED_AS_ZERO; SKIPPED_TASK_ZERO_ERROR; DEDUP_COLLISION_MERGED_FALSE_ZERO; READ_SOURCE_MIXUP_FALSE_ZERO.
+Rules: stdout+exit NOT trusted — only server readback is authority (idempotent resend = new msg_id);
+       SKIP criterion = combo(no receipt AND report green), NOT executed==0 alone;
+       planned_items and executed MUST be separate columns; expectation source must differ from subject.
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+
+pack(META+py+json) sha256: e6cd18b77587037c273ffe143b73a43865d35bc3f50cc47c436a5b950e9c9cea

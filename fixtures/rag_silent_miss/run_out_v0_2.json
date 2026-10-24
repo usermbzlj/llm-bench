@@ -1,0 +1,112 @@
+{
+  "all_match": true,
+  "credits": [
+    "布雷登-Brayden (3 reciprocal JSONL: rag-miss-001/002 + rag-negctrl-001; two-value reason_code + NEG_CTRL guard)",
+    "Grok Bot (v0.2 validator + paired mutual-exclusion + field-collapse guard)"
+  ],
+  "n": 8,
+  "n_match": 8,
+  "pack_digest": "43b88377df4bc725b7eea8e743cba0c0d6fe217a9af0776eaa0f074547c9dedd",
+  "rows": [
+    {
+      "case_id": "rag-miss-001",
+      "expect": "RAG_SILENT_MISS",
+      "got": "RAG_SILENT_MISS",
+      "judge": {
+        "judge": "FAIL",
+        "match_expected": true,
+        "reason_code": "RAG_SILENT_MISS"
+      },
+      "kind": "must_fail",
+      "match": true,
+      "source": "peer:布雷登-Brayden"
+    },
+    {
+      "case_id": "rag-miss-002",
+      "expect": "RAG_MISS_MARKED",
+      "got": "RAG_MISS_MARKED",
+      "judge": {
+        "judge": "FAIL",
+        "match_expected": true,
+        "reason_code": "RAG_MISS_MARKED"
+      },
+      "kind": "paired",
+      "match": true,
+      "source": "peer:布雷登-Brayden"
+    },
+    {
+      "case_id": "rag-negctrl-001",
+      "expect": "PASS_ON_CLEAN",
+      "got": "MISSING",
+      "judge": {
+        "denominator_unchanged": true,
+        "guard": false,
+        "judge": "FAIL",
+        "match_expected": true,
+        "reason_code": "MISSING"
+      },
+      "kind": "neg_ctrl",
+      "match": true,
+      "source": "peer:布雷登-Brayden"
+    },
+    {
+      "case_id": "RSM2-COLLAPSE-FORBIDDEN",
+      "expect": "DISTINCT_CODES",
+      "got": "RAG_SILENT_MISS!=RAG_MISS_MARKED",
+      "match": true,
+      "source": "local"
+    },
+    {
+      "case_id": "RSM2-SILENT-NO-ERROR-PASS-FORBIDDEN",
+      "expect": "RAG_SILENT_MISS",
+      "got": "RAG_SILENT_MISS",
+      "judge": {
+        "judge": "FAIL",
+        "match_expected": true,
+        "reason_code": "RAG_SILENT_MISS"
+      },
+      "match": true,
+      "source": "local"
+    },
+    {
+      "case_id": "RSM2-MARKED-DISTINCT",
+      "expect": "RAG_MISS_MARKED",
+      "got": "RAG_MISS_MARKED",
+      "judge": {
+        "judge": "FAIL",
+        "match_expected": true,
+        "reason_code": "RAG_MISS_MARKED"
+      },
+      "match": true,
+      "source": "local"
+    },
+    {
+      "case_id": "RSM2-NEGCTRL-FIELDS-SEPARATE",
+      "expect": "PASS_ON_CLEAN",
+      "got": "PASS_ON_CLEAN",
+      "judge": {
+        "guard": true,
+        "in_denominator": false,
+        "in_numerator": false,
+        "judge": "PASS",
+        "match_expected": true,
+        "reason_code": "PASS_ON_CLEAN"
+      },
+      "match": true,
+      "source": "local"
+    },
+    {
+      "case_id": "RSM2-NEGCTRL-COLLAPSE-FIELDS",
+      "expect": "MISSING_EXPLICIT_COLLAPSED",
+      "got": "MISSING_EXPLICIT_COLLAPSED",
+      "judge": {
+        "judge": "FAIL",
+        "match_expected": false,
+        "reason_code": "MISSING_EXPLICIT_COLLAPSED"
+      },
+      "match": true,
+      "source": "local"
+    }
+  ],
+  "version": "RAG_SILENT_MISS/v0.2"
+}

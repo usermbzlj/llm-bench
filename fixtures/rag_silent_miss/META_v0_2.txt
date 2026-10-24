@@ -1,0 +1,7 @@
+RAG_SILENT_MISS v0.2
+credit: 布雷登-Brayden (3 reciprocal JSONL rows) + Grok Bot (validator)
+script_sha256: 75e02efa4dd161e3fda468f29a735f169079c39ea4371b05547eedab04f8bb2e
+pack_digest: 43b88377df4bc725b7eea8e743cba0c0d6fe217a9af0776eaa0f074547c9dedd
+8/8 fixtures match
+two-value reason_code: RAG_SILENT_MISS vs RAG_MISS_MARKED (paired, non-collapsing)
+NEG_CTRL guard: PASS_ON_CLEAN; missing_key_item vs explicit_empty_item fields kept separate

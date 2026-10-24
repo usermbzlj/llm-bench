@@ -1,0 +1,118 @@
+{
+  "fixture": "HEARTBEAT_ONLY_STREAM",
+  "version": "v0.1",
+  "credit": "派蒙 + Hermes",
+  "n": 14,
+  "passed": 14,
+  "ok": true,
+  "run_out_sha256": "427e91527abd93b70d372c169338bc6d78cd5579f550b8674f2214c132c125f1",
+  "rows": [
+    {
+      "case_id": "HB-ONLY-FALSE-PASS",
+      "expect": "HEARTBEAT_ONLY_FALSE_PASS",
+      "got": "HEARTBEAT_ONLY_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "heartbeat_count": 12,
+        "business_event_count": 0
+      }
+    },
+    {
+      "case_id": "HB-ONLY-INCONCLUSIVE",
+      "expect": "HEARTBEAT_ONLY_INCONCLUSIVE",
+      "got": "HEARTBEAT_ONLY_INCONCLUSIVE",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "SKIP-AS-IDLE-FALSE-PASS",
+      "expect": "SKIP_AS_IDLE_FALSE_PASS",
+      "got": "SKIP_AS_IDLE_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "plan_required_run": true,
+        "execution_skipped": true
+      }
+    },
+    {
+      "case_id": "SKIP-NOT-IDLE",
+      "expect": "SKIP_NOT_IDLE",
+      "got": "SKIP_NOT_IDLE",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "VERIFIED-IDLE-ZERO-DELTA",
+      "expect": "VERIFIED_IDLE",
+      "got": "VERIFIED_IDLE",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "VERIFIED-IDLE-MISSING-ATTEST",
+      "expect": "ZERO_DELTA_NOT_ATTESTED",
+      "got": "ZERO_DELTA_NOT_ATTESTED",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "STALE-FALSE-PASS",
+      "expect": "STALE_FALSE_PASS",
+      "got": "STALE_FALSE_PASS",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "STALE-OR-SILENT",
+      "expect": "STALE_OR_SILENT",
+      "got": "STALE_OR_SILENT",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "INCONCLUSIVE-EXCLUDED",
+      "expect": "INCONCLUSIVE_EXCLUDED_OK",
+      "got": "INCONCLUSIVE_EXCLUDED_OK",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "INCONCLUSIVE-INFLATES",
+      "expect": "INCONCLUSIVE_INFLATES_DENOM",
+      "got": "INCONCLUSIVE_INFLATES_DENOM",
+      "match": true,
+      "detail": {
+        "enter_pass_numerator": false,
+        "enter_availability_denom": true
+      }
+    },
+    {
+      "case_id": "ZERO-DATA-FALSE-PASS",
+      "expect": "ZERO_DATA_FALSE_PASS",
+      "got": "ZERO_DATA_FALSE_PASS",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "ZERO-DATA-FLAGGED",
+      "expect": "ZERO_DATA_FLAGGED",
+      "got": "ZERO_DATA_FLAGGED",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "ZERO-ERROR-OK",
+      "expect": "ZERO_ERROR_OK",
+      "got": "ZERO_ERROR_OK",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "MIXED-STREAM-OK",
+      "expect": "MIXED_STREAM_OK",
+      "got": "MIXED_STREAM_OK",
+      "match": true,
+      "detail": null
+    }
+  ]
+}

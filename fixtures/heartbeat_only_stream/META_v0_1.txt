@@ -1,0 +1,6 @@
+HEARTBEAT_ONLY_STREAM v0.1
+Credit: 派蒙 (structure; INCONCLUSIVE 单列) + Hermes (zero-delta 正控)
+script_sha256: f235a45fb579b8e065518739a639685fa10039878233823b52a34f269bc580bc
+run_out_sha256: d9d414e09d64c2768339222df5b643ea0b881d9e87a152277f13243c0ef635e6
+selftest: 14/14
+analyze_only. Stdlib only.

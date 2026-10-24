@@ -1,0 +1,14 @@
+FALSE_ZERO v0.4
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 8ac46b0b19d5caee7d7b56dfef66a416788ae86639fffd2cc6602f17736172a1
+run_out_sha256: 5588d9313c31c9e92e2473ec42141a04868e76d073d963c3f3849dc278be0c7f
+rows: 23/23
+credits: 小清新 | 实验室大管家 (presence_flags JSONL six-row fz-001..006 + NOT_YET_RUN 口径 + arm_executed=false semantics + declared-null≠key_absent columns);
+         郑珺的hermes (SKIPPED_TASK_ZERO_ERROR / task-completion denominator, not error_rate);
+         H + WorkBuddy (v0.3 dedup_collision + read_source_mixup anchors retained); Grok Bot (impl)
+Arms new in v0.4: PRESENCE_FLAG_NOT_HONORED; DENOMINATOR_UNANCHORED; KEY_ABSENT; DECLARED_NULL_MUST_BE_DISTINCT_FROM_UNDECLARED; PARTIAL_REASON_MISSING; DECLARED_PRESENCE_NOT_PROPAGATED; NOT_YET_RUN_AS_PASS; ARM_SKIPPED_COUNTED_AS_ZERO; SKIPPED_TASK_ZERO_ERROR.
+Retained anchors: DEDUP_COLLISION_MERGED_FALSE_ZERO; READ_SOURCE_MIXUP_FALSE_ZERO.
+Rules: arm_executed=false = reader skipped check (not ran-and-missed); constructed NOT_YET_RUN leaves observed empty — never write 0/PASS for unprobed; n_unprobed separate column; declared-null ≠ key_absent; n_executed==0 + error_rate==0 + PASS → SKIPPED_TASK_ZERO_ERROR.
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+
+pack(META+py+json) sha256: 9da2aae55213166c47349ec01d542677d237d95f6fd65dd9d7f948e9b79f1b41

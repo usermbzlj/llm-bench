@@ -1,0 +1,274 @@
+{
+  "all_pass": true,
+  "credit": [
+    "小清新",
+    "郑珺的hermes"
+  ],
+  "fixture": "FALSE_ZERO",
+  "passed": 23,
+  "results": [
+    {
+      "expect_reason": "PRESENCE_FLAG_NOT_HONORED",
+      "got": {
+        "detail": {
+          "arm_executed": false,
+          "presence_declared_by": "upstream_discovery_block",
+          "presence_reason": "history_truncated+scan_budget"
+        },
+        "judge": "FAIL",
+        "reason_code": "PRESENCE_FLAG_NOT_HONORED"
+      },
+      "id": "fz001_mf_presence_flag_not_honored",
+      "pass": true
+    },
+    {
+      "expect_reason": "PRESENCE_FLAG_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PRESENCE_FLAG_CAUGHT"
+      },
+      "id": "fz001_ok_presence_flag_caught",
+      "pass": true
+    },
+    {
+      "expect_reason": "DENOMINATOR_UNANCHORED",
+      "got": {
+        "detail": {
+          "arm_executed": false,
+          "expected_rows": null
+        },
+        "judge": "FAIL",
+        "reason_code": "DENOMINATOR_UNANCHORED"
+      },
+      "id": "fz002_mf_denominator_unanchored",
+      "pass": true
+    },
+    {
+      "expect_reason": "DENOMINATOR_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "DENOMINATOR_CAUGHT"
+      },
+      "id": "fz002_ok_denominator_caught",
+      "pass": true
+    },
+    {
+      "expect_reason": "NOT_YET_RUN_AS_PASS",
+      "got": {
+        "detail": {
+          "n_unprobed": 0,
+          "observed_reason_code": "NOT_YET_RUN",
+          "reported_verdict": "PASS"
+        },
+        "judge": "FAIL",
+        "reason_code": "NOT_YET_RUN_AS_PASS"
+      },
+      "id": "fz003_mf_key_absent_scored_pass",
+      "pass": true
+    },
+    {
+      "expect_reason": "KEY_ABSENT_UNPROBED",
+      "got": {
+        "detail": {
+          "key": "value"
+        },
+        "judge": "PASS",
+        "reason_code": "KEY_ABSENT_UNPROBED"
+      },
+      "id": "fz003_ok_key_absent_unprobed",
+      "pass": true
+    },
+    {
+      "expect_reason": "NOT_YET_RUN_AS_PASS",
+      "got": {
+        "detail": {
+          "n_unprobed": 0,
+          "observed_reason_code": "NOT_YET_RUN",
+          "reported_verdict": "PASS"
+        },
+        "judge": "FAIL",
+        "reason_code": "NOT_YET_RUN_AS_PASS"
+      },
+      "id": "fz004_mf_declared_null_collapsed",
+      "pass": true
+    },
+    {
+      "expect_reason": "DECLARED_NULL_MUST_BE_DISTINCT_FROM_UNDECLARED",
+      "got": {
+        "detail": {
+          "null_vs_absent_class": "undeclared",
+          "presence_declared_by": "upstream_row",
+          "presence_reason": "value_is_null_but_key_present",
+          "state": "null"
+        },
+        "judge": "FAIL",
+        "reason_code": "DECLARED_NULL_MUST_BE_DISTINCT_FROM_UNDECLARED"
+      },
+      "id": "fz004_mf_declared_null_distinct_class",
+      "pass": true
+    },
+    {
+      "expect_reason": "DECLARED_NULL_UNPROBED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "DECLARED_NULL_UNPROBED"
+      },
+      "id": "fz004_ok_declared_null_unprobed",
+      "pass": true
+    },
+    {
+      "expect_reason": "PARTIAL_REASON_MISSING",
+      "got": {
+        "detail": {
+          "partial_declared": true,
+          "partial_reasons": null
+        },
+        "judge": "FAIL",
+        "reason_code": "PARTIAL_REASON_MISSING"
+      },
+      "id": "fz005_mf_partial_reason_missing",
+      "pass": true
+    },
+    {
+      "expect_reason": "PARTIAL_REASON_UNPROBED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PARTIAL_REASON_UNPROBED"
+      },
+      "id": "fz005_ok_partial_reason_unprobed",
+      "pass": true
+    },
+    {
+      "expect_reason": "DECLARED_PRESENCE_NOT_PROPAGATED",
+      "got": {
+        "detail": {
+          "downstream_presence": null,
+          "upstream_presence_declared": true
+        },
+        "judge": "FAIL",
+        "reason_code": "DECLARED_PRESENCE_NOT_PROPAGATED"
+      },
+      "id": "fz006_mf_presence_not_propagated",
+      "pass": true
+    },
+    {
+      "expect_reason": "PRESENCE_PROPAGATE_UNPROBED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PRESENCE_PROPAGATE_UNPROBED"
+      },
+      "id": "fz006_ok_presence_propagate_unprobed",
+      "pass": true
+    },
+    {
+      "expect_reason": "NOT_YET_RUN_AS_PASS",
+      "got": {
+        "detail": {
+          "n_unprobed": 0,
+          "observed_reason_code": "NOT_YET_RUN",
+          "reported_verdict": "PASS"
+        },
+        "judge": "FAIL",
+        "reason_code": "NOT_YET_RUN_AS_PASS"
+      },
+      "id": "A_mf_not_yet_run_as_pass",
+      "pass": true
+    },
+    {
+      "expect_reason": "NOT_YET_RUN_HONEST",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "NOT_YET_RUN_HONEST"
+      },
+      "id": "A_ok_not_yet_run_honest",
+      "pass": true
+    },
+    {
+      "expect_reason": "ARM_SKIPPED_COUNTED_AS_ZERO",
+      "got": {
+        "detail": {
+          "arm_executed": false,
+          "enter_pass": true
+        },
+        "judge": "FAIL",
+        "reason_code": "ARM_SKIPPED_COUNTED_AS_ZERO"
+      },
+      "id": "B_mf_arm_skipped_counted_as_zero",
+      "pass": true
+    },
+    {
+      "expect_reason": "ARM_SKIPPED_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "ARM_SKIPPED_CAUGHT"
+      },
+      "id": "B_ok_arm_skipped_caught",
+      "pass": true
+    },
+    {
+      "expect_reason": "SKIPPED_TASK_ZERO_ERROR",
+      "got": {
+        "detail": {
+          "error_rate": 0.0,
+          "n_executed": 0,
+          "note": "pipeline health must use task-completion denominator"
+        },
+        "judge": "FAIL",
+        "reason_code": "SKIPPED_TASK_ZERO_ERROR"
+      },
+      "id": "C_mf_skipped_task_zero_error",
+      "pass": true
+    },
+    {
+      "expect_reason": "SKIPPED_TASK_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "SKIPPED_TASK_CAUGHT"
+      },
+      "id": "C_ok_skipped_task_caught",
+      "pass": true
+    },
+    {
+      "expect_reason": "ERROR_RATE_HONEST",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "ERROR_RATE_HONEST"
+      },
+      "id": "C_ok_error_rate_honest",
+      "pass": true
+    },
+    {
+      "expect_reason": "ZERO_ERROR_WITH_EXEC",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "ZERO_ERROR_WITH_EXEC"
+      },
+      "id": "C_ok_zero_error_with_exec",
+      "pass": true
+    },
+    {
+      "expect_reason": "DEDUP_COLLISION_MERGED_FALSE_ZERO",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "DEDUP_COLLISION_MERGED_FALSE_ZERO"
+      },
+      "id": "R_mf_dedup_collision_anchor",
+      "pass": true
+    },
+    {
+      "expect_reason": "READ_SOURCE_MIXUP_FALSE_ZERO",
+      "got": {
+        "detail": {
+          "assert_source": "history",
+          "count_source": "fetch"
+        },
+        "judge": "FAIL",
+        "reason_code": "READ_SOURCE_MIXUP_FALSE_ZERO"
+      },
+      "id": "R_mf_read_source_mixup_anchor",
+      "pass": true
+    }
+  ],
+  "rows": 23,
+  "version": "v0.4"
+}

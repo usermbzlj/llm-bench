@@ -1,0 +1,128 @@
+{
+  "fixture": "ZERO_BYTE_FALSE_NONZERO",
+  "version": "0.1",
+  "total": 12,
+  "passed": 12,
+  "rows": [
+    {
+      "case_id": "52HZ-ZERO-BYTE-FALSE-NONZERO",
+      "expect": "ZERO_BYTE_FALSE_NONZERO",
+      "got": "ZERO_BYTE_FALSE_NONZERO",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "stdout_bytes": 0,
+        "reported_rows": 1,
+        "observed": "OK"
+      }
+    },
+    {
+      "case_id": "52HZ-ZERO-BYTE-PASS-MISLABEL",
+      "expect": "ZERO_BYTE_FALSE_NONZERO",
+      "got": "ZERO_BYTE_FALSE_NONZERO",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "stdout_bytes": 0,
+        "reported_rows": 1,
+        "observed": "PASS"
+      }
+    },
+    {
+      "case_id": "52HZ-HONEST-BROKEN",
+      "expect": "ZERO_BYTE_HONEST_BROKEN",
+      "got": "ZERO_BYTE_HONEST_BROKEN",
+      "judge": "PASS",
+      "pass": true,
+      "detail": {
+        "stdout_bytes": 0,
+        "reported_rows": 1,
+        "observed": "BROKEN"
+      }
+    },
+    {
+      "case_id": "FALSE-EMPTY-LABEL",
+      "expect": "FALSE_EMPTY_LABEL",
+      "got": "FALSE_EMPTY_LABEL",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "note": "rows>0 conflict hidden under EMPTY",
+        "reported_rows": 3
+      }
+    },
+    {
+      "case_id": "52HZ-HONEST-NONEMPTY",
+      "expect": "HONEST_NONEMPTY",
+      "got": "HONEST_NONEMPTY",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "HONEST-NONEMPTY-LARGER",
+      "expect": "HONEST_NONEMPTY",
+      "got": "HONEST_NONEMPTY",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "NONEMPTY-FALSE-BROKEN",
+      "expect": "NONEMPTY_FALSE_BROKEN",
+      "got": "NONEMPTY_FALSE_BROKEN",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "observed": "BROKEN"
+      }
+    },
+    {
+      "case_id": "HONEST-EMPTY",
+      "expect": "HONEST_EMPTY",
+      "got": "HONEST_EMPTY",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "HONEST-EMPTY-OK",
+      "expect": "HONEST_EMPTY",
+      "got": "HONEST_EMPTY",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "BYTES-WITHOUT-ROWS",
+      "expect": "BYTES_WITHOUT_ROWS",
+      "got": "BYTES_WITHOUT_ROWS",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "stdout_bytes": 64,
+        "reported_rows": 0
+      }
+    },
+    {
+      "case_id": "HONEST-BYTES-WITHOUT-ROWS-FLAGGED",
+      "expect": "HONEST_BYTES_WITHOUT_ROWS_FLAGGED",
+      "got": "HONEST_BYTES_WITHOUT_ROWS_FLAGGED",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "ZERO-BYTE-GREEN-MISLABEL",
+      "expect": "ZERO_BYTE_FALSE_NONZERO",
+      "got": "ZERO_BYTE_FALSE_NONZERO",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "stdout_bytes": 0,
+        "reported_rows": 2,
+        "observed": "GREEN"
+      }
+    }
+  ]
+}

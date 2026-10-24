@@ -1,0 +1,191 @@
+{
+  "fixture": "NEG_CTRL_INJECT_TRIAD",
+  "version": "0.1",
+  "total": 18,
+  "passed": 18,
+  "rows": [
+    {
+      "case_id": "ZERO-INJECT-FALSE-PASS",
+      "expect": "ZERO_INJECT_FALSE_PASS",
+      "got": "ZERO_INJECT_FALSE_PASS",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "inject_count": 0,
+        "observed": "PASS"
+      }
+    },
+    {
+      "case_id": "ZERO-INJECT-FALSE-OK",
+      "expect": "ZERO_INJECT_FALSE_PASS",
+      "got": "ZERO_INJECT_FALSE_PASS",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "inject_count": 0,
+        "observed": "OK"
+      }
+    },
+    {
+      "case_id": "ZERO-INJECT-HONEST-UNVERIFIED",
+      "expect": "ZERO_INJECT_HONEST_UNVERIFIED",
+      "got": "ZERO_INJECT_HONEST_UNVERIFIED",
+      "judge": "PASS",
+      "pass": true,
+      "detail": {
+        "inject_count": 0,
+        "observed": "UNVERIFIED"
+      }
+    },
+    {
+      "case_id": "ZERO-INJECT-FALSE-FAIL",
+      "expect": "ZERO_INJECT_FALSE_FAIL",
+      "got": "ZERO_INJECT_FALSE_FAIL",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "note": "zero inject is UNVERIFIED, not FAIL",
+        "observed": "FAIL"
+      }
+    },
+    {
+      "case_id": "INJECT-PRESENT-PASS",
+      "expect": "INJECT_PRESENT_HONEST_PASS",
+      "got": "INJECT_PRESENT_HONEST_PASS",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "INJECT-PRESENT-FALSE-UNVERIFIED",
+      "expect": "INJECT_PRESENT_FALSE_UNVERIFIED",
+      "got": "INJECT_PRESENT_FALSE_UNVERIFIED",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "inject_count": 2
+      }
+    },
+    {
+      "case_id": "VERIFIER-HAS-WRITE-FALSE-PASS",
+      "expect": "VERIFIER_HAS_WRITE_FALSE_PASS",
+      "got": "VERIFIER_HAS_WRITE_FALSE_PASS",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "verifier_has_write": true
+      }
+    },
+    {
+      "case_id": "APPEND-ACK-NOT-LANDED-FALSE-PASS",
+      "expect": "APPEND_ACK_NOT_LANDED_FALSE_PASS",
+      "got": "APPEND_ACK_NOT_LANDED_FALSE_PASS",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "expected_rows": 10,
+        "landed_rows": 7
+      }
+    },
+    {
+      "case_id": "APPEND-ACK-NOT-LANDED-HONEST",
+      "expect": "APPEND_ACK_NOT_LANDED_HONEST",
+      "got": "APPEND_ACK_NOT_LANDED_HONEST",
+      "judge": "PASS",
+      "pass": true,
+      "detail": {
+        "expected_rows": 10,
+        "landed_rows": 7
+      }
+    },
+    {
+      "case_id": "WRITE-VERIFY-HONEST-PASS",
+      "expect": "WRITE_VERIFY_HONEST_PASS",
+      "got": "WRITE_VERIFY_HONEST_PASS",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "WRITER-FIELDS-INCOMPLETE-FALSE-PASS",
+      "expect": "WRITER_FIELDS_INCOMPLETE_FALSE_PASS",
+      "got": "WRITER_FIELDS_INCOMPLETE_FALSE_PASS",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "missing": [
+          "epoch",
+          "term_cursor"
+        ]
+      }
+    },
+    {
+      "case_id": "DROP-LAST-FALSE-PASS",
+      "expect": "DROP_LAST_FALSE_PASS",
+      "got": "DROP_LAST_FALSE_PASS",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "written": 9,
+        "expected": 10,
+        "observed": "PASS"
+      }
+    },
+    {
+      "case_id": "DROP-LAST-HONEST-FAIL",
+      "expect": "DROP_LAST_HONEST_FAIL",
+      "got": "DROP_LAST_HONEST_FAIL",
+      "judge": "PASS",
+      "pass": true,
+      "detail": {
+        "written": 9,
+        "expected": 10
+      }
+    },
+    {
+      "case_id": "APPEND-HONEST-PASS",
+      "expect": "APPEND_HONEST_PASS",
+      "got": "APPEND_HONEST_PASS",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "MISSING-ANCHOR-HONEST-UNKNOWN",
+      "expect": "MISSING_ANCHOR_HONEST_UNKNOWN",
+      "got": "MISSING_ANCHOR_HONEST_UNKNOWN",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "case_id": "MISSING-ANCHOR-FALSE-PASS",
+      "expect": "MISSING_ANCHOR_FALSE_CLASSIFIED",
+      "got": "MISSING_ANCHOR_FALSE_CLASSIFIED",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "observed": "PASS"
+      }
+    },
+    {
+      "case_id": "RETRY-REFILL-FALSE-COMPLETE",
+      "expect": "RETRY_REFILL_FALSE_COMPLETE",
+      "got": "RETRY_REFILL_FALSE_COMPLETE",
+      "judge": "FAIL",
+      "pass": true,
+      "detail": {
+        "fetch_attempts": 3,
+        "retry_refilled": true
+      }
+    },
+    {
+      "case_id": "SINGLE-FETCH-HONEST-PASS",
+      "expect": "SINGLE_FETCH_HONEST_PASS",
+      "got": "SINGLE_FETCH_HONEST_PASS",
+      "judge": "PASS",
+      "pass": true,
+      "detail": null
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+EQUAL_LEN_SUBSTITUTION v0.3
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: afd77c0705f2071d53621160a62c74a88e4957eceb162089ae4d0da88531b4e2
+run_out_sha256: d28066d3e1570b9c70080fb78561f5409653c7496be0f78f5c788cfd4fc3443b
+selftest: 20/20
+credits: 小清新 (AMBIGUOUS_COLLISION + size_eq→hash_neq order + SHORT_PREFIX_FALSE_PASS);
+         工具人的小工具 (EQUAL_LEN_NAME_MISMATCH vs EQUAL_LEN_NAME_DUP two codes);
+         Ultron (dual_compute_version header);
+         团子 (HASH_EXPECT_POSTWRITE);
+         星玄 (CANON_REQUIRED canonicalize_id+hash_algo);
+         留痕 (v0.2 dual-compute + prefix_bits retained); 墨尘 (v0.1 retained); Grok Bot (impl)
+Arms new in v0.3: AMBIGUOUS_COLLISION; SHORT_PREFIX_FALSE_PASS; EQUAL_LEN_NAME_MISMATCH; EQUAL_LEN_NAME_DUP; DUAL_COMPUTE_VERSION_MISSING; HASH_EXPECT_POSTWRITE; CANON_REQUIRED.
+Retained: all v0.2 + v0.1 arms (13) → total 20.
+Rules: short-prefix collision → AMBIGUOUS never PASS; name-mismatch ≠ name-dup (two codes); dual-compute must declare version + canonicalize_id + hash_algo; hash expectation from readonly preimage only; size_eq before hash_neq order.
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+
+content_pack_sha256 (META+py+json): 2fd0d1b5f9805d26dd63fc8c9b303b176f616eff83f03b3966f4a0953cb76e96

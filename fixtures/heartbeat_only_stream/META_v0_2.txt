@@ -1,0 +1,6 @@
+HEARTBEAT_ONLY_STREAM v0.2
+Credit: 栀子花 Agent (HONEST_FAIL covers overrun / typed-bool / biz_key absent / pass-column split / IDEM effect≠status); 派蒙+Hermes (v0.1 base)
+script_sha256: 6baf82778ad6eddaa04544317db87bad2c05210d93fee9722b0611ac45fa576b
+run_out_sha256: 414f20c0e1dad9069aac343bc30b626661d4c50c73541ef4bbc4211acfd9c2c7
+selftest: 18/18
+analyze_only. Stdlib only.

@@ -1,0 +1,185 @@
+{
+  "fixture": "HEARTBEAT_ONLY_STREAM",
+  "version": "v0.2",
+  "credit": "栀子花 Agent (v0.2); 派蒙 + Hermes (v0.1)",
+  "n": 18,
+  "passed": 18,
+  "ok": true,
+  "run_out_sha256": "3528fbfbf67d4cf5b6636d2d0e4c39142eff0a84b1a14bc4ca4646dd080d2ed8",
+  "rows": [
+    {
+      "case_id": "TYPED-BOOL-STR-FALSE-PASS",
+      "expect": "TYPED_BOOL_COERCE_FALSE_PASS",
+      "got": "TYPED_BOOL_COERCE_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "suspects": [
+          {
+            "key": "delta_attested",
+            "type": "str",
+            "value": "true"
+          },
+          {
+            "key": "zero_delta_receipt",
+            "type": "int",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "TYPED-BOOL-CAUGHT",
+      "expect": "TYPED_BOOL_COERCE",
+      "got": "TYPED_BOOL_COERCE",
+      "match": true,
+      "detail": {
+        "suspects": [
+          {
+            "key": "delta_attested",
+            "type": "str",
+            "value": "false"
+          },
+          {
+            "key": "execution_skipped",
+            "type": "int",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "TYPED-BOOL-OK",
+      "expect": "TYPED_BOOL_OK",
+      "got": "TYPED_BOOL_OK",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "BIZ-KEY-ABSENT-FALSE-PASS",
+      "expect": "BIZ_KEY_ABSENT_FALSE_PASS",
+      "got": "BIZ_KEY_ABSENT_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "business_event_count_key_present": false
+      }
+    },
+    {
+      "case_id": "BIZ-KEY-ABSENT-FLAGGED",
+      "expect": "BIZ_KEY_ABSENT_FLAGGED",
+      "got": "BIZ_KEY_ABSENT_FLAGGED",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "HONEST-FAIL-COVERS-OVERRUN",
+      "expect": "HONEST_FAIL_COVERS_OVERRUN",
+      "got": "HONEST_FAIL_COVERS_OVERRUN",
+      "match": true,
+      "detail": {
+        "effect_count": 2,
+        "declared_effect": 1,
+        "honesty_label": "HONEST_FAIL",
+        "gate_color": "green"
+      }
+    },
+    {
+      "case_id": "OVERRUN-GATE-RED",
+      "expect": "OVERRUN_GATE_RED",
+      "got": "OVERRUN_GATE_RED",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "IDEM-STATUS-FALSE-GREEN",
+      "expect": "IDEM_STATUS_FALSE_GREEN",
+      "got": "IDEM_STATUS_FALSE_GREEN",
+      "match": true,
+      "detail": {
+        "status_text": "DELIVERED-BUT-UNREADABLE",
+        "asserted_on": "status"
+      }
+    },
+    {
+      "case_id": "IDEM-EFFECT-MISMATCH-CAUGHT",
+      "expect": "IDEM_EFFECT_MISMATCH_CAUGHT",
+      "got": "IDEM_EFFECT_MISMATCH_CAUGHT",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "IDEM-EFFECT-MATCH-OK",
+      "expect": "IDEM_EFFECT_MATCH_OK",
+      "got": "IDEM_EFFECT_MATCH_OK",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "PASS-COL-MISMATCH-BUSINESS-PASS",
+      "expect": "HONESTY_MISMATCH_BUSINESS_PASS",
+      "got": "HONESTY_MISMATCH_BUSINESS_PASS",
+      "match": true,
+      "detail": {
+        "receipt_honesty": "mismatch",
+        "business_verdict": "PASS"
+      }
+    },
+    {
+      "case_id": "PASS-COL-SPLIT-HONEST",
+      "expect": "COLUMNS_SPLIT_HONEST",
+      "got": "COLUMNS_SPLIT_HONEST",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "PASS-COL-ALIGNED",
+      "expect": "COLUMNS_ALIGNED_PASS",
+      "got": "COLUMNS_ALIGNED_PASS",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "HB-ONLY-HONEST-FAIL-ARM",
+      "expect": "HEARTBEAT_ONLY_HONEST_FAIL",
+      "got": "HEARTBEAT_ONLY_HONEST_FAIL",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "HB-ONLY-FALSE-PASS",
+      "expect": "HEARTBEAT_ONLY_FALSE_PASS",
+      "got": "HEARTBEAT_ONLY_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "heartbeat_count": 12,
+        "business_event_count": 0
+      }
+    },
+    {
+      "case_id": "VERIFIED-IDLE-ZERO-DELTA",
+      "expect": "VERIFIED_IDLE",
+      "got": "VERIFIED_IDLE",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "SKIP-AS-IDLE-FALSE-PASS",
+      "expect": "SKIP_AS_IDLE_FALSE_PASS",
+      "got": "SKIP_AS_IDLE_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "plan_required_run": true,
+        "execution_skipped": true
+      }
+    },
+    {
+      "case_id": "INCONCLUSIVE-INFLATES",
+      "expect": "INCONCLUSIVE_INFLATES_DENOM",
+      "got": "INCONCLUSIVE_INFLATES_DENOM",
+      "match": true,
+      "detail": {
+        "enter_pass_numerator": false,
+        "enter_availability_denom": true
+      }
+    }
+  ]
+}

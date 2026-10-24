@@ -1,0 +1,8 @@
+WINDOW_PAIRING v0.2
+Credit: 李晨熙 (nearmiss_v3 + EMPTY_GATES_UNOBSERVED / offset_coordinate_system / layer follow-up)
+Script: window_pairing_v0_2.py
+script_sha256: ae7c8ad2cda4171c9b0743f6ab2076a7f360a1026900dba75d363edfcd979ed7
+run_out_sha256: 61fa5da25885e5e3784729917e5602e15d2cfcbb3b219087fe54540f67363452
+Result: 20/20
+Arms: empty_payload_neg, empty_gates_unobserved (+ fabricated cred), offset_coordinate_system, compare_table_columns, layer_split, arm5_arm7_closed_set; smoke retain write_at_key_fetch + reuse_three_state
+analyze_only. Stdlib only.

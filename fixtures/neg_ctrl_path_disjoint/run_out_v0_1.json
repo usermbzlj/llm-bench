@@ -1,0 +1,191 @@
+{
+  "all_pass": true,
+  "credit": [
+    "WorkBuddy",
+    "木木/Mumu"
+  ],
+  "fixture": "NEG_CTRL_PATH_DISJOINT",
+  "passed": 18,
+  "rows": [
+    {
+      "case_id": "SHARED-PATH-FALSE-NEG",
+      "detail": {
+        "neg_path_id": "judge_v2",
+        "observed": "FAILED",
+        "pass_path_id": "judge_v2",
+        "same_function_diff_inputs": true
+      },
+      "expect": "SHARED_PATH_FALSE_NEG_CTRL",
+      "got": "SHARED_PATH_FALSE_NEG_CTRL",
+      "judge": "FAIL",
+      "pass": true
+    },
+    {
+      "case_id": "SHARED-PATH-FLAGGED",
+      "detail": {
+        "observed": "SHARED_PATH"
+      },
+      "expect": "SHARED_PATH_FLAGGED",
+      "got": "SHARED_PATH_FLAGGED",
+      "judge": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "DISJOINT-HONEST-FAIL",
+      "detail": null,
+      "expect": "DISJOINT_PATH_HONEST_FAIL",
+      "got": "DISJOINT_PATH_HONEST_FAIL",
+      "judge": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "DISJOINT-FALSE-PASS",
+      "detail": {
+        "observed": "PASS"
+      },
+      "expect": "DISJOINT_PATH_FALSE_PASS",
+      "got": "DISJOINT_PATH_FALSE_PASS",
+      "judge": "FAIL",
+      "pass": true
+    },
+    {
+      "case_id": "PROPORTIONAL-COLLAPSE",
+      "detail": {
+        "declared_floor": 5,
+        "effective_floor": 0,
+        "executed_rows": 2
+      },
+      "expect": "PROPORTIONAL_FLOOR_COLLAPSE",
+      "got": "PROPORTIONAL_FLOOR_COLLAPSE",
+      "judge": "FAIL",
+      "pass": true
+    },
+    {
+      "case_id": "PROPORTIONAL-FLAGGED",
+      "detail": {
+        "observed": "FLOOR_COLLAPSED"
+      },
+      "expect": "PROPORTIONAL_FLOOR_FLAGGED",
+      "got": "PROPORTIONAL_FLOOR_FLAGGED",
+      "judge": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "FLOOR-BELOW-ONE",
+      "detail": {
+        "declared_floor": 0
+      },
+      "expect": "FLOOR_BELOW_ONE",
+      "got": "FLOOR_BELOW_ONE",
+      "judge": "FAIL",
+      "pass": true
+    },
+    {
+      "case_id": "ABSOLUTE-FLOOR-HONEST",
+      "detail": null,
+      "expect": "ABSOLUTE_FLOOR_HONEST",
+      "got": "ABSOLUTE_FLOOR_HONEST",
+      "judge": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "VERDICT-ONLY-FALSE-PASS",
+      "detail": {
+        "counts_on_same_line": false,
+        "has_entered": false,
+        "has_rejected": false
+      },
+      "expect": "VERDICT_ONLY_NO_COUNTS",
+      "got": "VERDICT_ONLY_NO_COUNTS",
+      "judge": "FAIL",
+      "pass": true
+    },
+    {
+      "case_id": "INLINE-COUNTS-OK",
+      "detail": null,
+      "expect": "INLINE_COUNTS_PRESENT",
+      "got": "INLINE_COUNTS_PRESENT",
+      "judge": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "INJECTOR-FALSE-DETECTED",
+      "detail": {
+        "note": "injector channel measures write visibility, not detectability",
+        "observed": "DETECTED"
+      },
+      "expect": "INJECTOR_READBACK_FALSE_CLASSIFIED",
+      "got": "INJECTOR_READBACK_FALSE_CLASSIFIED",
+      "judge": "FAIL",
+      "pass": true
+    },
+    {
+      "case_id": "INJECTOR-FALSE-NOT-DETECTABLE",
+      "detail": {
+        "note": "injector channel measures write visibility, not detectability",
+        "observed": "NOT_DETECTABLE"
+      },
+      "expect": "INJECTOR_READBACK_FALSE_CLASSIFIED",
+      "got": "INJECTOR_READBACK_FALSE_CLASSIFIED",
+      "judge": "FAIL",
+      "pass": true
+    },
+    {
+      "case_id": "INJECTOR-HONEST-FAIL",
+      "detail": null,
+      "expect": "INJECTOR_READBACK_HONEST_FAIL",
+      "got": "INJECTOR_READBACK_HONEST_FAIL",
+      "judge": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "COLLAPSE-FALSE",
+      "detail": {
+        "observed": "NOT_DETECTABLE"
+      },
+      "expect": "READBACK_FAILED_COLLAPSED",
+      "got": "READBACK_FAILED_COLLAPSED",
+      "judge": "FAIL",
+      "pass": true
+    },
+    {
+      "case_id": "DIGEST-CONTENT-ONLY",
+      "detail": {
+        "declared_digest": "272f9add7b4d15c9aacb9282cdb1a2e3294a2d00f92270b67e5b0ff3e8945ba6",
+        "expected_digest": "88a1c8bd8ef2876423c8075ae61168a63fd1e515b39c992ca30e2d550cec3a0a"
+      },
+      "expect": "DIGEST_CONTENT_ONLY",
+      "got": "DIGEST_CONTENT_ONLY",
+      "judge": "FAIL",
+      "pass": true
+    },
+    {
+      "case_id": "CONSUMER-HONEST-DETECTED",
+      "detail": null,
+      "expect": "READBACK_HONEST_DETECTED",
+      "got": "READBACK_HONEST_DETECTED",
+      "judge": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "CONSTANT-FALSE-STILL-FAILS",
+      "detail": null,
+      "expect": "CONSTANT_FALSE_STILL_FAILS",
+      "got": "CONSTANT_FALSE_STILL_FAILS",
+      "judge": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "CONSTANT-FALSE-PASSED",
+      "detail": {
+        "note": "irrelevant flip must not turn must-fail into PASS"
+      },
+      "expect": "CONSTANT_FALSE_ARM_PASSED",
+      "got": "CONSTANT_FALSE_ARM_PASSED",
+      "judge": "FAIL",
+      "pass": true
+    }
+  ],
+  "total": 18,
+  "version": "0.1"
+}

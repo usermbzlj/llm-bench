@@ -1,0 +1,262 @@
+{
+  "all_pass": true,
+  "credit": [
+    "乒乓情报员"
+  ],
+  "fixture": "LEDGER_STALE_NO_EXIT",
+  "passed": 22,
+  "results": [
+    {
+      "expect_reason": "A1_STALE_NO_REVIEW_BY_FALSE_PASS",
+      "got": {
+        "detail": {
+          "residence_rounds": 45,
+          "status": "STILL_OBSERVING"
+        },
+        "judge": "FAIL",
+        "reason_code": "A1_STALE_NO_REVIEW_BY_FALSE_PASS"
+      },
+      "id": "A1_mf_no_review_by",
+      "pass": true
+    },
+    {
+      "expect_reason": "A1_STALE_NO_REVIEW_BY",
+      "got": {
+        "detail": {
+          "residence_rounds": 35,
+          "status": "STILL_OBSERVING"
+        },
+        "judge": "FAIL",
+        "reason_code": "A1_STALE_NO_REVIEW_BY"
+      },
+      "id": "A1_mf_no_review_by_honest_fail",
+      "pass": true
+    },
+    {
+      "expect_reason": "A1_REVIEW_BY_PRESENT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "A1_REVIEW_BY_PRESENT"
+      },
+      "id": "A1_ok_has_review_by",
+      "pass": true
+    },
+    {
+      "expect_reason": "A2_EXPIRED_NO_EXIT_FALSE_PASS",
+      "got": {
+        "detail": {
+          "exit": "STILL_OBSERVING"
+        },
+        "judge": "FAIL",
+        "reason_code": "A2_EXPIRED_NO_EXIT_FALSE_PASS"
+      },
+      "id": "A2_mf_expired_still_observing",
+      "pass": true
+    },
+    {
+      "expect_reason": "A2_REVIEW_EXPIRED_NO_EXIT",
+      "got": {
+        "detail": {
+          "exit": null
+        },
+        "judge": "FAIL",
+        "reason_code": "A2_REVIEW_EXPIRED_NO_EXIT"
+      },
+      "id": "A2_mf_expired_null_exit",
+      "pass": true
+    },
+    {
+      "expect_reason": "A2_HAS_REAL_EXIT",
+      "got": {
+        "detail": {
+          "exit": "escalate"
+        },
+        "judge": "PASS",
+        "reason_code": "A2_HAS_REAL_EXIT"
+      },
+      "id": "A2_ok_escalate_exit",
+      "pass": true
+    },
+    {
+      "expect_reason": "A3_CONTINUE_OBSERVE_FALSE_EXIT_PASS",
+      "got": {
+        "detail": {
+          "exit": "continue_observe"
+        },
+        "judge": "FAIL",
+        "reason_code": "A3_CONTINUE_OBSERVE_FALSE_EXIT_PASS"
+      },
+      "id": "A3_mf_continue_counted",
+      "pass": true
+    },
+    {
+      "expect_reason": "A3_CONTINUE_OBSERVE_NOT_COUNTED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "A3_CONTINUE_OBSERVE_NOT_COUNTED"
+      },
+      "id": "A3_ok_continue_not_counted",
+      "pass": true
+    },
+    {
+      "expect_reason": "A3_REAL_EXIT_COUNTED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "A3_REAL_EXIT_COUNTED"
+      },
+      "id": "A3_ok_real_exit",
+      "pass": true
+    },
+    {
+      "expect_reason": "A4_ESCALATE_VERDICT_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "A4_ESCALATE_VERDICT_OK"
+      },
+      "id": "A4_ok_oracle",
+      "pass": true
+    },
+    {
+      "expect_reason": "A4_ESCALATE_VERDICT_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "A4_ESCALATE_VERDICT_OK"
+      },
+      "id": "A4_ok_criteria_rearmed",
+      "pass": true
+    },
+    {
+      "expect_reason": "A4_ESCALATE_UNARMED_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "A4_ESCALATE_UNARMED_FALSE_PASS"
+      },
+      "id": "A4_mf_unarmed",
+      "pass": true
+    },
+    {
+      "expect_reason": "A5_DEMOTE_TOMBSTONE_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "A5_DEMOTE_TOMBSTONE_OK"
+      },
+      "id": "A5_ok_tombstone",
+      "pass": true
+    },
+    {
+      "expect_reason": "A6_TOMBSTONE_INCOMPLETE_FALSE_PASS",
+      "got": {
+        "detail": {
+          "missing": [
+            "why"
+          ]
+        },
+        "judge": "FAIL",
+        "reason_code": "A6_TOMBSTONE_INCOMPLETE_FALSE_PASS"
+      },
+      "id": "A6_mf_tombstone_missing_why",
+      "pass": true
+    },
+    {
+      "expect_reason": "A6_TOMBSTONE_INCOMPLETE",
+      "got": {
+        "detail": {
+          "missing": [
+            "tombstone_not_dict"
+          ]
+        },
+        "judge": "FAIL",
+        "reason_code": "A6_TOMBSTONE_INCOMPLETE"
+      },
+      "id": "A6_mf_tombstone_not_dict",
+      "pass": true
+    },
+    {
+      "expect_reason": "A7_KNOWN_LIMIT_IN_NEG_LEDGER_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "A7_KNOWN_LIMIT_IN_NEG_LEDGER_FALSE_PASS"
+      },
+      "id": "A7_mf_limit_in_neg",
+      "pass": true
+    },
+    {
+      "expect_reason": "A8_KNOWN_LIMIT_ON_LIMIT_LIST",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "A8_KNOWN_LIMIT_ON_LIMIT_LIST"
+      },
+      "id": "A8_ok_limit_list",
+      "pass": true
+    },
+    {
+      "expect_reason": "A9_FAMILY_UNCHANGED_NO_REVIEW_FALSE_PASS",
+      "got": {
+        "detail": {
+          "N": 3,
+          "signal_family": "SAME_SOURCE_DEGRADED:stderr",
+          "terminal_state": "NOT_FALSIFIABLE",
+          "unchanged_rounds": 45
+        },
+        "judge": "FAIL",
+        "reason_code": "A9_FAMILY_UNCHANGED_NO_REVIEW_FALSE_PASS"
+      },
+      "id": "A9_mf_stderr_45",
+      "pass": true
+    },
+    {
+      "expect_reason": "A9_FAMILY_UNCHANGED_NO_REVIEW",
+      "got": {
+        "detail": {
+          "N": 3,
+          "signal_family": "heartbeat_compatibility_false",
+          "unchanged_rounds": 35
+        },
+        "judge": "FAIL",
+        "reason_code": "A9_FAMILY_UNCHANGED_NO_REVIEW"
+      },
+      "id": "A9_mf_hb_compat_35",
+      "pass": true
+    },
+    {
+      "expect_reason": "A10_FAMILY_UNCHANGED_REVIEWED",
+      "got": {
+        "detail": {
+          "signal_family": "SAME_SOURCE_DEGRADED:stderr",
+          "unchanged_rounds": 45
+        },
+        "judge": "PASS",
+        "reason_code": "A10_FAMILY_UNCHANGED_REVIEWED"
+      },
+      "id": "A10_ok_reviewed_disposed",
+      "pass": true
+    },
+    {
+      "expect_reason": "A9_BELOW_THRESHOLD",
+      "got": {
+        "detail": {
+          "N": 3,
+          "unchanged_rounds": 2
+        },
+        "judge": "PASS",
+        "reason_code": "A9_BELOW_THRESHOLD"
+      },
+      "id": "A9_ok_below_threshold",
+      "pass": true
+    },
+    {
+      "expect_reason": "A9_REVIEW_TRIGGERED_NOT_DISPOSED",
+      "got": {
+        "detail": {
+          "signal_family": "SAME_SOURCE_DEGRADED:stderr"
+        },
+        "judge": "FAIL",
+        "reason_code": "A9_REVIEW_TRIGGERED_NOT_DISPOSED"
+      },
+      "id": "A9_mf_triggered_not_disposed",
+      "pass": true
+    }
+  ],
+  "rows": 22,
+  "version": "v0.1"
+}

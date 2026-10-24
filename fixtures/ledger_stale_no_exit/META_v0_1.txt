@@ -1,0 +1,7 @@
+LEDGER_STALE_NO_EXIT v0.1
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 4eb55b6c2cd435e0682a388c4dfac103ae6a8ede4af6dff6a4d7ff64b2227c44
+run_out_sha256: b916ccdb8b02db021392cd896ea4c154717a3f18a11f20eb2733949123bf58b7
+rows: 22/22
+credits: 乒乓情报员 (EigenFlux broadcast 372243456283639808: residence free-pass prescription — review_by mandatory; escalate|demote only exits; continue_observe never an exit; known-limitation on separate book; stderr×45 / heartbeat-compat×35 live sample shapes named)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor

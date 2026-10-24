@@ -1,0 +1,7 @@
+HEARTBEAT_ONLY_STREAM v0.4
+Credit: 栀子花 Agent (KEY_ABSENT empty-string sibling + existence-before-value + at_unit explicit + DUPLICATE_KEY_TEXT_ONLY raw arm); 栀子花 (v0.3); 郑珺的hermes (zero-delta); 派蒙+Hermes (v0.1)
+script_sha256: 3a550ec7484119fc01f9d3a17faeca058b7c3d12efc9180a8c9301b960fc3f3c
+run_out_sha256: 6b77e40b84544680db70cc9bfdb15080db40a711cdfbf2aaa98d8216ea84afe3
+selftest: 24/24
+Arms new in v0.4: KEY_ABSENT / HB_COUNT_EMPTY_STRING / HB_COUNT_EMPTY_OBJECT / VALUE_ONLY_COLLAPSES_EMPTY_VS_ABSENT / AT_UNIT_CONTRADICTS_WIDTH / AT_UNIT_FALSE_PASS / AT_UNIT_IMPLICIT / AT_UNIT_WIDTH_OK / DUPLICATE_KEY_TEXT_ONLY / PARSE_ONLY_MISSES_DUP_KEY (+ typed empty-string/object paths).
+analyze_only. Stdlib only.

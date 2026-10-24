@@ -1,0 +1,251 @@
+{
+  "fixture": "HEARTBEAT_ONLY_STREAM",
+  "version": "v0.4",
+  "credit": "栀子花 Agent (v0.4 KEY_ABSENT empty-string sibling + existence-first + at_unit + DUPLICATE_KEY_TEXT_ONLY); 栀子花 (v0.3); 郑珺的hermes; 派蒙+Hermes (v0.1)",
+  "n": 24,
+  "passed": 24,
+  "ok": true,
+  "run_out_sha256": "6b77e40b84544680db70cc9bfdb15080db40a711cdfbf2aaa98d8216ea84afe3",
+  "rows": [
+    {
+      "case_id": "KEY-ABSENT-EXISTENCE-FIRST",
+      "expect": "KEY_ABSENT",
+      "got": "KEY_ABSENT",
+      "match": true,
+      "detail": {
+        "existence_first": true
+      }
+    },
+    {
+      "case_id": "HB-COUNT-EMPTY-STRING",
+      "expect": "HB_COUNT_EMPTY_STRING",
+      "got": "HB_COUNT_EMPTY_STRING",
+      "match": true,
+      "detail": {
+        "existence_first": true
+      }
+    },
+    {
+      "case_id": "HB-COUNT-EMPTY-OBJECT",
+      "expect": "HB_COUNT_EMPTY_OBJECT",
+      "got": "HB_COUNT_EMPTY_OBJECT",
+      "match": true,
+      "detail": {
+        "existence_first": true
+      }
+    },
+    {
+      "case_id": "VALUE-ONLY-COLLAPSES-EMPTY-VS-ABSENT",
+      "expect": "VALUE_ONLY_COLLAPSES_EMPTY_VS_ABSENT",
+      "got": "VALUE_ONLY_COLLAPSES_EMPTY_VS_ABSENT",
+      "match": true,
+      "detail": {
+        "expected": "KEY_ABSENT",
+        "twin_key_present": true,
+        "mutant_key_present": false,
+        "twin_val": "",
+        "mutant_val": null
+      }
+    },
+    {
+      "case_id": "AT-UNIT-CONTRADICTS-WIDTH",
+      "expect": "AT_UNIT_CONTRADICTS_WIDTH",
+      "got": "AT_UNIT_CONTRADICTS_WIDTH",
+      "match": true,
+      "detail": {
+        "at_unit": "s",
+        "digits": 13
+      }
+    },
+    {
+      "case_id": "AT-UNIT-WIDTH-OK-MS",
+      "expect": "AT_UNIT_WIDTH_OK",
+      "got": "AT_UNIT_WIDTH_OK",
+      "match": true,
+      "detail": {
+        "at_unit": "ms",
+        "digits": 13
+      }
+    },
+    {
+      "case_id": "AT-UNIT-FALSE-PASS",
+      "expect": "AT_UNIT_FALSE_PASS",
+      "got": "AT_UNIT_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "at_unit": "s",
+        "digits": 13
+      }
+    },
+    {
+      "case_id": "AT-UNIT-IMPLICIT",
+      "expect": "AT_UNIT_IMPLICIT",
+      "got": "AT_UNIT_IMPLICIT",
+      "match": true,
+      "detail": {
+        "digits": 13
+      }
+    },
+    {
+      "case_id": "DUPLICATE-KEY-TEXT-ONLY",
+      "expect": "DUPLICATE_KEY_TEXT_ONLY",
+      "got": "DUPLICATE_KEY_TEXT_ONLY",
+      "match": true,
+      "detail": {
+        "twin_n": 1,
+        "mutant_n": 2,
+        "raw_arm": true
+      }
+    },
+    {
+      "case_id": "PARSE-ONLY-MISSES-DUP-KEY",
+      "expect": "PARSE_ONLY_MISSES_DUP_KEY",
+      "got": "PARSE_ONLY_MISSES_DUP_KEY",
+      "match": true,
+      "detail": {
+        "twin_n": 1,
+        "mutant_n": 2,
+        "parsed_delta": false
+      }
+    },
+    {
+      "case_id": "HB-COUNT-EMPTY-STRING-TYPED",
+      "expect": "HB_COUNT_EMPTY_STRING",
+      "got": "HB_COUNT_EMPTY_STRING",
+      "match": true,
+      "detail": {
+        "raw": "",
+        "key_present": true
+      }
+    },
+    {
+      "case_id": "HB-COUNT-EMPTY-OBJECT-TYPED",
+      "expect": "HB_COUNT_EMPTY_OBJECT",
+      "got": "HB_COUNT_EMPTY_OBJECT",
+      "match": true,
+      "detail": {
+        "raw": {},
+        "key_present": true
+      }
+    },
+    {
+      "case_id": "HB-COUNT-STRING-ZERO",
+      "expect": "HB_COUNT_STRING_ZERO",
+      "got": "HB_COUNT_STRING_ZERO",
+      "match": true,
+      "detail": {
+        "raw": "0",
+        "key_present": true
+      }
+    },
+    {
+      "case_id": "HB-COUNT-KEY-ABSENT",
+      "expect": "HB_COUNT_KEY_ABSENT",
+      "got": "HB_COUNT_KEY_ABSENT",
+      "match": true,
+      "detail": {
+        "raw": null,
+        "key_present": false
+      }
+    },
+    {
+      "case_id": "HB-COUNT-COLLAPSED-NO-HEARTBEAT",
+      "expect": "NO_HEARTBEAT_COLLAPSED",
+      "got": "NO_HEARTBEAT_COLLAPSED",
+      "match": true,
+      "detail": {
+        "expected_distinct": "HB_COUNT_STRING_ZERO",
+        "impl_reason_code": "NO_HEARTBEAT",
+        "raw": "0"
+      }
+    },
+    {
+      "case_id": "FRAME-ABSENT-COLLAPSED",
+      "expect": "ZERO_DELTA_SOURCE_COLLAPSED",
+      "got": "ZERO_DELTA_SOURCE_COLLAPSED",
+      "match": true,
+      "detail": {
+        "distinct_should_be": "FRAME_ABSENT",
+        "final_byte_count": 0,
+        "evidence_source": null
+      }
+    },
+    {
+      "case_id": "FRAME-EMPTY-PAYLOAD-DISTINCT",
+      "expect": "FRAME_EMPTY_PAYLOAD",
+      "got": "FRAME_EMPTY_PAYLOAD",
+      "match": true,
+      "detail": {
+        "evidence_source": "seq"
+      }
+    },
+    {
+      "case_id": "MUSTFAIL-SINGLE-FIELD-OK",
+      "expect": "MUSTFAIL_SINGLE_FIELD_OK",
+      "got": "MUSTFAIL_SINGLE_FIELD_OK",
+      "match": true,
+      "detail": {
+        "mutated_field": "reported_verdict",
+        "expected_reason_code": "HEARTBEAT_ONLY_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "MUSTFAIL-NOT-RED",
+      "expect": "MUSTFAIL_NOT_RED",
+      "got": "MUSTFAIL_NOT_RED",
+      "match": true,
+      "detail": {
+        "mutated_field": "business_event_count",
+        "gate_color": "green"
+      }
+    },
+    {
+      "case_id": "TYPED-BOOL-STR-FALSE-PASS",
+      "expect": "TYPED_BOOL_COERCE_FALSE_PASS",
+      "got": "TYPED_BOOL_COERCE_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "suspects": [
+          {
+            "key": "delta_attested",
+            "type": "str",
+            "value": "true"
+          },
+          {
+            "key": "zero_delta_receipt",
+            "type": "int",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "BIZ-KEY-ABSENT-FALSE-PASS",
+      "expect": "BIZ_KEY_ABSENT_FALSE_PASS",
+      "got": "BIZ_KEY_ABSENT_FALSE_PASS",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "HB-ONLY-FALSE-PASS",
+      "expect": "HEARTBEAT_ONLY_FALSE_PASS",
+      "got": "HEARTBEAT_ONLY_FALSE_PASS",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "VERIFIED-IDLE-ZERO-DELTA",
+      "expect": "VERIFIED_IDLE",
+      "got": "VERIFIED_IDLE",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "HONEST-FAIL-COVERS-OVERRUN",
+      "expect": "HONEST_FAIL_COVERS_OVERRUN",
+      "got": "HONEST_FAIL_COVERS_OVERRUN",
+      "match": true,
+      "detail": null
+    }
+  ]
+}

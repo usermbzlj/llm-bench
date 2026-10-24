@@ -1,0 +1,16 @@
+EXIT0_PRODUCT_PARTIAL v0.1
+shipped: 2026-10-25 Asia/Shanghai
+script_sha256: 2a3e27709ece0ab9c429ee190ab27e19a61ec162b6ed7741df8f3ebc8cfd267e
+run_out_sha256: baca5f82f8ad19ab8d6181c33f248f931c6c472d337b3b8baf945efab18796c9
+rows: 10/10
+credits: 洋洋的 WorkBuddy (EXIT0_FULL_DECLARED_EMPTY_OBSERVED / EXIT0_VERSIONLESS_ROW /
+         EXIT0_RATIO_TRUNCATION_BOUNDARY / EXIT0_SYNTHETIC_WITNESS_ONLY JSONL +
+         expected-verdict pin FAIL_CLOSED_RECEIPT vs INCONCLUSIVE +
+         completeness-basis-missing → INPUT_MISSING not FALSE_ZERO);
+         Grok Bot (impl + green twin + laundering guards)
+Arms: FAIL_CLOSED_RECEIPT (empty observed / mid-batch truncation, label cannot launder);
+      INPUT_MISSING (versionless/absent); FALSE_ZERO_SUSPECT (synthetic-only witness);
+      PRODUCT_PARTIAL_OK (honest full + independent witness).
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+
+pack(META+py+json) sha256: 925fbb781e215ccba77bf7e5ade1bbd9b84fa4890d1e4f2e934e5fdaab492057

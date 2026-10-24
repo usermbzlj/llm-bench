@@ -1,0 +1,154 @@
+{
+  "all_match": true,
+  "credits": [
+    "洋洋的WorkBuddy (4 must-fail JSONL + expected-verdict pin + INPUT_MISSING≠FALSE_ZERO)",
+    "Grok Bot (impl)"
+  ],
+  "n": 10,
+  "n_match": 10,
+  "rows": [
+    {
+      "case_id": "WB-EXIT0-FULL-DECLARED-EMPTY",
+      "expect": "FAIL_CLOSED_RECEIPT",
+      "got": "FAIL_CLOSED_RECEIPT",
+      "judge": {
+        "detail": {
+          "missing_n": 2,
+          "observed_n": 0,
+          "reported_verdict": "PASS"
+        },
+        "judge": "FAIL",
+        "reason_code": "FAIL_CLOSED_RECEIPT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EXIT0-VERSIONLESS",
+      "expect": "INPUT_MISSING",
+      "got": "INPUT_MISSING",
+      "judge": {
+        "detail": {
+          "note": "completeness_basis_missing",
+          "version": ""
+        },
+        "judge": "FAIL",
+        "reason_code": "INPUT_MISSING"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EXIT0-VERSION-ABSENT",
+      "expect": "INPUT_MISSING",
+      "got": "INPUT_MISSING",
+      "judge": {
+        "detail": {
+          "note": "completeness_basis_missing",
+          "version": null
+        },
+        "judge": "FAIL",
+        "reason_code": "INPUT_MISSING"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EXIT0-RATIO-TRUNCATION",
+      "expect": "FAIL_CLOSED_RECEIPT",
+      "got": "FAIL_CLOSED_RECEIPT",
+      "judge": {
+        "detail": {
+          "missing_n": 1,
+          "observed_n": 3,
+          "partial_ratio": 0.75,
+          "reported_verdict": "GREEN"
+        },
+        "judge": "FAIL",
+        "reason_code": "FAIL_CLOSED_RECEIPT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EXIT0-RATIO-TRUNCATION-NO-LABEL",
+      "expect": "FAIL_CLOSED_RECEIPT",
+      "got": "FAIL_CLOSED_RECEIPT",
+      "judge": {
+        "detail": {
+          "missing_n": 3,
+          "observed_n": 1,
+          "partial_ratio": 0.25,
+          "reported_verdict": null
+        },
+        "judge": "FAIL",
+        "reason_code": "FAIL_CLOSED_RECEIPT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EXIT0-SYNTHETIC-WITNESS",
+      "expect": "FALSE_ZERO_SUSPECT",
+      "got": "FALSE_ZERO_SUSPECT",
+      "judge": {
+        "detail": {
+          "evidence_digest": "sha256:demo_synthetic_witness",
+          "witness_kind": "synthetic"
+        },
+        "judge": "FAIL",
+        "reason_code": "FALSE_ZERO_SUSPECT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EXIT0-SYNTHETIC-DIGEST-ONLY",
+      "expect": "FALSE_ZERO_SUSPECT",
+      "got": "FALSE_ZERO_SUSPECT",
+      "judge": {
+        "detail": {
+          "evidence_digest": "sha256:demo_synthetic_only",
+          "witness_kind": "synthetic"
+        },
+        "judge": "FAIL",
+        "reason_code": "FALSE_ZERO_SUSPECT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EXIT0-HONEST-FULL",
+      "expect": "PRODUCT_PARTIAL_OK",
+      "got": "PRODUCT_PARTIAL_OK",
+      "judge": {
+        "detail": {
+          "evidence_digest": "sha256:demo_independent_abc123",
+          "observed_n": 4
+        },
+        "judge": "PASS",
+        "reason_code": "PRODUCT_PARTIAL_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EXIT0-HONEST-REJECTS-SYNTHETIC",
+      "expect": "FALSE_ZERO_SUSPECT",
+      "got": "FALSE_ZERO_SUSPECT",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "FALSE_ZERO_SUSPECT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EXIT0-EMPTY-NO-LAUNDER",
+      "expect": "FAIL_CLOSED_RECEIPT",
+      "got": "FAIL_CLOSED_RECEIPT",
+      "judge": {
+        "detail": {
+          "missing_n": 1,
+          "observed_n": 0,
+          "reported_verdict": null
+        },
+        "judge": "FAIL",
+        "reason_code": "FAIL_CLOSED_RECEIPT"
+      },
+      "match": true
+    }
+  ],
+  "version": "EXIT0_PRODUCT_PARTIAL/v0.1"
+}

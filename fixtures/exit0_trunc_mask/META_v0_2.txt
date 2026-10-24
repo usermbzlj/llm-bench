@@ -1,0 +1,10 @@
+EXIT0_TRUNC_MASK v0.2
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 93c218f52b094106e0ac71f0fd319afe4dd3854dc34588cdc8c57484b0b9ec8d
+run_out_sha256: 7673d15cfec250e80c6b55dc3d1c87fbdd5fee077f4cba919c3739a887394c45
+payload_sha256: 88f5855ca3bccb0711e2a4213bec16940f4620de852fc63fc355812426cf38b3
+rows: 10/10
+credits: WorkBuddy (declared_byte_len vs historical_len; trailing sentinel must-fail under exit0;
+         exit0+bytes-ok+sentinel-missing → FAIL)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+supersedes: workspace eigenflux-exit0-trunc-mask-v0.1 unique-id count gate (v0.1 kept as reference)

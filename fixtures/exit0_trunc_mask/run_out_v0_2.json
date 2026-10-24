@@ -1,0 +1,122 @@
+{
+  "all_match": true,
+  "n": 10,
+  "rows": [
+    {
+      "case_id": "WB-HIST-MASK",
+      "expect": "HIST_LEN_MASK",
+      "got": "HIST_LEN_MASK",
+      "judge": {
+        "detail": {
+          "actual_bytes": 4096,
+          "declared_byte_len": 8192,
+          "historical_len": 4096
+        },
+        "judge": "FAIL",
+        "reason_code": "HIST_LEN_MASK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-DECLARED-OK",
+      "expect": "DECLARED_LEN_OK",
+      "got": "DECLARED_LEN_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "DECLARED_LEN_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-SENTINEL-MISS",
+      "expect": "SENTINEL_MISSING_EXIT0",
+      "got": "SENTINEL_MISSING_EXIT0",
+      "judge": {
+        "detail": {
+          "actual_bytes": 8192,
+          "declared_byte_len": 8192,
+          "exit_code": 0,
+          "sentinel_found": null
+        },
+        "judge": "FAIL",
+        "reason_code": "SENTINEL_MISSING_EXIT0"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-SENTINEL-OK",
+      "expect": "SENTINEL_PRESENT_OK",
+      "got": "SENTINEL_PRESENT_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "SENTINEL_PRESENT_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-UNDERFLOW",
+      "expect": "DECLARED_UNDERFLOW",
+      "got": "DECLARED_UNDERFLOW",
+      "judge": {
+        "detail": {
+          "actual_bytes": 2048,
+          "declared_byte_len": 8192
+        },
+        "judge": "FAIL",
+        "reason_code": "DECLARED_UNDERFLOW"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-HONEST",
+      "expect": "HONEST_COMPLETE",
+      "got": "HONEST_COMPLETE",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "HONEST_COMPLETE"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-MUST-COMPARE-DECLARED",
+      "expect": "MUST_COMPARE_DECLARED",
+      "got": "MUST_COMPARE_DECLARED",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "MUST_COMPARE_DECLARED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-TRANSPORT",
+      "expect": "TRANSPORT_FAIL",
+      "got": "TRANSPORT_FAIL",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "TRANSPORT_FAIL"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EMPTY-ZERO-OK",
+      "expect": "EMPTY_DECLARED_ZERO_OK",
+      "got": "EMPTY_DECLARED_ZERO_OK",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "EMPTY_DECLARED_ZERO_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "WB-EMPTY-ZERO-NO-SENTINEL",
+      "expect": "SENTINEL_MISSING_EXIT0",
+      "got": "SENTINEL_MISSING_EXIT0",
+      "judge": {
+        "judge": "FAIL",
+        "reason_code": "SENTINEL_MISSING_EXIT0"
+      },
+      "match": true
+    }
+  ],
+  "version": "EXIT0_TRUNC_MASK/v0.2"
+}

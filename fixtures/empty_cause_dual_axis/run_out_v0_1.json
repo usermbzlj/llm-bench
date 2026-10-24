@@ -1,0 +1,157 @@
+{
+  "all_match": true,
+  "credits": [
+    "小宝 (6 must-fail JSONL + fingerprint-before-send + bytes≠items + anchor_level)",
+    "Grok Bot (impl + cause-missing/weak-anchor/honest guards)"
+  ],
+  "n": 10,
+  "n_match": 10,
+  "rows": [
+    {
+      "case_id": "XB-EMPTY-CONFIRMED",
+      "expect": "EMPTY_CONFIRMED",
+      "got": "EMPTY_CONFIRMED",
+      "judge": {
+        "detail": {
+          "reported": "NO_NEW",
+          "result_status": "exhausted"
+        },
+        "judge": "FAIL",
+        "reason_code": "EMPTY_CONFIRMED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "XB-NOT-FETCHED-SAME-SHAPE",
+      "expect": "NOT_FETCHED",
+      "got": "NOT_FETCHED",
+      "judge": {
+        "detail": {
+          "fetch_error": "timeout",
+          "reported": "NO_NEW"
+        },
+        "judge": "FAIL",
+        "reason_code": "NOT_FETCHED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "XB-PARTIAL-EMPTY",
+      "expect": "UNVERIFIED",
+      "got": "UNVERIFIED",
+      "judge": {
+        "detail": {
+          "partial": true,
+          "reported": "NO_NEW"
+        },
+        "judge": "FAIL",
+        "reason_code": "UNVERIFIED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "XB-FALLBACK-EMPTY",
+      "expect": "EMPTY_CONFIRMED",
+      "got": "EMPTY_CONFIRMED",
+      "judge": {
+        "detail": {
+          "reported": "NO_NEW",
+          "result_status": null
+        },
+        "judge": "FAIL",
+        "reason_code": "EMPTY_CONFIRMED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "XB-CURSOR-NOT-TERMINAL",
+      "expect": "EMPTY_CONFIRMED",
+      "got": "EMPTY_CONFIRMED",
+      "judge": {
+        "detail": {
+          "note": "cursor_pair_not_terminal",
+          "reported": "TERMINAL"
+        },
+        "judge": "FAIL",
+        "reason_code": "EMPTY_CONFIRMED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "XB-DEGRADED-SUCCESS",
+      "expect": "DEGRADED",
+      "got": "DEGRADED",
+      "judge": {
+        "detail": {
+          "degraded": true,
+          "exit_code": 0,
+          "reported": "OK"
+        },
+        "judge": "FAIL",
+        "reason_code": "DEGRADED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "XB-CAUSE-AXIS-MISSING",
+      "expect": "UNVERIFIED",
+      "got": "UNVERIFIED",
+      "judge": {
+        "detail": {
+          "note": "cause_axis_missing",
+          "reported": "NO_NEW"
+        },
+        "judge": "FAIL",
+        "reason_code": "UNVERIFIED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "XB-BYTES-VS-ITEMS",
+      "expect": "PARSE_EMPTY",
+      "got": "PARSE_EMPTY",
+      "judge": {
+        "detail": {
+          "note": "bytes_vs_items",
+          "raw_bytes": 128,
+          "reported": "EMPTY_CONFIRMED"
+        },
+        "judge": "FAIL",
+        "reason_code": "PARSE_EMPTY"
+      },
+      "match": true
+    },
+    {
+      "case_id": "XB-WEAK-ANCHOR-ONLY",
+      "expect": "WEAK_ANCHOR_ONLY",
+      "got": "WEAK_ANCHOR_ONLY",
+      "judge": {
+        "detail": {
+          "anchor_level": "WEAK_ANCHOR_ONLY",
+          "reported": "FALSIFIED"
+        },
+        "judge": "FAIL",
+        "reason_code": "WEAK_ANCHOR_ONLY"
+      },
+      "match": true
+    },
+    {
+      "case_id": "XB-HONEST-EMPTY",
+      "expect": "EMPTY_CONFIRMED",
+      "got": "EMPTY_CONFIRMED",
+      "judge": {
+        "detail": {
+          "anchor_level": "CONFIRMED",
+          "fallback_reason": null,
+          "fingerprint_precomputed": true,
+          "raw_bytes": 0,
+          "result_status": "exhausted"
+        },
+        "judge": "PASS",
+        "reason_code": "EMPTY_CONFIRMED"
+      },
+      "match": true
+    }
+  ],
+  "version": "EMPTY_CAUSE_DUAL_AXIS/v0.1"
+}

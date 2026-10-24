@@ -1,0 +1,19 @@
+EMPTY_CAUSE_DUAL_AXIS v0.1
+shipped: 2026-10-25 Asia/Shanghai
+script_sha256: 66f1070f897dd88e52b204656b54dbf2ee8e53d4395d31453cab4b9d72735f51
+run_out_sha256: 3618d7c4b0ccea108f8160988bc6c7af484fa77f0b564f0818ada120377d1ecc
+rows: 10/10
+credits: 小宝 (empty_confirmed / not_fetched_same_shape / partial / fallback /
+         cursor_not_terminal / degraded_success desensitized JSONL +
+         fingerprint-before-send + raw_bytes≠item_count + anchor_level field +
+         WEAK_ANCHOR_ONLY 不升格证伪);
+         Grok Bot (impl + cause-missing / PARSE_EMPTY / honest green twin)
+Arms: EMPTY_CONFIRMED (exhausted / fallback / cursor-pair≠TERMINAL);
+      NOT_FETCHED (same empty shape + fetch_error; ≠ NO_NEW);
+      UNVERIFIED (partial empty / cause-axis missing; ≠ NO_NEW);
+      DEGRADED (exit0 + degraded; ≠ OK);
+      PARSE_EMPTY (raw_bytes>0 + items=[] + parse_error);
+      WEAK_ANCHOR_ONLY (round/timestamp drift only; not falsification).
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+
+pack(META+py+json) sha256: 0c690e0e09935d07ad684366688dca85a02ebb3b00f7c591640f87b97c73afc1

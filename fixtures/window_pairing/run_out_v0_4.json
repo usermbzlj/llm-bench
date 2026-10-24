@@ -1,0 +1,359 @@
+{
+  "fixture": "WINDOW_PAIRING",
+  "version": "v0.4",
+  "variant": "codebook_tamper_must_red",
+  "total": 23,
+  "passed": 23,
+  "failed": 0,
+  "results": [
+    {
+      "case_id": "A1_ne_weak_side_effect_false_green",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "ASSERT_NE_WEAK_FALSE_GREEN",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "ASSERT_NE_WEAK_FALSE_GREEN",
+        "enter_pass_denom": false,
+        "detail": {
+          "note": "≠ excludes only exact-original; side-effect ≠ inject"
+        }
+      }
+    },
+    {
+      "case_id": "A2_eq_prereg_catches_inject",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "ASSERT_EQ_PREREG_CATCHES",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "ASSERT_EQ_PREREG_CATCHES",
+        "enter_pass_denom": true,
+        "detail": {
+          "localized": true
+        }
+      }
+    },
+    {
+      "case_id": "A2b_inject_cleared_as_injected",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "ASSERT_INJECT_CLEARED_FALSE_INJECTED",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "ASSERT_INJECT_CLEARED_FALSE_INJECTED",
+        "enter_pass_denom": false
+      }
+    },
+    {
+      "case_id": "A3_codebook_tamper_must_red",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "CODEBOOK_TAMPER_MUST_RED",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "CODEBOOK_TAMPER_MUST_RED",
+        "enter_pass_denom": true,
+        "detail": {
+          "cell": "reason_code_table.ENTRY_X",
+          "before": "PASS",
+          "after": "FAIL"
+        }
+      }
+    },
+    {
+      "case_id": "A3b_codebook_tamper_verdict_unchanged",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "CODEBOOK_TAMPER_VERDICT_UNCHANGED",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "CODEBOOK_TAMPER_VERDICT_UNCHANGED",
+        "enter_pass_denom": false,
+        "detail": {
+          "cell": "reason_code_table.ENTRY_Y",
+          "verdict": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "A4_codebook_tamper_declare_side",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "CODEBOOK_TAMPER_DECLARE_SIDE_NOT_SELFCHECK",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "CODEBOOK_TAMPER_DECLARE_SIDE_NOT_SELFCHECK",
+        "enter_pass_denom": false,
+        "detail": {
+          "cell": "META.summary",
+          "note": "must-fail arm must land on read side"
+        }
+      }
+    },
+    {
+      "case_id": "A5_cross_run_temporal_splice",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "CROSS_RUN_TEMPORAL_SPLICE",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "CROSS_RUN_TEMPORAL_SPLICE",
+        "enter_pass_denom": false,
+        "detail": {
+          "order_ok": true,
+          "freeze_batch": "B1",
+          "run_batch": "B2",
+          "freeze_inst": "P1",
+          "run_inst": "P2"
+        }
+      }
+    },
+    {
+      "case_id": "A6_identity_bind_ok",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "IDENTITY_BIND_OK",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "IDENTITY_BIND_OK",
+        "enter_pass_denom": true
+      }
+    },
+    {
+      "case_id": "A6b_time_batch_writer_not_separated",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "TIME_BATCH_WRITER_NOT_SEPARATED",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "TIME_BATCH_WRITER_NOT_SEPARATED",
+        "enter_pass_denom": false
+      }
+    },
+    {
+      "case_id": "A7_gates_triad_absent",
+      "ok": true,
+      "expect_disposition": "UNPROBED",
+      "expect_reason": "GATES_TRIAD_ABSENT",
+      "got": {
+        "disposition": "UNPROBED",
+        "reason_code": "GATES_TRIAD_ABSENT",
+        "enter_pass_denom": false,
+        "gate_form": "ABSENT"
+      }
+    },
+    {
+      "case_id": "A8a_gates_triad_fail",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "GATES_TRIAD_FAIL",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "GATES_TRIAD_FAIL",
+        "enter_pass_denom": false,
+        "gate_form": "FAIL"
+      }
+    },
+    {
+      "case_id": "A8b_gates_triad_pass",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "GATES_TRIAD_PASS",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "GATES_TRIAD_PASS",
+        "enter_pass_denom": true,
+        "gate_form": "PASS"
+      }
+    },
+    {
+      "case_id": "A9_sample_set_id_issuer_not_judge",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "SAMPLE_SET_ID_ISSUER_NOT_JUDGE",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "SAMPLE_SET_ID_ISSUER_NOT_JUDGE",
+        "enter_pass_denom": false,
+        "detail": {
+          "filled_by": "judge_B",
+          "issuer": "issuer_A"
+        }
+      }
+    },
+    {
+      "case_id": "A9b_sample_set_id_issuer_ok",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "SAMPLE_SET_ID_ISSUER_OK",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "SAMPLE_SET_ID_ISSUER_OK",
+        "enter_pass_denom": true
+      }
+    },
+    {
+      "case_id": "A10_stale_cross_batch_false_fresh",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "STALE_CROSS_BATCH_FALSE_FRESH",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "STALE_CROSS_BATCH_FALSE_FRESH",
+        "enter_pass_denom": false
+      }
+    },
+    {
+      "case_id": "A10b_stale_read_same_batch_ok",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "STALE_READ_SAME_BATCH_OK",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "STALE_READ_SAME_BATCH_OK",
+        "enter_pass_denom": true
+      }
+    },
+    {
+      "case_id": "A11_secondary_code_required",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "SECONDARY_CODE_REQUIRED",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "SECONDARY_CODE_REQUIRED",
+        "enter_pass_denom": false
+      }
+    },
+    {
+      "case_id": "A11b_secondary_codes_present",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "SECONDARY_CODES_PRESENT",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "SECONDARY_CODES_PRESENT",
+        "enter_pass_denom": true,
+        "detail": {
+          "secondary": [
+            "REUSE_STATE_ABSENT"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "A12_half_open_hi_exclusive",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "HALF_OPEN_BOUNDARY_MISMATCH",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "HALF_OPEN_BOUNDARY_MISMATCH",
+        "enter_pass_denom": false,
+        "detail": {
+          "lo": 0,
+          "hi": 10,
+          "x": 10,
+          "actual_in": false
+        }
+      }
+    },
+    {
+      "case_id": "A12b_half_open_lo_inclusive",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "HALF_OPEN_INTERVAL_OK",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "HALF_OPEN_INTERVAL_OK",
+        "enter_pass_denom": true,
+        "detail": {
+          "in": true
+        }
+      }
+    },
+    {
+      "case_id": "A13_ratio_claimed_100_but_sample",
+      "ok": true,
+      "expect_disposition": "FAIL",
+      "expect_reason": "RATIO_CLAIMED_100_BUT_SAMPLE",
+      "got": {
+        "disposition": "FAIL",
+        "reason_code": "RATIO_CLAIMED_100_BUT_SAMPLE",
+        "enter_pass_denom": false,
+        "detail": {
+          "ratio": 0.7,
+          "floor": 0.7
+        }
+      }
+    },
+    {
+      "case_id": "A13b_ratio_constraint_ok",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "RATIO_CONSTRAINT_OK",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "RATIO_CONSTRAINT_OK",
+        "enter_pass_denom": true,
+        "detail": {
+          "ratio": 0.7,
+          "floor": 0.7
+        }
+      }
+    },
+    {
+      "case_id": "A14_priority_table_ok",
+      "ok": true,
+      "expect_disposition": "PASS",
+      "expect_reason": "PRIORITY_TABLE_OK",
+      "got": {
+        "disposition": "PASS",
+        "reason_code": "PRIORITY_TABLE_OK",
+        "enter_pass_denom": true,
+        "detail": {
+          "winner": "CODEBOOK_TAMPER_VERDICT_UNCHANGED",
+          "ranked": [
+            "CODEBOOK_TAMPER_VERDICT_UNCHANGED",
+            "GATES_TRIAD_FAIL",
+            "SECONDARY_CODE_REQUIRED"
+          ]
+        }
+      }
+    }
+  ],
+  "self_check": {
+    "n_cases": true,
+    "all_cases_ok": true,
+    "has_codebook_tamper_must_red": true,
+    "has_cross_run_splice": true,
+    "has_assert_strength_pair": true,
+    "gates_three_forms": true,
+    "all_pass": true
+  },
+  "batch_digest_sha256": "17a71e9323ca6226c8d486dae32d8429d8b0575c452695958e3c92de929f6431",
+  "credit": [
+    "李晨熙 (assert NE≠EQ-prereg; temporal+identity; codebook tamper)",
+    "沈小楠 (signer identity-first; must-fail on read side)",
+    "随风绿柳 / aue (gates triad + unknown axis)",
+    "Grok Bot (impl)"
+  ],
+  "arms": [
+    "ASSERT_NE_WEAK_FALSE_GREEN",
+    "ASSERT_EQ_PREREG_CATCHES",
+    "CODEBOOK_TAMPER_MUST_RED",
+    "CODEBOOK_TAMPER_DECLARE_SIDE_NOT_SELFCHECK",
+    "CROSS_RUN_TEMPORAL_SPLICE",
+    "IDENTITY_BIND_OK",
+    "GATES_TRIAD_{ABSENT,FAIL,PASS}",
+    "SAMPLE_SET_ID_ISSUER_NOT_JUDGE",
+    "STALE_CROSS_BATCH / SAME_BATCH",
+    "SECONDARY_CODE_REQUIRED",
+    "HALF_OPEN_INTERVAL",
+    "RATIO_CONSTRAINT",
+    "PRIORITY_TABLE"
+  ],
+  "run_out_sha256": "a51ef868566adc5a6f828723cf4fbd0040bf573407aab56a59c70887fc2710f3",
+  "script_sha256": "453f40e965e62feb4211fda264133a7c125468122b8af95dfafb34198daf6dba"
+}

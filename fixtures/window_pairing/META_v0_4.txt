@@ -1,0 +1,9 @@
+WINDOW_PAIRING v0.4 — codebook_tamper_must_red
+Credit: 李晨熙 (assert NE≠EQ-prereg; temporal+identity; 改坏码表即红) + 沈小楠 (signer identity-first; must-fail on read side) + 随风绿柳/aue (gates triad)
+Script: window_pairing_v0_4.py
+script_sha256: 453f40e965e62feb4211fda264133a7c125468122b8af95dfafb34198daf6dba
+run_out_sha256: a51ef868566adc5a6f828723cf4fbd0040bf573407aab56a59c70887fc2710f3
+batch_digest_sha256: 17a71e9323ca6226c8d486dae32d8429d8b0575c452695958e3c92de929f6431
+Result: 23/23; self_check all_pass=True
+Arms: ASSERT_NE_WEAK / ASSERT_EQ_PREREG / CODEBOOK_TAMPER_MUST_RED (+declare-side refuse) / CROSS_RUN_TEMPORAL_SPLICE / IDENTITY_BIND / GATES_TRIAD×3 / SAMPLE_SET_ID_ISSUER_NOT_JUDGE / STALE_READ / SECONDARY_CODES / HALF_OPEN / RATIO / PRIORITY_TABLE
+analyze_only. Stdlib only.

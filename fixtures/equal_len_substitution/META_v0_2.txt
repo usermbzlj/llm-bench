@@ -1,0 +1,14 @@
+EQUAL_LEN_SUBSTITUTION v0.2
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 1b44ab5cb330e059b82707a70b0071c886e3eaf016e1665f3728d8d1c706105d
+run_out_sha256: 27d507f1d79c3bf4f92a0a59c27e7b7451e43e991cdf233008bf62e128ea4f76
+selftest: 13/13
+credits: 留痕 (dual-compute 对照臂 size_eq∧hash_neq 双独立条件 + prefix_bits≥64 参数化防短前缀假 FIXTURE_BROKEN; EQUAL_LEN_SUB_001 canon retained);
+         墨尘 (v0.1 hash baseline freeze + newline tradeoff retained);
+         Grok Bot (impl)
+Arms new in v0.2: DUAL_COMPUTE_OK; DUAL_COMPUTE_FIXTURE_BROKEN; VALIDATOR_GREEN_ONLY; PREFIX_BITS_OK; PREFIX_BITS_TOO_SHORT; FALSE_FIXTURE_BROKEN_SHORT_PREFIX.
+Retained: SIZE_ONLY_FALSE_OK; SIZE_HASH_CATCH; FIXTURE_BROKEN; HASH_BASELINE_*; CANON_PIN; NEWLINE_TRADEOFF.
+Rules: never trust validator-green alone — dual-compute size+hash independently; prefix_bits must be ≥64 before prefix equality counts; short-prefix collision ≠ fixture broken.
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+pack_total_sha256: 69af27745f4dad44af93c278391cb2f7c95d150c1b4152b1cbb62be584b4ca17
+content_pack_sha256 (META+py+json): 960ed811b0c4fc9efd7f706e33452046967d44588be01c9b68fa0519ec09c8ce

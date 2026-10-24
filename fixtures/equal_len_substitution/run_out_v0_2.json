@@ -1,0 +1,208 @@
+{
+  "all_match": true,
+  "canon": {
+    "credit": "留痕",
+    "fixture_id": "EQUAL_LEN_SUB_001",
+    "sha16_a": "3addf812ec1cf1e1",
+    "sha16_b": "965e27a2084ef37e",
+    "sha256_a": "3addf812ec1cf1e173fd2e61b6812be7b2ced4651807e248c27e0928918458ac",
+    "sha256_b": "965e27a2084ef37e50203d17c52968f71ec7e0563dab9e4128b51b97795a7ba0",
+    "size": 40
+  },
+  "min_prefix_bits": 64,
+  "n": 13,
+  "rows": [
+    {
+      "case_id": "EL-SIZE-ONLY-FALSE",
+      "expect": "EQUAL_LEN_SIZE_ONLY",
+      "got": "EQUAL_LEN_SIZE_ONLY",
+      "judge": {
+        "detail": {
+          "sha16_a": "3addf812ec1cf1e1",
+          "sha16_b": "965e27a2084ef37e",
+          "size": 40
+        },
+        "judge": "FAIL",
+        "reason_code": "EQUAL_LEN_SIZE_ONLY"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-SIZE-HASH-CATCH",
+      "expect": "EQUAL_LEN_CAUGHT",
+      "got": "EQUAL_LEN_CAUGHT",
+      "judge": {
+        "detail": {
+          "sha16_a": "3addf812ec1cf1e1",
+          "sha16_b": "965e27a2084ef37e",
+          "size": 40
+        },
+        "judge": "PASS",
+        "reason_code": "EQUAL_LEN_CAUGHT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-FIXTURE-BROKEN",
+      "expect": "FIXTURE_BROKEN",
+      "got": "FIXTURE_BROKEN",
+      "judge": {
+        "detail": {
+          "note": "equal-len pair must differ in sha256"
+        },
+        "judge": "FAIL",
+        "reason_code": "FIXTURE_BROKEN"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-BASELINE-UNFROZEN",
+      "expect": "HASH_BASELINE_UNFROZEN",
+      "got": "HASH_BASELINE_UNFROZEN",
+      "judge": {
+        "detail": {
+          "missing": [
+            "reader_impl",
+            "epoch"
+          ]
+        },
+        "judge": "FAIL",
+        "reason_code": "HASH_BASELINE_UNFROZEN"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-BASELINE-FROZEN-OK",
+      "expect": "HASH_BASELINE_FROZEN",
+      "got": "HASH_BASELINE_FROZEN",
+      "judge": {
+        "judge": "PASS",
+        "reason_code": "HASH_BASELINE_FROZEN"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-CANON-PIN",
+      "expect": "CANON_PINNED",
+      "got": "CANON_PINNED",
+      "judge": {
+        "detail": {
+          "sha16_a": "3addf812ec1cf1e1",
+          "sha16_b": "965e27a2084ef37e",
+          "size": 40
+        },
+        "judge": "PASS",
+        "reason_code": "CANON_PINNED"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-NEWLINE-TRADEOFF-SIZE-ONLY",
+      "expect": "EQUAL_LEN_SIZE_ONLY",
+      "got": "EQUAL_LEN_SIZE_ONLY",
+      "judge": {
+        "detail": {
+          "sha16_a": "3addf812ec1cf1e1",
+          "sha16_b": "965e27a2084ef37e",
+          "size": 40
+        },
+        "judge": "FAIL",
+        "reason_code": "EQUAL_LEN_SIZE_ONLY"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-DUAL-COMPUTE-OK",
+      "expect": "DUAL_COMPUTE_OK",
+      "got": "DUAL_COMPUTE_OK",
+      "judge": {
+        "detail": {
+          "asserted": [
+            "size_equal",
+            "hash_unequal"
+          ],
+          "sha16_a": "3addf812ec1cf1e1",
+          "sha16_b": "965e27a2084ef37e",
+          "size": 40
+        },
+        "judge": "PASS",
+        "reason_code": "DUAL_COMPUTE_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-DUAL-COMPUTE-FIXTURE-BROKEN",
+      "expect": "FIXTURE_BROKEN",
+      "got": "FIXTURE_BROKEN",
+      "judge": {
+        "detail": {
+          "note": "dual-compute: size_eq but hash_eq — fixture never produced a substitution",
+          "sha16": "965e27a2084ef37e",
+          "size": 40
+        },
+        "judge": "FAIL",
+        "reason_code": "FIXTURE_BROKEN"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-VALIDATOR-GREEN-ONLY",
+      "expect": "VALIDATOR_GREEN_ONLY",
+      "got": "VALIDATOR_GREEN_ONLY",
+      "judge": {
+        "detail": {
+          "note": "no dual-compute of size/hash — FIXTURE_BROKEN would be silent"
+        },
+        "judge": "FAIL",
+        "reason_code": "VALIDATOR_GREEN_ONLY"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-PREFIX-BITS-OK",
+      "expect": "PREFIX_BITS_OK",
+      "got": "PREFIX_BITS_OK",
+      "judge": {
+        "detail": {
+          "n_hex": 16,
+          "prefix_bits": 64
+        },
+        "judge": "PASS",
+        "reason_code": "PREFIX_BITS_OK"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-PREFIX-BITS-TOO-SHORT",
+      "expect": "PREFIX_BITS_TOO_SHORT",
+      "got": "PREFIX_BITS_TOO_SHORT",
+      "judge": {
+        "detail": {
+          "claimed_verdict": "FIXTURE_BROKEN",
+          "min": 64,
+          "prefix_bits": 32
+        },
+        "judge": "FAIL",
+        "reason_code": "PREFIX_BITS_TOO_SHORT"
+      },
+      "match": true
+    },
+    {
+      "case_id": "EL-SHORT-PREFIX-FALSE-BROKEN",
+      "expect": "FALSE_FIXTURE_BROKEN_SHORT_PREFIX",
+      "got": "FALSE_FIXTURE_BROKEN_SHORT_PREFIX",
+      "judge": {
+        "detail": {
+          "full_eq": false,
+          "note": "short-prefix collision misread as fixture broken",
+          "prefix_bits": 32,
+          "prefix_eq": true
+        },
+        "judge": "FAIL",
+        "reason_code": "FALSE_FIXTURE_BROKEN_SHORT_PREFIX"
+      },
+      "match": true
+    }
+  ],
+  "version": "EQUAL_LEN_SUBSTITUTION/v0.2"
+}

@@ -1,0 +1,148 @@
+{
+  "all_pass": true,
+  "credit": [
+    "H",
+    "WorkBuddy"
+  ],
+  "fixture": "FALSE_ZERO",
+  "passed": 12,
+  "results": [
+    {
+      "expect_reason": "DEDUP_COLLISION_MERGED_FALSE_ZERO",
+      "got": {
+        "detail": {
+          "declared": 1,
+          "oracle": {
+            "bytes_moved": 0,
+            "bytes_moved_digests": [],
+            "collision_count": 1,
+            "declared": 2,
+            "merged_count": 0
+          }
+        },
+        "judge": "FAIL",
+        "reason_code": "DEDUP_COLLISION_MERGED_FALSE_ZERO"
+      },
+      "id": "A8_mf_same_key_diff_fp_merged",
+      "pass": true
+    },
+    {
+      "expect_reason": "DEDUP_COLLISION_KEPT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "DEDUP_COLLISION_KEPT"
+      },
+      "id": "A8_ok_same_key_diff_fp_kept",
+      "pass": true
+    },
+    {
+      "expect_reason": "DEDUP_NOOP_FALSE_ZERO",
+      "got": {
+        "detail": {
+          "declared": 2,
+          "merged_count": 0
+        },
+        "judge": "FAIL",
+        "reason_code": "DEDUP_NOOP_FALSE_ZERO"
+      },
+      "id": "A8_mf_same_key_same_fp_noop",
+      "pass": true
+    },
+    {
+      "expect_reason": "DEDUP_MERGED_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "DEDUP_MERGED_OK"
+      },
+      "id": "A8_ok_same_key_same_fp_merged",
+      "pass": true
+    },
+    {
+      "expect_reason": "BYTES_MOVED_SILENT_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "BYTES_MOVED_SILENT_PASS"
+      },
+      "id": "A8_mf_bytes_moved_silent_pass",
+      "pass": true
+    },
+    {
+      "expect_reason": "BYTES_MOVED_SILENT_PASS",
+      "got": {
+        "detail": {
+          "collision_count": 1
+        },
+        "judge": "FAIL",
+        "reason_code": "BYTES_MOVED_SILENT_PASS"
+      },
+      "id": "A8_mf_bytes_moved_as_collision",
+      "pass": true
+    },
+    {
+      "expect_reason": "BYTES_MOVED_VISIBLE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "BYTES_MOVED_VISIBLE"
+      },
+      "id": "A8_ok_bytes_moved_visible",
+      "pass": true
+    },
+    {
+      "expect_reason": "DERIVED_VIA_DIFF_FALSE_ZERO",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "DERIVED_VIA_DIFF_FALSE_ZERO"
+      },
+      "id": "A8_mf_derived_via_diff",
+      "pass": true
+    },
+    {
+      "expect_reason": "READ_SOURCE_MIXUP_FALSE_ZERO",
+      "got": {
+        "detail": {
+          "assert_source": "history",
+          "count_source": "fetch",
+          "distinct_ids_source": "fetch",
+          "presence_claimed_for": "history"
+        },
+        "judge": "FAIL",
+        "reason_code": "READ_SOURCE_MIXUP_FALSE_ZERO"
+      },
+      "id": "A9_mf_fetch_count_history_assert",
+      "pass": true
+    },
+    {
+      "expect_reason": "READ_SOURCE_MIXUP_NO_TAG",
+      "got": {
+        "detail": {
+          "assert_source": "fetch",
+          "count_source": "history"
+        },
+        "judge": "FAIL",
+        "reason_code": "READ_SOURCE_MIXUP_NO_TAG"
+      },
+      "id": "A9_mf_mixup_no_tag",
+      "pass": true
+    },
+    {
+      "expect_reason": "READ_SOURCE_MIXUP_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "READ_SOURCE_MIXUP_CAUGHT"
+      },
+      "id": "A9_ok_mixup_caught",
+      "pass": true
+    },
+    {
+      "expect_reason": "READ_SOURCE_ALIGNED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "READ_SOURCE_ALIGNED"
+      },
+      "id": "A9_ok_aligned",
+      "pass": true
+    }
+  ],
+  "rows": 12,
+  "version": "v0.3"
+}

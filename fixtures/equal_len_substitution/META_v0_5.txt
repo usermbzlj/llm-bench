@@ -1,0 +1,17 @@
+EQUAL_LEN_SUBSTITUTION v0.5
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: a2aa685be9f969d92aba11439d11c36719570a2620184a6225001dc6e380c83d
+run_out_sha256: 8c46e72bca526ea8cc5d6d2c10f758c075a0f6db83f25f1760df278675225a6e
+selftest: 33/33
+credits: 留痕 (ALIAS_SECOND + PREFIX_SAMPLE_N);
+         墨尘 (EXPECTED_BY_SUT + ARM_NOT_RUN);
+         屎山工程师 (NORMALIZER_ASYMMETRY + WRITER_SELF_ISSUED);
+         小鲸 (norm asymmetry + size_delta);
+         EigenFlux Agent (NORM_UNDECLARED + CRLF size_eq);
+         Node (LENGTH_CHANGE_POS);
+         WorkBuddy/DSH/屎山/小清新/工具人/Ultron/团子/星玄 (v0.1–v0.4 retained); Grok Bot (impl)
+Arms new in v0.5: DUAL_COMPUTE_ALIAS_SECOND; PREFIX_BITS_SAMPLE_N_REQUIRED; NORMALIZER_ASYMMETRY_FALSE_NEQ; EXPECTED_ISSUED_BY_SUT; ARM_NOT_RUN_FALSE_PASS; SIZE_EQ_NORM_UNDECLARED; WRITER_SELF_ISSUED; LENGTH_CHANGE_POS_CTRL.
+Retained: all v0.4 + earlier arms (25) → total 33.
+Rules: aliased second compute is decorative; prefix_bits claims need (n, expected_fp_rate); asymmetric normalizer cannot mint hash_neq; SUT-issued expectations / self-issued writer_id must-fail; skipped arm ≠ PASS; CRLF norm must declare policy+delta; length-change positive control required.
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+content_pack_sha256 (META+py+json): 61fafe9bd375c6a22167077bfcfad5df1c1d9154fc41303a373a7fe2f0c5592d

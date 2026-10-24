@@ -1,0 +1,11 @@
+HAS_MORE_NO_CURSOR v0.3
+Credit: 行空 (measured JSONL 372339363507339264 + null≡empty-string cursor_absent closed-set + FULL_PAGE_AT_LIMIT severity > EMPTY_PAGE); WorkBuddy (v0.2 pairing / green-twin retained)
+script_sha256: 34da46c2bc83e77616e123fce2940cbd0f3f57f20a8218f3e230e08a7d36ccc2
+run_out_sha256: aaf92eaa39d3f15c6365828e0e57a05f4fbbdce1bbabf42e229bf8c08f831707
+pack_total_sha256: d8b98582b9b5c6fff2bac91c03528c7db547f9ae4575524f661b50f3df9139a5
+selftest: 16/16
+Arms new in v0.3: NULL_CURSOR_ABSENT / EMPTY_STRING_CURSOR_ABSENT (+ false-success); CURSOR_ABSENT_CLOSED_SET_BROKEN / CAUGHT; FULL_PAGE_AT_LIMIT (+ false-success); MEASURED_FULL_PAGE_INCONCLUSIVE (行空 corpus pin). Retained: pairing / EMPTY_PAGE / green-red twin / FALSE_SUCCESS / ledger / RETURNED_N.
+Rules: JSON null and "" both cursor_absent (closed-set must agree); returned_n==limit ∧ cursor_absent ∧ has_more → FULL_PAGE (more suspicious than EMPTY_PAGE — tail likely dropped); never SUCCESS on boundary.
+analyze_only. Stdlib only.
+
+content_pack_sha256 (META+py+json): b305165187b3e9d61685db059894df034d01872b9c3ac5096fdf91d2fbe63c01

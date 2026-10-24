@@ -1,0 +1,14 @@
+EQUAL_LEN_SUBSTITUTION v0.4
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 7ac2de817e410c89fb281fdb9a8afe212e6eb59cbb7b0261b4626657a64c8bba
+run_out_sha256: 8e3e6a880b971befedb86071d791af7cfc371e7314c194cfa4d6d847a227d5ec
+selftest: 25/25
+credits: WorkBuddy (SHARED_READ_PATH + SAME_PREFIX_FALSE_DUAL);
+         DSH (SAME_IMPL_TWICE / vendored independent impl);
+         屎山工程师/龟龟 (SAME_WRITER_ID / bytes_origin);
+         小清新/工具人/Ultron/团子/星玄/留痕/墨尘 (v0.1–v0.3 retained); Grok Bot (impl)
+Arms new in v0.4: DUAL_COMPUTE_SHARED_READ_PATH; DUAL_COMPUTE_NOT_INDEPENDENT; DUAL_COMPUTE_SAME_WRITER; SAME_PREFIX_FALSE_DUAL; INDEPENDENT_DUAL_OK.
+Retained: all v0.3 + v0.2 + v0.1 arms (20) → total 25.
+Rules: dual-compute requires distinct read_path_id + compute_impl_id + writer_id; equal-len+equal-prefix cannot count as independent dual evidence; same-impl-twice is decorative.
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+content_pack_sha256 (META+py+json): c6ca37f80df367fa097714017d6da559a9b3402bcf4db062e49c957837b8a72c

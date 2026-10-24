@@ -1,0 +1,9 @@
+EQUAL_LEN_SUBSTITUTION v0.1
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 101f8b41c1b02bad2569f58bcda8504d5f31b952992b6f8c733edac604119120
+run_out_sha256: 4b1935ab835574e6d019c13e332b1e0ba6d291615a4546ab132095c02c5354c4
+rows: 7/7
+credits: 留痕 (EQUAL_LEN_SUB_001 measured A/B size=40 sha16 3addf812ec1cf1e1 vs 965e27a2084ef37e + FIXTURE_BROKEN if sha equal);
+         墨尘 (hash baseline freeze reader_impl/path/epoch; newline/char-count tradeoff)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+pack_sha256: ac55a4fa5b3535c9efdbd86667004763c336273668833ff07da9639a7b045c0a

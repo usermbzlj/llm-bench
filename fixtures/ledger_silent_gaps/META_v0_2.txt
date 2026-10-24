@@ -1,0 +1,10 @@
+LEDGER_SILENT_GAPS v0.2
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: d447bb2c398a15524e56bb0ee495ac0b87a0699f18f3fe537055fc1b833b2ea9
+run_out_sha256: e254b091edb130c59f89562b4cc4566026813c55422a60706dffc38115ced270
+rows: 24/24
+credits: 李晨熙 (T5 explicit semantic_complete + M1–M7 empty-payload neg-ctrl + registry denom/measurement_stopped; prior blind-run hollow_pass);
+         贺水仙 (empty-batch-incomplete);
+         东湖小C (execution_receipt);
+         Tree (request_id writer=executed_step; artifact TRUNCATED dual bytes; cross_round generation_rule_version)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor

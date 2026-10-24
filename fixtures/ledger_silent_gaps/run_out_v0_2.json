@@ -1,0 +1,269 @@
+{
+  "fixture": "LEDGER_SILENT_GAPS",
+  "version": "v0.2",
+  "total": 24,
+  "passed": 24,
+  "failed": 0,
+  "results": [
+    {
+      "case_id": "T5-missing-hollow-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "T5_SEMANTIC_COMPLETE_MISSING_HOLLOW_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "T5_SEMANTIC_COMPLETE_MISSING_HOLLOW_PASS",
+        "detail": {
+          "parseable": true,
+          "semantic_complete": null
+        }
+      }
+    },
+    {
+      "case_id": "T5-implied-complete-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "T5_PARSEABLE_IMPLIED_COMPLETE_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "T5_PARSEABLE_IMPLIED_COMPLETE_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "T5-explicit-ok",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "T5_SEMANTIC_COMPLETE_EXPLICIT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "T5_SEMANTIC_COMPLETE_EXPLICIT"
+      }
+    },
+    {
+      "case_id": "M1-empty-rows-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "M1_EMPTY_ROWS_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "M1_EMPTY_ROWS_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "M1-empty-rows-declared",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "M1_EMPTY_ROWS_DECLARED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "M1_EMPTY_ROWS_DECLARED"
+      }
+    },
+    {
+      "case_id": "M2-empty-batch-complete-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "M2_EMPTY_BATCH_COMPLETE_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "M2_EMPTY_BATCH_COMPLETE_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "M2-empty-batch-not-complete",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "M2_EMPTY_BATCH_NOT_COMPLETE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "M2_EMPTY_BATCH_NOT_COMPLETE"
+      }
+    },
+    {
+      "case_id": "M3-null-payload-rate-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "M3_NULL_PAYLOAD_RATE_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "M3_NULL_PAYLOAD_RATE_FALSE_PASS",
+        "detail": {
+          "coverage_rate": 1.0
+        }
+      }
+    },
+    {
+      "case_id": "M3-null-payload-no-rate",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "M3_NULL_PAYLOAD_NO_RATE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "M3_NULL_PAYLOAD_NO_RATE"
+      }
+    },
+    {
+      "case_id": "M4-empty-events-pair-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "M4_EMPTY_EVENTS_PAIR_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "M4_EMPTY_EVENTS_PAIR_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "M4-empty-events-unpaired",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "M4_EMPTY_EVENTS_UNPAIRED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "M4_EMPTY_EVENTS_UNPAIRED"
+      }
+    },
+    {
+      "case_id": "M5-denom-zero-rate-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "M5_DENOM_ZERO_RATE_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "M5_DENOM_ZERO_RATE_FALSE_PASS",
+        "detail": {
+          "registry_denominator": 0,
+          "coverage_rate": 1.0
+        }
+      }
+    },
+    {
+      "case_id": "M5-denom-zero-stopped",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "M5_DENOM_ZERO_STOPPED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "M5_DENOM_ZERO_STOPPED"
+      }
+    },
+    {
+      "case_id": "M6-empty-receipt-exit0-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "M6_EMPTY_RECEIPT_EXIT0_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "M6_EMPTY_RECEIPT_EXIT0_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "M6-receipt-present",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "M6_RECEIPT_PRESENT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "M6_RECEIPT_PRESENT"
+      }
+    },
+    {
+      "case_id": "M7-empty-keys-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "M7_EMPTY_KEYS_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "M7_EMPTY_KEYS_FALSE_PASS",
+        "detail": {
+          "unique_keys": 0,
+          "expected_rows": 12
+        }
+      }
+    },
+    {
+      "case_id": "M7-keys-ok",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "M7_KEYS_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "M7_KEYS_OK"
+      }
+    },
+    {
+      "case_id": "ER1-scheduler-written-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "ER1_SCHEDULER_WRITTEN_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "ER1_SCHEDULER_WRITTEN_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "ER1-executed-step-ok",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "ER1_EXECUTED_STEP_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "ER1_EXECUTED_STEP_OK"
+      }
+    },
+    {
+      "case_id": "ER2-trunc-missing-dual-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "ER2_TRUNC_MISSING_DUAL_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "ER2_TRUNC_MISSING_DUAL_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "ER2-trunc-same-shape-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "ER2_TRUNC_SAME_SHAPE_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "ER2_TRUNC_SAME_SHAPE_FALSE_PASS",
+        "detail": {
+          "declared_bytes": 4096,
+          "actual_bytes": 4096
+        }
+      }
+    },
+    {
+      "case_id": "ER2-trunc-dual-ok",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "ER2_TRUNC_DUAL_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "ER2_TRUNC_DUAL_OK"
+      }
+    },
+    {
+      "case_id": "ER3-no-rule-ver-false-pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "ER3_NO_RULE_VER_FALSE_PASS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "ER3_NO_RULE_VER_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "ER3-reconcile-ok",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "ER3_RECONCILE_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "ER3_RECONCILE_OK"
+      }
+    }
+  ],
+  "sha256": "33b448d6f2740bd4a95b23372931c30af83d068ad05e03ce7986b1b97ea5439a"
+}

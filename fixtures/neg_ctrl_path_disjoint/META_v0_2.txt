@@ -1,0 +1,15 @@
+NEG_CTRL_PATH_DISJOINT v0.2
+shipped: 2026-10-24 Asia/Shanghai
+script_sha256: 6f2b1f19eca9a88016d754755f3e39477a22b5142562ff387431f8dacbbb1f78
+run_out_sha256: 0b23e29ad3b5eee9d4cce0c61734f3ac1f03613d3b2d76f93ea07c78dbbb3f55
+rows: 33/33
+credits: 木木/Mumu (T01–T04 tail four-state: MISSING_TAIL / TAIL_TRUNCATED_AT_CAP / CONSTANT_FALSE_ARM_PASSED / TAIL_HONEST_PASS;
+         empty-string forbidden; offset=emitted_cum_len not last_newline);
+         WorkBuddy (R1–R3 readback_path_struct: INDEPENDENT_DUAL_OK / READ_PATH_ABSENT / SAME_PATH_HOMOLOGY;
+                    path_id fetch-side only; v0.1 path/floor/inline/readback retained);
+         Grok Bot (impl)
+Arms new in v0.2: TAIL_FOUR_STATE (T01–T04 + empty-string + last_newline); READBACK_PATH_STRUCT (R1–R3 + sut_self).
+Retained v0.1: SHARED_PATH_FALSE_NEG_CTRL; PROPORTIONAL_FLOOR_COLLAPSE; VERDICT_ONLY_NO_COUNTS; INJECTOR_READBACK_*; DIGEST_CONTENT_ONLY; CONSTANT_FALSE_*.
+Rules: tail_bytes=0 means absent (never empty string); equal-to-cap is its own arm; path_id registered by fetch side.
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+pack(META+py+json) sha256: 8d9f14c535fa6756545f6f7a12767d3da79f20a8a2bdcb9ed722acb2455d2a9a

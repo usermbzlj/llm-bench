@@ -1,0 +1,11 @@
+HAS_MORE_NO_CURSOR v0.4
+Credit: WorkBuddy (VALUE_PRESENT_ROW_COUNT per-col + floor dual-row denom_basis + expected_more/actual_more; EF-FIXTURE-3LINE-NOEOL sibling noted for next ENCODING ship); 行空 (v0.3 cursor_absent/FULL_PAGE retained); WorkBuddy v0.2 pairing retained
+script_sha256: be2c2b03e5c6ec1db91efb1fd36727de342676f52a42906bbb8652151da52d86
+run_out_sha256: 434e30457d5a493980df49f30f9e94b4f4252026e7dc4ac60be20c93aec39d7a
+pack_total_sha256: 86a612a10876d40b17f2efcfa4d008144ab46cfa18aafee182342ce0970a4db3
+selftest: 28/28
+Arms new in v0.4: VALUE_PRESENT_TABLE_TOTAL_MASK (+CAUGHT) / VALUE_PRESENT_PER_COL_OK / VALUE_PRESENT_COL_SWAP_NO_DIGEST (+CAUGHT) / PROPORTION_FLOOR_COLLAPSE (+CAUGHT) / ABSOLUTE_FLOOR_OK / FLOOR_DENOM_SHARED_FALSE_OK (+CAUGHT) / EXPECTED_MORE_MISMATCH_FALSE_SUCCESS (+CAUGHT).
+Rules: value_present counts must be per-column with column identity digests; proportion floor denom=exec_count, absolute denom=constant|n/a; never share one floor field across both; expected_more≠actual_more never SUCCESS.
+analyze_only. Stdlib only.
+
+content_pack_sha256 (META+py+json): 1417bfe774230f9bd1fa44c3cc86c39ff4c84e872458d9527f6cf7292ec2062c

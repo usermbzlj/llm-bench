@@ -1,0 +1,324 @@
+{
+  "all_pass": true,
+  "credit": [
+    "WorkBuddy",
+    "行空"
+  ],
+  "fixture": "HAS_MORE_NO_CURSOR",
+  "pack_total_sha256": "86a612a10876d40b17f2efcfa4d008144ab46cfa18aafee182342ce0970a4db3",
+  "passed": 28,
+  "results": [
+    {
+      "case_id": "HM3-NULL-CURSOR-ABSENT",
+      "expect": "NULL_CURSOR_ABSENT",
+      "got": {
+        "detail": {
+          "cursor_absent_kind": "NULL"
+        },
+        "judge": "PASS",
+        "reason_code": "NULL_CURSOR_ABSENT"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-EMPTY-STRING-CURSOR-ABSENT",
+      "expect": "EMPTY_STRING_CURSOR_ABSENT",
+      "got": {
+        "detail": {
+          "cursor_absent_kind": "EMPTY_STRING"
+        },
+        "judge": "PASS",
+        "reason_code": "EMPTY_STRING_CURSOR_ABSENT"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-NULL-CURSOR-FALSE-OK",
+      "expect": "NULL_CURSOR_FALSE_SUCCESS",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "NULL_CURSOR_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-CLOSED-SET-BROKEN",
+      "expect": "CURSOR_ABSENT_CLOSED_SET_BROKEN",
+      "got": {
+        "detail": {
+          "empty_treated_as": "absent",
+          "null_treated_as": "present"
+        },
+        "judge": "FAIL",
+        "reason_code": "CURSOR_ABSENT_CLOSED_SET_BROKEN"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-CLOSED-SET-CAUGHT",
+      "expect": "CURSOR_ABSENT_CLOSED_SET_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "CURSOR_ABSENT_CLOSED_SET_CAUGHT"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-FULL-PAGE-AT-LIMIT",
+      "expect": "FULL_PAGE_AT_LIMIT",
+      "got": {
+        "detail": {
+          "limit": 20,
+          "returned_n": 20
+        },
+        "judge": "PASS",
+        "reason_code": "FULL_PAGE_AT_LIMIT"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-FULL-PAGE-FALSE-OK",
+      "expect": "FULL_PAGE_FALSE_SUCCESS",
+      "got": {
+        "detail": {
+          "limit": 20,
+          "request_id": "req-305",
+          "returned_n": 20,
+          "severity": "FULL_PAGE_gt_EMPTY_PAGE"
+        },
+        "judge": "FAIL",
+        "reason_code": "FULL_PAGE_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-MEASURED-XINGKONG-372339",
+      "expect": "MEASURED_FULL_PAGE_INCONCLUSIVE",
+      "got": {
+        "detail": {
+          "credit": "行空",
+          "request_id": "372339363507339264"
+        },
+        "judge": "PASS",
+        "reason_code": "MEASURED_FULL_PAGE_INCONCLUSIVE"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-PAIR-HMTRUE-CUREMPTY-CAUGHT",
+      "expect": "PAGINATION_CONTRACT_BREAK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PAGINATION_CONTRACT_BREAK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-PAIR-AGREE-CONTINUE",
+      "expect": "PAIRING_AGREE_CONTINUE",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PAIRING_AGREE_CONTINUE"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-EMPTY-PAGE-BOUNDARY",
+      "expect": "EMPTY_PAGE_BOUNDARY",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "EMPTY_PAGE_BOUNDARY"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-GREEN-TWIN-CONTINUE",
+      "expect": "GREEN_TWIN_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "GREEN_TWIN_OK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-RED-TWIN-CURSOR-DROPPED",
+      "expect": "RED_TWIN_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "RED_TWIN_OK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-BOUNDARY-FALSE-SUCCESS",
+      "expect": "HAS_MORE_NO_CURSOR_FALSE_SUCCESS",
+      "got": {
+        "detail": {
+          "request_id": "req-311",
+          "returned_n": 20
+        },
+        "judge": "FAIL",
+        "reason_code": "HAS_MORE_NO_CURSOR_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-MISSING-LEDGER",
+      "expect": "LEDGER_4TUPLE_MISSING",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "LEDGER_4TUPLE_MISSING"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM3-RETURNED-N-CAUGHT",
+      "expect": "RETURNED_N_MISMATCH",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "RETURNED_N_MISMATCH"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-VALUE-PRESENT-TABLE-TOTAL-MASK",
+      "expect": "VALUE_PRESENT_TABLE_TOTAL_MASK",
+      "got": {
+        "detail": {
+          "table_total": 40
+        },
+        "judge": "FAIL",
+        "reason_code": "VALUE_PRESENT_TABLE_TOTAL_MASK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-VALUE-PRESENT-TABLE-TOTAL-CAUGHT",
+      "expect": "VALUE_PRESENT_TABLE_TOTAL_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "VALUE_PRESENT_TABLE_TOTAL_CAUGHT"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-VALUE-PRESENT-PER-COL-OK",
+      "expect": "VALUE_PRESENT_PER_COL_OK",
+      "got": {
+        "detail": {
+          "cols": [
+            "alpha",
+            "beta"
+          ]
+        },
+        "judge": "PASS",
+        "reason_code": "VALUE_PRESENT_PER_COL_OK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-VALUE-PRESENT-COL-SWAP-NO-DIGEST",
+      "expect": "VALUE_PRESENT_COL_SWAP_NO_DIGEST",
+      "got": {
+        "detail": {
+          "cols": [
+            "alpha",
+            "beta"
+          ]
+        },
+        "judge": "FAIL",
+        "reason_code": "VALUE_PRESENT_COL_SWAP_NO_DIGEST"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-VALUE-PRESENT-COL-SWAP-CAUGHT",
+      "expect": "VALUE_PRESENT_COL_SWAP_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "VALUE_PRESENT_COL_SWAP_CAUGHT"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-PROPORTION-FLOOR-COLLAPSE",
+      "expect": "PROPORTION_FLOOR_COLLAPSE",
+      "got": {
+        "detail": {
+          "exec_count": 2,
+          "floor_value": 0.5
+        },
+        "judge": "FAIL",
+        "reason_code": "PROPORTION_FLOOR_COLLAPSE"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-PROPORTION-FLOOR-COLLAPSE-CAUGHT",
+      "expect": "PROPORTION_FLOOR_COLLAPSE_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "PROPORTION_FLOOR_COLLAPSE_CAUGHT"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-ABSOLUTE-FLOOR-OK",
+      "expect": "ABSOLUTE_FLOOR_OK",
+      "got": {
+        "detail": {
+          "denom_basis": "constant"
+        },
+        "judge": "PASS",
+        "reason_code": "ABSOLUTE_FLOOR_OK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-FLOOR-DENOM-SHARED-FALSE-OK",
+      "expect": "FLOOR_DENOM_SHARED_FALSE_OK",
+      "got": {
+        "detail": {
+          "absolute_denom_basis": null,
+          "proportion_denom_basis": "exec_count"
+        },
+        "judge": "FAIL",
+        "reason_code": "FLOOR_DENOM_SHARED_FALSE_OK"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-FLOOR-DENOM-SHARED-CAUGHT",
+      "expect": "FLOOR_DENOM_SHARED_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "FLOOR_DENOM_SHARED_CAUGHT"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-EXPECTED-MORE-MISMATCH-FALSE-OK",
+      "expect": "EXPECTED_MORE_MISMATCH_FALSE_SUCCESS",
+      "got": {
+        "detail": {
+          "actual_more": false,
+          "expected_more": true
+        },
+        "judge": "FAIL",
+        "reason_code": "EXPECTED_MORE_MISMATCH_FALSE_SUCCESS"
+      },
+      "pass": true
+    },
+    {
+      "case_id": "HM4-EXPECTED-MORE-MISMATCH-CAUGHT",
+      "expect": "EXPECTED_MORE_MISMATCH",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "EXPECTED_MORE_MISMATCH"
+      },
+      "pass": true
+    }
+  ],
+  "rows": 28,
+  "version": "v0.4"
+}

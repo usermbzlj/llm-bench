@@ -1,0 +1,169 @@
+{
+  "fixture": "CLAIM_HOLLOW_PASS",
+  "version": "v0.1",
+  "credit": [
+    "郑珺的hermes",
+    "Grok Bot"
+  ],
+  "n_total": 12,
+  "n_pass": 12,
+  "n_fail": 0,
+  "all_ok": true,
+  "rows": [
+    {
+      "name": "NL-CTRL-03_id_only_false_green",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "HOLLOW_PASS_ID_ONLY",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "HOLLOW_PASS_ID_ONLY",
+        "detail": {
+          "evidence_status": "absent",
+          "statement_locatable": false,
+          "id_only_check": true,
+          "observed_verdict": "PASS"
+        }
+      }
+    },
+    {
+      "name": "NL-CTRL-03_hollow_caught",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "HOLLOW_PASS_CAUGHT",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "HOLLOW_PASS_CAUGHT",
+        "detail": {
+          "observed_verdict": "HOLLOW_PASS"
+        }
+      }
+    },
+    {
+      "name": "TSV-ETO-01_evidence_present",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "EVIDENCE_PRESENT_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "EVIDENCE_PRESENT_OK"
+      }
+    },
+    {
+      "name": "present_mislabeled_absent",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "EVIDENCE_ABSENT_MISLABELED",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "EVIDENCE_ABSENT_MISLABELED",
+        "detail": {
+          "note": "present label but statement not locatable"
+        }
+      }
+    },
+    {
+      "name": "independence_unknown_preserved",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "UNKNOWN_PRESERVED",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "UNKNOWN_PRESERVED"
+      }
+    },
+    {
+      "name": "independence_unknown_collapsed",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "UNKNOWN_COLLAPSED_TO_FALSE",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "UNKNOWN_COLLAPSED_TO_FALSE",
+        "detail": {
+          "basis": {
+            "same_author": false,
+            "same_lab": false,
+            "same_dataset": false,
+            "same_funder": false
+          }
+        }
+      }
+    },
+    {
+      "name": "independence_false_unprobed",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "UNKNOWN_COLLAPSED_TO_FALSE",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "UNKNOWN_COLLAPSED_TO_FALSE",
+        "detail": {
+          "basis": {
+            "same_dataset": false,
+            "same_funder": false
+          }
+        }
+      }
+    },
+    {
+      "name": "TSV-MOR-02_recompute_true",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "RECOMPUTE_NEEDED_HONEST",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "RECOMPUTE_NEEDED_HONEST"
+      }
+    },
+    {
+      "name": "recompute_numeric_false_green",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "RECOMPUTE_NEEDED_FALSE_GREEN",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "RECOMPUTE_NEEDED_FALSE_GREEN",
+        "detail": {
+          "note": "numeric_in_abstract must not force recompute_needed=false without repro path"
+        }
+      }
+    },
+    {
+      "name": "TSV-ETO-01_locatable",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "STATEMENT_LOCATABLE_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "STATEMENT_LOCATABLE_OK"
+      }
+    },
+    {
+      "name": "TSV-MOR-02_evidence_present",
+      "ok": true,
+      "expect_judge": "PASS",
+      "expect_reason": "EVIDENCE_PRESENT_OK",
+      "got": {
+        "judge": "PASS",
+        "reason_code": "EVIDENCE_PRESENT_OK"
+      }
+    },
+    {
+      "name": "hollow_silent_pass",
+      "ok": true,
+      "expect_judge": "FAIL",
+      "expect_reason": "HOLLOW_PASS_ID_ONLY",
+      "got": {
+        "judge": "FAIL",
+        "reason_code": "HOLLOW_PASS_ID_ONLY",
+        "detail": {
+          "evidence_status": "absent",
+          "statement_locatable": false,
+          "id_only_check": false,
+          "observed_verdict": "PASS"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+CLAIM_HOLLOW_PASS v0.1
+shipped: 2026-10-25 Asia/Shanghai
+script_sha256: 186ea93c990becd1eb58e58a913fe81c58e75da1dfa2221ec821e8252e19ee84
+run_out_sha256: c934e131e0364e61fc0b2a88c995f05271bcef6e2063955a6accb6a5fb5ee846
+rows: 12/12
+credits: 郑珺的hermes (seven-col claim table; hollow_pass NL-CTRL-03 —
+         ID reachable + source present but statement not locatable;
+         evidence_status absent≠unknown; independence unknown≠false;
+         recompute_needed fork: no repro path → true, numeric-in-abstract
+         must not force false); Grok Bot (impl)
+Arms: HOLLOW_PASS_ID_ONLY / HOLLOW_PASS_CAUGHT; EVIDENCE_PRESENT_OK /
+      EVIDENCE_ABSENT_MISLABELED; UNKNOWN_COLLAPSED_TO_FALSE / UNKNOWN_PRESERVED;
+      RECOMPUTE_NEEDED_HONEST / RECOMPUTE_NEEDED_FALSE_GREEN; STATEMENT_LOCATABLE_OK.
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+pack(META+py+json) sha256: 653401a80e4aea346ad8d57b5d7c1b88e5058d26b271109854533c7e14792afa

@@ -1,0 +1,7 @@
+HEARTBEAT_ONLY_STREAM v0.3
+Credit: 栀子花 Agent (typed NO_HEARTBEAT "0"/null/-1/1e0 distinct exits + must-fail single-field-diff protocol); 郑珺的hermes (zero-delta FRAME_ABSENT vs FRAME_EMPTY_PAYLOAD + evidence_source∈{counter,seq,ts}); 栀子花 (v0.2); 派蒙+Hermes (v0.1)
+script_sha256: cb147194d2bf3b2c1e91d03406953537c5f8f330e9f3f6e2df4c523603eb1d9e
+run_out_sha256: 474f46a82d29a8d35fcfddcd5d8a4379b168bdd7a843147a0608f70f7a6d58cd
+selftest: 20/20
+Arms new in v0.3: HB_COUNT_STRING_ZERO / HB_COUNT_NULL / HB_COUNT_NEGATIVE / HB_COUNT_FLOAT_COERCE / HB_COUNT_KEY_ABSENT / NO_HEARTBEAT_COLLAPSED; FRAME_ABSENT / FRAME_EMPTY_PAYLOAD / ZERO_DELTA_SOURCE_COLLAPSED / ZERO_DELTA_NO_EVIDENCE_SOURCE; MUSTFAIL_SINGLE_FIELD_OK / MUSTFAIL_REASON_MISMATCH / MUSTFAIL_NOT_RED.
+analyze_only. Stdlib only.

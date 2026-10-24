@@ -1,0 +1,216 @@
+{
+  "fixture": "HEARTBEAT_ONLY_STREAM",
+  "version": "v0.3",
+  "credit": "栀子花 Agent (v0.3 typed NO_HEARTBEAT + must-fail single-field); 郑珺的hermes (zero-delta source); 栀子花 (v0.2); 派蒙+Hermes (v0.1)",
+  "n": 20,
+  "passed": 20,
+  "ok": true,
+  "run_out_sha256": "474f46a82d29a8d35fcfddcd5d8a4379b168bdd7a843147a0608f70f7a6d58cd",
+  "rows": [
+    {
+      "case_id": "HB-COUNT-STRING-ZERO",
+      "expect": "HB_COUNT_STRING_ZERO",
+      "got": "HB_COUNT_STRING_ZERO",
+      "match": true,
+      "detail": {
+        "raw": "0",
+        "key_present": true
+      }
+    },
+    {
+      "case_id": "HB-COUNT-NULL",
+      "expect": "HB_COUNT_NULL",
+      "got": "HB_COUNT_NULL",
+      "match": true,
+      "detail": {
+        "raw": null,
+        "key_present": true
+      }
+    },
+    {
+      "case_id": "HB-COUNT-NEGATIVE",
+      "expect": "HB_COUNT_NEGATIVE",
+      "got": "HB_COUNT_NEGATIVE",
+      "match": true,
+      "detail": {
+        "raw": -1,
+        "key_present": true
+      }
+    },
+    {
+      "case_id": "HB-COUNT-FLOAT-COERCE",
+      "expect": "HB_COUNT_FLOAT_COERCE",
+      "got": "HB_COUNT_FLOAT_COERCE",
+      "match": true,
+      "detail": {
+        "raw": 1.0,
+        "key_present": true
+      }
+    },
+    {
+      "case_id": "HB-COUNT-COLLAPSED-NO-HEARTBEAT",
+      "expect": "NO_HEARTBEAT_COLLAPSED",
+      "got": "NO_HEARTBEAT_COLLAPSED",
+      "match": true,
+      "detail": {
+        "expected_distinct": "HB_COUNT_STRING_ZERO",
+        "impl_reason_code": "NO_HEARTBEAT",
+        "raw": "0"
+      }
+    },
+    {
+      "case_id": "HB-COUNT-KEY-ABSENT",
+      "expect": "HB_COUNT_KEY_ABSENT",
+      "got": "HB_COUNT_KEY_ABSENT",
+      "match": true,
+      "detail": {
+        "raw": null,
+        "key_present": false
+      }
+    },
+    {
+      "case_id": "FRAME-ABSENT-COLLAPSED",
+      "expect": "ZERO_DELTA_SOURCE_COLLAPSED",
+      "got": "ZERO_DELTA_SOURCE_COLLAPSED",
+      "match": true,
+      "detail": {
+        "distinct_should_be": "FRAME_ABSENT",
+        "final_byte_count": 0,
+        "evidence_source": null
+      }
+    },
+    {
+      "case_id": "FRAME-EMPTY-PAYLOAD-DISTINCT",
+      "expect": "FRAME_EMPTY_PAYLOAD",
+      "got": "FRAME_EMPTY_PAYLOAD",
+      "match": true,
+      "detail": {
+        "evidence_source": "seq"
+      }
+    },
+    {
+      "case_id": "FRAME-ABSENT-DISTINCT",
+      "expect": "FRAME_ABSENT",
+      "got": "FRAME_ABSENT",
+      "match": true,
+      "detail": {
+        "evidence_source": "counter"
+      }
+    },
+    {
+      "case_id": "ZERO-DELTA-NO-EVIDENCE-SOURCE",
+      "expect": "ZERO_DELTA_NO_EVIDENCE_SOURCE",
+      "got": "ZERO_DELTA_NO_EVIDENCE_SOURCE",
+      "match": true,
+      "detail": {
+        "evidence_source": null
+      }
+    },
+    {
+      "case_id": "MUSTFAIL-SINGLE-FIELD-OK",
+      "expect": "MUSTFAIL_SINGLE_FIELD_OK",
+      "got": "MUSTFAIL_SINGLE_FIELD_OK",
+      "match": true,
+      "detail": {
+        "mutated_field": "reported_verdict",
+        "expected_reason_code": "HEARTBEAT_ONLY_FALSE_PASS"
+      }
+    },
+    {
+      "case_id": "MUSTFAIL-REASON-MISMATCH",
+      "expect": "MUSTFAIL_REASON_MISMATCH",
+      "got": "MUSTFAIL_REASON_MISMATCH",
+      "match": true,
+      "detail": {
+        "expected": "HEARTBEAT_ONLY_FALSE_PASS",
+        "got": "PARSE_ERROR",
+        "mutated_field": "reported_verdict"
+      }
+    },
+    {
+      "case_id": "MUSTFAIL-NOT-RED",
+      "expect": "MUSTFAIL_NOT_RED",
+      "got": "MUSTFAIL_NOT_RED",
+      "match": true,
+      "detail": {
+        "mutated_field": "business_event_count",
+        "gate_color": "green"
+      }
+    },
+    {
+      "case_id": "TYPED-BOOL-STR-FALSE-PASS",
+      "expect": "TYPED_BOOL_COERCE_FALSE_PASS",
+      "got": "TYPED_BOOL_COERCE_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "suspects": [
+          {
+            "key": "delta_attested",
+            "type": "str",
+            "value": "true"
+          },
+          {
+            "key": "zero_delta_receipt",
+            "type": "int",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "BIZ-KEY-ABSENT-FALSE-PASS",
+      "expect": "BIZ_KEY_ABSENT_FALSE_PASS",
+      "got": "BIZ_KEY_ABSENT_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "business_event_count_key_present": false
+      }
+    },
+    {
+      "case_id": "HONEST-FAIL-COVERS-OVERRUN",
+      "expect": "HONEST_FAIL_COVERS_OVERRUN",
+      "got": "HONEST_FAIL_COVERS_OVERRUN",
+      "match": true,
+      "detail": {
+        "effect_count": 2,
+        "declared_effect": 1,
+        "honesty_label": "HONEST_FAIL",
+        "gate_color": "green"
+      }
+    },
+    {
+      "case_id": "OVERRUN-GATE-RED",
+      "expect": "OVERRUN_GATE_RED",
+      "got": "OVERRUN_GATE_RED",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "HB-ONLY-FALSE-PASS",
+      "expect": "HEARTBEAT_ONLY_FALSE_PASS",
+      "got": "HEARTBEAT_ONLY_FALSE_PASS",
+      "match": true,
+      "detail": {
+        "heartbeat_count": 12,
+        "business_event_count": 0
+      }
+    },
+    {
+      "case_id": "VERIFIED-IDLE-ZERO-DELTA",
+      "expect": "VERIFIED_IDLE",
+      "got": "VERIFIED_IDLE",
+      "match": true,
+      "detail": null
+    },
+    {
+      "case_id": "IDEM-STATUS-FALSE-GREEN",
+      "expect": "IDEM_STATUS_FALSE_GREEN",
+      "got": "IDEM_STATUS_FALSE_GREEN",
+      "match": true,
+      "detail": {
+        "status_text": "DELIVERED-BUT-UNREADABLE",
+        "asserted_on": "status"
+      }
+    }
+  ]
+}

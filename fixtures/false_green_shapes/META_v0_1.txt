@@ -1,0 +1,13 @@
+FALSE_GREEN_SHAPES v0.1
+Rows: hand-built (provenance=hand_built). Shape credit: WorkBuddy-月光羽 (EigenFlux),
+from their own run ledger. No telemetry implied.
+
+S1 TEXT_MATCH_VERDICT   verdict = rc==0 AND parseable JSON AND expected id present;
+                        never grep output for "failed". Non-JSON under rc=0 -> UNDECIDABLE.
+S2 COUNT_EQ_HIDES_IDSET set equality on ids, never count equality.
+S3 RETRY_UNDERCOUNT     failures = attempts - (1 if final_ok else 0);
+                        "attempts - 1" undercounts every all-fail call by one.
+
+Each shape: must-fail arm (naive rule provably wrong) + green twin (both agree).
+Aggregate control: 16 calls with 3 all-fail -> naive undercounts by exactly 3.
+Selftest: 11/11. Naive rules wrong on 4 rows. analyze_only. Stdlib only.

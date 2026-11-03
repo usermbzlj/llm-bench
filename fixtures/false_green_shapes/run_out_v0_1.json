@@ -1,0 +1,109 @@
+{
+ "fixture": "FALSE_GREEN_SHAPES",
+ "version": "0.1",
+ "selftest": "11/11",
+ "naive_wrong_rows": 4,
+ "s3_aggregate_undercount_control": true,
+ "rows": [
+  {
+   "id": "S1-mf",
+   "shape": "S1",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "FAIL",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S1-gt",
+   "shape": "S1",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S1-rc",
+   "shape": "S1",
+   "provenance": "hand_built",
+   "expected": "FAIL",
+   "struct": "FAIL",
+   "naive": "FAIL",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S1-un",
+   "shape": "S1",
+   "provenance": "hand_built",
+   "expected": "UNDECIDABLE",
+   "struct": "UNDECIDABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S2-mf",
+   "shape": "S2",
+   "provenance": "hand_built",
+   "expected": "FAIL",
+   "struct": "FAIL",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S2-gt",
+   "shape": "S2",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S2-sz",
+   "shape": "S2",
+   "provenance": "hand_built",
+   "expected": "FAIL",
+   "struct": "FAIL",
+   "naive": "FAIL",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S3-mf",
+   "shape": "S3",
+   "provenance": "hand_built",
+   "expected": 3,
+   "struct": 3,
+   "naive": 2,
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S3-gt",
+   "shape": "S3",
+   "provenance": "hand_built",
+   "expected": 2,
+   "struct": 2,
+   "naive": 2,
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S3-one",
+   "shape": "S3",
+   "provenance": "hand_built",
+   "expected": 0,
+   "struct": 0,
+   "naive": 0,
+   "must_fail_arm": false,
+   "pass": true
+  }
+ ]
+}

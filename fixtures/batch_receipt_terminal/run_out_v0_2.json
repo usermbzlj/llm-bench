@@ -1,0 +1,266 @@
+{
+ "B1_all_written": {
+  "terminal": "DONE",
+  "reason": "ALL_LANDED_OR_BOUND_DEDUP",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "c": [
+    "ACCEPTED",
+    "WRITTEN"
+   ]
+  },
+  "landed_rate": 1.0,
+  "dedup_rate": 0.0,
+  "naive": "DONE",
+  "v0_1": "DONE",
+  "provenance": "hand_built"
+ },
+ "B2_dedup_bound": {
+  "terminal": "DONE",
+  "reason": "ALL_LANDED_OR_BOUND_DEDUP",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "DEDUP_EQUIVALENT",
+    "BOUND_TO_ORIGINAL"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.5,
+  "naive": "DONE",
+  "v0_1": "DONE",
+  "provenance": "hand_built"
+ },
+ "B2C_dedup_unbound": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "reason": "UNKNOWN_ITEMS",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "UNKNOWN",
+    "DEDUP_UNBOUND"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.0,
+  "naive": "DONE",
+  "v0_1": "RECEIPT_INCOMPLETE",
+  "provenance": "hand_built"
+ },
+ "B3_missing_row": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "reason": "UNKNOWN_ITEMS",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "c": [
+    "UNKNOWN",
+    "NO_RECEIPT_ROW"
+   ]
+  },
+  "landed_rate": 0.667,
+  "dedup_rate": 0.0,
+  "naive": "DONE",
+  "v0_1": "RECEIPT_INCOMPLETE",
+  "provenance": "hand_built"
+ },
+ "B4_timeout_not_rejected": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "reason": "UNKNOWN_ITEMS",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "UNKNOWN",
+    "TIMEOUT_UNRECONCILED"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.0,
+  "naive": "DONE",
+  "v0_1": "RECEIPT_INCOMPLETE",
+  "provenance": "hand_built"
+ },
+ "B5_partial_write": {
+  "terminal": "PARTIAL_WRITE",
+  "reason": "SOME_REJECTED",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "REJECTED",
+    "UNKNOWN_FIELD_label"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.0,
+  "naive": "NOT_DONE",
+  "v0_1": "PARTIAL_WRITE",
+  "provenance": "hand_built"
+ },
+ "B6_all_rejected": {
+  "terminal": "REJECTED_ALL",
+  "reason": "ALL_REJECTED",
+  "per_item": {
+   "a": [
+    "REJECTED",
+    "SCHEMA"
+   ],
+   "b": [
+    "REJECTED",
+    "SCHEMA"
+   ]
+  },
+  "landed_rate": 0.0,
+  "dedup_rate": 0.0,
+  "naive": "NOT_DONE",
+  "v0_1": "REJECTED_ALL",
+  "provenance": "hand_built"
+ },
+ "B7_rejected_without_reason": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "reason": "UNKNOWN_ITEMS",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "UNKNOWN",
+    "UNRECOGNISED_STATUS"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.0,
+  "naive": "DONE",
+  "v0_1": "RECEIPT_INCOMPLETE",
+  "provenance": "hand_built"
+ },
+ "B8_S_kairui_triad": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "reason": "UNKNOWN_ITEMS",
+  "per_item": {
+   "i1": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "i2": [
+    "UNKNOWN",
+    "DEDUP_UNBOUND"
+   ],
+   "i3": [
+    "UNKNOWN",
+    "NO_RECEIPT_ROW"
+   ]
+  },
+  "landed_rate": 0.333,
+  "dedup_rate": 0.0,
+  "naive": "DONE",
+  "v0_1": "RECEIPT_INCOMPLETE",
+  "provenance": "synthetic"
+ },
+ "B9_echo_denominator": {
+  "terminal": "NOT_EVALUABLE",
+  "reason": "DENOMINATOR_UNTRUSTED:receipt_echo",
+  "per_item": {},
+  "landed_rate": null,
+  "dedup_rate": null,
+  "naive": "DONE",
+  "v0_1": "DONE",
+  "provenance": "hand_built"
+ },
+ "B9C_client_manifest_twin": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "reason": "UNKNOWN_ITEMS",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "c": [
+    "UNKNOWN",
+    "NO_RECEIPT_ROW"
+   ]
+  },
+  "landed_rate": 0.667,
+  "dedup_rate": 0.0,
+  "naive": "DONE",
+  "v0_1": "RECEIPT_INCOMPLETE",
+  "provenance": "hand_built"
+ },
+ "B10_manifest_hash_mismatch": {
+  "terminal": "NOT_EVALUABLE",
+  "reason": "MANIFEST_HASH_MISMATCH",
+  "per_item": {},
+  "landed_rate": null,
+  "dedup_rate": null,
+  "naive": "DONE",
+  "v0_1": "DONE",
+  "provenance": "hand_built"
+ },
+ "B11_count_full_bytes_short": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "reason": "BODY_TRUNCATED",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "ACCEPTED",
+    "WRITTEN"
+   ]
+  },
+  "landed_rate": 1.0,
+  "dedup_rate": 0.0,
+  "naive": "DONE",
+  "v0_1": "DONE",
+  "provenance": "hand_built"
+ },
+ "B11C_bytes_match_twin": {
+  "terminal": "DONE",
+  "reason": "ALL_LANDED_OR_BOUND_DEDUP",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "ACCEPTED",
+    "WRITTEN"
+   ]
+  },
+  "landed_rate": 1.0,
+  "dedup_rate": 0.0,
+  "naive": "DONE",
+  "v0_1": "DONE",
+  "provenance": "hand_built"
+ }
+}

@@ -1,0 +1,8 @@
+CHAIN_RESOLUTION_ORDER v0.2
+critique credit: Hermes (EigenFlux) — first-failure verdict makes "no cycle reported" ambiguous (absent vs never evaluated); CYCLE/LIMIT boundary must be fixed by rule.
+impl: Grok Bot. provenance: hand_built (all rows); analyze_only; stdlib only
+run: python3 chain_resolution_order_v0_2.py  (exit 0 iff selftest all pass)
+selftest: 19/19 (11 rows + 8 checks). v0.1 verdicts unchanged.
+new fields: check_status {FAIL|PASS|NOT_EVALUATED} per check; masked = later failures found by a diagnostic-only shadow walk (never changes verdict).
+M1/M1C: same verdict WRITER_MISMATCH; only masked=["CYCLE"] vs [] separates them -> verdict-only diff shows 0 rows (D4).
+B1/B2: revisit observed within max_steps -> CONDITIONAL_CYCLE; budget exhausted first -> UNDECIDABLE_LIMIT even if the graph cycles later; CYCLE stays NOT_EVALUATED.

@@ -1,0 +1,209 @@
+{
+ "check_order": [
+  "EXISTENCE",
+  "WRITER",
+  "REWRITE_TARGET",
+  "CYCLE"
+ ],
+ "rows": {
+  "G1_clean": {
+   "verdict": "RESOLVED",
+   "hop": 1,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "PASS"
+   },
+   "masked": []
+  },
+  "R1_missing": {
+   "verdict": "SUCCESSOR_MISSING",
+   "hop": 1,
+   "node": "zz",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "FAIL",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "R2_writer": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "FAIL",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "R3_rewrite": {
+   "verdict": "REWRITE_TARGET_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "FAIL",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "T1_writer_and_rewrite": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 0,
+   "node": "a",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "FAIL",
+    "REWRITE_TARGET": "NOT_EVALUATED",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": [
+    "REWRITE_TARGET"
+   ]
+  },
+  "C1_cycle": {
+   "verdict": "CONDITIONAL_CYCLE",
+   "hop": 3,
+   "cycle_start_index": 1,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "FAIL"
+   },
+   "masked": []
+  },
+  "L1_limit": {
+   "verdict": "UNDECIDABLE_LIMIT",
+   "hop": 5,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "M1_writer_masks_cycle": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "FAIL",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": [
+    "CYCLE"
+   ]
+  },
+  "M1C_writer_no_cycle": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "FAIL",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "B1_cycle_at_last_step": {
+   "verdict": "CONDITIONAL_CYCLE",
+   "hop": 2,
+   "cycle_start_index": 0,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "FAIL"
+   },
+   "masked": []
+  },
+  "B2_cycle_past_budget": {
+   "verdict": "UNDECIDABLE_LIMIT",
+   "hop": 2,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  }
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "check_order": [
+  "EXISTENCE",
+  "WRITER",
+  "REWRITE_TARGET",
+  "CYCLE"
+ ],
+ "rows": {
+  "G1_clean": {
+   "verdict": "RESOLVED",
+   "hop": 1,
+   "path": [
+    "a",
+    "b"
+   ],
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ]
+  },
+  "R1_missing": {
+   "verdict": "SUCCESSOR_MISSING",
+   "hop": 1,
+   "node": "zz",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ]
+  },
+  "R2_writer": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ]
+  },
+  "R3_rewrite": {
+   "verdict": "REWRITE_TARGET_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ]
+  },
+  "T1_writer_and_rewrite": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 0,
+   "node": "a",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ]
+  },
+  "C1_cycle": {
+   "verdict": "CONDITIONAL_CYCLE",
+   "hop": 3,
+   "cycle_start_index": 1,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ]
+  },
+  "L1_limit": {
+   "verdict": "UNDECIDABLE_LIMIT",
+   "hop": 5,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ]
+  }
+ }
+}

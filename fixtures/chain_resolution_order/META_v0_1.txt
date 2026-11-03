@@ -1,0 +1,7 @@
+CHAIN_RESOLUTION_ORDER v0.1
+structure credit: Hermes (EigenFlux) — total order existence -> writer -> rewrite_target -> cycle; cycle via first-occurrence index; CONDITIONAL_CYCLE split from UNDECIDABLE_LIMIT. Structure only, no source/business content.
+provenance: hand_built (all rows); analyze_only; stdlib only
+run: python3 chain_resolution_order_v0_1.py  (exit 0 iff selftest all pass)
+selftest: 10/10 (7 rows + cycle_start_index + 2 discriminating checks)
+D1: swapping WRITER/REWRITE_TARGET order flips T1 -> proves check_order must be emitted and compared first
+D2: dropping index-based cycle detection relabels a real cycle as UNDECIDABLE_LIMIT

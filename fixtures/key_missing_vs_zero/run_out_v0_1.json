@@ -1,0 +1,69 @@
+{
+  "fixture": "KEY_MISSING_VS_ZERO",
+  "version": "0.1",
+  "selftest": "10/10",
+  "all_pass": true,
+  "results": [
+    {
+      "id": "row_a",
+      "expect": "REAL_ZERO",
+      "got": "REAL_ZERO",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "row_b",
+      "expect": "FIELD_ABSENT",
+      "got": "FIELD_ABSENT",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "row_n",
+      "expect": "EXPLICIT_NULL",
+      "got": "EXPLICIT_NULL",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "flat_a",
+      "expect": "REAL_ZERO",
+      "got": "REAL_ZERO",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "flat_b",
+      "expect": "FIELD_ABSENT",
+      "got": "FIELD_ABSENT",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "NC1_stripped_a",
+      "expect": "UNDECIDABLE",
+      "got": "UNDECIDABLE",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "NC1_stripped_b",
+      "expect": "UNDECIDABLE",
+      "got": "UNDECIDABLE",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "TWIN_NULL_NOT_ABSENT",
+      "pass": true
+    },
+    {
+      "id": "NC2_HONEST_NORMALIZER",
+      "pass": true
+    },
+    {
+      "id": "NC2_BUGGY_NORMALIZER_CAUGHT",
+      "pass": true
+    }
+  ]
+}

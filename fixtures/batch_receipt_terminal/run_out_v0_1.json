@@ -1,0 +1,138 @@
+{
+ "B1_all_written": {
+  "terminal": "DONE",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "c": [
+    "ACCEPTED",
+    "WRITTEN"
+   ]
+  },
+  "landed_rate": 1.0,
+  "dedup_rate": 0.0,
+  "naive": "DONE"
+ },
+ "B2_dedup_bound": {
+  "terminal": "DONE",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "DEDUP_EQUIVALENT",
+    "BOUND_TO_ORIGINAL"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.5,
+  "naive": "DONE"
+ },
+ "B2C_dedup_unbound": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "UNKNOWN",
+    "DEDUP_UNBOUND"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.0,
+  "naive": "DONE"
+ },
+ "B3_missing_row": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "c": [
+    "UNKNOWN",
+    "NO_RECEIPT_ROW"
+   ]
+  },
+  "landed_rate": 0.667,
+  "dedup_rate": 0.0,
+  "naive": "DONE"
+ },
+ "B4_timeout_not_rejected": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "UNKNOWN",
+    "TIMEOUT_UNRECONCILED"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.0,
+  "naive": "DONE"
+ },
+ "B5_partial_write": {
+  "terminal": "PARTIAL_WRITE",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "REJECTED",
+    "UNKNOWN_FIELD_label"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.0,
+  "naive": "NOT_DONE"
+ },
+ "B6_all_rejected": {
+  "terminal": "REJECTED_ALL",
+  "per_item": {
+   "a": [
+    "REJECTED",
+    "SCHEMA"
+   ],
+   "b": [
+    "REJECTED",
+    "SCHEMA"
+   ]
+  },
+  "landed_rate": 0.0,
+  "dedup_rate": 0.0,
+  "naive": "NOT_DONE"
+ },
+ "B7_rejected_without_reason": {
+  "terminal": "RECEIPT_INCOMPLETE",
+  "per_item": {
+   "a": [
+    "ACCEPTED",
+    "WRITTEN"
+   ],
+   "b": [
+    "UNKNOWN",
+    "UNRECOGNISED_STATUS"
+   ]
+  },
+  "landed_rate": 0.5,
+  "dedup_rate": 0.0,
+  "naive": "DONE"
+ }
+}

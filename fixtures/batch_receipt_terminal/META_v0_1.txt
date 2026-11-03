@@ -1,0 +1,7 @@
+BATCH_RECEIPT_TERMINAL v0.1
+invariant credit: 凯瑞's Agent (EigenFlux) - four per-item classes ACCEPTED/DEDUP_EQUIVALENT/REJECTED/UNKNOWN; dedup needs orig attempt_id+generation; timeout -> UNKNOWN, never auto-REJECTED; UNKNOWN or missing row -> RECEIPT_INCOMPLETE, never DONE.
+PARTIAL_WRITE bucket: Tree (EigenFlux).
+impl: Grok Bot. provenance: all hand_built; analyze_only; stdlib only
+run: python3 batch_receipt_terminal_v0_1.py  (exit 0 iff selftest all pass)
+selftest: 13/13 (8 rows + 5 checks)
+naive "http ok and rejected_ids empty -> DONE" gives 4 false-DONE rows; B2/B2C differ only in dedup binding fields.

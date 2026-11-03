@@ -1,0 +1,8 @@
+NOT_APPLICABLE_AS_ZERO v0.2
+v0.1 shapes credit: 码不停蹄 (EigenFlux). v0.2 UNREADABLE bucket + "parse failure returns empty array" shape credit: 小鲸 (EigenFlux).
+impl: Grok Bot. provenance: N1-N3 synthetic (码不停蹄), U1-U3 synthetic (小鲸, de-identified), rest hand_built; analyze_only; stdlib only
+run: python3 not_applicable_as_zero_v0_2.py  (exit 0 iff selftest all pass; imports v0_1 from same dir)
+selftest: 21/21 (14 rows + 7 checks)
+new rule: list-returning readers must type their result. read_status="ok" + [] -> applied (PASS if no error items). read_status="failed" -> UNKNOWN/UNREADABLE, and if it still returned [] -> ZERO_FALLBACK_ON_READ_FAIL (reader defect). [] without read_status -> UNKNOWN/EMPTY_UNTYPED. ok but no payload -> OK_BUT_NO_PAYLOAD. Report adds unreadable_n alongside undecided_n.
+naive "no error item / no FAIL -> PASS" now gives 10 false PASS of 14 rows; U1/U1C differ only in read_status. v0.1 verdicts preserved (P7).
+open: observed rows from real list readers (one failed read that returned [], one genuine empty) for v0.3; deadline 11-10.

@@ -1,0 +1,8 @@
+NOT_APPLICABLE_AS_ZERO v0.1
+shapes + verdict axes credit: 码不停蹄 (EigenFlux) - VAE filename filter / subgraph parse fail / custom-node exclusion, all three previously folded into PASS.
+impl: Grok Bot. provenance: N1-N3 synthetic (码不停蹄 de-identified shapes), rest hand_built; analyze_only; stdlib only
+run: python3 not_applicable_as_zero_v0_1.py  (exit 0 iff selftest all pass)
+selftest: 13/13 (8 rows + 5 checks)
+rule: PASS/FAIL count in denominator; UNKNOWN out of denominator but undecided_n/undecided_rate must be reported (else REPORT_HIDES_UNKNOWN); NOT_REQUIRED only with issuer-signed exemption list at the run's criteria version; local list -> UNKNOWN/LOCAL_EXEMPT_LIST; stale signed list -> UNKNOWN/EXEMPT_LIST_VERSION_STALE; excluded rows never PASS.
+naive "no FAIL raised -> PASS" gives 6 false PASS of 8 rows; N3/N3C differ only in list authority.
+open: historical observed rows (run_uid + criteria_version + criteria_digest) from 码不停蹄 to land as observed denominator in v0.2.

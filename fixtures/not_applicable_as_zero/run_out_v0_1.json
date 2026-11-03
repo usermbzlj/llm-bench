@@ -1,0 +1,130 @@
+{
+ "rows": {
+  "N1_vae_name_unresolved": {
+   "status": "UNKNOWN",
+   "code": "TARGET_UNRESOLVED",
+   "naive": "PASS"
+  },
+  "N1C_vae_name_resolved_ok": {
+   "status": "PASS",
+   "code": "APPLIED",
+   "naive": "PASS"
+  },
+  "N2_subgraph_parse_fail": {
+   "status": "UNKNOWN",
+   "code": "UNDECIDABLE_PARSE",
+   "naive": "PASS"
+  },
+  "N2C_subgraph_parsed_fail": {
+   "status": "FAIL",
+   "code": "APPLIED",
+   "naive": "FAIL"
+  },
+  "N3_excluded_local_list": {
+   "status": "UNKNOWN",
+   "code": "LOCAL_EXEMPT_LIST",
+   "naive": "PASS"
+  },
+  "N3C_excluded_issuer_list": {
+   "status": "NOT_REQUIRED",
+   "code": "ISSUER_EXEMPT",
+   "naive": "PASS"
+  },
+  "N3S_issuer_list_stale_version": {
+   "status": "UNKNOWN",
+   "code": "EXEMPT_LIST_VERSION_STALE",
+   "naive": "PASS"
+  },
+  "N4_applied_no_evidence": {
+   "status": "UNKNOWN",
+   "code": "NO_EVIDENCE",
+   "naive": "PASS"
+  }
+ },
+ "report_full": {
+  "pass": 1,
+  "fail": 1,
+  "denominator": 2,
+  "not_required": 1,
+  "pass_rate": 0.5,
+  "undecided_n": 5,
+  "undecided_rate": 0.625,
+  "gate": "OK"
+ },
+ "report_hidden": {
+  "pass": 1,
+  "fail": 1,
+  "denominator": 2,
+  "not_required": 1,
+  "pass_rate": 0.5,
+  "gate": "REPORT_HIDES_UNKNOWN"
+ },
+ "checks": [
+  {
+   "name": "N1_vae_name_unresolved",
+   "ok": true,
+   "detail": "UNKNOWN/TARGET_UNRESOLVED (expect UNKNOWN)"
+  },
+  {
+   "name": "N1C_vae_name_resolved_ok",
+   "ok": true,
+   "detail": "PASS/APPLIED (expect PASS)"
+  },
+  {
+   "name": "N2_subgraph_parse_fail",
+   "ok": true,
+   "detail": "UNKNOWN/UNDECIDABLE_PARSE (expect UNKNOWN)"
+  },
+  {
+   "name": "N2C_subgraph_parsed_fail",
+   "ok": true,
+   "detail": "FAIL/APPLIED (expect FAIL)"
+  },
+  {
+   "name": "N3_excluded_local_list",
+   "ok": true,
+   "detail": "UNKNOWN/LOCAL_EXEMPT_LIST (expect UNKNOWN)"
+  },
+  {
+   "name": "N3C_excluded_issuer_list",
+   "ok": true,
+   "detail": "NOT_REQUIRED/ISSUER_EXEMPT (expect NOT_REQUIRED)"
+  },
+  {
+   "name": "N3S_issuer_list_stale_version",
+   "ok": true,
+   "detail": "UNKNOWN/EXEMPT_LIST_VERSION_STALE (expect UNKNOWN)"
+  },
+  {
+   "name": "N4_applied_no_evidence",
+   "ok": true,
+   "detail": "UNKNOWN/NO_EVIDENCE (expect UNKNOWN)"
+  },
+  {
+   "name": "P1_naive_false_pass_count",
+   "ok": true,
+   "detail": "naive PASS on ['N1_vae_name_unresolved', 'N2_subgraph_parse_fail', 'N3_excluded_local_list', 'N3C_excluded_issuer_list', 'N3S_issuer_list_stale_version', 'N4_applied_no_evidence']"
+  },
+  {
+   "name": "P2_unknown_out_of_denominator",
+   "ok": true,
+   "detail": "{\"pass\": 1, \"fail\": 1, \"denominator\": 2, \"not_required\": 1, \"pass_rate\": 0.5, \"undecided_n\": 5, \"undecided_rate\": 0.625, \"gate\": \"OK\"}"
+  },
+  {
+   "name": "P3_hidden_unknown_gated",
+   "ok": true,
+   "detail": "{\"pass\": 1, \"fail\": 1, \"denominator\": 2, \"not_required\": 1, \"pass_rate\": 0.5, \"gate\": \"REPORT_HIDES_UNKNOWN\"}"
+  },
+  {
+   "name": "P4_N3_pair_differs_only_in_list_authority",
+   "ok": true,
+   "detail": "diff=['exclusion_list_criteria_version', 'exclusion_list_issuer_signed']"
+  },
+  {
+   "name": "P5_never_pass_on_excluded",
+   "ok": true,
+   "detail": "excluded rows never PASS"
+  }
+ ],
+ "selftest": "13/13"
+}

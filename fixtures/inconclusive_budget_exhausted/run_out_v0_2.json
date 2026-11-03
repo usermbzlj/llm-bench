@@ -1,0 +1,138 @@
+{
+  "fixture": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+  "version": "0.2",
+  "selftest": "10/10",
+  "naive_wrong": "6/10",
+  "rows": [
+    {
+      "id": "L1",
+      "provenance": "observed_desensitized",
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "layer_code": "LAYER_UNPROVEN_PRE_HEADERS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_PRE_HEADERS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "id": "L2",
+      "provenance": "hand_built",
+      "verdict": "SERVICE_DOWN_CURRENT",
+      "layer_code": "LAYER_PROVEN_CONNECT",
+      "expect": [
+        "SERVICE_DOWN_CURRENT",
+        "LAYER_PROVEN_CONNECT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": false
+    },
+    {
+      "id": "L3",
+      "provenance": "hand_built",
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "layer_code": "PROBE_MISSING",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "PROBE_MISSING"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "id": "L4",
+      "provenance": "hand_built",
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "layer_code": "LOCAL_PATH_SUSPECT",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LOCAL_PATH_SUSPECT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "id": "L5",
+      "provenance": "hand_built",
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "layer_code": "LAYER_PROVEN_TLS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_PROVEN_TLS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "id": "L6",
+      "provenance": "hand_built",
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "layer_code": "LAYER_UNPROVEN_PRE_HEADERS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_PRE_HEADERS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "id": "L7",
+      "provenance": "hand_built",
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "layer_code": "LAYER_UNPROVEN_NO_TEXT",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_NO_TEXT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "id": "L8",
+      "provenance": "hand_built",
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "layer_code": "CONNECT_SINGLE",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "CONNECT_SINGLE"
+      ],
+      "pass": true,
+      "naive_verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "naive_wrong": false
+    },
+    {
+      "id": "L9",
+      "provenance": "hand_built",
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "layer_code": "LAYER_PROVEN_BODY",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_PROVEN_BODY"
+      ],
+      "pass": true,
+      "naive_verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "naive_wrong": false
+    },
+    {
+      "id": "L10",
+      "provenance": "hand_built",
+      "verdict": "RETRYING",
+      "layer_code": "BUDGET_OPEN",
+      "expect": [
+        "RETRYING",
+        "BUDGET_OPEN"
+      ],
+      "pass": true,
+      "naive_verdict": "RETRYING",
+      "naive_wrong": false
+    }
+  ]
+}

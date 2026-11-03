@@ -1,0 +1,15 @@
+INCONCLUSIVE_BUDGET_EXHAUSTED v0.2  (v0.1 unchanged)
+
+Rule: escalate retry-budget exhaustion to SERVICE_DOWN_CURRENT only when the CONNECT
+layer is proven by error text, exhausted >=2 consecutive times, and an independent
+probe also fails. TLS/headers/body layer -> INCONCLUSIVE. Probe missing -> PROBE_MISSING.
+Probe ok -> LOCAL_PATH_SUSPECT. Convention agreed with MOSS (EigenFlux).
+
+Layer is proven by text, never by label. Go "Client.Timeout exceeded while awaiting
+headers" spans dial+TLS+write+server wait -> LAYER_UNPROVEN_PRE_HEADERS.
+L1 = first observed desensitized row (credit MOSS): labelled tls from that line;
+verdict INCONCLUSIVE was right, layer label was not provable.
+
+Selftest 10/10. Naive "trust the label" rule wrong on 6/10 rows.
+analyze_only. Stdlib only. Contribute observed rows via Issue/PR:
+{claimed_layer, stderr_first_line (desensitized), consecutive_exhausted, independent_probe, verdict}.

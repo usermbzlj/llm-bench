@@ -1,0 +1,180 @@
+{
+ "fixture": "FALSE_GREEN_SHAPES",
+ "version": "0.2",
+ "selftest": "18/18",
+ "naive_wrong_rows": 9,
+ "naive_forced_verdicts_on_unknown": 6,
+ "forced_verdict_control": true,
+ "rows": [
+  {
+   "id": "S7-mf",
+   "shape": "S7",
+   "provenance": "hand_built",
+   "expected": "UNDECIDABLE",
+   "struct": "UNDECIDABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S7-mf2",
+   "shape": "S7",
+   "provenance": "hand_built",
+   "expected": "UNDECIDABLE",
+   "struct": "UNDECIDABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S7-gt",
+   "shape": "S7",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S7-rc",
+   "shape": "S7",
+   "provenance": "hand_built",
+   "expected": "FAIL",
+   "struct": "FAIL",
+   "naive": "FAIL",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S8-mf",
+   "shape": "S8",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/SHAPE_DRIFT_UNVERSIONED",
+   "struct": "UNKNOWN/SHAPE_DRIFT_UNVERSIONED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S8-mf2",
+   "shape": "S8",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/KEYSET_MEMBER_DRIFT",
+   "struct": "UNKNOWN/KEYSET_MEMBER_DRIFT",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S8-gt",
+   "shape": "S8",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S8-gt2",
+   "shape": "S8",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S9-mf",
+   "shape": "S9",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/OK_FIELD_DEGRADED",
+   "struct": "FAIL/OK_FIELD_DEGRADED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S9-un",
+   "shape": "S9",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN",
+   "struct": "UNKNOWN",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S9-gt",
+   "shape": "S9",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S10-mf",
+   "shape": "S10",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/EVAL_NEVER_EXECUTED",
+   "struct": "FAIL/EVAL_NEVER_EXECUTED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S10-gt",
+   "shape": "S10",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S11-mf",
+   "shape": "S11",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/COVERAGE_GAP",
+   "struct": "FAIL/COVERAGE_GAP",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S11-un",
+   "shape": "S11",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN",
+   "struct": "UNKNOWN",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S11-gt",
+   "shape": "S11",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S11-sh",
+   "shape": "S11",
+   "provenance": "hand_built",
+   "expected": "FAIL",
+   "struct": "FAIL",
+   "naive": "FAIL",
+   "must_fail_arm": false,
+   "pass": true
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+FALSE_GREEN_SHAPES v0.2  (v0.1 S1-S3 unchanged; S4-S6 reserved, landed in other fixtures)
+
+S7  END_REASON_NOT_EXHAUSTED  OK needs rc=0 AND end_reason=exhausted AND has_more=False;
+                              rc=0 partial pull -> UNDECIDABLE.        credit 郑珺的hermes
+S8  SHAPE_DRIFT_UNVERSIONED   key-set != pinned with same schema_version -> UNKNOWN;
+    KEYSET_MEMBER_DRIFT       pinned member missing -> UNKNOWN; version bump -> evaluate. credit K
+S9  OK_FIELD_DEGRADED         ok=true must resolve to >=1 usable business source > 0;
+                              all zero -> FAIL, path absent -> UNKNOWN.  observed shape credit 小白龙
+S10 SELFTEST_GREEN_EVAL_ZERO  rc=0 + selftest 27/27 + report with requests_sent=0 or
+                              exceptions on every item -> FAIL/EVAL_NEVER_EXECUTED. observed row credit 小白龙
+S11 COVERAGE_COUNT_NOT_SPAN   count 7/7 needs expected_span (newest age, max adjacent gap);
+                              5d17h hole -> FAIL/COVERAGE_GAP; no ts -> UNKNOWN. observed row credit 小白龙
+
+Provenance: observed_shape_desensitized rows = contributor-supplied desensitized shapes
+(values re-keyed, no raw telemetry); all other rows hand_built.
+Selftest 18/18. Naive rules wrong on 9/17 rows; naive forces OK/FAIL on all 6 can't-tell rows.
+analyze_only. Stdlib only. Contribute observed rows: Issue/PR with one row per shape + provenance.

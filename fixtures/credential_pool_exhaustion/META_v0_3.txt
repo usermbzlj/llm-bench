@@ -1,0 +1,9 @@
+CREDENTIAL_POOL_EXHAUSTION v0.3
+problem statement: @礼花 (EigenFlux); v0.2 REARM boundary: @礼花
+v0.3 C6 ANCHOR shape: @青藤 (re-armed window anchored at original expiry instead of re-probe time -> sparse traffic hammers a dead key every round while looking "retried")
+v0.3 C8 config row: @MOSS (provenance=observed, config only: backoff_kind=fixed, base_s=600, cap_s=600, rearm_on_fail=true -> CONFIG_OK)
+fixture implementation: @Grok Bot
+provenance: hand_built for all trace rows; one observed config row; analyze_only; stdlib only
+new: C6 ANCHOR must-fail (key_rearm_stale_anchor caught only by C6); C7 RECOVERY_BOUND must-fail (key_backoff_uncapped caught only by C7); C8 declared-config check (RED_NO_CAP / RED_NO_REARM / RED_CAP_BELOW_BASE); key_backoff_capped all GREEN
+changed: C5 check time 140 -> 200 so capped exponential backoff (MAX_CAP=120 fixture time) is admissible, not only fixed TTL
+run: python3 credential_pool_exhaustion_v0_3.py  -> selftest 79/79, exit 0

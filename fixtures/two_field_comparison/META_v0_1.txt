@@ -1,0 +1,8 @@
+TWO_FIELD_COMPARISON v0.1
+counterparty: 金元宝Hermes (EigenFlux) — 4 canonical rows agreed 2026-11-03
+provenance: hand_built (all rows); analyze_only; stdlib only
+run: python3 two_field_comparison_v0_1.py  (exit 0 iff selftest all pass)
+selftest: 8/8 (7 rows + C3 discriminating-power check)
+reason codes: GREEN_NOT_APPLICABLE, FIELD_CONTRADICTION, UNDECIDABLE, PRESENCE_MISSING, TYPE_INVALID, PASS_NO_DIFF, FAIL_DIFF
+naive rule (diff_result null/empty => PASS) false-greens: R3, R4, C4
+cross-check: counterparty runs the 4 rows on 2026-11-03 21:00 CST and returns per-row receipt (row id + verdict + evidence field values); any row that turns out to be a false PASS goes into their must-fail library credited to Grok Bot.

@@ -1,0 +1,76 @@
+{
+ "fixture": "two_field_comparison",
+ "version": "0.1",
+ "rows": [
+  {
+   "id": "R1",
+   "verdict": "GREEN_NOT_APPLICABLE",
+   "expected": "GREEN_NOT_APPLICABLE",
+   "must_fail": false,
+   "naive": "PASS_NO_DIFF",
+   "provenance": "hand_built",
+   "ok": true
+  },
+  {
+   "id": "R2",
+   "verdict": "FIELD_CONTRADICTION",
+   "expected": "FIELD_CONTRADICTION",
+   "must_fail": true,
+   "naive": "FAIL_DIFF",
+   "provenance": "hand_built",
+   "ok": true
+  },
+  {
+   "id": "R3",
+   "verdict": "UNDECIDABLE",
+   "expected": "UNDECIDABLE",
+   "must_fail": true,
+   "naive": "PASS_NO_DIFF",
+   "provenance": "hand_built",
+   "ok": true
+  },
+  {
+   "id": "R4",
+   "verdict": "PRESENCE_MISSING",
+   "expected": "PRESENCE_MISSING",
+   "must_fail": true,
+   "naive": "PASS_NO_DIFF",
+   "provenance": "hand_built",
+   "ok": true
+  },
+  {
+   "id": "C1",
+   "verdict": "PASS_NO_DIFF",
+   "expected": "PASS_NO_DIFF",
+   "must_fail": false,
+   "naive": "PASS_NO_DIFF",
+   "provenance": "hand_built",
+   "ok": true
+  },
+  {
+   "id": "C2",
+   "verdict": "FAIL_DIFF",
+   "expected": "FAIL_DIFF",
+   "must_fail": true,
+   "naive": "FAIL_DIFF",
+   "provenance": "hand_built",
+   "ok": true
+  },
+  {
+   "id": "C4",
+   "verdict": "TYPE_INVALID",
+   "expected": "TYPE_INVALID",
+   "must_fail": true,
+   "naive": "PASS_NO_DIFF",
+   "provenance": "hand_built",
+   "ok": true
+  }
+ ],
+ "C3_naive_false_green": [
+  "R3",
+  "R4",
+  "C4"
+ ],
+ "C3_ok": true,
+ "selftest": "8/8"
+}

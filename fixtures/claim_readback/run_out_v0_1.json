@@ -1,0 +1,184 @@
+{
+ "rows": {
+  "K1_list_visible_detail_404_feedback_accepted": {
+   "status": "FAIL",
+   "code": "DETAIL_UNREAD",
+   "why": "read status 404",
+   "naive": "PASS"
+  },
+  "K1C_same_but_detail_200": {
+   "status": "PASS",
+   "code": "READ_VERIFIED",
+   "naive": "PASS"
+  },
+  "K2_detail_timeout_feedback_accepted": {
+   "status": "FAIL",
+   "code": "DETAIL_UNREAD",
+   "why": "read status timeout",
+   "naive": "PASS"
+  },
+  "K3_200_empty_body_feedback_accepted": {
+   "status": "FAIL",
+   "code": "DETAIL_UNREAD",
+   "why": "2xx empty body",
+   "naive": "PASS"
+  },
+  "K4_no_read_attempted_scored_from_preview": {
+   "status": "FAIL",
+   "code": "DETAIL_UNREAD",
+   "why": "no read attempted",
+   "naive": "PASS"
+  },
+  "K5_read_ok_but_read_log_missing": {
+   "status": "UNKNOWN",
+   "code": "EVIDENCE_DROPPED",
+   "naive": "PASS"
+  },
+  "K5B_read_log_digest_mismatch": {
+   "status": "UNKNOWN",
+   "code": "EVIDENCE_DROPPED",
+   "why": "log digest != body digest",
+   "naive": "PASS"
+  },
+  "K6_feedback_joined_to_other_exposure": {
+   "status": "UNKNOWN",
+   "code": "CORRELATION_BROKEN",
+   "keys": [
+    "c1",
+    "c2"
+   ],
+   "naive": "PASS"
+  },
+  "K6B_no_correlation_key": {
+   "status": "UNKNOWN",
+   "code": "CORRELATION_BROKEN",
+   "keys": [
+    "None"
+   ],
+   "naive": "PASS"
+  },
+  "K7_detail_older_revision_than_list": {
+   "status": "FAIL",
+   "code": "READ_VERSION_MISMATCH",
+   "naive": "PASS"
+  },
+  "K8_detail_404_no_feedback_honest": {
+   "status": "NOT_CLAIMED",
+   "code": "HONEST_SKIP",
+   "naive": "NOT_CLAIMED"
+  },
+  "K8B_detail_404_feedback_rejected": {
+   "status": "NOT_CLAIMED",
+   "code": "HONEST_SKIP",
+   "naive": "NOT_CLAIMED"
+  }
+ },
+ "report_honest": {
+  "feedback_accepted_n": 10,
+  "read_verified_n": 1,
+  "fail_n": 5,
+  "unknown_n": 4,
+  "not_claimed_n": 2,
+  "denominator": 6,
+  "read_rate": 0.16666666666666666,
+  "gate": "OK"
+ },
+ "report_feedback_as_read": {
+  "feedback_accepted_n": 10,
+  "read_verified_n": 10,
+  "fail_n": 5,
+  "unknown_n": 4,
+  "not_claimed_n": 2,
+  "denominator": 6,
+  "read_rate": 0.16666666666666666,
+  "gate": "FEEDBACK_AS_READ_PROOF"
+ },
+ "checks": [
+  {
+   "name": "K1_list_visible_detail_404_feedback_accepted",
+   "ok": true,
+   "detail": "FAIL/DETAIL_UNREAD (expect FAIL/DETAIL_UNREAD)"
+  },
+  {
+   "name": "K1C_same_but_detail_200",
+   "ok": true,
+   "detail": "PASS/READ_VERIFIED (expect PASS/READ_VERIFIED)"
+  },
+  {
+   "name": "K2_detail_timeout_feedback_accepted",
+   "ok": true,
+   "detail": "FAIL/DETAIL_UNREAD (expect FAIL/DETAIL_UNREAD)"
+  },
+  {
+   "name": "K3_200_empty_body_feedback_accepted",
+   "ok": true,
+   "detail": "FAIL/DETAIL_UNREAD (expect FAIL/DETAIL_UNREAD)"
+  },
+  {
+   "name": "K4_no_read_attempted_scored_from_preview",
+   "ok": true,
+   "detail": "FAIL/DETAIL_UNREAD (expect FAIL/DETAIL_UNREAD)"
+  },
+  {
+   "name": "K5_read_ok_but_read_log_missing",
+   "ok": true,
+   "detail": "UNKNOWN/EVIDENCE_DROPPED (expect UNKNOWN/EVIDENCE_DROPPED)"
+  },
+  {
+   "name": "K5B_read_log_digest_mismatch",
+   "ok": true,
+   "detail": "UNKNOWN/EVIDENCE_DROPPED (expect UNKNOWN/EVIDENCE_DROPPED)"
+  },
+  {
+   "name": "K6_feedback_joined_to_other_exposure",
+   "ok": true,
+   "detail": "UNKNOWN/CORRELATION_BROKEN (expect UNKNOWN/CORRELATION_BROKEN)"
+  },
+  {
+   "name": "K6B_no_correlation_key",
+   "ok": true,
+   "detail": "UNKNOWN/CORRELATION_BROKEN (expect UNKNOWN/CORRELATION_BROKEN)"
+  },
+  {
+   "name": "K7_detail_older_revision_than_list",
+   "ok": true,
+   "detail": "FAIL/READ_VERSION_MISMATCH (expect FAIL/READ_VERSION_MISMATCH)"
+  },
+  {
+   "name": "K8_detail_404_no_feedback_honest",
+   "ok": true,
+   "detail": "NOT_CLAIMED/HONEST_SKIP (expect NOT_CLAIMED/HONEST_SKIP)"
+  },
+  {
+   "name": "K8B_detail_404_feedback_rejected",
+   "ok": true,
+   "detail": "NOT_CLAIMED/HONEST_SKIP (expect NOT_CLAIMED/HONEST_SKIP)"
+  },
+  {
+   "name": "P1_naive_false_read_count",
+   "ok": true,
+   "detail": "naive 'feedback accepted -> read' false on 9/12: ['K1_list_visible_detail_404_feedback_accepted', 'K2_detail_timeout_feedback_accepted', 'K3_200_empty_body_feedback_accepted', 'K4_no_read_attempted_scored_from_preview', 'K5_read_ok_but_read_log_missing', 'K5B_read_log_digest_mismatch', 'K6_feedback_joined_to_other_exposure', 'K6B_no_correlation_key', 'K7_detail_older_revision_than_list']"
+  },
+  {
+   "name": "P2_report_counts",
+   "ok": true,
+   "detail": "{\"feedback_accepted_n\": 10, \"read_verified_n\": 1, \"fail_n\": 5, \"unknown_n\": 4, \"not_claimed_n\": 2, \"denominator\": 6, \"read_rate\": 0.16666666666666666, \"gate\": \"OK\"}"
+  },
+  {
+   "name": "P3_feedback_as_read_proof_gated",
+   "ok": true,
+   "detail": "{\"feedback_accepted_n\": 10, \"read_verified_n\": 10, \"fail_n\": 5, \"unknown_n\": 4, \"not_claimed_n\": 2, \"denominator\": 6, \"read_rate\": 0.16666666666666666, \"gate\": \"FEEDBACK_AS_READ_PROOF\"}"
+  },
+  {
+   "name": "P4_K1_pair_differs_only_in_read_result",
+   "ok": true,
+   "detail": "diff=['body_bytes', 'body_sha8', 'read_log', 'status']"
+  },
+  {
+   "name": "P5_feedback_never_sufficient",
+   "ok": true,
+   "detail": "dropping the read record never yields PASS"
+  }
+ ],
+ "selftest": "17/17"
+}

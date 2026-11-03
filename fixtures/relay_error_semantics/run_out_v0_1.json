@@ -1,0 +1,162 @@
+{
+ "fixture": "RELAY_ERROR_SEMANTICS",
+ "version": "0.1",
+ "selftest": "15/15",
+ "status_only_baseline_false_ok": 8,
+ "rows": [
+  {
+   "id": "R01_plain_ok",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "got": "OK",
+   "retryable": false,
+   "billed_risk": "billed",
+   "action": "ACCEPT",
+   "must_fail": false,
+   "pass": true
+  },
+  {
+   "id": "R02_true_429",
+   "provenance": "hand_built",
+   "expected": "RATE_LIMITED",
+   "got": "RATE_LIMITED",
+   "retryable": true,
+   "billed_risk": "none",
+   "action": "BACKOFF_RETRY",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R03_429_as_500",
+   "provenance": "hand_built",
+   "expected": "RATE_LIMITED_MASKED_5XX",
+   "got": "RATE_LIMITED_MASKED_5XX",
+   "retryable": true,
+   "billed_risk": "unknown",
+   "action": "BACKOFF_RETRY_AND_FLAG_RELAY",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R04_429_as_200_errbody",
+   "provenance": "hand_built",
+   "expected": "RATE_LIMITED_MASKED_200",
+   "got": "RATE_LIMITED_MASKED_200",
+   "retryable": true,
+   "billed_risk": "unknown",
+   "action": "BACKOFF_RETRY_AND_FLAG_RELAY",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R05_empty_200",
+   "provenance": "hand_built",
+   "expected": "EMPTY_200",
+   "got": "EMPTY_200",
+   "retryable": false,
+   "billed_risk": "unknown",
+   "action": "FAIL_CLOSED_FLAG_RELAY",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R06_half_stream_disconnect",
+   "provenance": "hand_built",
+   "expected": "STREAM_TRUNCATED",
+   "got": "STREAM_TRUNCATED",
+   "retryable": true,
+   "billed_risk": "billed",
+   "action": "BOUNDED_RETRY_COUNT_COST",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R07_stream_done_ok",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "got": "OK",
+   "retryable": false,
+   "billed_risk": "billed",
+   "action": "ACCEPT",
+   "must_fail": false,
+   "pass": true
+  },
+  {
+   "id": "R08_stream_done_unknown",
+   "provenance": "hand_built",
+   "expected": "UNDECIDABLE",
+   "got": "UNDECIDABLE",
+   "retryable": false,
+   "billed_risk": "unknown",
+   "action": "FAIL_CLOSED",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R09_quota_as_200",
+   "provenance": "hand_built",
+   "expected": "QUOTA_EXHAUSTED",
+   "got": "QUOTA_EXHAUSTED",
+   "retryable": false,
+   "billed_risk": "none",
+   "action": "STOP_NO_RETRY",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R10_auth_as_500",
+   "provenance": "hand_built",
+   "expected": "AUTH_FAILED",
+   "got": "AUTH_FAILED",
+   "retryable": false,
+   "billed_risk": "none",
+   "action": "STOP_NO_RETRY",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R11_generic_err_200",
+   "provenance": "hand_built",
+   "expected": "UPSTREAM_5XX",
+   "got": "UPSTREAM_5XX",
+   "retryable": true,
+   "billed_risk": "unknown",
+   "action": "BOUNDED_RETRY",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R12_length_cutoff",
+   "provenance": "hand_built",
+   "expected": "LENGTH_CUTOFF",
+   "got": "LENGTH_CUTOFF",
+   "retryable": false,
+   "billed_risk": "billed",
+   "action": "ACCEPT_PARTIAL_MARKED",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R13_no_finish_reason",
+   "provenance": "hand_built",
+   "expected": "UNDECIDABLE",
+   "got": "UNDECIDABLE",
+   "retryable": false,
+   "billed_risk": "unknown",
+   "action": "FAIL_CLOSED",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "R14_status_missing",
+   "provenance": "hand_built",
+   "expected": "UNDECIDABLE",
+   "got": "UNDECIDABLE",
+   "retryable": false,
+   "billed_risk": "unknown",
+   "action": "FAIL_CLOSED",
+   "must_fail": true,
+   "pass": true
+  }
+ ]
+}

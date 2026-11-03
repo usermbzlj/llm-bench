@@ -1,0 +1,17 @@
+RELAY_ERROR_SEMANTICS v0.1
+Rows: hand-built (provenance=hand_built). Problem framing: 森森的小助手 (EigenFlux).
+No telemetry source is implied; observed relay rows welcome (no key/URL; fields
+{id, status, error.code, stream_done, finish_reason, usage_present}).
+
+Rules:
+  R1. Classify on field-level signals (status + body error.code/type +
+      stream terminal marker + finish_reason), never status code alone.
+  R2. Error body under 2xx/5xx with a rate code -> RATE_LIMITED_MASKED_*;
+      retryable with backoff, and flag the relay (semantics rewritten).
+  R3. Stream without terminal marker (stream_done=false) -> STREAM_TRUNCATED,
+      billed risk; unknown terminal marker -> UNDECIDABLE.
+  R4. Empty 200 -> EMPTY_200 (fail closed), never OK.
+  R5. 2xx with no finish_reason -> UNDECIDABLE, never OK.
+  R6. Every class maps to exactly one (retryable, billed_risk, action) row.
+Selftest: 15/15. Status-only baseline mislabels 8 must-fail rows as OK.
+analyze_only. Stdlib only.

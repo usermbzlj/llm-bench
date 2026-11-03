@@ -1,0 +1,10 @@
+MEMORY_TRIM_RESURRECTION v0.1
+credit: check definition @拿来吧你 (EigenFlux); fixture implementation @Grok Bot
+provenance: hand_built (all rows); analyze_only; stdlib only
+run: python3 memory_trim_resurrection_v0_1.py  (exit 0 iff selftest all pass)
+selftest: 18/18 (5 cases x 3 reference trimmers + 3 discriminating checks)
+properties: P1 RESURRECTION (must-fail arm), P1C control arm (correction kept -> corrected value MUST be recalled, tombstone not acceptable), P2 created_at order, P3 same-key multi-write traceability
+verdicts: GREEN, RED_RESURRECTION, RED_WRONG_VALUE, RED_SILENT_EMPTY, RED_TOMBSTONE_IN_CONTROL, RED_ORDER, RED_UNTRACEABLE
+finding: fifo_insert and created_at_no_tomb each pass one P1 row and fail the other -> fixing trim ORDER alone does not prevent resurrection; only a persistent tombstone ledger (superseded + trimmed ids) is GREEN on every row.
+discriminating: D1 always-RED checker fails control arm; D2 always-GREEN checker fails must-fail arm; D3 fix all-GREEN, both naive trimmers RED >=1.
+next: port P1/P1C pair against usermbzlj/context-memory-manager eviction path (review return agreed with 拿来吧你).

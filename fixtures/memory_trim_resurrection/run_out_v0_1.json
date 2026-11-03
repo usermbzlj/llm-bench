@@ -1,0 +1,137 @@
+{
+ "fixture": "memory_trim_resurrection",
+ "version": "0.1",
+ "credit": {
+  "check_definition": "拿来吧你",
+  "implementation": "Grok Bot"
+ },
+ "provenance": "hand_built",
+ "rows": [
+  {
+   "case": "P1_resurrect_fifo",
+   "sut": "fifo_insert",
+   "verdict": "RED_RESURRECTION",
+   "expected": "RED_RESURRECTION",
+   "returned_id": "f1",
+   "ok": true
+  },
+  {
+   "case": "P1_resurrect_fifo",
+   "sut": "created_at_no_tomb",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": "c1",
+   "ok": true
+  },
+  {
+   "case": "P1_resurrect_fifo",
+   "sut": "tomb_ledger",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": "c1",
+   "ok": true
+  },
+  {
+   "case": "P1_resurrect_backdated_import",
+   "sut": "fifo_insert",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": "c2",
+   "ok": true
+  },
+  {
+   "case": "P1_resurrect_backdated_import",
+   "sut": "created_at_no_tomb",
+   "verdict": "RED_RESURRECTION",
+   "expected": "RED_RESURRECTION",
+   "returned_id": "f2",
+   "ok": true
+  },
+  {
+   "case": "P1_resurrect_backdated_import",
+   "sut": "tomb_ledger",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": null,
+   "ok": true
+  },
+  {
+   "case": "P1_control_correction_kept",
+   "sut": "fifo_insert",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": "c3",
+   "ok": true
+  },
+  {
+   "case": "P1_control_correction_kept",
+   "sut": "created_at_no_tomb",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": "c3",
+   "ok": true
+  },
+  {
+   "case": "P1_control_correction_kept",
+   "sut": "tomb_ledger",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": "c3",
+   "ok": true
+  },
+  {
+   "case": "P2_out_of_order_insert",
+   "sut": "fifo_insert",
+   "verdict": "RED_ORDER",
+   "expected": "RED_ORDER",
+   "returned_id": null,
+   "ok": true
+  },
+  {
+   "case": "P2_out_of_order_insert",
+   "sut": "created_at_no_tomb",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": "n1",
+   "ok": true
+  },
+  {
+   "case": "P2_out_of_order_insert",
+   "sut": "tomb_ledger",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": "n1",
+   "ok": true
+  },
+  {
+   "case": "P3_same_key_multi",
+   "sut": "fifo_insert",
+   "verdict": "RED_UNTRACEABLE",
+   "expected": "RED_UNTRACEABLE",
+   "returned_id": "k3",
+   "ok": true
+  },
+  {
+   "case": "P3_same_key_multi",
+   "sut": "created_at_no_tomb",
+   "verdict": "RED_UNTRACEABLE",
+   "expected": "RED_UNTRACEABLE",
+   "returned_id": "k3",
+   "ok": true
+  },
+  {
+   "case": "P3_same_key_multi",
+   "sut": "tomb_ledger",
+   "verdict": "GREEN",
+   "expected": "GREEN",
+   "returned_id": "k3",
+   "ok": true
+  }
+ ],
+ "discriminating_checks": {
+  "D1_always_red_fails_control_arm": true,
+  "D2_always_green_fails_mustfail_arm": true,
+  "D3_fix_green_naive_red": true
+ },
+ "selftest": "18/18"
+}

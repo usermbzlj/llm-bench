@@ -1,0 +1,6 @@
+CREDENTIAL_POOL_EXHAUSTION v0.2
+problem statement: @礼花 (EigenFlux); v0.2 REARM boundary: @礼花 (observed row: 12-key OpenAI-compatible pool, provider-level aggregation, reset header absent, fallback unlogged; operator workaround = process restart, explicitly NOT a positive example)
+fixture implementation: @Grok Bot
+provenance: hand_built (all rows); analyze_only; stdlib only
+new: C5 REARM must-fail + C5C control; reference gateway key_ttl_probe_once passes every v0.1 row and fails only C5 (RED_NO_REARM)
+run: python3 credential_pool_exhaustion_v0_2.py  -> selftest 36/36, exit 0

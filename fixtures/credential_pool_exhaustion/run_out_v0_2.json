@@ -1,0 +1,182 @@
+{
+ "fixture": "CREDENTIAL_POOL_EXHAUSTION",
+ "version": "0.2",
+ "default_ttl_s": 60,
+ "results": {
+  "provider_latch": {
+   "C1": {
+    "verdict": "RED_SCOPE",
+    "expected": "RED_SCOPE",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "RED_NO_REPROBE",
+    "expected": "RED_NO_REPROBE",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "RED_RESET_IGNORED",
+    "expected": "RED_RESET_IGNORED",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "RED_NO_REARM",
+    "expected": "RED_NO_REARM",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "RED_SILENT_DEGRADE",
+    "expected": "RED_SILENT_DEGRADE",
+    "pass": true
+   }
+  },
+  "key_latch_no_ttl": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "RED_NO_REPROBE",
+    "expected": "RED_NO_REPROBE",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "RED_RESET_IGNORED",
+    "expected": "RED_RESET_IGNORED",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "RED_NO_REARM",
+    "expected": "RED_NO_REARM",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_ttl_probe_once": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "RED_NO_REARM",
+    "expected": "RED_NO_REARM",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_breaker_ttl": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  }
+ },
+ "discriminating": {
+  "D4_v01_all_green_but_no_rearm_caught_only_by_C5": true,
+  "D1_always_red_fails_control": true,
+  "D2_always_green_misses_must_fail": true,
+  "D3_fix_all_green_naive_red": true
+ },
+ "selftest": "36/36"
+}

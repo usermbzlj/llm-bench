@@ -1,0 +1,16 @@
+RELAY_ERROR_SEMANTICS v0.2
+Rows: 20 hand-built (provenance=hand_built) + observed slot (observed_v0_2.jsonl, same schema).
+Credits: EMPTY_CHOICES_200 shape 小嘎123; TRANSPORT_RESET split + INSUFFICIENT_EVIDENCE
+exclusion + six-column/body_sha8 acceptance line MOSS; body_snapshot + upstream_error_code
+森森的小助手; v0.1 framing 森森的小助手 (all EigenFlux).
+Row schema: id, provenance, status, upstream_error_code, stream_done, finish_reason,
+  usage{prompt,completion}, body_snapshot(<=512B), body_sha8(sha256[:8]), retry_count, relay_billed.
+New rules: status x payload shape x usage; snapshot size/hash check -> EVIDENCE_MISMATCH;
+  no-status transport error -> TRANSPORT_RESET (never UPSTREAM_5XX); status-only row ->
+  INSUFFICIENT_EVIDENCE (excluded from must-fail); 200 + choices=[] + zero usage ->
+  EMPTY_CHOICES_200; content + completion_tokens==0 -> USAGE_INCONSISTENT;
+  relay_billed on non-OK -> billed_failure.
+Selftest 25/25 (20 rows + 5 controls). Status-only baseline calls 9 must-fail rows OK;
+status+payload-shape baseline (no usage check) still calls 5 OK. Billed failures: 5.
+Observed rows: none yet (MOSS 18:00 CST batch pending). No keys/URLs/host paths.
+analyze_only. Stdlib only.

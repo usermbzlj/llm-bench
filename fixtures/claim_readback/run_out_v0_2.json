@@ -1,0 +1,317 @@
+{
+ "version": "0.2",
+ "rows": {
+  "K1_list_visible_detail_404_feedback_accepted": {
+   "status": "FAIL",
+   "code": "DETAIL_UNREAD",
+   "why": "read status 404",
+   "naive": "PASS"
+  },
+  "K1C_same_but_detail_200": {
+   "status": "PASS",
+   "code": "READ_VERIFIED",
+   "naive": "PASS"
+  },
+  "K2_detail_timeout_feedback_accepted": {
+   "status": "FAIL",
+   "code": "DETAIL_UNREAD",
+   "why": "read status timeout",
+   "naive": "PASS"
+  },
+  "K3_200_empty_body_feedback_accepted": {
+   "status": "FAIL",
+   "code": "DETAIL_UNREAD",
+   "why": "2xx empty body",
+   "naive": "PASS"
+  },
+  "K4_no_read_attempted_scored_from_preview": {
+   "status": "FAIL",
+   "code": "DETAIL_UNREAD",
+   "why": "no read attempted",
+   "naive": "PASS"
+  },
+  "K5_read_ok_but_read_log_missing": {
+   "status": "UNKNOWN",
+   "code": "EVIDENCE_DROPPED",
+   "naive": "PASS"
+  },
+  "K5B_read_log_digest_mismatch": {
+   "status": "UNKNOWN",
+   "code": "EVIDENCE_DROPPED",
+   "why": "log digest != body digest",
+   "naive": "PASS"
+  },
+  "K6_feedback_joined_to_other_exposure": {
+   "status": "UNKNOWN",
+   "code": "CORRELATION_BROKEN",
+   "keys": [
+    "c1",
+    "c2"
+   ],
+   "naive": "PASS"
+  },
+  "K6B_no_correlation_key": {
+   "status": "UNKNOWN",
+   "code": "CORRELATION_BROKEN",
+   "keys": [
+    "None"
+   ],
+   "naive": "PASS"
+  },
+  "K7_detail_older_revision_than_list": {
+   "status": "FAIL",
+   "code": "READ_VERSION_MISMATCH",
+   "naive": "PASS"
+  },
+  "K8_detail_404_no_feedback_honest": {
+   "status": "NOT_CLAIMED",
+   "code": "HONEST_SKIP",
+   "naive": "NOT_CLAIMED"
+  },
+  "K8B_detail_404_feedback_rejected": {
+   "status": "NOT_CLAIMED",
+   "code": "HONEST_SKIP",
+   "naive": "NOT_CLAIMED"
+  },
+  "M1_MOSS_observed_sent_accepted_receiver_never_read": {
+   "status": "FAIL",
+   "code": "DETAIL_UNREAD",
+   "why": "read status receiver_not_seen",
+   "flags": [
+    "CORRELATION_BORROWED"
+   ],
+   "naive": "PASS"
+  },
+  "M1C_borrowed_key_but_read_ok": {
+   "status": "UNKNOWN",
+   "code": "CORRELATION_BORROWED",
+   "why": "read ok but key owned by counterparty: cannot prove which version was read",
+   "naive": "PASS"
+  },
+  "M1D_own_key_same_read_ok": {
+   "status": "PASS",
+   "code": "READ_VERIFIED",
+   "naive": "PASS"
+  }
+ },
+ "provenance": {
+  "K1_list_visible_detail_404_feedback_accepted": [
+   "synthetic",
+   null
+  ],
+  "K1C_same_but_detail_200": [
+   "hand_built",
+   null
+  ],
+  "K2_detail_timeout_feedback_accepted": [
+   "hand_built",
+   null
+  ],
+  "K3_200_empty_body_feedback_accepted": [
+   "hand_built",
+   null
+  ],
+  "K4_no_read_attempted_scored_from_preview": [
+   "hand_built",
+   null
+  ],
+  "K5_read_ok_but_read_log_missing": [
+   "hand_built",
+   null
+  ],
+  "K5B_read_log_digest_mismatch": [
+   "hand_built",
+   null
+  ],
+  "K6_feedback_joined_to_other_exposure": [
+   "hand_built",
+   null
+  ],
+  "K6B_no_correlation_key": [
+   "hand_built",
+   null
+  ],
+  "K7_detail_older_revision_than_list": [
+   "hand_built",
+   null
+  ],
+  "K8_detail_404_no_feedback_honest": [
+   "hand_built",
+   null
+  ],
+  "K8B_detail_404_feedback_rejected": [
+   "hand_built",
+   null
+  ],
+  "M1_MOSS_observed_sent_accepted_receiver_never_read": [
+   "observed+timed",
+   null
+  ],
+  "M1C_borrowed_key_but_read_ok": [
+   "hand_built",
+   null
+  ],
+  "M1D_own_key_same_read_ok": [
+   "hand_built",
+   null
+  ]
+ },
+ "report_honest": {
+  "feedback_accepted_n": 13,
+  "read_verified_n": 2,
+  "fail_n": 6,
+  "unknown_n": 5,
+  "not_claimed_n": 2,
+  "denominator": 8,
+  "read_rate": 0.25,
+  "gate": "OK"
+ },
+ "report_feedback_as_read": {
+  "feedback_accepted_n": 13,
+  "read_verified_n": 13,
+  "fail_n": 6,
+  "unknown_n": 5,
+  "not_claimed_n": 2,
+  "denominator": 8,
+  "read_rate": 0.25,
+  "gate": "FEEDBACK_AS_READ_PROOF"
+ },
+ "checks": [
+  {
+   "name": "K1_list_visible_detail_404_feedback_accepted",
+   "ok": true,
+   "detail": "FAIL/DETAIL_UNREAD (expect FAIL/DETAIL_UNREAD)"
+  },
+  {
+   "name": "K1C_same_but_detail_200",
+   "ok": true,
+   "detail": "PASS/READ_VERIFIED (expect PASS/READ_VERIFIED)"
+  },
+  {
+   "name": "K2_detail_timeout_feedback_accepted",
+   "ok": true,
+   "detail": "FAIL/DETAIL_UNREAD (expect FAIL/DETAIL_UNREAD)"
+  },
+  {
+   "name": "K3_200_empty_body_feedback_accepted",
+   "ok": true,
+   "detail": "FAIL/DETAIL_UNREAD (expect FAIL/DETAIL_UNREAD)"
+  },
+  {
+   "name": "K4_no_read_attempted_scored_from_preview",
+   "ok": true,
+   "detail": "FAIL/DETAIL_UNREAD (expect FAIL/DETAIL_UNREAD)"
+  },
+  {
+   "name": "K5_read_ok_but_read_log_missing",
+   "ok": true,
+   "detail": "UNKNOWN/EVIDENCE_DROPPED (expect UNKNOWN/EVIDENCE_DROPPED)"
+  },
+  {
+   "name": "K5B_read_log_digest_mismatch",
+   "ok": true,
+   "detail": "UNKNOWN/EVIDENCE_DROPPED (expect UNKNOWN/EVIDENCE_DROPPED)"
+  },
+  {
+   "name": "K6_feedback_joined_to_other_exposure",
+   "ok": true,
+   "detail": "UNKNOWN/CORRELATION_BROKEN (expect UNKNOWN/CORRELATION_BROKEN)"
+  },
+  {
+   "name": "K6B_no_correlation_key",
+   "ok": true,
+   "detail": "UNKNOWN/CORRELATION_BROKEN (expect UNKNOWN/CORRELATION_BROKEN)"
+  },
+  {
+   "name": "K7_detail_older_revision_than_list",
+   "ok": true,
+   "detail": "FAIL/READ_VERSION_MISMATCH (expect FAIL/READ_VERSION_MISMATCH)"
+  },
+  {
+   "name": "K8_detail_404_no_feedback_honest",
+   "ok": true,
+   "detail": "NOT_CLAIMED/HONEST_SKIP (expect NOT_CLAIMED/HONEST_SKIP)"
+  },
+  {
+   "name": "K8B_detail_404_feedback_rejected",
+   "ok": true,
+   "detail": "NOT_CLAIMED/HONEST_SKIP (expect NOT_CLAIMED/HONEST_SKIP)"
+  },
+  {
+   "name": "M1_MOSS_observed_sent_accepted_receiver_never_read",
+   "ok": true,
+   "detail": "FAIL/DETAIL_UNREAD (expect FAIL/DETAIL_UNREAD)"
+  },
+  {
+   "name": "M1C_borrowed_key_but_read_ok",
+   "ok": true,
+   "detail": "UNKNOWN/CORRELATION_BORROWED (expect UNKNOWN/CORRELATION_BORROWED)"
+  },
+  {
+   "name": "M1D_own_key_same_read_ok",
+   "ok": true,
+   "detail": "PASS/READ_VERIFIED (expect PASS/READ_VERIFIED)"
+  },
+  {
+   "name": "P1_naive_false_read_count",
+   "ok": true,
+   "detail": "naive 'feedback accepted -> read' false on 11/15: ['K1_list_visible_detail_404_feedback_accepted', 'K2_detail_timeout_feedback_accepted', 'K3_200_empty_body_feedback_accepted', 'K4_no_read_attempted_scored_from_preview', 'K5_read_ok_but_read_log_missing', 'K5B_read_log_digest_mismatch', 'K6_feedback_joined_to_other_exposure', 'K6B_no_correlation_key', 'K7_detail_older_revision_than_list', 'M1_MOSS_observed_sent_accepted_receiver_never_read', 'M1C_borrowed_key_but_read_ok']"
+  },
+  {
+   "name": "P2_report_counts",
+   "ok": true,
+   "detail": "{\"feedback_accepted_n\": 13, \"read_verified_n\": 2, \"fail_n\": 6, \"unknown_n\": 5, \"not_claimed_n\": 2, \"denominator\": 8, \"read_rate\": 0.25, \"gate\": \"OK\"}"
+  },
+  {
+   "name": "P3_feedback_as_read_proof_gated",
+   "ok": true,
+   "detail": "{\"feedback_accepted_n\": 13, \"read_verified_n\": 13, \"fail_n\": 6, \"unknown_n\": 5, \"not_claimed_n\": 2, \"denominator\": 8, \"read_rate\": 0.25, \"gate\": \"FEEDBACK_AS_READ_PROOF\"}"
+  },
+  {
+   "name": "P4_K1_pair_differs_only_in_read_result",
+   "ok": true,
+   "detail": "diff=['body_bytes', 'body_sha8', 'read_log', 'status']"
+  },
+  {
+   "name": "P5_feedback_never_sufficient",
+   "ok": true,
+   "detail": "dropping the read record never yields PASS"
+  },
+  {
+   "name": "B1_borrowed_fail_keeps_FAIL_with_flag",
+   "ok": true,
+   "detail": "{\"status\": \"FAIL\", \"code\": \"DETAIL_UNREAD\", \"why\": \"read status receiver_not_seen\", \"flags\": [\"CORRELATION_BORROWED\"]}"
+  },
+  {
+   "name": "B2_borrowed_vs_own_key_only_owner_differs",
+   "ok": true,
+   "detail": "flip corr_owner peer->self turns UNKNOWN into PASS; nothing else changes"
+  },
+  {
+   "name": "B3_borrowed_never_PASS",
+   "ok": true,
+   "detail": "forcing corr_owner=peer on every row never yields PASS"
+  },
+  {
+   "name": "T1_M1_is_observed_timed",
+   "ok": true,
+   "detail": "tier=('observed+timed', None)"
+  },
+  {
+   "name": "T2_ts_from_batch_label_downgraded",
+   "ok": true,
+   "detail": "tier=('observed', 'TIMED_FROM_LABEL')"
+  },
+  {
+   "name": "T3_timed_without_ts_downgraded",
+   "ok": true,
+   "detail": "tier=('observed', 'TIMED_MISSING_TS')"
+  },
+  {
+   "name": "T4_exactly_one_observed_row",
+   "ok": true,
+   "detail": "observed=['M1_MOSS_observed_sent_accepted_receiver_never_read']"
+  }
+ ],
+ "selftest": "27/27"
+}

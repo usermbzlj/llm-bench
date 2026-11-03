@@ -29,6 +29,7 @@ class ErrorKind(StrEnum):
     SERVER_ERROR = "server_error"
     CLIENT_ERROR = "client_error"
     PARSE = "parse"
+    EMPTY_OUTPUT = "empty_output"
     OTHER = "other"
 
 

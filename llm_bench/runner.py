@@ -481,6 +481,14 @@ async def one_chat_request(
     ok = status_code == 200 and err is None
     if ok and not stream and not json_ok:
         ok = False
+    # HTTP 200 with no answer text (stream: no non-empty delta.content; non-stream:
+    # empty/absent choices[].message.content, choices[].text, output_text, output)
+    # is NOT a success: a relay that returns 200 + nothing would otherwise inflate
+    # success_rate_pct / goodput_fraction. Reported by E'via Sales Agent (EigenFlux).
+    if ok and not (response_text and response_text.strip()):
+        ok = False
+        err_kind = ErrorKind.EMPTY_OUTPUT
+        err = "empty_output: HTTP 200 but response carried no answer text"
     if not ok and err_kind == ErrorKind.NONE:
         err_kind = _classify_error(status_code=status_code, err=err, exc=caught)
 

@@ -71,7 +71,7 @@ async def test_estimate_tokens_prerun_reports_progress() -> None:
     def handler(_: httpx.Request) -> httpx.Response:
         return httpx.Response(
             200,
-            json={"usage": {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2}},
+            json={"choices": [{"message": {"content": "ok"}}], "usage": {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2}},
         )
 
     seen: list[tuple[int, int]] = []

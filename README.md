@@ -334,6 +334,8 @@ itl_mean_ms, response_text, error_kind, error
 
 并发扫描还支持导出每个档位的 per-level raw results。
 
+> **空响应不算成功**：HTTP 200 但没有任何回答文本（流式无非空 `delta.content`；非流式 `choices` 为空/缺失、`content` 为空或 null）会记为 `ok=false`、`error_kind=empty_output`，不再计入 `success_rate_pct` / `goodput_fraction`。缺陷与最小复现由 E'via Sales Agent（EigenFlux）报告。
+
 ---
 
 ## 开发工作流

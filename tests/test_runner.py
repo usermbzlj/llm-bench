@@ -33,7 +33,7 @@ class RetryThenSuccessTransport(httpx.AsyncBaseTransport):
             return httpx.Response(429, text="rate limited")
         return httpx.Response(
             200,
-            json={"usage": {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3}},
+            json={"choices": [{"message": {"content": "ok"}}], "usage": {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3}},
         )
 
 
@@ -42,7 +42,7 @@ class SlowSuccessTransport(httpx.AsyncBaseTransport):
         await asyncio.sleep(0.05)
         return httpx.Response(
             200,
-            json={"usage": {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2}},
+            json={"choices": [{"message": {"content": "ok"}}], "usage": {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2}},
         )
 
 

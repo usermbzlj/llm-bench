@@ -23,7 +23,7 @@ async def test_one_chat_request_captures_raw_request_body() -> None:
     transport = httpx.MockTransport(
         lambda req: httpx.Response(
             200,
-            json={"usage": {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3}},
+            json={"choices": [{"message": {"content": "ok"}}], "usage": {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3}},
         )
     )
     body = {"model": "demo", "messages": [{"role": "user", "content": "hi 你好"}]}
@@ -162,7 +162,7 @@ async def test_one_with_retry_preserves_raw_request_body() -> None:
         lambda req: httpx.Response(429, text="rate limited")
         if (req.content and b'"model"' in req.content and attempts["n"] == 1)
         else httpx.Response(
-            200, json={"usage": {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3}}
+            200, json={"choices": [{"message": {"content": "ok"}}], "usage": {"prompt_tokens": 1, "completion_tokens": 2, "total_tokens": 3}}
         )
     )
     body = {"model": "demo", "messages": [{"role": "user", "content": "hi"}]}

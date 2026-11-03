@@ -1,0 +1,285 @@
+{
+ "rows": {
+  "N1_vae_name_unresolved": {
+   "status": "UNKNOWN",
+   "code": "TARGET_UNRESOLVED",
+   "naive": "PASS"
+  },
+  "N1C_vae_name_resolved_ok": {
+   "status": "PASS",
+   "code": "APPLIED",
+   "naive": "PASS"
+  },
+  "N2_subgraph_parse_fail": {
+   "status": "UNKNOWN",
+   "code": "UNDECIDABLE_PARSE",
+   "naive": "PASS"
+  },
+  "N2C_subgraph_parsed_fail": {
+   "status": "FAIL",
+   "code": "APPLIED",
+   "naive": "FAIL"
+  },
+  "N3_excluded_local_list": {
+   "status": "UNKNOWN",
+   "code": "LOCAL_EXEMPT_LIST",
+   "naive": "PASS"
+  },
+  "N3C_excluded_issuer_list": {
+   "status": "NOT_REQUIRED",
+   "code": "ISSUER_EXEMPT",
+   "naive": "PASS"
+  },
+  "N3S_issuer_list_stale_version": {
+   "status": "UNKNOWN",
+   "code": "EXEMPT_LIST_VERSION_STALE",
+   "naive": "PASS"
+  },
+  "N4_applied_no_evidence": {
+   "status": "UNKNOWN",
+   "code": "NO_EVIDENCE",
+   "naive": "PASS"
+  },
+  "U1_parse_fail_returns_empty": {
+   "status": "UNKNOWN",
+   "code": "ZERO_FALLBACK_ON_READ_FAIL",
+   "bucket": "UNREADABLE",
+   "naive": "PASS"
+  },
+  "U1C_read_ok_empty": {
+   "status": "PASS",
+   "code": "APPLIED_EMPTY",
+   "naive": "PASS"
+  },
+  "U2_empty_no_status": {
+   "status": "UNKNOWN",
+   "code": "EMPTY_UNTYPED",
+   "bucket": "UNREADABLE",
+   "naive": "PASS"
+  },
+  "U3_read_fail_raises_no_items": {
+   "status": "UNKNOWN",
+   "code": "UNREADABLE",
+   "bucket": "UNREADABLE",
+   "naive": "PASS"
+  },
+  "U4_ok_but_items_absent": {
+   "status": "UNKNOWN",
+   "code": "OK_BUT_NO_PAYLOAD",
+   "bucket": "UNREADABLE",
+   "naive": "PASS"
+  },
+  "U5C_read_ok_with_error_item": {
+   "status": "FAIL",
+   "code": "APPLIED",
+   "naive": "FAIL"
+  },
+  "O1_snapshot_delete_not_covered": {
+   "status": "UNKNOWN",
+   "code": "EVENT_NOT_COVERED",
+   "flags": [
+    "SILENT_PASS"
+   ],
+   "naive": "PASS"
+  },
+  "O1C_snapshot_delete_covered_missing": {
+   "status": "FAIL",
+   "code": "APPLIED",
+   "naive": "FAIL"
+  },
+  "O1U_same_row_unversioned": {
+   "status": "QUARANTINED",
+   "code": "UNVERSIONED",
+   "naive": "PASS"
+  },
+  "O2_tls_timeout_exit0_empty_stamped_ok": {
+   "status": "UNKNOWN",
+   "code": "OK_STATUS_CONTRADICTS_TRANSPORT",
+   "bucket": "UNREADABLE",
+   "flags": [
+    "ZERO_FALLBACK_ON_READ_FAIL"
+   ],
+   "naive": "PASS"
+  },
+  "O2B_tls_timeout_exit0_empty_unstamped": {
+   "status": "UNKNOWN",
+   "code": "ZERO_FALLBACK_ON_READ_FAIL",
+   "bucket": "UNREADABLE",
+   "flags": [
+    "ZERO_FALLBACK_ON_READ_FAIL"
+   ],
+   "naive": "PASS"
+  },
+  "O3C_genuine_empty_feed": {
+   "status": "PASS",
+   "code": "APPLIED_EMPTY",
+   "naive": "PASS"
+  }
+ },
+ "report_full": {
+  "pass": 3,
+  "fail": 3,
+  "denominator": 6,
+  "not_required": 1,
+  "quarantined_n": 1,
+  "silent_pass_n": 1,
+  "pass_rate": 0.5,
+  "undecided_n": 12,
+  "unreadable_n": 6,
+  "undecided_rate": 0.631578947368421,
+  "gate": "OK"
+ },
+ "report_hidden": {
+  "pass": 3,
+  "fail": 3,
+  "denominator": 6,
+  "not_required": 1,
+  "quarantined_n": 1,
+  "silent_pass_n": 1,
+  "pass_rate": 0.5,
+  "gate": "REPORT_HIDES_UNKNOWN"
+ },
+ "checks": [
+  {
+   "name": "N1_vae_name_unresolved",
+   "ok": true,
+   "detail": "UNKNOWN/TARGET_UNRESOLVED (expect UNKNOWN)"
+  },
+  {
+   "name": "N1C_vae_name_resolved_ok",
+   "ok": true,
+   "detail": "PASS/APPLIED (expect PASS)"
+  },
+  {
+   "name": "N2_subgraph_parse_fail",
+   "ok": true,
+   "detail": "UNKNOWN/UNDECIDABLE_PARSE (expect UNKNOWN)"
+  },
+  {
+   "name": "N2C_subgraph_parsed_fail",
+   "ok": true,
+   "detail": "FAIL/APPLIED (expect FAIL)"
+  },
+  {
+   "name": "N3_excluded_local_list",
+   "ok": true,
+   "detail": "UNKNOWN/LOCAL_EXEMPT_LIST (expect UNKNOWN)"
+  },
+  {
+   "name": "N3C_excluded_issuer_list",
+   "ok": true,
+   "detail": "NOT_REQUIRED/ISSUER_EXEMPT (expect NOT_REQUIRED)"
+  },
+  {
+   "name": "N3S_issuer_list_stale_version",
+   "ok": true,
+   "detail": "UNKNOWN/EXEMPT_LIST_VERSION_STALE (expect UNKNOWN)"
+  },
+  {
+   "name": "N4_applied_no_evidence",
+   "ok": true,
+   "detail": "UNKNOWN/NO_EVIDENCE (expect UNKNOWN)"
+  },
+  {
+   "name": "U1_parse_fail_returns_empty",
+   "ok": true,
+   "detail": "UNKNOWN/ZERO_FALLBACK_ON_READ_FAIL (expect UNKNOWN/ZERO_FALLBACK_ON_READ_FAIL)"
+  },
+  {
+   "name": "U1C_read_ok_empty",
+   "ok": true,
+   "detail": "PASS/APPLIED_EMPTY (expect PASS)"
+  },
+  {
+   "name": "U2_empty_no_status",
+   "ok": true,
+   "detail": "UNKNOWN/EMPTY_UNTYPED (expect UNKNOWN/EMPTY_UNTYPED)"
+  },
+  {
+   "name": "U3_read_fail_raises_no_items",
+   "ok": true,
+   "detail": "UNKNOWN/UNREADABLE (expect UNKNOWN/UNREADABLE)"
+  },
+  {
+   "name": "U4_ok_but_items_absent",
+   "ok": true,
+   "detail": "UNKNOWN/OK_BUT_NO_PAYLOAD (expect UNKNOWN/OK_BUT_NO_PAYLOAD)"
+  },
+  {
+   "name": "U5C_read_ok_with_error_item",
+   "ok": true,
+   "detail": "FAIL/APPLIED (expect FAIL)"
+  },
+  {
+   "name": "O1_snapshot_delete_not_covered",
+   "ok": true,
+   "detail": "UNKNOWN/EVENT_NOT_COVERED (expect UNKNOWN/EVENT_NOT_COVERED)"
+  },
+  {
+   "name": "O1C_snapshot_delete_covered_missing",
+   "ok": true,
+   "detail": "FAIL/APPLIED (expect FAIL)"
+  },
+  {
+   "name": "O1U_same_row_unversioned",
+   "ok": true,
+   "detail": "QUARANTINED/UNVERSIONED (expect QUARANTINED/UNVERSIONED)"
+  },
+  {
+   "name": "O2_tls_timeout_exit0_empty_stamped_ok",
+   "ok": true,
+   "detail": "UNKNOWN/OK_STATUS_CONTRADICTS_TRANSPORT (expect UNKNOWN/OK_STATUS_CONTRADICTS_TRANSPORT)"
+  },
+  {
+   "name": "O2B_tls_timeout_exit0_empty_unstamped",
+   "ok": true,
+   "detail": "UNKNOWN/ZERO_FALLBACK_ON_READ_FAIL (expect UNKNOWN/ZERO_FALLBACK_ON_READ_FAIL)"
+  },
+  {
+   "name": "O3C_genuine_empty_feed",
+   "ok": true,
+   "detail": "PASS/APPLIED_EMPTY (expect PASS/APPLIED_EMPTY)"
+  },
+  {
+   "name": "Q1_naive_false_pass_count",
+   "ok": true,
+   "detail": "naive PASS on 14: ['N1_vae_name_unresolved', 'N2_subgraph_parse_fail', 'N3_excluded_local_list', 'N3C_excluded_issuer_list', 'N3S_issuer_list_stale_version', 'N4_applied_no_evidence', 'U1_parse_fail_returns_empty', 'U2_empty_no_status', 'U3_read_fail_raises_no_items', 'U4_ok_but_items_absent', 'O1_snapshot_delete_not_covered', 'O1U_same_row_unversioned', 'O2_tls_timeout_exit0_empty_stamped_ok', 'O2B_tls_timeout_exit0_empty_unstamped']"
+  },
+  {
+   "name": "Q2_report_buckets",
+   "ok": true,
+   "detail": "{\"pass\": 3, \"fail\": 3, \"denominator\": 6, \"not_required\": 1, \"quarantined_n\": 1, \"silent_pass_n\": 1, \"pass_rate\": 0.5, \"undecided_n\": 12, \"unreadable_n\": 6, \"undecided_rate\": 0.631578947368421, \"gate\": \"OK\"}"
+  },
+  {
+   "name": "Q3_hidden_unknown_gated",
+   "ok": true,
+   "detail": "{\"pass\": 3, \"fail\": 3, \"denominator\": 6, \"not_required\": 1, \"quarantined_n\": 1, \"silent_pass_n\": 1, \"pass_rate\": 0.5, \"gate\": \"REPORT_HIDES_UNKNOWN\"}"
+  },
+  {
+   "name": "Q4_O1_flags_silent_pass",
+   "ok": true,
+   "detail": "{'status': 'UNKNOWN', 'code': 'EVENT_NOT_COVERED', 'flags': ['SILENT_PASS']}"
+  },
+  {
+   "name": "Q5_O2_vs_O3C_differ_only_transport",
+   "ok": true,
+   "detail": "diff=['transport_error']"
+  },
+  {
+   "name": "Q6_unversioned_never_counted",
+   "ok": true,
+   "detail": "no criteria_version -> QUARANTINED"
+  },
+  {
+   "name": "Q7_v0_2_rows_unchanged",
+   "ok": true,
+   "detail": "v0.2 verdicts preserved"
+  },
+  {
+   "name": "Q8_transport_error_empty_never_pass",
+   "ok": true,
+   "detail": "transport error + [] never PASS"
+  }
+ ],
+ "selftest": "28/28"
+}

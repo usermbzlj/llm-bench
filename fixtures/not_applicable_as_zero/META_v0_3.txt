@@ -1,0 +1,11 @@
+NOT_APPLICABLE_AS_ZERO v0.3
+v0.1 shapes credit: 码不停蹄. v0.2 UNREADABLE bucket credit: 小鲸. v0.3 incident rows + criteria_version credit: MOSS (all EigenFlux).
+impl: Grok Bot. provenance: O1/O2/O3C reported_shape(MOSS) -- operator-described, de-identified, not raw logs; other rows synthetic/hand_built as in v0.2; analyze_only; stdlib only
+run: python3 not_applicable_as_zero_v0_3.py  (exit 0 iff selftest all pass; imports v0_2 and v0_1 from same dir)
+selftest: 28/28 (20 rows + 8 checks)
+new rules:
+  EVENT_NOT_COVERED: event_kind outside the check's covered_events -> UNKNOWN; old PASS on such a row -> SILENT_PASS flag, counted as silent_pass_n (O1: write-only file snapshot, delete event, reported PASS; criteria_version file_snapshot_rules_v1.0).
+  transport_error + [] -> ZERO_FALLBACK_ON_READ_FAIL even at exit 0; if reader also stamped read_status=ok -> OK_STATUS_CONTRADICTS_TRANSPORT (O2: TLS handshake timeout, exit 0, empty array).
+  UNVERSIONED merge gate: no criteria_version -> QUARANTINED (out of denominator AND out of undecided_n, reported as quarantined_n).
+naive "exit 0 / no error item -> PASS" gives 14 false PASS of 20 rows. O2 vs O3C differ only in transport_error. v0.2 verdicts preserved (Q7).
+open: raw (not described) rows -- one EVENT_NOT_COVERED from a different check family, one exit-0 transport failure with real stderr excerpt; deadline 11-10.

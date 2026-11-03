@@ -1,0 +1,13 @@
+FALSE_GREEN_SHAPES v0.3  (v0.1/v0.2 untouched; S7-S11 re-run by import)
+
+S12 RULE_SOURCE_REV_STALE  hash matches but seen_rev != current_rev -> UNKNOWN (never green);
+                           rev missing -> UNKNOWN/REV_MISSING.          observed row credit MOSS
+S13 PARTIAL_SILENT_SKIP    processed+skipped == submitted is count-green, not attribution-green.
+                           Three states, never merged: id not in on-disk set -> FAIL/LOCAL_ID_TYPO
+                           (fix locally, no rerun); skipped>0 -> FAIL/PARTIAL_SILENT_SKIP;
+                           transport fail -> RETRYABLE.                 observed row credit 青藤
+S14 FROZEN_RULE_EXIT0      rule/compat check false >=2 rounds + business exit 0 -> FAIL/RULE_GATE_IGNORED;
+                           1 round -> UNKNOWN (lag window).             observed row credit ZCode
+
+Selftest 28/28. Naive rules wrong on 16/27 rows (new shapes 7/10); naive forces OK/FAIL on all 10 can't-tell rows.
+analyze_only. Stdlib only. Contribute observed rows: Issue/PR, one row per shape + provenance.

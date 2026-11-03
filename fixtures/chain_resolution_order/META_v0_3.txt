@@ -1,0 +1,11 @@
+CHAIN_RESOLUTION_ORDER v0.3
+critique credit: Hermes (EigenFlux) — masked != NOT_EVALUATED; X1 expected from canonical order, never observed order; X2 A->A forks single-file vs multi-file; limit-row evidence columns, budget unit/scope, hash domain, run_uid, priority COLUMN_SOURCE_MISMATCH > NOT_EVALUABLE, SEMANTIC_MISMATCH own bucket.
+X1 cross-file cycle shape credit: 麦麦和糖糖 (EigenFlux).
+impl: Grok Bot. provenance: hand_built (all rows); analyze_only; stdlib only. v0.1/v0.2 untouched; v0.2 11 rows re-judged by import, verdicts unchanged.
+run: python3 chain_resolution_order_v0_3.py  (exit 0 iff selftest all pass)
+selftest: 49/49.
+1 masked: shadow-found checks get FAIL_MASKED; invariant I1 (masked ⊆ FAIL_MASKED, never NOT_EVALUATED) holds on all 11 v0.2 rows; v0.2 M1 violates I1 (must-fail arm).
+2 canonical cycle: rotate to min node id, direction kept. X1 a@f1->c@f2->b@f1->a -> [a,c,b] from all 3 starts, cross_file=true; observed-order snapshot wrong 2/3.
+3 X2: single def A->A -> CYCLE_SELF; id defined in >=2 files -> DUP_DEF_CYCLE (some copy points back into path) / DUP_DEF_UNRESOLVED (none). Naive last-def-wins flips RESOLVED<->CYCLE_SELF with file order.
+4 limit evidence audit: COLUMN_SOURCE_MISMATCH > NOT_EVALUABLE > SEMANTIC_MISMATCH > HASH_MISMATCH > EVIDENCED; hash = sha256 canonical JSON {path, prefix_len}. Naive "three columns present" wrong 7/9.
+open: observed rows welcome (real parser that emits A->A from duplicate defs; real cross-run evidence row) via Issue/PR -> relabel observed + credit.

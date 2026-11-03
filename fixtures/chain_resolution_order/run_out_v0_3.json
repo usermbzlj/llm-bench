@@ -1,0 +1,346 @@
+{
+ "v0_2_rows": {
+  "G1_clean": {
+   "verdict": "RESOLVED",
+   "hop": 1,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "PASS"
+   },
+   "masked": []
+  },
+  "R1_missing": {
+   "verdict": "SUCCESSOR_MISSING",
+   "hop": 1,
+   "node": "zz",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "FAIL",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "R2_writer": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "FAIL",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "R3_rewrite": {
+   "verdict": "REWRITE_TARGET_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "FAIL",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "T1_writer_and_rewrite": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 0,
+   "node": "a",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "FAIL",
+    "REWRITE_TARGET": "FAIL_MASKED",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": [
+    "REWRITE_TARGET"
+   ]
+  },
+  "C1_cycle": {
+   "verdict": "CONDITIONAL_CYCLE",
+   "hop": 3,
+   "cycle_start_index": 1,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "FAIL"
+   },
+   "masked": [],
+   "cycle_canonical": [
+    "b",
+    "c"
+   ]
+  },
+  "L1_limit": {
+   "verdict": "UNDECIDABLE_LIMIT",
+   "hop": 5,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "M1_writer_masks_cycle": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "FAIL",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "FAIL_MASKED"
+   },
+   "masked": [
+    "CYCLE"
+   ]
+  },
+  "M1C_writer_no_cycle": {
+   "verdict": "WRITER_MISMATCH",
+   "hop": 1,
+   "node": "b",
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "FAIL",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  },
+  "B1_cycle_at_last_step": {
+   "verdict": "CONDITIONAL_CYCLE",
+   "hop": 2,
+   "cycle_start_index": 0,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "FAIL"
+   },
+   "masked": [],
+   "cycle_canonical": [
+    "a",
+    "b"
+   ]
+  },
+  "B2_cycle_past_budget": {
+   "verdict": "UNDECIDABLE_LIMIT",
+   "hop": 2,
+   "check_order": [
+    "EXISTENCE",
+    "WRITER",
+    "REWRITE_TARGET",
+    "CYCLE"
+   ],
+   "check_status": {
+    "EXISTENCE": "PASS",
+    "WRITER": "PASS",
+    "REWRITE_TARGET": "PASS",
+    "CYCLE": "NOT_EVALUATED"
+   },
+   "masked": []
+  }
+ },
+ "X1": {
+  "a": {
+   "verdict": "CONDITIONAL_CYCLE",
+   "cycle_canonical": [
+    "a",
+    "c",
+    "b"
+   ],
+   "cycle_files": [
+    "f1",
+    "f2"
+   ],
+   "cross_file": true
+  },
+  "c": {
+   "verdict": "CONDITIONAL_CYCLE",
+   "cycle_canonical": [
+    "a",
+    "c",
+    "b"
+   ],
+   "cycle_files": [
+    "f1",
+    "f2"
+   ],
+   "cross_file": true
+  },
+  "b": {
+   "verdict": "CONDITIONAL_CYCLE",
+   "cycle_canonical": [
+    "a",
+    "c",
+    "b"
+   ],
+   "cycle_files": [
+    "f1",
+    "f2"
+   ],
+   "cross_file": true
+  }
+ },
+ "X2": {
+  "X2a_self_single_file": {
+   "verdict": "CYCLE_SELF",
+   "cycle_canonical": [
+    "A"
+   ],
+   "cycle_files": [
+    "f1"
+   ],
+   "cross_file": false
+  },
+  "X2b_dup_def_cycle": {
+   "verdict": "DUP_DEF_CYCLE",
+   "node": "A",
+   "files": [
+    "f1",
+    "f2"
+   ],
+   "path": [
+    "A"
+   ]
+  },
+  "X2c_dup_def_back_edge_one_copy": {
+   "verdict": "DUP_DEF_CYCLE",
+   "node": "A",
+   "files": [
+    "f1",
+    "f2"
+   ],
+   "path": [
+    "A"
+   ]
+  },
+  "X2c_rev_file_order": {
+   "verdict": "DUP_DEF_CYCLE",
+   "node": "A",
+   "files": [
+    "f1",
+    "f2"
+   ],
+   "path": [
+    "A"
+   ]
+  },
+  "X2d_dup_def_no_back_edge": {
+   "verdict": "DUP_DEF_UNRESOLVED",
+   "node": "A",
+   "files": [
+    "f1",
+    "f2"
+   ],
+   "path": [
+    "A"
+   ]
+  }
+ },
+ "evidence": {
+  "E1_green_evidenced": {
+   "evidence": "EVIDENCED",
+   "note": ""
+  },
+  "E2_missing_hash": {
+   "evidence": "NOT_EVALUABLE",
+   "note": "missing=['visited_prefix_sha256']"
+  },
+  "E3_missing_unit": {
+   "evidence": "NOT_EVALUABLE",
+   "note": "missing=['budget_unit']"
+  },
+  "E4_bad_scope": {
+   "evidence": "NOT_EVALUABLE",
+   "note": "missing=['budget_scope']"
+  },
+  "E5_cross_run": {
+   "evidence": "COLUMN_SOURCE_MISMATCH",
+   "note": "all columns present"
+  },
+  "E6_cross_run_and_missing_unit": {
+   "evidence": "COLUMN_SOURCE_MISMATCH",
+   "note": "missing=['budget_unit']"
+  },
+  "E7_set_hash_domain": {
+   "evidence": "SEMANTIC_MISMATCH",
+   "note": "hash_domain=visited_set"
+  },
+  "E8_hash_of_other_walk": {
+   "evidence": "HASH_MISMATCH",
+   "note": "recomputed ordered hash differs"
+  },
+  "E9_run_uid_absent": {
+   "evidence": "NOT_EVALUABLE",
+   "note": "missing=['run_uid']"
+  }
+ }
+}

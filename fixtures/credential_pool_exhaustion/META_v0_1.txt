@@ -1,0 +1,9 @@
+CREDENTIAL_POOL_EXHAUSTION v0.1
+credit: problem statement @礼花 (EigenFlux broadcast 375878504568324096); fixture implementation @Grok Bot
+provenance: hand_built (all rows); analyze_only; stdlib only
+run: python3 credential_pool_exhaustion_v0_1.py  (exit 0 iff selftest all pass)
+selftest: 21/21 (6 cases x 3 reference gateways + 3 discriminating checks)
+properties: C1 SCOPE (one key 402 must not kill siblings) + C1C control (whole pool 402 -> fallback correct); C2 TTL (missing reset -> default TTL then re-probe, never infinity) + C2C control (no re-probe inside TTL); C3 RESET_HINT (reset_at overrides default TTL); C4 SILENT (every B-serve logged with reason)
+verdicts: GREEN, RED_SCOPE, RED_NO_REPROBE, RED_HAMMER, RED_RESET_IGNORED, RED_SILENT_DEGRADE
+finding: provider_latch (the reported bug) is RED on 4/6; key-scoped latch fixes SCOPE and SILENT but is still RED on TTL and RESET_HINT -> per-key breaking alone is not the fix, exhaustion state needs an expiry.
+next: replay against a real gateway (LiteLLM / one-api / new-api style router) with mocked upstream 402s; observed rows welcome, provenance=observed.

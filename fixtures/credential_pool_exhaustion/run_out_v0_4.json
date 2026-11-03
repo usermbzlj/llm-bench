@@ -1,0 +1,834 @@
+{
+ "fixture": "CREDENTIAL_POOL_EXHAUSTION",
+ "version": "0.4",
+ "max_cap_s": 120,
+ "default_ttl_s": 60,
+ "results": {
+  "provider_latch": {
+   "C1": {
+    "verdict": "RED_SCOPE",
+    "expected": "RED_SCOPE",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "RED_NO_REPROBE",
+    "expected": "RED_NO_REPROBE",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "RED_RESET_IGNORED",
+    "expected": "RED_RESET_IGNORED",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "RED_NO_REARM",
+    "expected": "RED_NO_REARM",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "RED_RECOVERY_LATE",
+    "expected": "RED_RECOVERY_LATE",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "RED_REARM_RESET_IGNORED",
+    "expected": "RED_REARM_RESET_IGNORED",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "RED_LONG_CAP_NO_BYPASS",
+    "expected": "RED_LONG_CAP_NO_BYPASS",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "RED_SILENT_DEGRADE",
+    "expected": "RED_SILENT_DEGRADE",
+    "pass": true
+   }
+  },
+  "key_latch_no_ttl": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "RED_NO_REPROBE",
+    "expected": "RED_NO_REPROBE",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "RED_RESET_IGNORED",
+    "expected": "RED_RESET_IGNORED",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "RED_NO_REARM",
+    "expected": "RED_NO_REARM",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "RED_RECOVERY_LATE",
+    "expected": "RED_RECOVERY_LATE",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "RED_REARM_RESET_IGNORED",
+    "expected": "RED_REARM_RESET_IGNORED",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "RED_LONG_CAP_NO_BYPASS",
+    "expected": "RED_LONG_CAP_NO_BYPASS",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_ttl_probe_once": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "RED_NO_REARM",
+    "expected": "RED_NO_REARM",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "RED_RECOVERY_LATE",
+    "expected": "RED_RECOVERY_LATE",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "RED_REARM_RESET_IGNORED",
+    "expected": "RED_REARM_RESET_IGNORED",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "RED_LONG_CAP_NO_BYPASS",
+    "expected": "RED_LONG_CAP_NO_BYPASS",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_rearm_stale_anchor": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "RED_HAMMER_STALE_ANCHOR",
+    "expected": "RED_HAMMER_STALE_ANCHOR",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "NOT_APPLICABLE",
+    "expected": "NOT_APPLICABLE",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_backoff_uncapped": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "RED_RECOVERY_LATE",
+    "expected": "RED_RECOVERY_LATE",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "RED_LONG_CAP_NO_BYPASS",
+    "expected": "RED_LONG_CAP_NO_BYPASS",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_backoff_capped": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "NOT_APPLICABLE",
+    "expected": "NOT_APPLICABLE",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_breaker_ttl": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "NOT_APPLICABLE",
+    "expected": "NOT_APPLICABLE",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_rearm_ignores_reset": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "RED_REARM_RESET_IGNORED",
+    "expected": "RED_REARM_RESET_IGNORED",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "NOT_APPLICABLE",
+    "expected": "NOT_APPLICABLE",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_longcap_no_bypass": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "RED_RECOVERY_LATE",
+    "expected": "RED_RECOVERY_LATE",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "RED_LONG_CAP_NO_BYPASS",
+    "expected": "RED_LONG_CAP_NO_BYPASS",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_longcap_bypass": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  },
+  "key_longcap_bypass_hammer": {
+   "C1": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C1C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C2C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C3": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C5C": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C6": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C7": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C9": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C10": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   },
+   "C10C": {
+    "verdict": "RED_PROBE_HAMMER",
+    "expected": "RED_PROBE_HAMMER",
+    "pass": true
+   },
+   "C4": {
+    "verdict": "GREEN",
+    "expected": "GREEN",
+    "pass": true
+   }
+  }
+ },
+ "counts": {
+  "green_n": 114,
+  "not_applicable_n": 4
+ },
+ "C8_config_declared": [
+  {
+   "src": "MOSS",
+   "provenance": "observed",
+   "backoff_kind": "fixed",
+   "base_s": 600,
+   "cap_s": 600,
+   "rearm_on_fail": true,
+   "verdict": "CONFIG_OK",
+   "expected": "CONFIG_OK"
+  },
+  {
+   "src": "hand_built",
+   "provenance": "hand_built",
+   "backoff_kind": "exponential",
+   "base_s": 60,
+   "cap_s": null,
+   "rearm_on_fail": true,
+   "verdict": "RED_NO_CAP",
+   "expected": "RED_NO_CAP"
+  },
+  {
+   "src": "hand_built",
+   "provenance": "hand_built",
+   "backoff_kind": "fixed",
+   "base_s": 60,
+   "cap_s": 60,
+   "rearm_on_fail": false,
+   "verdict": "RED_NO_REARM",
+   "expected": "RED_NO_REARM"
+  },
+  {
+   "src": "hand_built",
+   "provenance": "hand_built",
+   "backoff_kind": "exponential",
+   "base_s": 60,
+   "cap_s": 30,
+   "rearm_on_fail": true,
+   "verdict": "RED_CAP_BELOW_BASE",
+   "expected": "RED_CAP_BELOW_BASE"
+  },
+  {
+   "src": "礼花",
+   "provenance": "observed",
+   "backoff_kind": "fixed",
+   "base_s": null,
+   "cap_s": null,
+   "rearm_on_fail": true,
+   "note": "fixed TTL, same TTL re-armed on fail, reset_at absent; magnitude not yet disclosed",
+   "verdict": "UNKNOWN_BASE",
+   "expected": "UNKNOWN_BASE"
+  },
+  {
+   "src": "hand_built",
+   "provenance": "hand_built",
+   "backoff_kind": "exponential",
+   "base_s": 60,
+   "cap_s": 3600,
+   "rearm_on_fail": true,
+   "bypass_probe_s": null,
+   "verdict": "RED_LONG_CAP_NO_BYPASS",
+   "expected": "RED_LONG_CAP_NO_BYPASS"
+  },
+  {
+   "src": "hand_built",
+   "provenance": "hand_built",
+   "backoff_kind": "exponential",
+   "base_s": 60,
+   "cap_s": 3600,
+   "rearm_on_fail": true,
+   "bypass_probe_s": 60,
+   "verdict": "CONFIG_OK",
+   "expected": "CONFIG_OK"
+  }
+ ],
+ "discriminating": {
+  "D6_v04_bugs_caught_only_by_new_rows": true,
+  "D7_not_applicable_reported_not_green": true,
+  "D5_new_gateways_caught_only_by_new_row": true,
+  "D4_v01_all_green_but_no_rearm_caught_only_by_C5": true,
+  "D1_always_red_fails_control": true,
+  "D2_always_green_misses_must_fail": true,
+  "D3_fix_all_green_naive_red": true
+ },
+ "selftest": "157/157"
+}

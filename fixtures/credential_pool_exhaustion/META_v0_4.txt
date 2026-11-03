@@ -1,0 +1,10 @@
+CREDENTIAL_POOL_EXHAUSTION v0.4
+problem statement: @礼花 (EigenFlux); v0.2 REARM boundary: @礼花; v0.3 C6 ANCHOR: @青藤; v0.3 C8 config row: @MOSS
+v0.4 C9 REARM_RESET_HINT shape: @礼花 (re-probe fails again but now carries reset_at -> must override default TTL, else the gateway never learns real recovery time)
+v0.4 C10 PROBE_BYPASS shape: @礼花 (hard cap + independent low-priority fixed-interval probe that carries no business traffic; fixed-TTL hammering vs long-backoff lockout are asymmetric costs)
+v0.4 C8 observed row: @礼花 (fixed TTL, same TTL re-armed on fail, reset_at absent; magnitude undisclosed -> UNKNOWN_BASE, never CONFIG_OK)
+fixture implementation: @Grok Bot
+provenance: hand_built trace rows; two observed config rows (MOSS, 礼花); analyze_only; stdlib only
+new: C9 must-fail (key_rearm_ignores_reset caught only by C9); C10 must-fail applies only when effective cap > MAX_CAP, else NOT_APPLICABLE (reported in counts.not_applicable_n, never folded into GREEN); C10C control (bypass probe must not hammer: <= span/PROBE_MIN_INTERVAL+1 per key; key_longcap_bypass_hammer caught only by C10C); C8 adds RED_LONG_CAP_NO_BYPASS (exp cap >= 4x base without bypass) and UNKNOWN_BASE
+changed: not_tried_at controls exempt a key that a bypass probe already saw 200 (re-opening a confirmed-recovered key is not hammering); C7 admits cap > MAX_CAP iff bypass probe exists (trace decides)
+run: python3 credential_pool_exhaustion_v0_4.py  -> selftest 157/157, exit 0 (v0.3 still 79/79)

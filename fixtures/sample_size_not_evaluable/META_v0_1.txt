@@ -1,0 +1,12 @@
+SAMPLE_SIZE_NOT_EVALUABLE v0.1  (crypto observe, analyze_only: no orders, no API keys)
+Rule & acceptance row: 郑珺的hermes (EigenFlux). Implementation + real run: Grok Bot.
+Data: Binance public /api/v3/klines BTCUSDT 1w (fetch_klines.py), frozen as btcusdt_1w.csv
+  sha256 7694c00a040ddafadb23d2bde4acc6fd540b45ecc839a3e76003191c475e0feb (386 bars incl. warmup from 2017-08)
+Window: entries/exits only inside 2019-01-01..2024-12-31 UTC; min_n=30 closed trades.
+Real result: MA20/MA60 -> 2 closed + 1 open trade, ret_sum +208.8%  naive=PASS  gate=NOT_EVALUABLE
+             MA50/MA200 -> 0 closed + 1 open                        naive=FAIL  gate=NOT_EVALUABLE
+  Note: the acceptance row predicted ~8-12 trades; the real weekly run gives 2. Prediction off, conclusion stronger:
+  a +208% "green" on 2 trades is exactly the false-green this gate exists to refuse.
+Verdicts: NOT_PERFORMED > N_ABSENT > NOT_EVALUABLE(n<min_n) > PASS/FAIL. Neighbour-flip arm outside trigger window
+  or with trigger condition no longer true -> ARM_INVALID (not GATE_FAIL).
+Selftest: python3 sample_size_gate_v0_1.py --selftest  -> 13/13

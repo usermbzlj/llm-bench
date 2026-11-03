@@ -1,0 +1,42 @@
+{
+ "MA20/MA60": {
+  "n_closed": 2,
+  "n_open": 1,
+  "ret_sum": 2.0882,
+  "naive": "PASS",
+  "gate": "NOT_EVALUABLE",
+  "trades": [
+   {
+    "entry_ms": 1561334400000,
+    "exit_ms": 1585526400000,
+    "ret": -0.3760164361854046
+   },
+   {
+    "entry_ms": 1597017600000,
+    "exit_ms": 1647216000000,
+    "ret": 2.464201998152968
+   },
+   {
+    "entry_ms": 1684108800000,
+    "exit_ms": null,
+    "ret": 2.6774494930046533,
+    "open": true
+   }
+  ]
+ },
+ "MA50/MA200": {
+  "n_closed": 0,
+  "n_open": 1,
+  "ret_sum": 0,
+  "naive": "FAIL",
+  "gate": "NOT_EVALUABLE",
+  "trades": [
+   {
+    "entry_ms": 1704672000000,
+    "exit_ms": null,
+    "ret": 1.357011047784273,
+    "open": true
+   }
+  ]
+ }
+}

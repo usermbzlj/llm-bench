@@ -1,0 +1,196 @@
+{
+  "fixture": "KEY_MISSING_VS_ZERO",
+  "version": "0.2",
+  "selftest": "26/26",
+  "all_pass": true,
+  "results": [
+    {
+      "id": "row_a",
+      "author": "Flux Scout",
+      "expect": "REAL_ZERO",
+      "got": "REAL_ZERO",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "row_b",
+      "author": "Flux Scout",
+      "expect": "FIELD_ABSENT",
+      "got": "FIELD_ABSENT",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "row_n",
+      "author": "Flux Scout",
+      "expect": "EXPLICIT_NULL",
+      "got": "EXPLICIT_NULL",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "flat_a",
+      "author": "Flux Scout",
+      "expect": "REAL_ZERO",
+      "got": "REAL_ZERO",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "flat_b",
+      "author": "Flux Scout",
+      "expect": "FIELD_ABSENT",
+      "got": "FIELD_ABSENT",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "NC1_stripped",
+      "author": "Flux Scout",
+      "expect": "UNDECIDABLE",
+      "got": "UNDECIDABLE",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "blank_payload",
+      "author": "fn-deepseek-harness",
+      "expect": "PRESENT_BLANK",
+      "got": "PRESENT_BLANK",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "ws_payload",
+      "author": "fn-deepseek-harness",
+      "expect": "PRESENT_BLANK",
+      "got": "PRESENT_BLANK",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "flat_blank",
+      "author": "fn-deepseek-harness",
+      "expect": "PRESENT_BLANK",
+      "got": "PRESENT_BLANK",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "flat_null",
+      "author": "fn-deepseek-harness",
+      "expect": "EXPLICIT_NULL",
+      "got": "EXPLICIT_NULL",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "flat_missing",
+      "author": "fn-deepseek-harness",
+      "expect": "FIELD_ABSENT",
+      "got": "FIELD_ABSENT",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "MF_conflict_missing_but_zero",
+      "author": "fn-deepseek-harness",
+      "expect": "PRESENCE_VALUE_CONFLICT",
+      "got": "PRESENCE_VALUE_CONFLICT",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "MF_conflict_present_but_blank",
+      "author": "fn-deepseek-harness",
+      "expect": "PRESENCE_VALUE_CONFLICT",
+      "got": "PRESENCE_VALUE_CONFLICT",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "MF_unknown_presence",
+      "author": "fn-deepseek-harness",
+      "expect": "UNDECIDABLE",
+      "got": "UNDECIDABLE",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "fresh_zero",
+      "author": "DuMate-小韭菜",
+      "expect": "REAL_ZERO",
+      "got": "REAL_ZERO",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "stale_zero",
+      "author": "DuMate-小韭菜",
+      "expect": "SEMANTICALLY_STALE",
+      "got": "SEMANTICALLY_STALE",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "as_of_missing",
+      "author": "DuMate-小韭菜",
+      "expect": "AS_OF_MISSING",
+      "got": "AS_OF_MISSING",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "rc127_empty",
+      "author": "fn-deepseek-harness",
+      "expect": "CAPABILITY_MISSING",
+      "got": "CAPABILITY_MISSING",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "rc0_empty",
+      "author": "fn-deepseek-harness",
+      "expect": "EMPTY_OUTPUT",
+      "got": "EMPTY_OUTPUT",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "rc0_zero",
+      "author": "fn-deepseek-harness",
+      "expect": "REAL_ZERO",
+      "got": "REAL_ZERO",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "rc1_stderrish",
+      "author": "fn-deepseek-harness",
+      "expect": "PROCESS_FAILED",
+      "got": "PROCESS_FAILED",
+      "pass": true,
+      "provenance": "hand_built"
+    },
+    {
+      "id": "TWIN_NULL_NOT_ABSENT",
+      "pass": true
+    },
+    {
+      "id": "TWIN_BLANK_NOT_ZERO",
+      "pass": true
+    },
+    {
+      "id": "TWIN_STALE_NOT_ZERO",
+      "pass": true
+    },
+    {
+      "id": "NC2_HONEST_NORMALIZER",
+      "pass": true
+    },
+    {
+      "id": "NC2_BUGGY_NORMALIZER_CAUGHT",
+      "pass": true
+    }
+  ]
+}

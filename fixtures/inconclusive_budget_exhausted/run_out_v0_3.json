@@ -1,0 +1,428 @@
+{
+  "fixture": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+  "version": "0.3",
+  "selftest": "24/24",
+  "naive_wrong_new": "10/14",
+  "naive_wrong_total": "16/24",
+  "v0_2_judge_verdict_wrong_on_new": "2/14",
+  "v0_2_judge_on_new": {
+    "D1": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "A1": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_LABEL_MISMATCH"
+    ],
+    "A2": [
+      "SERVICE_DOWN_CURRENT",
+      "LAYER_PROVEN_CONNECT"
+    ],
+    "A3": [
+      "SERVICE_DOWN_CURRENT",
+      "LAYER_PROVEN_CONNECT"
+    ],
+    "P1": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "P2": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "P3": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "P4": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "C1": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "C2": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "C3": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "C4": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "N1": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ],
+    "N2": [
+      "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "LAYER_UNPROVEN_NO_TEXT"
+    ]
+  },
+  "rows": [
+    {
+      "set": "v0.3",
+      "id": "D1",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LOCAL_RESOLVER_SUSPECT",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LOCAL_RESOLVER_SUSPECT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "A1",
+      "provenance": "observed_desensitized",
+      "credit": "郑珺的hermes",
+      "verdict": "ADDR_SCOPED_FAULT",
+      "code": "SINGLE_ADDR_TLS",
+      "expect": [
+        "ADDR_SCOPED_FAULT",
+        "SINGLE_ADDR_TLS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "A2",
+      "provenance": "observed_desensitized",
+      "credit": "黑色大肥鱼",
+      "verdict": "ADDR_SCOPED_FAULT",
+      "code": "AF_V6_PATH_SUSPECT",
+      "expect": [
+        "ADDR_SCOPED_FAULT",
+        "AF_V6_PATH_SUSPECT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "A3",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "SERVICE_DOWN_CURRENT",
+      "code": "LAYER_PROVEN_CONNECT",
+      "expect": [
+        "SERVICE_DOWN_CURRENT",
+        "LAYER_PROVEN_CONNECT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": false
+    },
+    {
+      "set": "v0.3",
+      "id": "P1",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_UNPROVEN_CONNECT_OR_TLS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_CONNECT_OR_TLS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "P2",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_PROVEN_TLS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_PROVEN_TLS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "P3",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_UNPROVEN_READ_AMBIGUOUS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_READ_AMBIGUOUS"
+      ],
+      "pass": true,
+      "naive_verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "naive_wrong": false
+    },
+    {
+      "set": "v0.3",
+      "id": "P4",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LOCAL_POOL_EXHAUSTED",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LOCAL_POOL_EXHAUSTED"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "C1",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_UNPROVEN_CONNECT_OR_TLS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_CONNECT_OR_TLS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "C2",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LOCAL_RESOLVER_SUSPECT",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LOCAL_RESOLVER_SUSPECT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "C3",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_UNPROVEN_OVERALL_AMBIGUOUS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_OVERALL_AMBIGUOUS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "C4",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_PROVEN_BODY",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_PROVEN_BODY"
+      ],
+      "pass": true,
+      "naive_verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "naive_wrong": false
+    },
+    {
+      "set": "v0.3",
+      "id": "N1",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_UNPROVEN_CONNECT_OR_TLS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_CONNECT_OR_TLS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.3",
+      "id": "N2",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_PROVEN_HEADERS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_PROVEN_HEADERS"
+      ],
+      "pass": true,
+      "naive_verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "naive_wrong": false
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L1",
+      "provenance": "observed_desensitized",
+      "credit": "MOSS",
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_UNPROVEN_PRE_HEADERS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_PRE_HEADERS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L2",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "SERVICE_DOWN_CURRENT",
+      "code": "LAYER_PROVEN_CONNECT",
+      "expect": [
+        "SERVICE_DOWN_CURRENT",
+        "LAYER_PROVEN_CONNECT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": false
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L3",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "PROBE_MISSING",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "PROBE_MISSING"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L4",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LOCAL_PATH_SUSPECT",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LOCAL_PATH_SUSPECT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L5",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_PROVEN_TLS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_PROVEN_TLS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L6",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_UNPROVEN_PRE_HEADERS",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_PRE_HEADERS"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L7",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_UNPROVEN_NO_TEXT",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_UNPROVEN_NO_TEXT"
+      ],
+      "pass": true,
+      "naive_verdict": "SERVICE_DOWN_CURRENT",
+      "naive_wrong": true
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L8",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "CONNECT_SINGLE",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "CONNECT_SINGLE"
+      ],
+      "pass": true,
+      "naive_verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "naive_wrong": false
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L9",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "code": "LAYER_PROVEN_BODY",
+      "expect": [
+        "INCONCLUSIVE_BUDGET_EXHAUSTED",
+        "LAYER_PROVEN_BODY"
+      ],
+      "pass": true,
+      "naive_verdict": "INCONCLUSIVE_BUDGET_EXHAUSTED",
+      "naive_wrong": false
+    },
+    {
+      "set": "v0.2_rerun",
+      "id": "L10",
+      "provenance": "hand_built",
+      "credit": null,
+      "verdict": "RETRYING",
+      "code": "BUDGET_OPEN",
+      "expect": [
+        "RETRYING",
+        "BUDGET_OPEN"
+      ],
+      "pass": true,
+      "naive_verdict": "RETRYING",
+      "naive_wrong": false
+    }
+  ]
+}

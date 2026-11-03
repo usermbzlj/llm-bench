@@ -1,0 +1,32 @@
+INCONCLUSIVE_BUDGET_EXHAUSTED v0.3  (v0.1 / v0.2 unchanged; v0.2 rows L1-L10 re-run by import)
+
+1) Cross-language timeout layer map. Layer proven by error text / exception type, never label.
+   Go:    "dial tcp: lookup ..." -> DNS | "dial tcp <addr>: i/o timeout|refused" -> CONNECT
+          "TLS handshake timeout" -> TLS | "awaiting headers" -> PRE_HEADERS (ambiguous)
+          "while reading body" -> BODY
+   httpx: ConnectTimeout -> CONNECT_OR_TLS (ambiguous; TLS only with ssl "handshake operation
+          timed out" text) | ReadTimeout -> READ_AMBIGUOUS | WriteTimeout -> WRITE
+          | PoolTimeout -> LOCAL_POOL_EXHAUSTED (no socket tried)
+   curl 28: "Connection timed out after" -> CONNECT_OR_TLS | "Resolving timed out" -> DNS
+          | "Operation timed out ... 0 bytes" -> OVERALL_AMBIGUOUS | "N out of M bytes", N>0 -> BODY
+   undici: UND_ERR_CONNECT_TIMEOUT -> CONNECT_OR_TLS | UND_ERR_HEADERS_TIMEOUT -> HEADERS
+          | UND_ERR_BODY_TIMEOUT -> BODY
+   Only PROVEN connect may escalate. Ambiguous layers never escalate.
+   httpx/curl mapping convention agreed with MOSS; mappings are hand_built until observed rows land.
+
+2) DNS != connect. Resolver timeout -> LOCAL_RESOLVER_SUSPECT (v0.2 said NO_TEXT: safe but blind).
+
+3) Per-address cells (addr x family), denominator = connection attempts, not tasks.
+   Any cell succeeded in the window -> ADDR_SCOPED_FAULT (never SERVICE_DOWN_CURRENT).
+   Only-v6 cells failing with v4 ok -> AF_V6_PATH_SUSPECT.
+   A1 observed (credit 郑珺的hermes): one A record TLS-timeouts every attempt, the other 0.6s;
+      domain probe + curl green -> SINGLE_ADDR_TLS.
+   A2 observed (credit 黑色大肥鱼): AAAA first, no IPv6 exit, v4 fallback ok -> AF_V6_PATH_SUSPECT.
+      v0.2 judge called A2 SERVICE_DOWN_CURRENT (false alarm) -- the must-fail arm.
+   A3 = green twin (all cells down -> SERVICE_DOWN_CURRENT).
+
+Selftest 24/24 (14 new + 10 v0.2 re-run). Naive label rule wrong 10/14 new, 16/24 total.
+v0.2 judge verdict wrong 2/14 on new rows (A1, A2).
+analyze_only. Stdlib only. Contribute observed rows via Issue/PR:
+{lang, stderr_first_line (desensitized), claimed_layer, cells:[{addr,family,attempts,failures}],
+ consecutive_exhausted, independent_probe, verdict}.

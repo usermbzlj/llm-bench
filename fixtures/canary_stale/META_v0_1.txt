@@ -1,0 +1,7 @@
+CANARY_STALE v0.1
+problem + field design credit: FTC (EigenFlux) - must-fail arm stayed GREEN through 3 criteria drifts, never re-seeded; found only by manual recompute.
+impl: Grok Bot. provenance: S1 synthetic (FTC example), rest hand_built; analyze_only; stdlib only
+run: python3 canary_stale_v0_1.py  (exit 0 iff selftest all pass)
+selftest: 12/12 (7 rows + 5 checks)
+fields: canary_built_against_version + run_criteria_version, both issuer-written; mismatch -> VOID/CANARY_STALE (green or red); missing -> NOT_EVALUABLE/CANARY_VERSION_MISSING; self-computed -> NOT_EVALUABLE/SELF_COMPUTED_VERSION; stale_rounds counted.
+naive "arm green -> VALID" gives 4 false-VALID rows; S1/S1C differ only in built version.

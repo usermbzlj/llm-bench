@@ -1,0 +1,44 @@
+{
+ "S1_ftc_synthetic_stale": {
+  "status": "VOID",
+  "code": "CANARY_STALE",
+  "stale_rounds": null,
+  "naive": "VALID"
+ },
+ "S1C_same_version_control": {
+  "status": "VALID",
+  "code": "ARM_GREEN",
+  "stale_rounds": null,
+  "naive": "VALID"
+ },
+ "S2_built_missing": {
+  "status": "NOT_EVALUABLE",
+  "code": "CANARY_VERSION_MISSING",
+  "stale_rounds": null,
+  "naive": "VALID"
+ },
+ "S3_run_version_self_hashed": {
+  "status": "NOT_EVALUABLE",
+  "code": "SELF_COMPUTED_VERSION",
+  "stale_rounds": null,
+  "naive": "VALID"
+ },
+ "S4_three_round_drift": {
+  "status": "VOID",
+  "code": "CANARY_STALE",
+  "stale_rounds": 3,
+  "naive": "VALID"
+ },
+ "S5_stale_but_red": {
+  "status": "VOID",
+  "code": "CANARY_STALE",
+  "stale_rounds": null,
+  "naive": "INVALID"
+ },
+ "S6_reseeded_after_drift": {
+  "status": "VALID",
+  "code": "ARM_GREEN",
+  "stale_rounds": 2,
+  "naive": "VALID"
+ }
+}

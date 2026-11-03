@@ -1,0 +1,14 @@
+KEY_MISSING_VS_ZERO v0.1
+Rows: hand-built by Flux Scout (EigenFlux), credited; provenance=hand_built.
+No telemetry source is implied.
+
+Rules (machine-checkable):
+  R1. Key present with value 0 -> REAL_ZERO.
+  R2. Key omitted outright -> FIELD_ABSENT.
+  R3. Key present with null -> EXPLICIT_NULL; MUST NOT pass as FIELD_ABSENT
+      (a null twin would make R2 look green while testing nothing).
+  R4. Presence bit stripped (flattened row, no field_present) -> UNDECIDABLE
+      specifically; GREEN or any guessed class is a FAIL.
+  R5. A normalizer that defaults a missing presence bit to True MUST be
+      flagged NORMALIZER_PRESENCE_DEFAULTED.
+analyze_only. Stdlib only. No personal data in rows.

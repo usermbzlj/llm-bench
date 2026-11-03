@@ -1,0 +1,120 @@
+{
+ "fixture": "RELAY_ERROR_SEMANTICS",
+ "version": "0.3",
+ "check_order": [
+  "CONTENT_LENGTH",
+  "SSE_EVENTS",
+  "TOOL_CALL_INTEGRITY",
+  "REQUEST_INTEGRITY",
+  "V0_2"
+ ],
+ "selftest": "16/16",
+ "schema_only_baseline_false_ok": 5,
+ "must_fail_rows": 5,
+ "controls": {
+  "C1_schema_only_baseline_misses_every_must_fail": true,
+  "C2_every_new_class_has_ok_twin": true,
+  "C3_v0_2_alone_calls_S01_OK": true,
+  "C4_body_only_diff_misses_P01": true,
+  "C5_v0_2_selftest_still_green": true
+ },
+ "rows": [
+  {
+   "id": "L01_content_length_short",
+   "expected": "CONTENT_LENGTH_MISMATCH",
+   "got": "CONTENT_LENGTH_MISMATCH",
+   "check_stage": "CONTENT_LENGTH",
+   "action": "BOUNDED_RETRY_FLAG_RELAY",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "L02_content_length_twin_ok",
+   "expected": "OK",
+   "got": "OK",
+   "check_stage": "V0_2",
+   "action": "ACCEPT",
+   "must_fail": false,
+   "pass": true
+  },
+  {
+   "id": "S01_error_event_in_200_sse",
+   "expected": "SSE_ERROR_MASKED_200",
+   "got": "SSE_ERROR_MASKED_200",
+   "check_stage": "SSE_EVENTS",
+   "action": "PARSE_EVENT_ERROR_THEN_V0_2_RULES",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "S02_data_error_no_event_name",
+   "expected": "SSE_ERROR_MASKED_200",
+   "got": "SSE_ERROR_MASKED_200",
+   "check_stage": "SSE_EVENTS",
+   "action": "PARSE_EVENT_ERROR_THEN_V0_2_RULES",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "S03_sse_clean_twin",
+   "expected": "OK",
+   "got": "OK",
+   "check_stage": "V0_2",
+   "action": "ACCEPT",
+   "must_fail": false,
+   "pass": true
+  },
+  {
+   "id": "T01_half_tool_call_args",
+   "expected": "TOOL_CALL_TRUNCATED",
+   "got": "TOOL_CALL_TRUNCATED",
+   "check_stage": "TOOL_CALL_INTEGRITY",
+   "action": "NEVER_EXECUTE_RETRY_WHOLE_TURN",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "T02_tool_call_twin_ok",
+   "expected": "OK",
+   "got": "OK",
+   "check_stage": "V0_2",
+   "action": "ACCEPT",
+   "must_fail": false,
+   "pass": true
+  },
+  {
+   "id": "Q01_orphan_tool_result",
+   "expected": "ORPHAN_TOOL_RESULT",
+   "got": "ORPHAN_TOOL_RESULT",
+   "check_stage": "REQUEST_INTEGRITY",
+   "action": "FIX_CLIENT_FLAG_RELAY_NO_VALIDATION",
+   "must_fail": true,
+   "pass": true
+  },
+  {
+   "id": "Q02_paired_tool_result_twin",
+   "expected": "OK",
+   "got": "OK",
+   "check_stage": "V0_2",
+   "action": "ACCEPT",
+   "must_fail": false,
+   "pass": true
+  }
+ ],
+ "pairs": [
+  {
+   "id": "P01_429_vs_500_same_body",
+   "got": "ERROR_SEMANTICS_DIVERGE",
+   "retry_after_lost": true,
+   "body_only_baseline": "SAME",
+   "pass": true
+  },
+  {
+   "id": "P02_429_vs_429_control",
+   "got": "SAME",
+   "retry_after_lost": false,
+   "body_only_baseline": "SAME",
+   "pass": true
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+RELAY_ERROR_SEMANTICS v0.3  (analyze_only, stdlib, hand_built rows)
+New classes: CONTENT_LENGTH_MISMATCH (Marvis), SSE_ERROR_MASKED_200 / TOOL_CALL_TRUNCATED / ORPHAN_TOOL_RESULT (Aran), paired ERROR_SEMANTICS_DIVERGE + RETRY_AFTER_LOST (小花花).
+check_order emitted per row: CONTENT_LENGTH -> SSE_EVENTS -> TOOL_CALL_INTEGRITY -> REQUEST_INTEGRITY -> V0_2.
+Baseline: schema-only validator calls 5/5 must-fail rows valid; v0.2 alone calls S01 OK.
+Observed rows welcome: observed_v0_3.jsonl, same schema, provenance=observed, no keys/URLs.

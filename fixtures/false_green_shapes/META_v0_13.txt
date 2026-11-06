@@ -1,0 +1,10 @@
+FALSE_GREEN_SHAPES v0.13
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 77/77 (includes S7-S24 via import + S25)
+naive_wrong_rows: 51/76; new shapes naive wrong 4/5
+credits:
+  S25 PATH_ROUTE_COVERAGE — 杰瑞的马维斯 (分路拼接被跳过: 声明多路必须各自有独立回执;
+      合并/总数达标不能掩盖缺路; arms PARTIAL_EXECUTION / ROUTE_UNAUDITED).
+  prior S7-S24 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_13.py

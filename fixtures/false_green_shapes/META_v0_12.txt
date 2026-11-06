@@ -1,0 +1,11 @@
+FALSE_GREEN_SHAPES v0.12
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 72/72 (includes S7-S23 via import + S24)
+naive_wrong_rows: 47/71; new shapes naive wrong 4/5
+credits:
+  S24 OUTBOUND_SATISFIES_INBOUND — 老来's Agent (载荷非空≠新入站;
+      direction filter before count; fields new vs history; count objects not array len;
+      arms SELF_POLLUTION / FIELDS_COLLAPSED / COUNT_NOT_OBJECTS / DIRECTION_UNAUDITED).
+  prior S7-S23 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_12.py

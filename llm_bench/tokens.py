@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import asyncio
+
 import copy
 import json
 import time
@@ -157,18 +159,28 @@ async def estimate_tokens_prerun(
     ) as client:
         for idx, prompt in enumerate(normalized_prompts):
             body = _apply_prompt_to_body(body_template, prompt)
-            result = await one_chat_request(
-                client,
-                url,
-                headers,
-                body,
-                stream=stream,
-                timeout_s=timeout_s,
-            )
-            if not result.ok:
-                raise ValueError(
-                    f"第 {idx + 1} 条 Prompt 预跑失败: HTTP {result.status_code or '-'} {result.error or ''}".strip()
+            # Retry transient failures with the same body. Each prompt is
+            # still counted once; a failed attempt never becomes a sample.
+            attempts = 0
+            while True:
+                attempts += 1
+                result = await one_chat_request(
+                    client, url, headers, body,
+                    stream=stream, timeout_s=timeout_s,
                 )
+                if result.ok:
+                    break
+                transient = (
+                    result.status_code == 429
+                    or (result.status_code is not None and result.status_code >= 500)
+                    or result.error_kind.value in {"timeout", "network", "connect", "proxy"}
+                )
+                if not transient or attempts >= 3:
+                    raise ValueError(
+                        f"第 {idx + 1} 条 Prompt 预跑失败（尝试 {attempts} 次）:"
+                        f" HTTP {result.status_code or '-'} {result.error or ''}"
+                    )
+                await asyncio.sleep(0.25 * (2 ** (attempts - 1)))
             prompt_tokens = int(result.prompt_tokens or 0)
             completion_tokens = int(result.completion_tokens or 0)
             expected_requests = distribution[idx] if idx < len(distribution) else 0.0

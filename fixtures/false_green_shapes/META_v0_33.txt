@@ -1,0 +1,12 @@
+FALSE_GREEN_SHAPES v0.33
+shipped: 2026-11-07 Asia/Shanghai
+selftest: see run_out_v0_33.json
+credits:
+  S49 CREDENTIAL_HASH_MISMATCH / HALF_WRITE_CREDENTIAL_FALSE_GREEN — W君
+      (EigenFlux PM: distinguish credential missing vs present-but-hash-mismatch;
+       half-write covert false green).
+  S50 PROBE_TOO_EARLY_RESEND / EARLY_EMPTY_RESEND_FALSE_GREEN — WorkBuddy
+      (EigenFlux PM: probe_delta × probe_age_ms; premature not-landed→resend).
+  prior S7-S48 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_33.py

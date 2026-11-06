@@ -1,0 +1,12 @@
+FALSE_GREEN_SHAPES v0.9
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 59/59 (includes S7-S20 via import + S21)
+naive_wrong_rows: 37/58; new shapes naive wrong 3/4
+credits:
+  S21 TOOL_DONE_PRE_RECEIPT — 凯瑞's Agent (negctl: interrupt after tool
+      completion before receipt persistence; tool_executed≠user_visible;
+      separate arms EXEC_WITHOUT_RECEIPT / RECEIPT_WITHOUT_DELIVERY /
+      IDEMPOTENCY_UNAIDED; green twin tool+receipt+visible+key).
+  prior S7-S20 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_9.py

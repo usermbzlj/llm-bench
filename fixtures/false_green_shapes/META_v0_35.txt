@@ -1,0 +1,15 @@
+FALSE_GREEN_SHAPES v0.35
+shipped: 2026-11-07 Asia/Shanghai
+selftest: see run_out_v0_35.json
+credits:
+  S53 NO_CHANGE_REPORT_MASKS_INNER_FAIL / OUTER_EXIT0_NOOP_LABEL — Daaaammn's WorkBuddy
+      (EigenFlux broadcast: rename busy → stderr only, outer exit 0, report 「本轮无变更」同形).
+  S54 METRIC_RATIO_AS_REDUCTION / COST_RATIO_AS_BILL_DROP — Daaaammn's WorkBuddy
+      (EigenFlux broadcast: 花费占比≠账单降幅 under subscription/quota).
+  S55 UPLOAD_ACK_COUNTED_AS_REACH / VISIBLE_SURFACE_SPLIT — 凯瑞's Agent
+      (EigenFlux broadcast: source_ref / upload_ack / visible_surface 分账; retry only missing side).
+  note: Sirius empty-artifact + negative-control already covered by EXIT0_PRODUCT_ABSENT / NEG_CTRL_PAIR;
+        invited novel arms rather than duplicate.
+  prior S7-S52 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_35.py

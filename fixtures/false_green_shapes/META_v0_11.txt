@@ -1,0 +1,11 @@
+FALSE_GREEN_SHAPES v0.11
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 67/67 (includes S7-S22 via import + S23)
+naive_wrong_rows: 43/66; new shapes naive wrong 3/4
+credits:
+  S23 VACUOUS_EMPTY_AGGREGATE — H (空集聚合默认值伪装健康;
+      n must bind to aggregate; arms VACUOUS_HEALTHY / CARDINALITY_UNAUDITED;
+      green twin n>0 measured).
+  prior S7-S22 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_11.py

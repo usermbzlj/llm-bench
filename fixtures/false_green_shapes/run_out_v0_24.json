@@ -1,0 +1,1421 @@
+{
+ "fixture": "FALSE_GREEN_SHAPES",
+ "version": "0.24",
+ "selftest": "142/142",
+ "naive_wrong_rows": 99,
+ "naive_wrong_new_shapes": "6/7",
+ "naive_forced_verdicts_on_cant_tell": 28,
+ "forced_verdict_control": true,
+ "rows": [
+  {
+   "id": "S7-mf",
+   "shape": "S7",
+   "provenance": "hand_built",
+   "expected": "UNDECIDABLE",
+   "struct": "UNDECIDABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S7-mf2",
+   "shape": "S7",
+   "provenance": "hand_built",
+   "expected": "UNDECIDABLE",
+   "struct": "UNDECIDABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S7-gt",
+   "shape": "S7",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S7-rc",
+   "shape": "S7",
+   "provenance": "hand_built",
+   "expected": "FAIL",
+   "struct": "FAIL",
+   "naive": "FAIL",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S8-mf",
+   "shape": "S8",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/SHAPE_DRIFT_UNVERSIONED",
+   "struct": "UNKNOWN/SHAPE_DRIFT_UNVERSIONED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S8-mf2",
+   "shape": "S8",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/KEYSET_MEMBER_DRIFT",
+   "struct": "UNKNOWN/KEYSET_MEMBER_DRIFT",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S8-gt",
+   "shape": "S8",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S8-gt2",
+   "shape": "S8",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S9-mf",
+   "shape": "S9",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/OK_FIELD_DEGRADED",
+   "struct": "FAIL/OK_FIELD_DEGRADED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S9-un",
+   "shape": "S9",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN",
+   "struct": "UNKNOWN",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S9-gt",
+   "shape": "S9",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S10-mf",
+   "shape": "S10",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/EVAL_NEVER_EXECUTED",
+   "struct": "FAIL/EVAL_NEVER_EXECUTED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S10-gt",
+   "shape": "S10",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S11-mf",
+   "shape": "S11",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/COVERAGE_GAP",
+   "struct": "FAIL/COVERAGE_GAP",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S11-un",
+   "shape": "S11",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN",
+   "struct": "UNKNOWN",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S11-gt",
+   "shape": "S11",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S11-sh",
+   "shape": "S11",
+   "provenance": "hand_built",
+   "expected": "FAIL",
+   "struct": "FAIL",
+   "naive": "FAIL",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S12-mf",
+   "shape": "S12",
+   "provenance": "observed_shape_desensitized",
+   "expected": "UNKNOWN/RULE_SOURCE_REV_STALE",
+   "struct": "UNKNOWN/RULE_SOURCE_REV_STALE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S12-un",
+   "shape": "S12",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/REV_MISSING",
+   "struct": "UNKNOWN/REV_MISSING",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S12-gt",
+   "shape": "S12",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S13-mf",
+   "shape": "S13",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/LOCAL_ID_TYPO",
+   "struct": "FAIL/LOCAL_ID_TYPO",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S13-mf2",
+   "shape": "S13",
+   "provenance": "hand_built",
+   "expected": "FAIL/PARTIAL_SILENT_SKIP",
+   "struct": "FAIL/PARTIAL_SILENT_SKIP",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S13-tr",
+   "shape": "S13",
+   "provenance": "hand_built",
+   "expected": "RETRYABLE/TRANSPORT",
+   "struct": "RETRYABLE/TRANSPORT",
+   "naive": "FAIL",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S13-gt",
+   "shape": "S13",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S14-mf",
+   "shape": "S14",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/RULE_GATE_IGNORED",
+   "struct": "FAIL/RULE_GATE_IGNORED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S14-un",
+   "shape": "S14",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/RULE_GATE_ONE_ROUND",
+   "struct": "UNKNOWN/RULE_GATE_ONE_ROUND",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S14-gt",
+   "shape": "S14",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S15-mf",
+   "shape": "S15",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/SELF_CONTRADICTION",
+   "struct": "FAIL/SELF_CONTRADICTION",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S15-mf2",
+   "shape": "S15",
+   "provenance": "hand_built",
+   "expected": "FAIL/SELF_CONTRADICTION",
+   "struct": "FAIL/SELF_CONTRADICTION",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S15-un",
+   "shape": "S15",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/ARM_EXECUTED_MISSING",
+   "struct": "UNKNOWN/ARM_EXECUTED_MISSING",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S15-gt",
+   "shape": "S15",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S16-mf",
+   "shape": "S16",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/VOID_UNBOUNDED",
+   "struct": "FAIL/VOID_UNBOUNDED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S16-mf2",
+   "shape": "S16",
+   "provenance": "hand_built",
+   "expected": "FAIL/VOID_ORPHAN",
+   "struct": "FAIL/VOID_ORPHAN",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S16-gt",
+   "shape": "S16",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S16-gt0",
+   "shape": "S16",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S17-mask",
+   "shape": "S17",
+   "provenance": "observed_shape_desensitized",
+   "expected": "UNDECIDABLE/MOD64_MASK",
+   "struct": "UNDECIDABLE/MOD64_MASK",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S17-mf",
+   "shape": "S17",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/FLOAT64_PRECISION_LOSS",
+   "struct": "FAIL/FLOAT64_PRECISION_LOSS",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S17-drop",
+   "shape": "S17",
+   "provenance": "hand_built",
+   "expected": "FAIL/MIXED_ID_DROP",
+   "struct": "FAIL/MIXED_ID_DROP",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S17-gt",
+   "shape": "S17",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S17-mf2",
+   "shape": "S17",
+   "provenance": "hand_built",
+   "expected": "FAIL/NEGCTL_MISSING_NONZERO_MOD",
+   "struct": "FAIL/NEGCTL_MISSING_NONZERO_MOD",
+   "naive": "FAIL",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S18-mf-above",
+   "shape": "S18",
+   "provenance": "synthetic(麦麦)",
+   "expected": "FAIL/SAFE_INTEGER_OVERFLOW",
+   "struct": "FAIL/SAFE_INTEGER_OVERFLOW",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S18-mf-ledger",
+   "shape": "S18",
+   "provenance": "observed_shape_desensitized(xiaoyou的dsh)",
+   "expected": "FAIL/LEDGER_ID_MISMATCH",
+   "struct": "FAIL/LEDGER_ID_MISMATCH",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S18-gt-at-safe",
+   "shape": "S18",
+   "provenance": "synthetic(麦麦)",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S18-gt-string",
+   "shape": "S18",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S18-gt-below",
+   "shape": "S18",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S19-mf-coupled",
+   "shape": "S19",
+   "provenance": "observed_shape_desensitized(WorkBuddy)",
+   "expected": "FAIL/CONFIG_COUPLED",
+   "struct": "FAIL/CONFIG_COUPLED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S19-mf-channel",
+   "shape": "S19",
+   "provenance": "observed_shape_desensitized(WorkBuddy)",
+   "expected": "FAIL/CHANNEL_SELF_REF",
+   "struct": "FAIL/CHANNEL_SELF_REF",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S19-mf-unaudited",
+   "shape": "S19",
+   "provenance": "hand_built",
+   "expected": "FAIL/INDEPENDENCE_UNAUDITED",
+   "struct": "FAIL/INDEPENDENCE_UNAUDITED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S19-mf-stale",
+   "shape": "S19",
+   "provenance": "hand_built",
+   "expected": "FAIL/ANCHOR_STALE",
+   "struct": "FAIL/ANCHOR_STALE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S19-gt",
+   "shape": "S19",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S20-mf-obs",
+   "shape": "S20",
+   "provenance": "observed_shape_desensitized(DSH助手)",
+   "expected": "FAIL/STALE_PRODUCT",
+   "struct": "FAIL/STALE_PRODUCT",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S20-mf-num",
+   "shape": "S20",
+   "provenance": "hand_built",
+   "expected": "FAIL/STALE_PRODUCT",
+   "struct": "FAIL/STALE_PRODUCT",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S20-mf-unaudited",
+   "shape": "S20",
+   "provenance": "hand_built",
+   "expected": "FAIL/RUN_ID_UNAUDITED",
+   "struct": "FAIL/RUN_ID_UNAUDITED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S20-gt",
+   "shape": "S20",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S21-mf-obs",
+   "shape": "S21",
+   "provenance": "observed_shape_desensitized(凯瑞)",
+   "expected": "FAIL/EXEC_WITHOUT_RECEIPT",
+   "struct": "FAIL/EXEC_WITHOUT_RECEIPT",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S21-mf-nodeliver",
+   "shape": "S21",
+   "provenance": "hand_built",
+   "expected": "FAIL/RECEIPT_WITHOUT_DELIVERY",
+   "struct": "FAIL/RECEIPT_WITHOUT_DELIVERY",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S21-mf-nokey",
+   "shape": "S21",
+   "provenance": "hand_built",
+   "expected": "FAIL/IDEMPOTENCY_UNAIDED",
+   "struct": "FAIL/IDEMPOTENCY_UNAIDED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S21-gt",
+   "shape": "S21",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S22-mf-obs",
+   "shape": "S22",
+   "provenance": "observed_shape_desensitized(凯瑞)",
+   "expected": "FAIL/BACKLOG_REMAINS",
+   "struct": "FAIL/BACKLOG_REMAINS",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S22-mf-sparse",
+   "shape": "S22",
+   "provenance": "hand_built",
+   "expected": "FAIL/BACKLOG_REMAINS",
+   "struct": "FAIL/BACKLOG_REMAINS",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S22-mf-unaudited",
+   "shape": "S22",
+   "provenance": "hand_built",
+   "expected": "FAIL/BACKLOG_UNAUDITED",
+   "struct": "FAIL/BACKLOG_UNAUDITED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S22-gt",
+   "shape": "S22",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S23-mf-obs",
+   "shape": "S23",
+   "provenance": "observed_shape_desensitized(H)",
+   "expected": "FAIL/VACUOUS_HEALTHY",
+   "struct": "FAIL/VACUOUS_HEALTHY",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S23-mf-unaudited",
+   "shape": "S23",
+   "provenance": "hand_built",
+   "expected": "FAIL/CARDINALITY_UNAUDITED",
+   "struct": "FAIL/CARDINALITY_UNAUDITED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S23-mf-threshold",
+   "shape": "S23",
+   "provenance": "hand_built",
+   "expected": "FAIL/VACUOUS_HEALTHY",
+   "struct": "FAIL/VACUOUS_HEALTHY",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S23-gt",
+   "shape": "S23",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S24-mf-obs",
+   "shape": "S24",
+   "provenance": "observed_shape_desensitized(老来)",
+   "expected": "FAIL/SELF_POLLUTION",
+   "struct": "FAIL/SELF_POLLUTION",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S24-mf-collapse",
+   "shape": "S24",
+   "provenance": "hand_built",
+   "expected": "FAIL/FIELDS_COLLAPSED",
+   "struct": "FAIL/FIELDS_COLLAPSED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S24-mf-dup",
+   "shape": "S24",
+   "provenance": "hand_built",
+   "expected": "FAIL/COUNT_NOT_OBJECTS",
+   "struct": "FAIL/COUNT_NOT_OBJECTS",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S24-mf-unaudited",
+   "shape": "S24",
+   "provenance": "hand_built",
+   "expected": "FAIL/DIRECTION_UNAUDITED",
+   "struct": "FAIL/DIRECTION_UNAUDITED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S24-gt",
+   "shape": "S24",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S25-mf-obs",
+   "shape": "S25",
+   "provenance": "observed_shape_desensitized(杰瑞的马维斯)",
+   "expected": "FAIL/PARTIAL_EXECUTION",
+   "struct": "FAIL/PARTIAL_EXECUTION",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S25-mf-totals",
+   "shape": "S25",
+   "provenance": "hand_built",
+   "expected": "FAIL/PARTIAL_EXECUTION",
+   "struct": "FAIL/PARTIAL_EXECUTION",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S25-mf-unaudited",
+   "shape": "S25",
+   "provenance": "hand_built",
+   "expected": "FAIL/ROUTE_UNAUDITED",
+   "struct": "FAIL/ROUTE_UNAUDITED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S25-mf-empty-map",
+   "shape": "S25",
+   "provenance": "hand_built",
+   "expected": "FAIL/PARTIAL_EXECUTION",
+   "struct": "FAIL/PARTIAL_EXECUTION",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S25-gt",
+   "shape": "S25",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S26-mf-obs",
+   "shape": "S26",
+   "provenance": "observed_shape_desensitized(码不停蹄)",
+   "expected": "FAIL/KEY_UNSTABLE",
+   "struct": "FAIL/KEY_UNSTABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S26-mf-empty",
+   "shape": "S26",
+   "provenance": "hand_built",
+   "expected": "FAIL/KEY_EMPTY",
+   "struct": "FAIL/KEY_EMPTY",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S26-mf-absent",
+   "shape": "S26",
+   "provenance": "hand_built",
+   "expected": "FAIL/IDEMPOTENCY_UNAIDED",
+   "struct": "FAIL/IDEMPOTENCY_UNAIDED",
+   "naive": "FAIL",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S26-mf-values",
+   "shape": "S26",
+   "provenance": "hand_built",
+   "expected": "FAIL/KEY_UNSTABLE",
+   "struct": "FAIL/KEY_UNSTABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S26-gt",
+   "shape": "S26",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S27-mf-obs",
+   "shape": "S27",
+   "provenance": "observed_shape_desensitized(Hermes)",
+   "expected": "FAIL/ID_NUMERIC_REWRITE",
+   "struct": "FAIL/ID_NUMERIC_REWRITE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S27-mf-single",
+   "shape": "S27",
+   "provenance": "hand_built",
+   "expected": "FAIL/ID_NUMERIC_REWRITE",
+   "struct": "FAIL/ID_NUMERIC_REWRITE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S27-mf-missing",
+   "shape": "S27",
+   "provenance": "hand_built",
+   "expected": "FAIL/ID_PAIR_MISSING",
+   "struct": "FAIL/ID_PAIR_MISSING",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S27-mf-count",
+   "shape": "S27",
+   "provenance": "hand_built",
+   "expected": "FAIL/ID_NUMERIC_REWRITE",
+   "struct": "FAIL/ID_NUMERIC_REWRITE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S27-gt",
+   "shape": "S27",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S28-mf-obs",
+   "shape": "S28",
+   "provenance": "observed_shape_desensitized(WorkBuddy)",
+   "expected": "FAIL/RECEIPT_NOT_DURABLE",
+   "struct": "FAIL/RECEIPT_NOT_DURABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S28-mf-eph",
+   "shape": "S28",
+   "provenance": "hand_built",
+   "expected": "FAIL/RECEIPT_NOT_DURABLE",
+   "struct": "FAIL/RECEIPT_NOT_DURABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S28-mf-nocommit",
+   "shape": "S28",
+   "provenance": "hand_built",
+   "expected": "FAIL/RECEIPT_NOT_DURABLE",
+   "struct": "FAIL/RECEIPT_NOT_DURABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S28-mf-splitvol",
+   "shape": "S28",
+   "provenance": "hand_built",
+   "expected": "FAIL/RECEIPT_NOT_DURABLE",
+   "struct": "FAIL/RECEIPT_NOT_DURABLE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S28-gt",
+   "shape": "S28",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S29-mf-falsefail-obs",
+   "shape": "S29",
+   "provenance": "observed_shape_desensitized(小花花)",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "FAIL",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S29-mf-falsepass-obs",
+   "shape": "S29",
+   "provenance": "observed_shape_desensitized(小花花)",
+   "expected": "FAIL/PRODUCT_MISSING",
+   "struct": "FAIL/PRODUCT_MISSING",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S29-ct-noscope",
+   "shape": "S29",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/PLATFORM_SCOPED",
+   "struct": "UNKNOWN/PLATFORM_SCOPED",
+   "naive": "FAIL",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S29-mf-digest",
+   "shape": "S29",
+   "provenance": "hand_built",
+   "expected": "FAIL/PRODUCT_DIGEST",
+   "struct": "FAIL/PRODUCT_DIGEST",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S29-gt",
+   "shape": "S29",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S30-mf-illegal-empty",
+   "shape": "S30",
+   "provenance": "observed_shape_desensitized(Hermes)",
+   "expected": "FAIL/ENUM_UNVALIDATED",
+   "struct": "FAIL/ENUM_UNVALIDATED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S30-mf-probe-silent",
+   "shape": "S30",
+   "provenance": "hand_built",
+   "expected": "FAIL/ENUM_UNVALIDATED",
+   "struct": "FAIL/ENUM_UNVALIDATED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S30-mf-absent-overreach",
+   "shape": "S30",
+   "provenance": "hand_built",
+   "expected": "FAIL/CONCLUSION_OVERREACH",
+   "struct": "FAIL/CONCLUSION_OVERREACH",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S30-ct-undeclared",
+   "shape": "S30",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/ENUM_VALIDATION_UNDECLARED",
+   "struct": "UNKNOWN/ENUM_VALIDATION_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S30-gt-legal-rows",
+   "shape": "S30",
+   "provenance": "observed_shape_desensitized(Hermes)",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S30-gt-honest-zero",
+   "shape": "S30",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S31-mf-stderr-exit0",
+   "shape": "S31",
+   "provenance": "observed_shape_desensitized(Jasper)",
+   "expected": "FAIL/STDERR_PROMOTED_EXIT0",
+   "struct": "FAIL/STDERR_PROMOTED_EXIT0",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S31-mf-shell-flag-mask",
+   "shape": "S31",
+   "provenance": "observed_shape_desensitized(Jaemin)",
+   "expected": "FAIL/SHELL_FLAG_MASKED_EXIT",
+   "struct": "FAIL/SHELL_FLAG_MASKED_EXIT",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S31-mf-native-cmd-err",
+   "shape": "S31",
+   "provenance": "hand_built",
+   "expected": "FAIL/STDERR_PROMOTED_EXIT0",
+   "struct": "FAIL/STDERR_PROMOTED_EXIT0",
+   "naive": "FAIL",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S31-ct-undeclared",
+   "shape": "S31",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/STDERR_CHANNEL_UNDECLARED",
+   "struct": "UNKNOWN/STDERR_CHANNEL_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S31-ct-uncaptured",
+   "shape": "S31",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/STDERR_CHANNEL_UNDECLARED",
+   "struct": "UNKNOWN/STDERR_CHANNEL_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S31-gt-clean-exit0",
+   "shape": "S31",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S31-gt-benign-stderr",
+   "shape": "S31",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S32-mf-section-mismatch",
+   "shape": "S32",
+   "provenance": "observed_shape_desensitized(xue)",
+   "expected": "FAIL/DECLARED_NOT_CONSUMED",
+   "struct": "FAIL/DECLARED_NOT_CONSUMED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S32-mf-not-loaded",
+   "shape": "S32",
+   "provenance": "observed_shape_desensitized(xue)",
+   "expected": "FAIL/DECLARED_NOT_CONSUMED",
+   "struct": "FAIL/DECLARED_NOT_CONSUMED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S32-ct-undeclared",
+   "shape": "S32",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/CONSUMER_LOAD_UNDECLARED",
+   "struct": "UNKNOWN/CONSUMER_LOAD_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S32-mf-consumed-missing",
+   "shape": "S32",
+   "provenance": "hand_built",
+   "expected": "FAIL/DECLARED_NOT_CONSUMED",
+   "struct": "FAIL/DECLARED_NOT_CONSUMED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S32-gt-matched-sections",
+   "shape": "S32",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S32-gt-loaded-no-sections",
+   "shape": "S32",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S33-mf-cross-run-hash",
+   "shape": "S33",
+   "provenance": "observed_shape_desensitized(Hermes)",
+   "expected": "FAIL/FINGERPRINT_NOT_RUN_SCOPED",
+   "struct": "FAIL/FINGERPRINT_NOT_RUN_SCOPED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S33-ct-undeclared-scope",
+   "shape": "S33",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/RUN_SCOPE_UNDECLARED",
+   "struct": "UNKNOWN/RUN_SCOPE_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S33-mf-partial-batch",
+   "shape": "S33",
+   "provenance": "observed_shape_desensitized(Hermes)",
+   "expected": "FAIL/PARTIAL_BATCH_REPLAY_UNSCOPED",
+   "struct": "FAIL/PARTIAL_BATCH_REPLAY_UNSCOPED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S33-ct-subitem-undeclared",
+   "shape": "S33",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/SUBITEM_COMPLETION_UNDECLARED",
+   "struct": "UNKNOWN/SUBITEM_COMPLETION_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S33-gt-same-run-stable",
+   "shape": "S33",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S33-gt-subitems-complete",
+   "shape": "S33",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S34-mf-polarity-flip",
+   "shape": "S34",
+   "provenance": "observed_shape_desensitized(Kyrie)",
+   "expected": "FAIL/DIRECTION_FLIP_PRESERVE_NUMBERS",
+   "struct": "FAIL/DIRECTION_FLIP_PRESERVE_NUMBERS",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S34-ct-direction-undeclared",
+   "shape": "S34",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/DIRECTION_UNDECLARED",
+   "struct": "UNKNOWN/DIRECTION_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S34-ct-rule-version-undeclared",
+   "shape": "S34",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/RULE_VERSION_UNDECLARED",
+   "struct": "UNKNOWN/RULE_VERSION_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S34-ct-field-source-undeclared",
+   "shape": "S34",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/FIELD_SOURCE_UNDECLARED",
+   "struct": "UNKNOWN/FIELD_SOURCE_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S34-gt-same-direction",
+   "shape": "S34",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S34-gt-zh-allow",
+   "shape": "S34",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S35-mf-rating-vs-score",
+   "shape": "S35",
+   "provenance": "observed_shape_desensitized(XiaoBa)",
+   "expected": "FAIL/ACCEPTED_WRONG_FIELD_IGNORED",
+   "struct": "FAIL/ACCEPTED_WRONG_FIELD_IGNORED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S35-ct-field-undeclared",
+   "shape": "S35",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/FIELD_NAME_UNDECLARED",
+   "struct": "UNKNOWN/FIELD_NAME_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S35-ct-expected-undeclared",
+   "shape": "S35",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/EXPECTED_FIELD_UNDECLARED",
+   "struct": "UNKNOWN/EXPECTED_FIELD_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S35-ct-readback-missing",
+   "shape": "S35",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/READBACK_MISSING",
+   "struct": "UNKNOWN/READBACK_MISSING",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S35-mf-alias-silent",
+   "shape": "S35",
+   "provenance": "hand_built",
+   "expected": "FAIL/ACCEPTED_WRONG_FIELD_IGNORED",
+   "struct": "FAIL/ACCEPTED_WRONG_FIELD_IGNORED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S35-gt-score-readback",
+   "shape": "S35",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S35-gt-same-field",
+   "shape": "S35",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "S36-mf-upload-truncated",
+   "shape": "S36",
+   "provenance": "observed_shape_desensitized(Kyrie)",
+   "expected": "FAIL/UPLOAD_OK_DISPLAY_INCOMPLETE",
+   "struct": "FAIL/UPLOAD_OK_DISPLAY_INCOMPLETE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S36-mf-missing-source",
+   "shape": "S36",
+   "provenance": "hand_built",
+   "expected": "FAIL/UPLOAD_OK_DISPLAY_INCOMPLETE",
+   "struct": "FAIL/UPLOAD_OK_DISPLAY_INCOMPLETE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S36-mf-storage-only",
+   "shape": "S36",
+   "provenance": "hand_built",
+   "expected": "FAIL/UPLOAD_OK_DISPLAY_INCOMPLETE",
+   "struct": "FAIL/UPLOAD_OK_DISPLAY_INCOMPLETE",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S36-ct-body-undeclared",
+   "shape": "S36",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/DISPLAY_BODY_UNDECLARED",
+   "struct": "UNKNOWN/DISPLAY_BODY_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S36-ct-link-undeclared",
+   "shape": "S36",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/SOURCE_LINK_UNDECLARED",
+   "struct": "UNKNOWN/SOURCE_LINK_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S36-ct-upload-undeclared",
+   "shape": "S36",
+   "provenance": "hand_built",
+   "expected": "UNKNOWN/UPLOAD_UNDECLARED",
+   "struct": "UNKNOWN/UPLOAD_UNDECLARED",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "S36-gt-full-display",
+   "shape": "S36",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  }
+ ]
+}

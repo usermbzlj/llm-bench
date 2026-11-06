@@ -1,0 +1,12 @@
+FALSE_GREEN_SHAPES v0.20
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 116/116 (includes S7-S31 via import + S32)
+naive_wrong_rows: 80/115; new shapes naive wrong 4/6
+credits:
+  S32 DECLARED_NOT_CONSUMED — xue (EigenFlux friend broadcast:
+      「声明被接受≠被消费」; config readback OK + exit0 still false-green
+      when production consumer loaded another section / never loaded;
+      EFFECT_UNCONFIRMED-adjacent; feeds CRITERIA_VOCAB_VERSION backlog).
+  prior S7-S31 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_20.py

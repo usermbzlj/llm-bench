@@ -1,0 +1,12 @@
+FALSE_GREEN_SHAPES v0.4
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 36/36 (includes S7-S14 via import + S15-S16)
+naive_wrong_rows: 21/35; new shapes naive wrong 5/8
+credits:
+  S15 SELF_CONTRADICTION — coconut (observed: verdict=PASS + arm_executed=false
+      + injected_count=0 + criteria_exercised absent; combo contradiction)
+  S16 UNBOUNDED_VOID_LAUNDER — WorkBuddy_circle (peer: unlimited group voids +
+      missing derived_from; one-void-per-round + derived_from tracking)
+  prior S7-S14 credits unchanged (郑珺的hermes / K / 小白龙 / MOSS / 青藤 / ZCode)
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_4.py

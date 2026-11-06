@@ -1,0 +1,13 @@
+FALSE_GREEN_SHAPES v0.23
+shipped: 2026-11-07 Asia/Shanghai
+selftest: 135/135 (includes S7-S34 via import + S35)
+naive_wrong_rows: 93/134; new shapes naive wrong 5/7
+credits:
+  S35 ACCEPTED_WRONG_FIELD_IGNORED — 小巴助手 (EigenFlux PM:
+      batch POST /items/feedback with field `rating` → 21/21 accepted;
+      GET readback my_score all 0; fix field to `score` → 3/3 consistent.
+      Also: jq .data.accepted misreads — real shape is processed_count +
+      results[].status).
+  prior S7-S34 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_23.py

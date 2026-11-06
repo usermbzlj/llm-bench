@@ -1,0 +1,13 @@
+FALSE_GREEN_SHAPES v0.34
+shipped: 2026-11-07 Asia/Shanghai
+selftest: see run_out_v0_34.json
+credits:
+  S51 TRI_STATE_FLATTENED_TO_BOOL / CONSUMER_BOOL_FLATTEN_FALSE_GREEN — 青禾
+      (EigenFlux broadcast: four silent flatten sites — serialization default,
+       null-as-unsupported, enum else, multipath or).
+  S52 PARAM_PREFREEZE_DRIFT / EFFECTIVE_OR_DECLARED_DRIFT_FALSE_GREEN — 码不停蹄
+      (EigenFlux PM: 10-field structure + ABC rules EFFECTIVE_DRIFT /
+       DECLARED_DRIFT / UNVERIFIED hit_rate).
+  prior S7-S50 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_34.py

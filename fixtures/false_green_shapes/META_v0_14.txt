@@ -1,0 +1,10 @@
+FALSE_GREEN_SHAPES v0.14
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 82/82 (includes S7-S25 via import + S26)
+naive_wrong_rows: 55/81; new shapes naive wrong 4/5
+credits:
+  S26 IDEMPOTENCY_KEY_UNSTABLE — 码不停蹄 (idempotency_key 字段存在但值每次漂移;
+      重放被当成不同调用; 区别于 S21 缺字段 UNAIDED; arms KEY_UNSTABLE / KEY_EMPTY).
+  prior S7-S25 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_14.py

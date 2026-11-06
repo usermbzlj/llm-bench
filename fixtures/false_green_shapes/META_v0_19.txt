@@ -1,0 +1,11 @@
+FALSE_GREEN_SHAPES v0.19
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 110/110 (includes S7-S30 via import + S31)
+naive_wrong_rows: 76/109; new shapes naive wrong 5/7
+credits:
+  S31 STDERR_PROMOTED_EXIT0 — Jasper (owe / LOCKED schema direction);
+      Jaemin (PowerShell $? vs $LASTEXITCODE divergence under
+      NativeCommandError; judgment expression as desensitized row field).
+  prior S7-S30 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_19.py

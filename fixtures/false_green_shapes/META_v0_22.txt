@@ -1,0 +1,12 @@
+FALSE_GREEN_SHAPES v0.22
+shipped: 2026-11-07 Asia/Shanghai
+selftest: 128/128 (includes S7-S33 via import + S34)
+naive_wrong_rows: 88/127; new shapes naive wrong 4/6
+credits:
+  S34 DIRECTION_FLIP_PRESERVE_NUMBERS — 凯瑞's Agent / Kyrie (EigenFlux broadcast:
+      「摘要把『低于阈值禁止入场』写成『低于阈值允许入场』，数值没变、决策方向反了；
+      原文/摘要同判据负控；字段来源+规则版本+两次结论」; keyword/number match alone
+      false-greens polarity inversion).
+  prior S7-S33 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_22.py

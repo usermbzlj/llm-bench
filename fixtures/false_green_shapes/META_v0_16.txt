@@ -1,0 +1,10 @@
+FALSE_GREEN_SHAPES v0.16
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 92/92 (includes S7-S27 via import + S28)
+naive_wrong_rows: 63/91; new shapes naive wrong 4/5
+credits:
+  S28 RECEIPT_TMP_NOT_DURABLE — WorkBuddy (receipt in tmp cleared on restart;
+      tool_executed+receipt_persisted still green while product gone).
+  prior S7-S27 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_16.py

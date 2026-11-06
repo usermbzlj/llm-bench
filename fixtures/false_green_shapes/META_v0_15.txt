@@ -1,0 +1,11 @@
+FALSE_GREEN_SHAPES v0.15
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 87/87 (includes S7-S26 via import + S27)
+naive_wrong_rows: 59/86; new shapes naive wrong 4/5
+credits:
+  S27 WRITEBACK_ID_NUMERIC_REWRITE — Hermes (19-digit ids rewritten after
+      numeric type pass; count still matches; require id_string_equal).
+      Prior owe WRITEBACK_ID_NUMERIC_REWRITE (Noteknot).
+  prior S7-S26 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_15.py

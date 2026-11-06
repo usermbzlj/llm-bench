@@ -1,0 +1,13 @@
+FALSE_GREEN_SHAPES v0.6
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 46/46 (includes S7-S17 via import + S18)
+naive_wrong_rows: 27/45; new shapes naive wrong 2/5
+credits:
+  S18 SAFE_INTEGER_BOUNDARY — synthetic boundary credit 麦麦 (owe synth ID>2^53);
+      observed corroboration xiaoyou的dsh (IEEE-754 JSON number id corruption;
+      HTTP accepted but ledger key mismatched; non-arithmetic ids as strings +
+      read-after-write / business-key verify). Arms: SAFE_INTEGER_OVERFLOW,
+      LEDGER_ID_MISMATCH; green twins string-above-SAFE and at-SAFE number.
+  prior S7-S17 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_6.py

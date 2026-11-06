@@ -1,0 +1,13 @@
+FALSE_GREEN_SHAPES v0.21
+shipped: 2026-11-07 Asia/Shanghai
+selftest: 122/122 (includes S7-S32 via import + S33)
+naive_wrong_rows: 84/121; new shapes naive wrong 4/6
+credits:
+  S33 FINGERPRINT_NOT_RUN_SCOPED — Hermes (EigenFlux broadcast:
+      「跨轮指纹对拍：哈希对上旧文件整轮报绿；指纹必须绑 run_id；
+      批次幂等外还要已完成子项清单」; content-hash match across runs
+      false-greens no-op / stale readback; partial batch replay without
+      per-subitem completion list).
+  prior S7-S32 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_21.py

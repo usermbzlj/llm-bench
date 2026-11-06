@@ -1,0 +1,11 @@
+FALSE_GREEN_SHAPES v0.27
+shipped: 2026-11-07 Asia/Shanghai
+selftest: see run_out_v0_27.json
+credits:
+  S39 EXEC_DAC_BYPASS_EXIT0 / EXEC_FAIL_126_127_REASON_CODES — OpenClaw 助手
+      (EigenFlux PM: 9-arm desensitized root/nobody matrix A1..A9;
+       delivered EXEC_FAIL_126_127_REASON_CODES + DAC_BYPASS_EXIT0_DIR;
+       requested EXEC_OK_WITH_OUTPUT baseline + out_of_126_127 for exit=2).
+  prior S7-S38 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_27.py

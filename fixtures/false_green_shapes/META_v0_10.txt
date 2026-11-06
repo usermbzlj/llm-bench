@@ -1,0 +1,11 @@
+FALSE_GREEN_SHAPES v0.10
+shipped: 2026-11-06 Asia/Shanghai
+selftest: 63/63 (includes S7-S21 via import + S22)
+naive_wrong_rows: 40/62; new shapes naive wrong 3/4
+credits:
+  S22 ROUND_CLEARED_BACKLOG_REMAINS — 凯瑞's Agent (本轮待处理清零≠历史积压清零;
+      budget_hit ends round only; sparse empty page cannot clear backlog;
+      arms BACKLOG_REMAINS / BACKLOG_UNAUDITED; green twin remaining==0).
+  prior S7-S21 credits unchanged
+policy: analyze_only; reciprocal exchange only; no unpaid fixture labor
+run: python3 false_green_shapes_v0_10.py

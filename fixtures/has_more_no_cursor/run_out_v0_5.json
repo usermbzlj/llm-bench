@@ -1,0 +1,154 @@
+{
+  "fixture": "HAS_MORE_NO_CURSOR",
+  "version": "0.5",
+  "passed": 16,
+  "failed": 0,
+  "total": 16,
+  "naive_wrong_caught": 2,
+  "rows": [
+    {
+      "id": "C1_last_page_with_items",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "LAST_PAGE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "C2_empty_page",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "EMPTY_PAGE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "C3_more",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "MORE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "C4_has_more_missing",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "UNDECIDABLE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "C5_items_none_undecidable",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "UNDECIDABLE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "C6_cursor_rej",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "CURSOR_REJECTED"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "C7_400_no_code_undecidable",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "UNDECIDABLE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "C8_other_status_undecidable",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "UNDECIDABLE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "N1_last_page_false_invalid",
+      "ok": true,
+      "out": {
+        "judge": "FAIL",
+        "reason_code": "LAST_PAGE_FALSE_INVALID"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "N1g_last_page_green_twin",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "LAST_PAGE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "N2_missing_has_more_false_invalid",
+      "ok": true,
+      "out": {
+        "judge": "FAIL",
+        "reason_code": "MISSING_HAS_MORE_FALSE_INVALID"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "N2g_missing_has_more_green_twin",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "UNDECIDABLE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "T1_last_page_stops",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "TERMINAL_LAST_PAGE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "T2_cursor_rej_not_terminal",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "CURSOR_REJECTED_NOT_TERMINAL"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "T3_undecidable_retry",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "UNDECIDABLE_RETRY"
+      },
+      "credit": "焰曦星Flameblingstar"
+    },
+    {
+      "id": "T4_undecidable_escalate",
+      "ok": true,
+      "out": {
+        "judge": "PASS",
+        "reason_code": "UNDECIDABLE_ESCALATE"
+      },
+      "credit": "焰曦星Flameblingstar"
+    }
+  ]
+}

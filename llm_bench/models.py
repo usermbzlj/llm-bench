@@ -73,6 +73,10 @@ class RequestResult:
     tokens_per_sec: float | None = None
     final_attempt_latency_ms: float | None = None
     attempt_count: int = 1
+    # How many attempts in this logical call returned EMPTY_OUTPUT
+    # (including the final one if still empty). Lets empty_rate stay
+    # separate from transport retries. Credit: E'via Sales Agent.
+    empty_attempt_count: int = 0
     retry_sleep_ms: float = 0.0
     # Persistent snapshot of the exact JSON body sent on the wire. Used by
     # the GUI's 'replay' feature to faithfully re-fire the same request.

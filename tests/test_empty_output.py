@@ -81,3 +81,113 @@ async def test_timeline_bucket_no_longer_counts_empty_as_success() -> None:
         bucket.add(await _run(stream, factory))
     assert bucket.success == 0
     assert bucket.failed == 4
+
+
+@pytest.mark.asyncio
+async def test_empty_output_retries_once_then_stops() -> None:
+    """E'via: retry EMPTY_OUTPUT once only; second empty stays empty; empty_attempt_count=2."""
+    from llm_bench.runner import _one_with_retry
+
+    calls = {"n": 0}
+
+    async def send_once():
+        calls["n"] += 1
+        transport = httpx.MockTransport(
+            lambda req: httpx.Response(
+                200, json={"choices": [{"message": {"content": ""}}]}
+            )
+        )
+        async with httpx.AsyncClient(transport=transport) as client:
+            return await one_chat_request(
+                client, URL, {}, BODY, stream=False, timeout_s=5
+            )
+
+    r = await _one_with_retry(
+        send_once,
+        stream=False,
+        retry_on_429=0,
+        retry_on_network=0,
+        retry_on_5xx=0,
+        base_backoff_s=0.01,
+        retry_on_empty=1,
+    )
+    assert calls["n"] == 2
+    assert r.ok is False
+    assert r.error_kind == ErrorKind.EMPTY_OUTPUT
+    assert r.empty_attempt_count == 2
+    assert r.attempt_count == 2
+
+
+@pytest.mark.asyncio
+async def test_empty_output_retry_recovers_on_second_attempt() -> None:
+    """First empty, second has text -> ok; empty_attempt_count=1 (only the failed arm)."""
+    from llm_bench.runner import _one_with_retry
+
+    calls = {"n": 0}
+
+    async def send_once():
+        calls["n"] += 1
+        if calls["n"] == 1:
+            factory = lambda: httpx.Response(
+                200, json={"choices": [{"message": {"content": ""}}]}
+            )
+        else:
+            factory = lambda: httpx.Response(
+                200,
+                json={
+                    "choices": [{"message": {"content": "hi"}}],
+                    "usage": USAGE,
+                },
+            )
+        transport = httpx.MockTransport(lambda req: factory())
+        async with httpx.AsyncClient(transport=transport) as client:
+            return await one_chat_request(
+                client, URL, {}, BODY, stream=False, timeout_s=5
+            )
+
+    r = await _one_with_retry(
+        send_once,
+        stream=False,
+        retry_on_429=0,
+        retry_on_network=0,
+        retry_on_5xx=0,
+        base_backoff_s=0.01,
+        retry_on_empty=1,
+    )
+    assert calls["n"] == 2
+    assert r.ok is True
+    assert r.error_kind == ErrorKind.NONE
+    assert r.empty_attempt_count == 1
+
+
+@pytest.mark.asyncio
+async def test_empty_output_retry_disabled_stays_single_attempt() -> None:
+    from llm_bench.runner import _one_with_retry
+
+    calls = {"n": 0}
+
+    async def send_once():
+        calls["n"] += 1
+        transport = httpx.MockTransport(
+            lambda req: httpx.Response(
+                200, json={"choices": [{"message": {"content": ""}}]}
+            )
+        )
+        async with httpx.AsyncClient(transport=transport) as client:
+            return await one_chat_request(
+                client, URL, {}, BODY, stream=False, timeout_s=5
+            )
+
+    r = await _one_with_retry(
+        send_once,
+        stream=False,
+        retry_on_429=0,
+        retry_on_network=0,
+        retry_on_5xx=0,
+        base_backoff_s=0.01,
+        retry_on_empty=0,
+    )
+    assert calls["n"] == 1
+    assert r.ok is False
+    assert r.error_kind == ErrorKind.EMPTY_OUTPUT
+    assert r.empty_attempt_count == 1

@@ -1,0 +1,10 @@
+HAS_MORE_NO_CURSOR v0.5
+Credit: 焰曦星Flameblingstar (LAST_PAGE vs invalid; has_more missing -> UNDECIDABLE; caller terminal rules; green twins). Prior WorkBuddy/行空 arms retained in v0.1–v0.4.
+script_sha256: bd2ab4c01be67c45cbbfa766be6da50a52ebb06fb4384cf2670f360eee336de5
+run_out_sha256: 955dc9be9f813268a46a4b140380750482d63c7d90b0abff570653f91bc2bc96
+selftest: 16/16
+naive_wrong_caught: 2 (LAST_PAGE_FALSE_INVALID, MISSING_HAS_MORE_FALSE_INVALID)
+Arms new in v0.5: classify closed-set LAST_PAGE/EMPTY_PAGE/MORE/CURSOR_REJECTED/UNDECIDABLE; naive-wrong must-fail + green twins; caller_should_stop (cursor_rejected never terminal; undecidable retry once then escalate).
+Rules: 200+has_more=false+items non-empty = LAST_PAGE (never invalid); has_more field absent = UNDECIDABLE (not invalid); only terminal=True stops.
+analyze_only. Stdlib only. Non-GitHub delivery path accepted (PM paste -> fixture).
+content_pack_sha256 (META+py+json): 837fdf4f5fa228bf1a94b80bcf2cab76ba8f21a0567a9d7cefaf3d0d7c10a6b9

@@ -549,24 +549,43 @@ async def _one_with_retry(
     retry_on_network: int,
     retry_on_5xx: int,
     base_backoff_s: float,
+    retry_on_empty: int = 1,
     attempt_callback: Callable[[RequestResult], Any] | None = None,
     should_stop: Callable[[], bool] | None = None,
 ) -> RequestResult:
+    """Retry wrapper.
+
+    EMPTY_OUTPUT (HTTP 200 + no answer text) is a model-side empty answer, not a
+    transport failure. Default ``retry_on_empty=1`` retries once only; further
+    empties stop so cost does not multiply. ``empty_attempt_count`` on the final
+    result counts EMPTY_OUTPUT attempts for a separate empty_rate (E'via Sales
+    Agent EigenFlux owe, due 11-10).
+    """
     def check_stop() -> None:
         _raise_if_should_stop(should_stop)
 
     started_at = time.perf_counter()
     last: RequestResult | None = None
     attempt_count = 0
+    empty_attempt_count = 0
     retry_sleep_ms = 0.0
-    attempts = 1 + max(0, retry_on_429) + max(0, retry_on_network) + max(0, retry_on_5xx)
+    attempts = (
+        1
+        + max(0, retry_on_429)
+        + max(0, retry_on_network)
+        + max(0, retry_on_5xx)
+        + max(0, retry_on_empty)
+    )
     r429_left = max(0, retry_on_429)
     net_left = max(0, retry_on_network)
     s5xx_left = max(0, retry_on_5xx)
+    empty_left = max(0, retry_on_empty)
     for retry_idx, _ in enumerate(range(attempts)):
         check_stop()
         attempt_count += 1
         last = await send_once()
+        if last.error_kind == ErrorKind.EMPTY_OUTPUT:
+            empty_attempt_count += 1
         if attempt_callback is not None:
             attempt_callback(last)
         should_retry = False
@@ -582,6 +601,9 @@ async def _one_with_retry(
             should_retry = True
         elif last.error_kind == ErrorKind.SERVER_ERROR and s5xx_left > 0:
             s5xx_left -= 1
+            should_retry = True
+        elif last.error_kind == ErrorKind.EMPTY_OUTPUT and empty_left > 0:
+            empty_left -= 1
             should_retry = True
         if not should_retry:
             break
@@ -622,6 +644,7 @@ async def _one_with_retry(
         tokens_per_sec=tokens_per_sec,
         final_attempt_latency_ms=final_attempt_latency_ms,
         attempt_count=attempt_count,
+        empty_attempt_count=empty_attempt_count,
         retry_sleep_ms=retry_sleep_ms,
         # Sec#1 polish: the retry wrapper previously dropped the
         # per-attempt `raw_request_body` snapshot, breaking deep

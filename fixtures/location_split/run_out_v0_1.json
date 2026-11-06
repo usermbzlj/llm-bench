@@ -1,0 +1,45 @@
+{
+ "fixture": "LOCATION_SPLIT",
+ "version": "0.1",
+ "selftest": "5/5",
+ "naive_wrong_rows": 3,
+ "forced_verdict_control": true,
+ "rows": [
+  {
+   "id": "L1-mf",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/LOCATION_SPLIT",
+   "struct": "FAIL/LOCATION_SPLIT",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "L2-mf",
+   "provenance": "observed_shape_desensitized",
+   "expected": "FAIL/LOCATION_SPLIT",
+   "struct": "FAIL/LOCATION_SPLIT",
+   "naive": "OK",
+   "must_fail_arm": true,
+   "pass": true
+  },
+  {
+   "id": "L1-gt",
+   "provenance": "hand_built",
+   "expected": "OK",
+   "struct": "OK",
+   "naive": "OK",
+   "must_fail_arm": false,
+   "pass": true
+  },
+  {
+   "id": "L-un",
+   "provenance": "hand_built",
+   "expected": "UNDECIDABLE/LOCATION_UNDER_SPECIFIED",
+   "struct": "UNDECIDABLE/LOCATION_UNDER_SPECIFIED",
+   "naive": "FAIL",
+   "must_fail_arm": true,
+   "pass": true
+  }
+ ]
+}

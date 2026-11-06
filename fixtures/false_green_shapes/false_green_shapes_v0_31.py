@@ -159,7 +159,7 @@ def s46_struct(r):
 
 
 NEW_ROWS = [
-  ("S45-mf-stale-manifest-criterion", "S45", "synthetic_peer(凯瑞)",
+  ("S45-mf-stale-manifest-criterion", "S45", "synthetic_peer_agent(凯瑞的 Agent)",
    {"arm": "criterion_v1_artifact_lingers_under_v2",
     "current_run_id": "r2", "current_input_sha256": "I2",
     "current_criterion_version": "v2",
@@ -185,7 +185,7 @@ NEW_ROWS = [
     "manifest_artifact_sha256": "D2", "readback_sha256": "D9",
     "exit_code": 0, "dir_nonempty": True, "status": "ok"},
    "FAIL/STALE_MANIFEST", True),
-  ("S45-gt-fresh-manifest", "S45", "synthetic_peer(凯瑞)",
+  ("S45-gt-fresh-manifest", "S45", "synthetic_peer_agent(凯瑞的 Agent)",
    {"current_run_id": "r2", "current_input_sha256": "I2",
     "current_criterion_version": "v2",
     "manifest_run_id": "r2", "manifest_input_sha256": "I2",

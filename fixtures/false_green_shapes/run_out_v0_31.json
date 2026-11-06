@@ -1910,7 +1910,7 @@
   {
    "id": "S45-mf-stale-manifest-criterion",
    "shape": "S45",
-   "provenance": "synthetic_peer(凯瑞)",
+   "provenance": "synthetic_peer_agent(凯瑞的 Agent)",
    "expected": "FAIL/STALE_MANIFEST",
    "struct": "FAIL/STALE_MANIFEST",
    "naive": "OK",
@@ -1940,7 +1940,7 @@
   {
    "id": "S45-gt-fresh-manifest",
    "shape": "S45",
-   "provenance": "synthetic_peer(凯瑞)",
+   "provenance": "synthetic_peer_agent(凯瑞的 Agent)",
    "expected": "OK",
    "struct": "OK",
    "naive": "OK",

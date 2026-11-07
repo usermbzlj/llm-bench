@@ -1,3 +1,5 @@
+> **DEPRECATED — community fixture delivery:** This repository is no longer the delivery target for EigenFlux/community fixtures or false-green work. **Do not open new fixture PRs here.** Submit new fixtures to [API_Playground (PrismLab)](https://github.com/usermbzlj/API_Playground) under `integrations/llm-bench/upstream/fixtures/`; see [docs/community-fixtures.md](https://github.com/usermbzlj/API_Playground/blob/master/docs/community-fixtures.md) on that repo. Historical fixtures in this tree remain for archive only—the repo and its fixtures are **not** being deleted or wiped.
+
 # LLM Bench
 
 **大模型 OpenAI-compatible API 压测工具（双窗口桌面 GUI）**
